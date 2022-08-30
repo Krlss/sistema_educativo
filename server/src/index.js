@@ -1,6 +1,5 @@
 const express = require('express');
 const morgan = require('morgan');
-const bodyParser = require('body-parser');
 const cors = require('cors')
 
 const app = express();
@@ -8,9 +7,9 @@ const app = express();
 /* Router lib */
 const router = require('./routes/index.js');
 
-app.use(bodyParser.json());
+/*app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));*/
 app.set('port', 3001);
 /* app.use(formData.parse()); */
 /* NO BORRAR ES NECESARIO USAR ESTOS CORS PARA USAR EN API */
@@ -29,5 +28,5 @@ app.use(router);
 app.use(express.static("src/uploads"));
 
 app.listen(app.get('port'), ()=>{
-  console.log("En ejecución http://localhost:5000/")
+  console.log("En ejecución http://localhost:3001/");
 })

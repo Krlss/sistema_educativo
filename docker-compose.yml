@@ -14,7 +14,7 @@ services:
     #volumes:
       #- psql-data-react:/var/lib/postgresql/data
     ports:
-      - "9907:3306"
+      - "9906:3306"
     environment:
       <<: *common-variables
   
