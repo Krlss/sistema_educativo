@@ -1,0 +1,67 @@
+version: '3.8'
+
+x-common-variables: &common-variables
+  POSTGRES_DB: SISTEMA_EDUCATIVO
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: root
+
+services:
+  psql_app:
+    image: postgres
+    restart: always
+    cap_add:
+      - SYS_NICE
+    #volumes:
+      #- psql-data-react:/var/lib/postgresql/data
+    ports:
+      - "9907:3306"
+    environment:
+      <<: *common-variables
+  
+  #volumes:
+    #psql-data-react:
+      
+  nginx:
+    depends_on:
+      - api
+      - client
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports:
+      - "3050:80"
+
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: "./server"
+    depends_on:
+      - psql_app
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+    
+
+  client:
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      dockerfile: Dockerfile
+      context: ./client
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+
+  adminer:
+      image: adminer:latest
+      restart: unless-stopped
+      ports:
+        - 8000:8080
+      depends_on:
+        - psql_app
+      environment:
+        ADMINER_DEFAULT_SERVER: psql_app
+  
+
