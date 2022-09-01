@@ -51,6 +51,7 @@ services:
     volumes:
       - /app/node_modules
       - ./client:/app
+    
 
   adminer:
     container_name: adminer_container
