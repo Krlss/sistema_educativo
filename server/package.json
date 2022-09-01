@@ -4,11 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx tsc",
-    "start": "node src/index.js",
-    "devel": "nodemon -e ts --exec ”tsc -p ./tsconfig.json && node ./dist/index.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\""
+    "start": "ts-node src/index.ts",
+    "watch": "nodemon -e ts -w ./src -x npm start"
   },
   "keywords": [],
   "author": "",

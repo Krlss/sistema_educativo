@@ -1,8 +1,8 @@
 import express, { Application, Request, Response } from "express";
 import dotenv from "dotenv";
-import router = require("./api/routes/index.js");
-import dbInit from "./database/init.js";
 const morgan = require("morgan");
+import router = require("./api/routes");
+import dbInit = require("./database")
 dotenv.config();
 const port = 3001;
 
