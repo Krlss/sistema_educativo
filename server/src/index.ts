@@ -21,7 +21,7 @@ export const get = () => {
     );
     next();
   });
- 
+
   app.use('/api', router);
   app.use(morgan("combined"));
   app.use(express.static("src/uploads"));
@@ -32,11 +32,11 @@ export const get = () => {
 export const start = () => {
   const app = get()
   try {
-      app.listen(port, () => {
-          console.log(`Server running on http://localhost:${port}`)
-      })
+    app.listen(port, () => {
+      console.log(`Server running on http://localhost:${port}`)
+    })
   } catch (error: any) {
-      console.log(`Error occurred: ${error.message}`)
+    console.log(`Error occurred: ${error.message}`)
   }
 }
 
