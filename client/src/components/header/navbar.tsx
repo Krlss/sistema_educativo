@@ -50,29 +50,31 @@ const Navbar = () => {
             </ul>
           </NavLink>
         </ul>
-        <div className="flex items-center justify-center">
-          <div className="flex items-center justify-center">
-            <img
-              src={DefaultAvatar}
-              className="w-10 h-10 rounded-full bg-gray-300"
-            />
-            <span className="mx-2">Krlss</span>
+        <div className="flex items-center justify-center group cursor-pointer relative">
+          <img
+            src={DefaultAvatar}
+            className="w-10 h-10 rounded-full bg-gray-300"
+          />
+          <span className="mx-2">Krlss</span>
 
-            <svg
-              className="h-6 w-6 text-gray-600 fill-current peer"
-              viewBox="0 0 24 24">
-              <path d="M7 10l5 5 5-5z" fill="currentColor" />
-            </svg>
+          <svg
+            className="h-6 w-6 text-gray-600 fill-current peer"
+            viewBox="0 0 24 24">
+            <path d="M7 10l5 5 5-5z" fill="currentColor" />
+          </svg>
 
-            <ul className="absolute hidden peer-hover:block hover:block">
-              <li>
-                <a href="#">Perfil</a>
+          <ul className="absolute hidden group-hover:block border top-10 bg-white shadow-md">
+            <NavLink to="/mi-perfil">
+              <li className="text-black-logo font-semibold hover:bg-yellow-page py-4 px-6">
+                Perfil
               </li>
-              <li>
-                <a href="#">Cerrar sesión</a>
+            </NavLink>
+            <NavLink to="/cerrar-sesion">
+              <li className="text-black-logo font-semibold hover:bg-yellow-page py-4 px-6">
+                Cerrar sesión
               </li>
-            </ul>
-          </div>
+            </NavLink>
+          </ul>
         </div>
       </div>
     </nav>
