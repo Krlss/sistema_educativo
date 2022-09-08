@@ -1,81 +1,73 @@
-import Logo from '../../assets/logo.png'
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import Logo from '../../assets/logo.png'
+import MenuNavigation from './menu-navigation'
+import MenuUser from './menu-user'
 import DefaultAvatar from '../../assets/default_avatar.png'
+import MobileMenuNormal from '../navLink/mobileMenuNormal'
 
 const Navbar = () => {
-  const navLinkDefaultClass = 'hover:bg-yellow-page py-2 px-3 rounded-md mx-1'
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isCourseMenuOpen, setIsCourseMenuOpen] = useState(false)
+
   return (
-    <nav className="w-full h-14 bg-white">
-      <div className="container mx-auto h-full flex items-center justify-between">
-        <div className="flex items-center justify-center">
-          <img src={Logo} alt="Logo" className="h-10 mr-2" />
-          <span className="text-black-logo font-extrabold text-xl font-chivo">
-            Mapple
-          </span>
-        </div>
-        <ul className="flex items-center justify-center">
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              `${navLinkDefaultClass} ${isActive ? 'bg-yellow-page' : ''}`
-            }>
-            <li className="text-black-logo font-semibold">Inicio</li>
-          </NavLink>
-
-          <NavLink
-            to="/cursos"
-            className={({ isActive }) =>
-              `${navLinkDefaultClass} ${
-                isActive ? 'bg-yellow-page' : ''
-              } group relative`
-            }>
-            <li className="text-black-logo font-semibold">Cursos</li>
-
-            <ul className="absolute hidden group-hover:block border top-10 left-0 bg-white shadow-md">
-              <NavLink to="/cursos/computacion">
-                <li className="text-black-logo font-semibold hover:bg-yellow-page py-4 px-6">
-                  Computación
-                </li>
-              </NavLink>
-              <NavLink to="/cursos/ingles">
-                <li className="text-black-logo font-semibold hover:bg-yellow-page py-4 px-6">
-                  Inglés
-                </li>
-              </NavLink>
-              <NavLink to="/cursos/matematicas">
-                <li className="text-black-logo font-semibold hover:bg-yellow-page py-4 px-6">
-                  Matemáticas
-                </li>
-              </NavLink>
-            </ul>
-          </NavLink>
-        </ul>
-        <div className="flex items-center justify-center group cursor-pointer relative">
-          <img
-            src={DefaultAvatar}
-            className="w-10 h-10 rounded-full bg-gray-300"
+    <nav className="bg-white p-2">
+      <div className="container h-full mx-auto">
+        <div className="flex justify-between items-center mx-auto">
+          <div className="flex items-center justify-center">
+            <img src={Logo} alt="Logo" className="h-10 mr-2" />
+            <span className="text-black-logo font-extrabold text-xl font-chivo">
+              Mapple
+            </span>
+          </div>
+          <MenuNavigation />
+          <MenuUser
+            isMenuOpen={isMenuOpen}
+            setIsMenuOpen={() => setIsMenuOpen(!isMenuOpen)}
           />
-          <span className="mx-2">Krlss</span>
-
-          <svg
-            className="h-6 w-6 text-gray-600 fill-current peer"
-            viewBox="0 0 24 24">
-            <path d="M7 10l5 5 5-5z" fill="currentColor" />
-          </svg>
-
-          <ul className="absolute hidden group-hover:block border top-10 bg-white shadow-md">
-            <NavLink to="/mi-perfil">
-              <li className="text-black-logo font-semibold hover:bg-yellow-page py-4 px-6">
-                Perfil
-              </li>
-            </NavLink>
-            <NavLink to="/cerrar-sesion">
-              <li className="text-black-logo font-semibold hover:bg-yellow-page py-4 px-6">
-                Cerrar sesión
-              </li>
-            </NavLink>
-          </ul>
         </div>
+        {isMenuOpen && (
+          <div className="md:hidden block bg-white">
+            <ul className="py-1">
+              <MobileMenuNormal label="Inicio" to="/" />
+              <MobileMenuNormal label="Dashboard" to="/dashboard" />
+
+              <NavLink to="/mi-perfil">
+                <li className="flex items-center py-2 px-2 text-sm text-gray-700 hover:bg-gray-100">
+                  <img
+                    src={DefaultAvatar}
+                    className="w-6 h-6 rounded-full bg-gray-300"
+                  />
+                  <span className="mx-2">Krlss</span>
+                </li>
+              </NavLink>
+
+              <li>
+                <button
+                  onClick={() => setIsCourseMenuOpen(!isCourseMenuOpen)}
+                  className="block py-2 px-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
+                  Cursos
+                </button>
+                {isCourseMenuOpen && (
+                  <ul>
+                    <MobileMenuNormal
+                      label="Computación"
+                      to="/cursos/computacion"
+                      sub
+                    />
+                    <MobileMenuNormal label="Inglés" to="/cursos/ingles" sub />
+                    <MobileMenuNormal
+                      label="Matemáticas"
+                      to="/cursos/matematicas"
+                      sub
+                    />
+                  </ul>
+                )}
+              </li>
+              <MobileMenuNormal label="Cerrar sesión" to="#" />
+            </ul>
+          </div>
+        )}
       </div>
     </nav>
   )
