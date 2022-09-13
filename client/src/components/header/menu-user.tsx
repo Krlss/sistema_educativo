@@ -2,6 +2,7 @@ import Icon from '../icons'
 import HambugerMenu from '../icons/hamburger-menu'
 import CrossIcon from '../icons/cross'
 import DefaultAvatar from '../../assets/default_avatar.png'
+import { NavLink } from 'react-router-dom'
 
 interface MenuUserProps {
   isMenuOpen: boolean
@@ -34,27 +35,23 @@ const MenuUser = ({ isMenuOpen, setIsMenuOpen }: MenuUserProps) => {
             </span>
           </div>
           <ul className="py-1">
-            <li>
-              <a
-                href="#"
-                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">
+            <NavLink to="/">
+              <li className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">
                 Dashboard
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">
+              </li>
+            </NavLink>
+
+            <NavLink to="/">
+              <li className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">
                 Mi perfil
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">
+              </li>
+            </NavLink>
+
+            <NavLink to="/">
+              <li className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">
                 Cerrar sesión
-              </a>
-            </li>
+              </li>
+            </NavLink>
           </ul>
         </div>
       </div>
