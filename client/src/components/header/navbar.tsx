@@ -11,7 +11,7 @@ const Navbar = () => {
   const [isCourseMenuOpen, setIsCourseMenuOpen] = useState(false)
 
   return (
-    <nav className="bg-white p-2">
+    <nav className="bg-white p-2 fixed w-full">
       <div className="container h-full mx-auto">
         <div className="flex justify-between items-center mx-auto">
           <div className="flex items-center justify-center">

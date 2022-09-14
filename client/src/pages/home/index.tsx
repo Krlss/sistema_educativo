@@ -5,7 +5,7 @@ import LogoMath from '../../assets/class_math.jpg'
 
 const Home = () => {
   return (
-    <div className="h-screen-calculator pt-10 px-2">
+    <div className="h-screen-calculator pt-20 px-2">
       <div className="container mx-auto">
         <div>
           <h1 className="text-4xl font-bold text-gray-800">
@@ -25,7 +25,6 @@ const Home = () => {
               numberCourse={1}
               progress={50}
               to="computacion"
-              nota={7}
             />
             <HomeCard
               StringImage={LogoEnglish}
@@ -33,7 +32,6 @@ const Home = () => {
               numberCourse={2}
               progress={45}
               to="ingles"
-              nota={6}
             />
             <HomeCard
               StringImage={LogoMath}
@@ -41,7 +39,6 @@ const Home = () => {
               numberCourse={3}
               progress={100}
               to="matematicas"
-              nota={10}
             />
           </div>
         </div>

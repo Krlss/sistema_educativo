@@ -1,5 +1,4 @@
 import ProgressBar from '../progress/progressbar'
-import QualificationCourse from '../progress/qualificationCourse'
 import { NavLink } from 'react-router-dom'
 
 interface Props {
@@ -8,7 +7,6 @@ interface Props {
   nameCourse: string
   numberCourse: number
   to: string
-  nota: number
 }
 
 const HomeCard = ({
@@ -16,8 +14,7 @@ const HomeCard = ({
   nameCourse,
   numberCourse,
   progress,
-  to,
-  nota
+  to
 }: Props) => {
   return (
     <div className="w-full">
@@ -40,13 +37,6 @@ const HomeCard = ({
               <p className="text-gray-500 text-sm">Curso {numberCourse}</p>
             </div>
           </div>
-          <QualificationCourse qualification={nota} />
-        </div>
-        <div className="container mx-auto">
-          <span className="block">Unidades completadas: 5</span>
-          <span className="block">
-            La siguiente lección será el día 08/07/22
-          </span>
         </div>
         <ProgressBar progress={progress} />
       </div>

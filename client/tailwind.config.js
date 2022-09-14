@@ -17,7 +17,13 @@ module.exports = {
         'red-logo-stronger': '#CC2525',
         'red-logo': '#EF502E',
         'black-logo': '#353535',
-        light: '#EBEBEB'
+        light: '#EBEBEB',
+        'lightblue-page': '#00bbf9',
+        'purple-page': '#9b5de5',
+        'cian-page': '#00f5d4',
+        'yellow2-page': '#fee440',
+        'pink-page': '#f15bb5',
+        'green-page': '#00bb2d'
       },
       screens: {
         xs: '475px'
@@ -32,9 +38,11 @@ module.exports = {
         loader: 'loader 1s linear infinite'
       },
       height: {
-        'screen-calculator': 'calc(100vh - 3.5rem)'
+        'screen-calculator': 'calc(100vh - 10rem)'
       }
     }
   },
-  plugins: []
+  plugins: [
+    require('@tailwindcss/line-clamp')
+  ]
 }
