@@ -7,6 +7,10 @@ import CoursePresentation from './pages/home/CoursePresentation'
 import Courses from './pages/home/courses'
 import { Routes, Route } from 'react-router-dom'
 
+// tests
+import DragAndDropChoose from './components/exercise/DragAndDropChooseText'
+import CartesianCoordinate from './components/exercise/CartesianCoordinate'
+
 const App = () => {
   return (
     <>
@@ -16,8 +20,14 @@ const App = () => {
         <Route path="/" element={<DefaultAplicacion />}>
           <Route path="/" element={<Home />} />
           <Route path="/cursos" element={<Courses />} />
-          <Route path="/cursos/:curso" element={<CoursePresentation />} />
           <Route path="*" element={<Page404 />} />
+
+          {/* Rutas de test */}
+          <Route
+            path="/arrastrar-y-soltar-texto"
+            element={<DragAndDropChoose />}
+          />
+          <Route path="/plano-cartesiano" element={<CartesianCoordinate />} />
         </Route>
       </Routes>
     </>
