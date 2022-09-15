@@ -10,6 +10,7 @@ import { Routes, Route } from 'react-router-dom'
 // tests
 import DragAndDropChoose from './components/exercise/DragAndDropChooseText'
 import CartesianCoordinate from './components/exercise/CartesianCoordinate'
+import TrueOrFalse from './components/exercise/TrueOrFalse'
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
             element={<DragAndDropChoose />}
           />
           <Route path="/plano-cartesiano" element={<CartesianCoordinate />} />
+          <Route path="/verdadero-o-falso" element={<TrueOrFalse />} />
         </Route>
       </Routes>
     </>
