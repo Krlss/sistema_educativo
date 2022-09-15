@@ -12,6 +12,7 @@ import DragAndDropChoose from './components/exercise/DragAndDropChooseText'
 import CartesianCoordinate from './components/exercise/CartesianCoordinate'
 import TrueOrFalse from './components/exercise/TrueOrFalse'
 import ChooseAnOption from './components/exercise/ChooseAnOption'
+import OrderOneDigitNumbers from './components/exercise/OrderOneDigitNumbers'
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
           <Route path="/plano-cartesiano" element={<CartesianCoordinate />} />
           <Route path="/verdadero-o-falso" element={<TrueOrFalse />} />
           <Route path="/elegir-una-opcion" element={<ChooseAnOption />} />
+          <Route path="/ordenar-digitos" element={<OrderOneDigitNumbers />} />
         </Route>
       </Routes>
     </>
