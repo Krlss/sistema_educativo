@@ -37,3 +37,14 @@ export const AddKeyToArrayItems = (items: any[]) => {
     return { value: item, key: shortid.generate() }
   })
 }
+
+/**
+   De dos valores, devuelve el mayor, independientemente del signo
+    @param {Number} a - Primer valor
+    @param {Number} b - Segundo valor
+
+    @returns {Number} - Mayor valor
+ */
+export const absMax = (a: number, b: number) => {
+  return Math.max(Math.abs(a), Math.abs(b))
+}

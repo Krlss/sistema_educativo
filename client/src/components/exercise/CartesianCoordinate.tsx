@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 const width = 400
 const height = 400
-const padding = 20
+const padding = 50
 
 const CartesianCoordinate = () => {
   const [coordinate, setCoordinate] = useState({ x: 4, y: 10 })
@@ -24,9 +24,9 @@ const CartesianCoordinate = () => {
             return (
               <line
                 key={index}
-                x1={padding + x * 40}
+                x1={padding + x * padding}
                 y1={padding}
-                x2={padding + x * 40}
+                x2={padding + x * padding}
                 y2={height - padding}
                 stroke="lightgray"
               />
@@ -37,9 +37,9 @@ const CartesianCoordinate = () => {
               <line
                 key={index}
                 x1={padding}
-                y1={padding + y * 40}
+                y1={padding + y * padding}
                 x2={width - padding}
-                y2={padding + y * 40}
+                y2={padding + y * padding}
                 stroke="lightgray"
               />
             )
@@ -60,8 +60,8 @@ const CartesianCoordinate = () => {
           />
           {coordinate.x !== 0 && coordinate.y !== 0 && (
             <circle
-              cx={width / 2 + coordinate.x * 40}
-              cy={height / 2 - coordinate.y * 40}
+              cx={width / 2 + coordinate.x * padding}
+              cy={height / 2 - coordinate.y * padding}
               r="4"
               fill="blue"
             />
