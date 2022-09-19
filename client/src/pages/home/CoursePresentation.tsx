@@ -174,7 +174,7 @@ const CoursePresentation = () => {
                   </div>
                 </div>
                 <NavLink to="/">
-                  <li className="bg-lightblue-page text-white font-bold text-sm px-4 py-2 rounded text-center">
+                  <li className="bg-lightblue-page text-white font-bold text-sm px-4 py-2 rounded text-center list-none">
                     Realizar prueba
                   </li>
                 </NavLink>

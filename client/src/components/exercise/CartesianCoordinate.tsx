@@ -52,7 +52,7 @@ const CartesianCoordinate = () => {
                 )
               })}
             </div>
-            <CartesianPlane x={coordinate?.x} y={coordinate?.y} />
+            <CartesianPlane />
           </div>
         </div>
       </div>

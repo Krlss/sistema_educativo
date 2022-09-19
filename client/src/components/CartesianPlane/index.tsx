@@ -1,7 +1,7 @@
 const size = 400
 const padding = 40
 
-const CartesianPlane = ({ x, y }: { x?: number; y?: number }) => {
+const CartesianPlane = () => {
   return (
     <div className="absolute -z-50">
       <svg
@@ -9,8 +9,8 @@ const CartesianPlane = ({ x, y }: { x?: number; y?: number }) => {
         height={size + padding}
         viewBox={`0 0 ${size + padding} ${size + padding}`}>
         <g transform={`translate(${padding + 20}, ${padding + 20})`}>
-          <DrawCartesianPlane isX x={x} />
-          <DrawCartesianPlane isY y={y} />
+          <DrawCartesianPlane isX />
+          <DrawCartesianPlane isY />
         </g>
         <text
           x={size + padding - 45}
@@ -50,11 +50,9 @@ export default CartesianPlane
 interface DrawCarsianPlane {
   isX?: boolean
   isY?: boolean
-  x?: number
-  y?: number
 }
 
-const DrawCartesianPlane = ({ isX, isY, x, y }: DrawCarsianPlane) => {
+const DrawCartesianPlane = ({ isX, isY }: DrawCarsianPlane) => {
   return (
     <>
       {[...Array(21)].map((_, i) => {
