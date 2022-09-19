@@ -22,7 +22,7 @@ const MenuNavigation = () => {
         }>
         <li className="text-black-logo font-semibold">Cursos</li>
 
-        <ul className="absolute hidden group-hover:block border top-10 left-0 bg-white shadow-md">
+        <ul className="absolute hidden group-hover:block border top-10 left-0 bg-white shadow-md z-50">
           <NavLink to="/cursos/computacion">
             <li className="text-black-logo font-semibold hover:bg-yellow-page py-4 px-6">
               Computación

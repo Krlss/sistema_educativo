@@ -9,50 +9,74 @@ import {
 import DragIcon from '../icons/drag'
 import Icon from '../icons'
 import CrossIcon from '../icons/cross'
+import {
+  DataInterface,
+  ReturnVerifyDragAndDropChooseTextProps,
+  VerifyDragAndDropChooseTextProps
+} from '../../types/DragAndDropChooseText'
 
 const data = {
-  pregunta:
+  title:
     'Ordene de manera correcta la escritura de cada números naturales de tres cifras:',
-  tipo: 'ordenar',
-  opciones: [
+  type: 'ordenar',
+  options: [
     {
-      opcion: '67005',
-      texto: 'SESENTA Y SIETE MIL CINCO'
+      option: '67005',
+      text: 'SESENTA Y SIETE MIL CINCO'
     },
     {
-      opcion: '30001',
-      texto: 'TREINTA MIL UNO'
+      option: '30001',
+      text: 'TREINTA MIL UNO'
     },
     {
-      opcion: '78569',
-      texto: 'SETENTA Y OCHO MIL QUINIENTOS SESENTA Y NUEVE'
+      option: '78569',
+      text: 'SETENTA Y OCHO MIL QUINIENTOS SESENTA Y NUEVE'
     },
     {
-      opcion: '40608',
-      texto: 'CUARENTA MIL SESENTA Y OCHO'
+      option: '40608',
+      text: 'CUARENTA MIL SEISCIENTOS OCHO'
     },
     {
-      opcion: '78976',
-      texto: 'SETENTA Y OCHO MIL NOVECIENTOS SETENTA Y SEIS'
+      option: '78976',
+      text: 'SETENTA Y OCHO MIL NOVECIENTOS SETENTA Y SEIS'
     },
     {
-      opcion: '34567',
-      texto: 'TREINTA Y CUATRO MIL QUINIENTOS SESENTA Y SIETE'
+      option: '34567',
+      text: 'TREINTA Y CUATRO MIL QUINIENTOS SESENTA Y SIETE'
     }
   ]
 }
-const data2 = shuffleArray(data.opciones)
+const data2 = shuffleArray(data.options) as DataInterface[]
 
-interface DataInterface {
-  opcion: string
-  texto: string
+const verifyDragAndDropChooseText = (
+  array: VerifyDragAndDropChooseTextProps[]
+) => {
+  return array.reduce(
+    (acc, current, _, array) => {
+      if (current.response_user === current.original) acc.correct++
+      return {
+        ...acc,
+        qualification: acc.correct / array.length,
+        new_array_options: [
+          ...acc.new_array_options,
+          { ...current, correct: current.response_user === current.original }
+        ]
+      }
+    },
+    {
+      new_array_options: [],
+      qualification: 0,
+      correct: 0
+    } as ReturnVerifyDragAndDropChooseTextProps
+  )
 }
 
 const DragAndDropChooseText = () => {
-  const [opciones, setOpciones] = useState(data2)
-  const [respuestas, setRespuestas] = useState(
-    Array(opciones.length).fill(undefined)
-  )
+  const [options, setOptions] = useState(data2)
+  const [respuestas, setRespuestas] = useState<
+    VerifyDragAndDropChooseTextProps[]
+  >(Array(options.length).fill(undefined))
+
   const onDragEnd = (result: DropResult) => {
     const { destination, source } = result
 
@@ -61,37 +85,49 @@ const DragAndDropChooseText = () => {
     const regex = /respuesta-\d+/g
     const isRespuesta = destination.droppableId.match(regex)
     if (isRespuesta) {
-      const [removed] = opciones.splice(source.index, 1) as DataInterface[]
+      const [removed] = options.splice(source.index, 1) as DataInterface[]
       const index = destination.droppableId.split('-')[1]
-      const newRespuestas = [...respuestas]
-      newRespuestas[parseInt(index)] = removed
-      setRespuestas(newRespuestas)
+      const newAnswers = [...respuestas]
+      newAnswers[parseInt(index)] = {
+        response_user: data.options[parseInt(index)].option,
+        text: removed.text,
+        original: removed.option
+      }
+      setRespuestas(newAnswers)
+
+      if (!options.length) {
+        const response = verifyDragAndDropChooseText(newAnswers)
+      }
       return
     }
 
     if (source.droppableId === 'items' && destination.droppableId === 'items') {
-      const items = [...opciones]
+      const items = [...options]
       const [reorderedItem] = items.splice(source.index, 1)
       items.splice(destination.index, 0, reorderedItem)
-      setOpciones(items)
+      setOptions(items)
     }
   }
 
-  const removeRespuesta = (index: number) => {
-    const newOpciones = [...opciones]
-    newOpciones.push(respuestas[index])
-    setOpciones(newOpciones)
+  const removeAnswer = (index: number) => {
+    const newOpciones = [...options]
+    const oldRespuesta = {
+      option: respuestas[index]?.original,
+      text: respuestas[index]?.text
+    }
+    newOpciones.push(oldRespuesta)
+    setOptions(newOpciones)
 
-    const newRespuestas = [...respuestas]
-    newRespuestas[index] = undefined
-    setRespuestas(newRespuestas)
+    const newAnswers = [...respuestas]
+    newAnswers[index] = undefined as any
+    setRespuestas(newAnswers)
   }
 
   return (
     <div className="py-20 px-2">
       <div className="container mx-auto">
         <div className="flex items-center justify-center h-screen-calculator flex-col">
-          <h1>1. {data.pregunta}</h1>
+          <h1>1. {data.title}</h1>
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="items" direction="horizontal">
               {(provided, snapshot) => (
@@ -101,10 +137,10 @@ const DragAndDropChooseText = () => {
                   }`}
                   {...provided.droppableProps}
                   ref={provided.innerRef}>
-                  {opciones.map((item, index) => (
+                  {options.map((item, index) => (
                     <Draggable
-                      key={item.opcion}
-                      draggableId={item.opcion}
+                      key={item.option}
+                      draggableId={item.option}
                       index={index}>
                       {(provided, snapshot) => (
                         <div
@@ -117,7 +153,7 @@ const DragAndDropChooseText = () => {
                           <Icon viewBox="24 24" fill="white">
                             <DragIcon />
                           </Icon>
-                          {item.opcion}
+                          {item.option}
                         </div>
                       )}
                     </Draggable>
@@ -127,7 +163,7 @@ const DragAndDropChooseText = () => {
               )}
             </Droppable>
             <div className="flex flex-col">
-              {data.opciones.map((item, index) => (
+              {data.options.map((item, index) => (
                 <div key={index} className="flex items-center gap-2 m-1">
                   <Droppable
                     droppableId={`respuesta-${index}`}
@@ -144,26 +180,26 @@ const DragAndDropChooseText = () => {
                         ref={provided.innerRef}>
                         {respuestas[index] && (
                           <div
-                            key={respuestas[index]?.opcion}
+                            key={respuestas[index].response_user}
                             className={
                               'bg-blue-500 shadow rounded px-3 py-2 text-white flex items-center justify-around gap-2'
                             }>
                             <button
                               className="hover:text-red-400 text-white"
-                              onClick={() => removeRespuesta(index)}>
+                              onClick={() => removeAnswer(index)}>
                               <Icon viewBox="16 16">
                                 <CrossIcon />
                               </Icon>
                             </button>
-                            {respuestas[index]?.opcion}
+                            {respuestas[index].response_user}
                           </div>
                         )}
                         {provided.placeholder}
                       </div>
                     )}
                   </Droppable>
-                  <h2 key={item.opcion} className="text-sm">
-                    {item.texto}
+                  <h2 key={item.option} className="text-sm">
+                    {item.text}
                   </h2>
                 </div>
               ))}
