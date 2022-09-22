@@ -14,6 +14,9 @@ import TrueOrFalse from './components/exercise/TrueOrFalse'
 import ChooseAnOption from './components/exercise/ChooseAnOption'
 import OrderOneDigitNumbers from './components/exercise/OrderOneDigitNumbers'
 import CartesianCoordinateQuadrants from './components/exercise/CartesianCoordinateQuadrants'
+import TrueOrFalseCartesianCoord from './components/exercise/TrueOrFalseCartesianCoord'
+
+import { pointsToF } from './constants/CartesianConstants'
 
 const App = () => {
   return (
@@ -37,11 +40,15 @@ const App = () => {
             element={<CartesianCoordinateFull pointNumbers={4} />}
           />
           <Route
+            path="/verdadero-o-falso-plano-cartesiano"
+            element={<TrueOrFalseCartesianCoord points={pointsToF} />}
+          />
+          <Route
             path="/cuadrante-plano-cartesiano"
             element={
               <CartesianCoordinateQuadrants
                 pointNumbers={5}
-                typeCartesian="I"
+                typeCartesian="IV"
               />
             }
           />
