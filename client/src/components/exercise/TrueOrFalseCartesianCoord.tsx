@@ -21,7 +21,9 @@ const TrueOrFalseCartesianCoord = ({
                 <p className="text-lg">
                   ¿La siguiente coordenada en el plano es la correcta: A(4, -3)?
                 </p>
-                <CartesianPlane points={points} />
+                <div className="flex justify-center w-full">
+                  <CartesianPlane points={points} />
+                </div>
                 <div className="flex flex-row items-center justify-center">
                   <input
                     type="radio"

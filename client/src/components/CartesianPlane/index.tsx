@@ -9,8 +9,8 @@ const CartesianPlane = ({
   return (
     <div className={`${points?.length ? '' : 'absolute -z-50'}`}>
       <svg
-        width={size + padding}
-        height={size + padding}
+        width={size}
+        height={size}
         viewBox={`0 0 ${size + padding} ${size + padding}`}>
         <g transform={`translate(${padding + 20}, ${padding + 20})`}>
           <DrawCartesianPlane isX />
