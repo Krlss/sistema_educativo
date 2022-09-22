@@ -9,10 +9,11 @@ import { Routes, Route } from 'react-router-dom'
 
 // tests
 import DragAndDropChoose from './components/exercise/DragAndDropChooseText'
-import CartesianCoordinate from './components/exercise/CartesianCoordinate'
+import CartesianCoordinateFull from './components/exercise/CartesianCoordinateFull'
 import TrueOrFalse from './components/exercise/TrueOrFalse'
 import ChooseAnOption from './components/exercise/ChooseAnOption'
 import OrderOneDigitNumbers from './components/exercise/OrderOneDigitNumbers'
+import CartesianCoordinateQuadrants from './components/exercise/CartesianCoordinateQuadrants'
 
 const App = () => {
   return (
@@ -31,7 +32,19 @@ const App = () => {
             path="/arrastrar-y-soltar-texto"
             element={<DragAndDropChoose />}
           />
-          <Route path="/plano-cartesiano" element={<CartesianCoordinate />} />
+          <Route
+            path="/plano-cartesiano"
+            element={<CartesianCoordinateFull pointNumbers={4} />}
+          />
+          <Route
+            path="/cuadrante-plano-cartesiano"
+            element={
+              <CartesianCoordinateQuadrants
+                pointNumbers={5}
+                typeCartesian="I"
+              />
+            }
+          />
           <Route path="/verdadero-o-falso" element={<TrueOrFalse />} />
           <Route path="/elegir-una-opcion" element={<ChooseAnOption />} />
           <Route path="/ordenar-digitos" element={<OrderOneDigitNumbers />} />
