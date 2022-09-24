@@ -2,7 +2,7 @@ import QuadrantPoints from '../CartesianPlane/QuadrantPoints'
 import HookCartesianCoordinate from '../../hooks/CartesianCoordinate'
 import { typeCartesian } from '../../types/CartesianCoordinate'
 import { getCoorValues } from '../../utils/CartesianCoordinate'
-const CartesianCoordinate1 = ({
+const CartesianCoordinateQuadrant = ({
   pointNumbers,
   typeCartesian
 }: {
@@ -65,4 +65,4 @@ const CartesianCoordinate1 = ({
   )
 }
 
-export default CartesianCoordinate1
+export default CartesianCoordinateQuadrant
