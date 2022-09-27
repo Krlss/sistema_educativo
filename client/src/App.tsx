@@ -17,10 +17,12 @@ import CartesianCoordinateQuadrants from './components/exercise/CartesianCoordin
 import TrueOrFalseCartesianCoord from './components/exercise/TrueOrFalseCartesianCoord'
 import CartesianCoordinateObjects from './components/exercise/CartesianCoordinateObjects'
 import DragAndDropObjects from './components/exercise/DragAndDropObjects'
+import SelectPointsCoordinatePlane from './components/exercise/SelectPointsCoordinatePlane'
 
 import {
   pointsToF,
-  objectCartesianPoints
+  objectCartesianPoints,
+  selectPointsCoordinatePlane
 } from './constants/CartesianConstants'
 
 const App = () => {
@@ -44,6 +46,15 @@ const App = () => {
           <Route
             path="/arrastrar-y-soltar-imagenes"
             element={<DragAndDropObjects typeCartesian="I" />}
+          />
+
+          <Route
+            path="/seleccionar-puntos-en-el-plano-cartesiano"
+            element={
+              <SelectPointsCoordinatePlane
+                coordinates={selectPointsCoordinatePlane}
+              />
+            }
           />
 
           <Route

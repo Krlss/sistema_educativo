@@ -27,9 +27,9 @@ const CartesianCoordinateFull = ({
                       return (
                         <div
                           key={x}
-                          className="w-4 h-4 flex items-center justify-center cursor-pointer group"
+                          className="w-[14.5px] h-[14.5px] flex items-center justify-center cursor-pointer group"
                           onClick={() => updateCartesian(x - 10, 10 - y)}>
-                          <div className="w-4 h-4 rounded-full border-2 border-dashed border-transparent group-hover:border-gray-500 flex items-center justify-center">
+                          <div className="w-3 h-3 rounded-full border-2 border-dashed border-transparent group-hover:border-gray-500 flex items-center justify-center">
                             {isClicked && (
                               <div className="w-2 h-2 rounded-full bg-red-logo"></div>
                             )}

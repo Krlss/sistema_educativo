@@ -70,3 +70,17 @@ export const objectCartesianPoints = [
     name: 'Mickey'
   }
 ]
+
+export const selectPointsCoordinatePlane = {
+  title:
+    'Selecciona los puntos que estan correctamente ubicados en el plano cartesiano',
+  response: true,
+  points: [
+    { x: 1, y: 1, value: false },
+    { x: -8, y: 2, value: true },
+    { x: 1, y: 3, value: false },
+    { x: 3, y: 9, value: true },
+    { x: 5, y: -5, value: true },
+    { x: 2, y: 1, value: true }
+  ]
+}

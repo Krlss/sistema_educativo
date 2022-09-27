@@ -183,3 +183,31 @@ export const getCoorValues = ({
       return { valueX: x - length, valueY: length - y }
   }
 }
+
+export const changePoints = ({
+  response,
+  points
+}: {
+  response: boolean
+  points: { x: number; y: number; value: boolean }[]
+}) => {
+  const newPoints = points.map(point => {
+    if (point.value !== response) {
+      const newPoint = {
+        x: Math.floor(Math.random() * 20) - 10,
+        y: Math.floor(Math.random() * 20) - 10,
+        value: point.value,
+        selected: false
+      }
+      const exist = points.find(
+        point => point.x === newPoint.x && point.y === newPoint.y
+      )
+      if (exist) {
+        return changePoints({ response, points })
+      }
+      return newPoint
+    }
+    return point
+  }) as { x: number; y: number; value: boolean; selected: boolean }[]
+  return newPoints
+}
