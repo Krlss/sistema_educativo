@@ -29,7 +29,8 @@ const CartesianCoordinateQuadrant = ({
                         const { valueX, valueY } = getCoorValues({
                           x,
                           y,
-                          type: typeCartesian
+                          type: typeCartesian,
+                          length: 10
                         })
                         return point.x === valueX && point.y === valueY
                       })
@@ -41,7 +42,8 @@ const CartesianCoordinateQuadrant = ({
                             const { valueX, valueY } = getCoorValues({
                               type: typeCartesian,
                               x,
-                              y
+                              y,
+                              length: 10
                             })
                             updateCartesian(valueX, valueY)
                           }}>

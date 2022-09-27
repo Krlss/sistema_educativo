@@ -6,7 +6,8 @@ import {
   getPosTextLine
 } from '../../utils/CartesianCoordinate'
 
-import { smallPadding, smallSize } from '../../constants/CartesianConstants'
+const smallSize = 400
+const smallPadding = 40
 
 type typeCartesian = 'I' | 'II' | 'III' | 'IV'
 
@@ -50,11 +51,11 @@ interface DrawCarsianPlane {
 const DrawCartesianPlane = ({ isX, isY, type }: DrawCarsianPlane) => {
   return (
     <>
-      {[...Array(11)].map((_, i) => {
-        const transform = ((smallSize - smallPadding * 2) / 10) * i
-        const number = getNumbers({ isX, i, type, length: 10 })
-        const lineX = getPosLine({ isX, isY, i, type, length: 10 })
-        const lineY = getPosLine({ isX, isY, i, type, length: 10 })
+      {[...Array(6)].map((_, i) => {
+        const transform = ((smallSize - smallPadding * 2) / 5) * i
+        const number = getNumbers({ isX, i, type, length: 5 })
+        const lineX = getPosLine({ isX, isY, i, type, length: 5 })
+        const lineY = getPosLine({ isX, isY, i, type, length: 5 })
         const { x, y } = getPosText({
           isX,
           isY,

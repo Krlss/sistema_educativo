@@ -48,3 +48,15 @@ export const AddKeyToArrayItems = (items: any[]) => {
 export const absMax = (a: number, b: number) => {
   return Math.max(Math.abs(a), Math.abs(b))
 }
+
+/**
+  De un array de objetos, se le agrega una key única a cada elemento
+  @param {Array} array - Array de objetos
+
+  @returns {Array} - Array de objetos
+*/
+export const AddKeyToObj = (items: any[]) => {
+  return items.map(item => {
+    return { ...item, key: shortid.generate() }
+  })
+}

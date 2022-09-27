@@ -3,21 +3,23 @@ import { typeCartesian } from '../types/CartesianCoordinate'
 export const getNumbers = ({
   isX,
   i,
-  type
+  type,
+  length
 }: {
   isX?: boolean
   i: number
   type: typeCartesian
+  length: number
 }) => {
   switch (type) {
     case 'I':
-      return isX ? i : 10 - i
+      return isX ? i : length - i
     case 'II':
       return isX ? i : -i
     case 'III':
-      return isX ? i - 10 : -i
+      return isX ? i - length : -i
     case 'IV':
-      return isX ? i - 10 : 10 - i
+      return isX ? i - length : length - i
   }
 }
 
@@ -25,22 +27,24 @@ export const getPosLine = ({
   isX,
   isY,
   i,
-  type
+  type,
+  length = 10
 }: {
   isX?: boolean
   isY?: boolean
   i: number
   type: typeCartesian
+  length: number
 }) => {
   switch (type) {
     case 'I':
-      return isX && i === 0 ? 1 : isY && i === 10 ? 1 : 0
+      return isX && i === 0 ? 1 : isY && i === length ? 1 : 0
     case 'II':
       return isX && i === 0 ? 1 : isY && i === 0 ? 1 : 0
     case 'III':
-      return isX && i === 10 ? 1 : isY && i === 0 ? 1 : 0
+      return isX && i === length ? 1 : isY && i === 0 ? 1 : 0
     case 'IV':
-      return isX && i === 10 ? 1 : isY && i === 10 ? 1 : 0
+      return isX && i === length ? 1 : isY && i === length ? 1 : 0
   }
 }
 
@@ -48,12 +52,16 @@ export const getPosSmallLine = ({
   isX,
   isY,
   type,
-  pos
+  pos,
+  smallSize,
+  smallPadding
 }: {
   isX?: boolean
   isY?: boolean
   type: typeCartesian
   pos: 'X1' | 'X2' | 'Y1' | 'Y2'
+  smallSize: number
+  smallPadding: number
 }) => {
   switch (type) {
     case 'I':
@@ -82,11 +90,15 @@ export const getPosSmallLine = ({
 export const getPosText = ({
   isX,
   isY,
-  type
+  type,
+  smallSize,
+  smallPadding
 }: {
   isX?: boolean
   isY?: boolean
   type: typeCartesian
+  smallSize: number
+  smallPadding: number
 }) => {
   switch (type) {
     case 'I':
@@ -112,7 +124,11 @@ export const getPosText = ({
   }
 }
 
-export const getPosTextLine = (type: typeCartesian) => {
+export const getPosTextLine = (
+  type: typeCartesian,
+  smallSize: number,
+  smallPadding: number
+) => {
   switch (type) {
     case 'I':
       return {
@@ -148,20 +164,22 @@ export const getPosTextLine = (type: typeCartesian) => {
 export const getCoorValues = ({
   type,
   x,
-  y
+  y,
+  length
 }: {
   type: typeCartesian
   x: number
   y: number
+  length: number
 }) => {
   switch (type) {
     case 'I':
-      return { valueX: x, valueY: 10 - y }
+      return { valueX: x, valueY: length - y }
     case 'II':
       return { valueX: x, valueY: -y }
     case 'III':
-      return { valueX: x - 10, valueY: -y }
+      return { valueX: x - length, valueY: -y }
     case 'IV':
-      return { valueX: x - 10, valueY: 10 - y }
+      return { valueX: x - length, valueY: length - y }
   }
 }

@@ -16,6 +16,7 @@ import OrderOneDigitNumbers from './components/exercise/OrderOneDigitNumbers'
 import CartesianCoordinateQuadrants from './components/exercise/CartesianCoordinateQuadrants'
 import TrueOrFalseCartesianCoord from './components/exercise/TrueOrFalseCartesianCoord'
 import CartesianCoordinateObjects from './components/exercise/CartesianCoordinateObjects'
+import DragAndDropObjects from './components/exercise/DragAndDropObjects'
 
 import {
   pointsToF,
@@ -39,6 +40,12 @@ const App = () => {
             path="/arrastrar-y-soltar-texto"
             element={<DragAndDropChoose />}
           />
+
+          <Route
+            path="/arrastrar-y-soltar-imagenes"
+            element={<DragAndDropObjects typeCartesian="I" />}
+          />
+
           <Route
             path="/plano-cartesiano"
             element={<CartesianCoordinateFull pointNumbers={4} />}
