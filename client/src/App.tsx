@@ -19,6 +19,7 @@ import CartesianCoordinateObjects from './components/exercise/CartesianCoordinat
 import DragAndDropObjects from './components/exercise/DragAndDropObjects'
 import SelectPointsCoordinatePlane from './components/exercise/SelectPointsCoordinatePlane'
 import TrueOrFalseCartesianImages from './components/exercise/TrueOrFalseCartesianImages'
+import TrueOrFalseNumbersAndText from './components/exercise/TrueOrFalseNumbersAndText'
 
 import {
   pointsToF,
@@ -26,6 +27,8 @@ import {
   selectPointsCoordinatePlane,
   dataCartesianPlaneImagesTrueOrFalse
 } from './constants/CartesianConstants'
+
+import { dataFigures } from './constants/TrueOrFalse'
 
 const App = () => {
   return (
@@ -77,6 +80,10 @@ const App = () => {
           <Route
             path="/verdadero-o-falso-plano-cartesiano"
             element={<TrueOrFalseCartesianCoord points={pointsToF} />}
+          />
+          <Route
+            path="/verdadero-o-falso-numbers-texto"
+            element={<TrueOrFalseNumbersAndText data={dataFigures} />}
           />
           <Route
             path="/cuadrante-plano-cartesiano"

@@ -1,4 +1,3 @@
-import { smallPadding, smallSize } from '../constants/CartesianConstants'
 import { typeCartesian } from '../types/CartesianCoordinate'
 export const getNumbers = ({
   isX,
