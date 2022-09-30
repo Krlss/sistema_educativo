@@ -84,3 +84,45 @@ export const selectPointsCoordinatePlane = {
     { x: 2, y: 1, value: true }
   ]
 }
+
+export const dataCartesianPlaneImagesTrueOrFalse = {
+  title:
+    'Leo la información y analizo en la tabla el par ordenado que le corresponde a cada estudiante. Luego, verifico si los materiales que los estudiantes reciclaron están ubicados correctamente en el sistema de coordenadas.',
+  subtitle:
+    'Con el fin de reducir la contaminación ambiental, 4 estudiantes de quinto año reciclaron diferentes deshechos.',
+  response: false,
+  points: [
+    {
+      x: 3,
+      y: 2,
+      url: 'https://cdn-icons-png.flaticon.com/512/3307/3307015.png',
+      name: 'Bolsa',
+      value: true,
+      resposable: 'Carlos'
+    },
+    {
+      x: 7,
+      y: 3,
+      url: 'https://cdn-icons-png.flaticon.com/512/685/685388.png',
+      name: 'Caja',
+      value: true,
+      resposable: 'Viviana'
+    },
+    {
+      x: 6,
+      y: 1,
+      url: 'https://cdn-icons-png.flaticon.com/512/1236/1236977.png',
+      name: 'Latas',
+      value: true,
+      resposable: 'Jorge'
+    },
+    {
+      x: 1,
+      y: 3,
+      url: 'https://cdn-icons-png.flaticon.com/512/1996/1996969.png',
+      name: 'Botellas',
+      value: true,
+      resposable: 'Priscila'
+    }
+  ]
+}

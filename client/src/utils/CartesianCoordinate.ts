@@ -184,30 +184,71 @@ export const getCoorValues = ({
   }
 }
 
+interface ReturnChangePoint {
+  x: number
+  y: number
+  value: boolean
+  selected: boolean
+  url?: string
+}
+
 export const changePoints = ({
   response,
-  points
+  points,
+  type,
+  length = 5
 }: {
   response: boolean
-  points: { x: number; y: number; value: boolean }[]
+  points: { x: number; y: number; value: boolean; url?: string }[]
+  type?: typeCartesian
+  length?: number
 }) => {
-  const newPoints = points.map(point => {
-    if (point.value !== response) {
-      const newPoint = {
-        x: Math.floor(Math.random() * 20) - 10,
-        y: Math.floor(Math.random() * 20) - 10,
-        value: point.value,
-        selected: false
+  const newPoints: ReturnChangePoint[] = []
+
+  points.forEach(point => {
+    const { value, x, y, url } = point
+
+    if (response !== value) {
+      let newX = x
+      let newY = y
+      let selected = true
+
+      while (selected) {
+        const randomX = Math.floor(Math.random() * length)
+        const randomY = Math.floor(Math.random() * length)
+
+        if (type && length) {
+          const { valueX, valueY } = getCoorValues({
+            type,
+            x: randomX,
+            y: randomY,
+            length
+          })
+          newX = valueX
+          newY = valueY
+        } else {
+          newX = randomX
+          newY = randomY
+        }
+        const exist = newPoints.find(
+          point => point.x === newX && point.y === newY
+        )
+
+        if (!exist) {
+          selected = false
+        }
       }
-      const exist = points.find(
-        point => point.x === newPoint.x && point.y === newPoint.y
-      )
-      if (exist) {
-        return changePoints({ response, points })
-      }
-      return newPoint
+      newPoints.push({
+        x: newX,
+        y: newY,
+        value: response,
+        selected: false,
+        url
+      })
+    } else {
+      newPoints.push({ x, y, value, selected: false, url })
     }
-    return point
-  }) as { x: number; y: number; value: boolean; selected: boolean }[]
+  })
+
   return newPoints
 }

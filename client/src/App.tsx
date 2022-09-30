@@ -18,11 +18,13 @@ import TrueOrFalseCartesianCoord from './components/exercise/TrueOrFalseCartesia
 import CartesianCoordinateObjects from './components/exercise/CartesianCoordinateObjects'
 import DragAndDropObjects from './components/exercise/DragAndDropObjects'
 import SelectPointsCoordinatePlane from './components/exercise/SelectPointsCoordinatePlane'
+import TrueOrFalseCartesianImages from './components/exercise/TrueOrFalseCartesianImages'
 
 import {
   pointsToF,
   objectCartesianPoints,
-  selectPointsCoordinatePlane
+  selectPointsCoordinatePlane,
+  dataCartesianPlaneImagesTrueOrFalse
 } from './constants/CartesianConstants'
 
 const App = () => {
@@ -53,6 +55,17 @@ const App = () => {
             element={
               <SelectPointsCoordinatePlane
                 coordinates={selectPointsCoordinatePlane}
+              />
+            }
+          />
+
+          <Route
+            path="/verdadero-o-falso-images-en-el-plano-cartesiano"
+            element={
+              <TrueOrFalseCartesianImages
+                type="I"
+                data={dataCartesianPlaneImagesTrueOrFalse}
+                length={10}
               />
             }
           />

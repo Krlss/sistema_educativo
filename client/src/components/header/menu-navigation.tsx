@@ -13,13 +13,7 @@ const MenuNavigation = () => {
         <li className="text-black-logo font-semibold">Inicio</li>
       </NavLink>
 
-      <NavLink
-        to="/cursos"
-        className={({ isActive }) =>
-          `${navLinkDefaultclassName} ${
-            isActive ? 'bg-yellow-page' : ''
-          } group relative`
-        }>
+      <div className="hover:bg-yellow-page group relative py-2 cursor-default px-4 rounded-md">
         <li className="text-black-logo font-semibold">Cursos</li>
 
         <ul className="absolute hidden group-hover:block border top-10 left-0 bg-white shadow-md z-50">
@@ -39,7 +33,7 @@ const MenuNavigation = () => {
             </li>
           </NavLink>
         </ul>
-      </NavLink>
+      </div>
     </ul>
   )
 }
