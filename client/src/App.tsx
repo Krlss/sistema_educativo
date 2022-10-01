@@ -29,6 +29,8 @@ import {
 } from './constants/CartesianConstants'
 
 import { dataFigures } from './constants/TrueOrFalse'
+import PositionalTable from './components/exercise/PositionalTable'
+import { dataPositionalTable } from './constants/PositionalTable'
 
 const App = () => {
   return (
@@ -106,6 +108,10 @@ const App = () => {
           <Route path="/verdadero-o-falso" element={<TrueOrFalse />} />
           <Route path="/elegir-una-opcion" element={<ChooseAnOption />} />
           <Route path="/ordenar-digitos" element={<OrderOneDigitNumbers />} />
+          <Route
+            path="/tabla-posicional"
+            element={<PositionalTable data={dataPositionalTable} />}
+          />
         </Route>
       </Routes>
     </>
