@@ -20,6 +20,7 @@ import DragAndDropObjects from './components/exercise/DragAndDropObjects'
 import SelectPointsCoordinatePlane from './components/exercise/SelectPointsCoordinatePlane'
 import TrueOrFalseCartesianImages from './components/exercise/TrueOrFalseCartesianImages'
 import TrueOrFalseNumbersAndText from './components/exercise/TrueOrFalseNumbersAndText'
+import WriteValueFromText from './components/exercise/WriteValueFromText'
 
 import {
   pointsToF,
@@ -111,6 +112,10 @@ const App = () => {
           <Route
             path="/tabla-posicional"
             element={<PositionalTable data={dataPositionalTable} />}
+          />
+          <Route
+            path="/escribir-el-valor-de-un-texto"
+            element={<WriteValueFromText />}
           />
         </Route>
       </Routes>
