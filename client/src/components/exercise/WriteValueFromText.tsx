@@ -35,15 +35,17 @@ const WriteValueFromText = () => {
       <div className="container mx-auto">
         <div className="flex items-start justify-center flex-col w-4/5 mx-auto">
           <h1>12. {data_.title}</h1>
-          <div className="w-full">
+          <div className="w-full lg:w-3/4 mx-auto">
             {data2.map((item, index) => (
               <div
                 key={index}
-                className="flex border border-gray-400 lg:flex-row flex-col">
-                <div className="bg-yellow-page p-2 text-left border-r border-gray-400 flex items-center lg:basis-32">
-                  <p className="font-medium break-words">{item.text}</p>
+                className="flex border border-gray-300 lg:flex-row flex-col">
+                <div className="bg-yellow-300 p-2 text-left lg:border-r border-gray-300 flex items-center lg:w-4/12 w-full">
+                  <p className="font-medium break-words w-full text-center">
+                    {item.text}
+                  </p>
                 </div>
-                <div className="w-full">
+                <div className="w-8/12">
                   <textarea
                     className="p-2 w-full outline-none focus:border-0 bg-transparent h-full resize-none"
                     onChange={e => handleChange(e, index)}
