@@ -21,6 +21,7 @@ import SelectPointsCoordinatePlane from './components/exercise/SelectPointsCoord
 import TrueOrFalseCartesianImages from './components/exercise/TrueOrFalseCartesianImages'
 import TrueOrFalseNumbersAndText from './components/exercise/TrueOrFalseNumbersAndText'
 import WriteValueFromText from './components/exercise/WriteValueFromText'
+import SelectPlaceTableOption from './components/exercise/SelectPlaceTableOption'
 
 import {
   pointsToF,
@@ -32,6 +33,7 @@ import {
 import { dataFigures } from './constants/TrueOrFalse'
 import PositionalTable from './components/exercise/PositionalTable'
 import { dataPositionalTable } from './constants/PositionalTable'
+import { dataSelectPlaceTableOption } from './constants/SelectPlaceTableOption'
 
 const App = () => {
   return (
@@ -116,6 +118,13 @@ const App = () => {
           <Route
             path="/escribir-el-valor-de-un-texto"
             element={<WriteValueFromText />}
+          />
+
+          <Route
+            path="/opciones-en-selects"
+            element={
+              <SelectPlaceTableOption data={dataSelectPlaceTableOption} />
+            }
           />
         </Route>
       </Routes>
