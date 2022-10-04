@@ -22,6 +22,7 @@
     "shortid": "^2.2.16",
     "typescript": "^4.8.2",
     "web-vitals": "^2.1.4",
+    "written-number": "^0.11.1",
     "yup": "^0.32.11"
   },
   "scripts": {

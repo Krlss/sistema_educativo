@@ -13,11 +13,11 @@ export const getNumbers = ({
   switch (type) {
     case 'I':
       return isX ? i : length - i
-    case 'II':
+    case 'IV':
       return isX ? i : -i
     case 'III':
       return isX ? i - length : -i
-    case 'IV':
+    case 'II':
       return isX ? i - length : length - i
   }
 }
@@ -38,11 +38,11 @@ export const getPosLine = ({
   switch (type) {
     case 'I':
       return isX && i === 0 ? 1 : isY && i === length ? 1 : 0
-    case 'II':
+    case 'IV':
       return isX && i === 0 ? 1 : isY && i === 0 ? 1 : 0
     case 'III':
       return isX && i === length ? 1 : isY && i === 0 ? 1 : 0
-    case 'IV':
+    case 'II':
       return isX && i === length ? 1 : isY && i === length ? 1 : 0
   }
 }
@@ -68,7 +68,7 @@ export const getPosSmallLine = ({
       if (pos === 'X2') return isX ? 0 : 5
       if (pos === 'Y1') return isY ? 0 : smallSize - smallPadding * 2 + 5
       return isY ? 0 : smallSize - smallPadding * 2 - 5
-    case 'II':
+    case 'IV':
       if (pos === 'X1') return isX ? 0 : -5
       if (pos === 'X2') return isX ? 0 : 5
       if (pos === 'Y1') return isY ? 0 : -5
@@ -78,7 +78,7 @@ export const getPosSmallLine = ({
       if (pos === 'X2') return isX ? 0 : smallSize - smallPadding * 2 - 5
       if (pos === 'Y1') return isY ? 0 : 5
       return isY ? 0 : -5
-    case 'IV':
+    case 'II':
       if (pos === 'X1') return isX ? 0 : smallSize - smallPadding * 2 + 5
       if (pos === 'X2') return isX ? 0 : smallSize - smallPadding * 2 - 5
       if (pos === 'Y1') return isY ? 0 : smallSize - smallPadding * 2 + 5
@@ -105,7 +105,7 @@ export const getPosText = ({
         x: isX ? 0 : -15,
         y: isY ? 2 : smallSize - smallPadding * 2 + 15
       }
-    case 'II':
+    case 'IV':
       return {
         x: isX ? 0 : -17,
         y: isY ? 2 : -15
@@ -115,7 +115,7 @@ export const getPosText = ({
         x: isX ? -1 : smallSize - smallPadding * 2 + 15,
         y: isY ? 0 : -15
       }
-    case 'IV':
+    case 'II':
       return {
         x: isX ? -1 : smallSize - smallPadding * 2 + 15,
         y: isY ? 0 : smallSize - smallPadding * 2 + 15
@@ -136,7 +136,7 @@ export const getPosTextLine = (
         yx: 60,
         yy: 40
       }
-    case 'II':
+    case 'IV':
       return {
         xx: smallSize - smallPadding * 2 + 70,
         xy: 60,
@@ -150,7 +150,7 @@ export const getPosTextLine = (
         yx: smallSize - smallPadding * 2 + 57,
         yy: smallSize - smallPadding * 2 + 75
       }
-    case 'IV':
+    case 'II':
       return {
         xx: 30,
         xy: smallSize - smallPadding * 2 + 60,
@@ -174,11 +174,11 @@ export const getCoorValues = ({
   switch (type) {
     case 'I':
       return { valueX: x, valueY: length - y }
-    case 'II':
+    case 'IV':
       return { valueX: x, valueY: -y }
     case 'III':
       return { valueX: x - length, valueY: -y }
-    case 'IV':
+    case 'II':
       return { valueX: x - length, valueY: length - y }
   }
 }

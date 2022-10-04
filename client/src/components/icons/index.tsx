@@ -7,6 +7,7 @@ interface IconProps {
   children?: React.ReactNode
   viewBox: string
   className?: string
+  [key: string]: any
 }
 
 const Icon = ({
@@ -15,7 +16,8 @@ const Icon = ({
   height = 15,
   width = 15,
   viewBox,
-  className
+  className,
+  ...props
 }: IconProps) => {
   return (
     <svg
@@ -24,7 +26,8 @@ const Icon = ({
       height={height}
       viewBox={`0 0 ${viewBox}`}
       xmlns="http://www.w3.org/2000/svg"
-      className={className}>
+      className={className}
+      {...props}>
       {children}
     </svg>
   )

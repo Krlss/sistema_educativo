@@ -22,6 +22,7 @@ import TrueOrFalseCartesianImages from './components/exercise/TrueOrFalseCartesi
 import TrueOrFalseNumbersAndText from './components/exercise/TrueOrFalseNumbersAndText'
 import WriteValueFromText from './components/exercise/WriteValueFromText'
 import SelectPlaceTableOption from './components/exercise/SelectPlaceTableOption'
+import ListenAndWrite from './components/exercise/ListenAndWrite'
 
 import {
   pointsToF,
@@ -126,6 +127,8 @@ const App = () => {
               <SelectPlaceTableOption data={dataSelectPlaceTableOption} />
             }
           />
+
+          <Route path="/escucha-y-escribe" element={<ListenAndWrite />} />
         </Route>
       </Routes>
     </>

@@ -198,7 +198,7 @@ const DragAndDropChooseText = ({
                               }>
                               {(provided, snapshot) => (
                                 <div
-                                  className={`w-full h-full ${
+                                  className={`w-full h-full flex items-center justify-center ${
                                     snapshot.isDraggingOver && 'bg-gray-200/80'
                                   }`}
                                   {...provided.droppableProps}
@@ -214,7 +214,7 @@ const DragAndDropChooseText = ({
                                           isDragDisabled={true}>
                                           {provided => (
                                             <div
-                                              className="bg-yellow-page/70 flex flex-col items-center justify-center gap-1 w-full h-full rounded-full"
+                                              className="bg-yellow-page/70 flex flex-col items-center justify-center gap-1 w-[90%] h-[90%] rounded-full"
                                               {...provided.draggableProps}
                                               {...provided.dragHandleProps}
                                               ref={provided.innerRef}>
