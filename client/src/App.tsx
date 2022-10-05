@@ -23,6 +23,7 @@ import TrueOrFalseNumbersAndText from './components/exercise/TrueOrFalseNumbersA
 import WriteValueFromText from './components/exercise/WriteValueFromText'
 import SelectPlaceTableOption from './components/exercise/SelectPlaceTableOption'
 import ListenAndWrite from './components/exercise/ListenAndWrite'
+import Base10Descomposition from './components/exercise/Base10Descomposition'
 
 import {
   pointsToF,
@@ -129,6 +130,10 @@ const App = () => {
           />
 
           <Route path="/escucha-y-escribe" element={<ListenAndWrite />} />
+          <Route
+            path="/descomposicion-base-10"
+            element={<Base10Descomposition />}
+          />
         </Route>
       </Routes>
     </>

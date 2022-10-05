@@ -60,3 +60,24 @@ export const AddKeyToObj = (items: any[]) => {
     return { ...item, key: shortid.generate() }
   })
 }
+
+export const convertNumberToBase10 = (number: number) => {
+  const numberString = number.toString()
+  const numberArray = numberString.split('')
+  const numberArrayLength = numberArray.length
+  const result = []
+  for (let i = 0; i < numberArrayLength; i++) {
+    const n = parseInt(numberArray[i])
+    if (n !== 0) {
+      const data = {
+        value: n * Math.pow(10, numberArrayLength - i - 1),
+        response: ''
+      }
+      result.push(data)
+    }
+  }
+  return result as {
+    value: number
+    response?: string
+  }[]
+}
