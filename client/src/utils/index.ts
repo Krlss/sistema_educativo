@@ -81,3 +81,7 @@ export const convertNumberToBase10 = (number: number) => {
     response?: string
   }[]
 }
+
+export const sortData = (array: number[]) => {
+  return array.sort((a, b) => b - a)
+}

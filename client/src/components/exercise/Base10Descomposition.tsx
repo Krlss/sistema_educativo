@@ -14,7 +14,6 @@ const Base10Descomposition = () => {
     newValue[index].response = e.target.value
     setValue(newValue)
   }
-  console.log(value)
   return (
     <div className="py-20 px-2">
       <div className="container mx-auto">

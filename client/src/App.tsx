@@ -24,6 +24,7 @@ import WriteValueFromText from './components/exercise/WriteValueFromText'
 import SelectPlaceTableOption from './components/exercise/SelectPlaceTableOption'
 import ListenAndWrite from './components/exercise/ListenAndWrite'
 import Base10Descomposition from './components/exercise/Base10Descomposition'
+import PositionalSum from './components/exercise/PositionalSum'
 
 import {
   pointsToF,
@@ -133,6 +134,10 @@ const App = () => {
           <Route
             path="/descomposicion-base-10"
             element={<Base10Descomposition />}
+          />
+          <Route
+            path="/suma-de-valores-posicionales"
+            element={<PositionalSum />}
           />
         </Route>
       </Routes>
