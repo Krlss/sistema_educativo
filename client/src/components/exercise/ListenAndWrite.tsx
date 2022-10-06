@@ -24,7 +24,6 @@ const ListenAndWrite = () => {
     newOptions[index].response = value
     setOptions(newOptions)
   }
-  console.log(options)
   return (
     <div className="py-20 px-2">
       <div className="container mx-auto">

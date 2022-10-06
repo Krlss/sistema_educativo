@@ -25,6 +25,7 @@ import SelectPlaceTableOption from './components/exercise/SelectPlaceTableOption
 import ListenAndWrite from './components/exercise/ListenAndWrite'
 import Base10Descomposition from './components/exercise/Base10Descomposition'
 import PositionalSum from './components/exercise/PositionalSum'
+import MatchNColumns from './components/exercise/MatchNColumns'
 
 import {
   pointsToF,
@@ -139,6 +140,8 @@ const App = () => {
             path="/suma-de-valores-posicionales"
             element={<PositionalSum />}
           />
+
+          <Route path="/relaciona-columnas" element={<MatchNColumns />} />
         </Route>
       </Routes>
     </>
