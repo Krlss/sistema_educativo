@@ -11,12 +11,12 @@ const Navbar = () => {
   const [isCourseMenuOpen, setIsCourseMenuOpen] = useState(false)
 
   return (
-    <nav className="bg-white p-2 fixed w-full z-50">
-      <div className="container h-full mx-auto">
+    <nav className="bg-white p-2 w-full z-50 mb-8 shadow">
+      <div className="max-w-[1366px] h-full mx-auto lg:px-0 px-5">
         <div className="flex justify-between items-center mx-auto">
           <div className="flex items-center justify-center">
             <img src={Logo} alt="Logo" className="h-10 mr-2" />
-            <span className="text-black-logo font-extrabold text-xl font-chivo">
+            <span className="font-extrabold text-xl font-chivo text-red-logo">
               Mapple
             </span>
           </div>
