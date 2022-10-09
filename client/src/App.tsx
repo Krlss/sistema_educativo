@@ -26,6 +26,7 @@ import ListenAndWrite from './components/exercise/ListenAndWrite'
 import Base10Descomposition from './components/exercise/Base10Descomposition'
 import PositionalSum from './components/exercise/PositionalSum'
 import MatchNColumns from './components/exercise/MatchNColumns'
+import DragAndDropSet from './components/exercise/DragAndDropSet'
 
 import {
   pointsToF,
@@ -142,6 +143,10 @@ const App = () => {
           />
 
           <Route path="/relaciona-columnas" element={<MatchNColumns />} />
+          <Route
+            path="/arrastrar-y-solta-conjuntos"
+            element={<DragAndDropSet />}
+          />
         </Route>
       </Routes>
     </>
