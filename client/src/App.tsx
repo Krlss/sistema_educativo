@@ -27,7 +27,7 @@ import Base10Descomposition from './components/exercise/Base10Descomposition'
 import PositionalSum from './components/exercise/PositionalSum'
 import MatchNColumns from './components/exercise/MatchNColumns'
 import DragAndDropSet from './components/exercise/DragAndDropSet'
-
+import PlaceSign from './components/exercise/PlaceSign'
 import {
   pointsToF,
   objectCartesianPoints,
@@ -147,6 +147,7 @@ const App = () => {
             path="/arrastrar-y-solta-conjuntos"
             element={<DragAndDropSet />}
           />
+          <Route path="/coloca-el-signo" element={<PlaceSign />} />
         </Route>
       </Routes>
     </>
