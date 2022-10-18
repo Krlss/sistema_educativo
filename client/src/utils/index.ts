@@ -48,3 +48,40 @@ export const AddKeyToArrayItems = (items: any[]) => {
 export const absMax = (a: number, b: number) => {
   return Math.max(Math.abs(a), Math.abs(b))
 }
+
+/**
+  De un array de objetos, se le agrega una key única a cada elemento
+  @param {Array} array - Array de objetos
+
+  @returns {Array} - Array de objetos
+*/
+export const AddKeyToObj = (items: any[]) => {
+  return items.map(item => {
+    return { ...item, key: shortid.generate() }
+  })
+}
+
+export const convertNumberToBase10 = (number: number) => {
+  const numberString = number.toString()
+  const numberArray = numberString.split('')
+  const numberArrayLength = numberArray.length
+  const result = []
+  for (let i = 0; i < numberArrayLength; i++) {
+    const n = parseInt(numberArray[i])
+    if (n !== 0) {
+      const data = {
+        value: n * Math.pow(10, numberArrayLength - i - 1),
+        response: ''
+      }
+      result.push(data)
+    }
+  }
+  return result as {
+    value: number
+    response?: string
+  }[]
+}
+
+export const sortData = (array: number[]) => {
+  return array.sort((a, b) => b - a)
+}

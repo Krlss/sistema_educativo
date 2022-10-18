@@ -18,7 +18,7 @@ const HomeCard = ({
 }: Props) => {
   return (
     <div className="w-full">
-      <div className="bg-white rounded-lg shadow-md p-4">
+      <div className="bg-white rounded border-2 p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <div className="w-12 h-12 bg-gray-200 rounded-full">

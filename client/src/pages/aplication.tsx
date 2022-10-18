@@ -6,7 +6,9 @@ const Aplication = () => {
   return (
     <>
       <Navbar />
-      <Outlet />
+      <div className="container min-h-screen max-w-[1366px] mx-auto lg:px-0 px-5">
+        <Outlet />
+      </div>
     </>
   )
 }

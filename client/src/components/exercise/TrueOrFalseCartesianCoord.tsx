@@ -1,9 +1,15 @@
-const TrueOrFalse = () => {
+import CartesianPlane from '../CartesianPlane'
+
+const TrueOrFalseCartesianCoord = ({
+  points
+}: {
+  points: { x: number; y: number }[]
+}) => {
   return (
-    <div className="container mx-auto">
-      <div className="flex items-center justify-center h-screen-calculator flex-col">
-        <div className="flex flex-col items-start justify-center px-4">
-          <div className="text-left mb-4">
+    <div className="container mx-auto pt-20 w-11/12">
+      <div className="flex items-center justify-center flex-col">
+        <div className="flex flex-col items-start justify-center">
+          <div className="text-left">
             <h1 className="text-2xl font-bold">
               Elija la opción correcta: Verdadero o falso
             </h1>
@@ -12,10 +18,12 @@ const TrueOrFalse = () => {
             <div className="flex items-start justify-start">
               <span className="text-lg mr-1">1.</span>
               <div className="flex flex-col items-start">
-                <p className="text-lg mb-2">
-                  ¿El nombre que recibe el eje vertical es eje Y o de
-                  coordenadas?
+                <p className="text-lg">
+                  ¿La siguiente coordenada en el plano es la correcta: A(4, -3)?
                 </p>
+                <div className="flex justify-center w-full">
+                  <CartesianPlane points={points} />
+                </div>
                 <div className="flex flex-row items-center justify-center">
                   <input
                     type="radio"
@@ -43,4 +51,4 @@ const TrueOrFalse = () => {
   )
 }
 
-export default TrueOrFalse
+export default TrueOrFalseCartesianCoord

@@ -1,16 +1,21 @@
+import { namePoints } from '../../constants/CartesianConstants'
 const size = 400
 const padding = 40
-
-const CartesianPlane = () => {
+const CartesianPlane = ({
+  points
+}: {
+  points?: { x: number; y: number }[]
+}) => {
   return (
-    <div className="absolute -z-50">
+    <div className={`${points?.length ? '' : 'absolute -z-50'}`}>
       <svg
-        width={size + padding}
-        height={size + padding}
+        width={size}
+        height={size}
         viewBox={`0 0 ${size + padding} ${size + padding}`}>
         <g transform={`translate(${padding + 20}, ${padding + 20})`}>
           <DrawCartesianPlane isX />
           <DrawCartesianPlane isY />
+          <DrawPoints points={points} />
         </g>
         <text
           x={size + padding - 45}
@@ -88,6 +93,32 @@ const DrawCartesianPlane = ({ isX, isY }: DrawCarsianPlane) => {
               fontSize="11"
               fill="black">
               {number !== 0 && number % 2 === 0 && number}
+            </text>
+          </g>
+        )
+      })}
+    </>
+  )
+}
+
+const DrawPoints = ({ points }: { points?: { x: number; y: number }[] }) => {
+  return (
+    <>
+      {points?.map((point, i) => {
+        const x = (point.x + 10) * ((size - padding * 2) / 20)
+        const y = (10 - point.y) * ((size - padding * 2) / 20)
+        return (
+          <g key={i} transform={`translate(${x}, ${y})`}>
+            <circle
+              cx="0"
+              cy="0"
+              r="5"
+              fill="black"
+              stroke="black"
+              strokeWidth="1"
+            />
+            <text x="10" y="0" textAnchor="start" fontSize="11" fill="black">
+              {namePoints[i]}
             </text>
           </g>
         )
