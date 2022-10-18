@@ -1,6 +1,6 @@
 import {Resolver, Query, Mutation, Arg} from 'type-graphql';
-import {Asignature} from '../entities/Asignature';
-import { AppDataSource } from '../config/typeorm';
+import {Asignature} from '../../entities/Asignature';
+import { AppDataSource } from '../../config/typeorm';
 import { ObjectID } from 'typeorm';
 @Resolver()
 export class AsignatureResolver{

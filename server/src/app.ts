@@ -1,15 +1,41 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
-import PingResolver from './resolvers/ping';
 import {buildSchema} from 'type-graphql';
-import { AsignatureResolver } from "./resolvers/AsignatureResolver";
+
+import {
+  AsignatureResolver,
+  QuestionResolver,
+  TopicResolver,
+  UnitResolver,
+} from "./resolvers/Asignature";
+
+import {
+  UserAsignatureResolver,
+  UserProgressResolver,
+  UserResolver,
+  UserTopicResolver,
+  UserUnitResolver,
+} from "./resolvers/User";
+
 const morgan = require('morgan');
 
 export async function start() {
   const app = express();
   const server = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [PingResolver, AsignatureResolver],
+      resolvers: [
+        /* Resolver Asignature */
+        AsignatureResolver,
+        UnitResolver,
+        QuestionResolver,
+        TopicResolver,
+        /* Resolvers User */
+        UserAsignatureResolver,
+        UserProgressResolver,
+        UserResolver,
+        UserTopicResolver,
+        UserUnitResolver,
+      ],
     }),
     context: ({ req, res }) => ({ req, res }),
   });

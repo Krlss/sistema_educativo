@@ -1,8 +1,8 @@
 import {Resolver, Query, Mutation, Arg} from 'type-graphql';
-import {Asignature} from '../entities/Asignature';
-import { AppDataSource } from '../config/typeorm';
+import { AppDataSource } from '../../config/typeorm';
 import { ObjectID } from 'typeorm';
-import {Unit} from '../entities/Unit';
+import {Asignature} from '../../entities/Asignature';
+import {Unit} from '../../entities/Unit';
 
 @Resolver()
 export class UnitResolver{
@@ -94,6 +94,8 @@ export class UnitResolver{
             return false;
         }
         unit.name = name;
+        const index = asignature.unit.findIndex((unit) => unit._id.toString() === unitId);
+        asignature.unit[index] = unit;
         await AppDataSource.manager.save(asignature);
         return true;
     }

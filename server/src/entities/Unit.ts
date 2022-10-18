@@ -1,19 +1,18 @@
 import { Field, ObjectType } from 'type-graphql';
-import { Column, PrimaryGeneratedColumn} from 'typeorm';
+import { Column, PrimaryColumn} from 'typeorm';
 import {Topic} from './Topic';
 
 @ObjectType()
 export class Unit{
-    @Field()
-    @PrimaryGeneratedColumn()
-    _id!: number;
+  
+    @PrimaryColumn()
+    _id!: number
 
     @Field()
     @Column('string')
     name!: string;
 
-    @Field(()=>[Topic])
-    @Column('array')
-    topic!: Array<Topic>;
+    @Column(type => Topic)
+    topic!: Topic[];
 
 }

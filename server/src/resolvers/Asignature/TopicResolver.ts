@@ -1,8 +1,8 @@
 import {Resolver, Query, Mutation, Arg} from 'type-graphql';
-import {Asignature} from '../entities/Asignature';
-import { AppDataSource } from '../config/typeorm';
+import {Asignature} from '../../entities/Asignature';
+import { AppDataSource } from '../../config/typeorm';
 import { ObjectID } from 'typeorm';
-import {Topic} from '../entities/Topic';
+import {Topic} from '../../entities/Topic';
 
 @Resolver()
 export class TopicResolver{
@@ -26,6 +26,8 @@ export class TopicResolver{
         topic.name = name;
         topic.question = [];
         unit.topic.push(topic);
+        const index = asignature.unit.findIndex((unit) => unit._id.toString() === unitId);
+        asignature.unit[index] = unit;
         await AppDataSource.manager.save(asignature);
         return topic._id.toString();
     }
@@ -51,6 +53,8 @@ export class TopicResolver{
             return false;
         }
         unit.topic = unit.topic.filter((topic) => topic._id.toString() !== topicId);
+        const index = asignature.unit.findIndex((unit) => unit._id.toString() === unitId);
+        asignature.unit[index] = unit;
         await AppDataSource.manager.save(asignature);
         return true;
     }
@@ -118,34 +122,12 @@ export class TopicResolver{
             return false;
         }
         topic.name = name;
+        const index = unit.topic.findIndex((topic) => topic._id.toString() === topicId);
+        unit.topic[index] = topic;
+        const index2 = asignature.unit.findIndex((unit) => unit._id.toString() === unitId);
+        asignature.unit[index2] = unit;
         await AppDataSource.manager.save(asignature);
         return true;
     }
-
-    /* Agrega una pregunta a un tema */
-   /*  @Mutation(()=>Boolean)
-    async addQuestionToTopic(
-        @Arg("asignatureId") asignatureId: string,
-        @Arg("unitId") unitId: string,
-        @Arg("topicId") topicId: string,
-        @Arg("questionId") questionId: string ){
-        const asignature = await AppDataSource.manager.findOneBy(Asignature, {
-            _id: new ObjectID(asignatureId)
-        })
-        if (!asignature){
-            return false;
-        }
-        const unit = asignature.unit.find((unit) => unit._id.toString() === unitId);
-        if (!unit){
-            return false;
-        }
-        const topic = unit.topic.find((topic) => topic._id.toString() === topicId);
-        if (!topic){
-            return false;
-        }
-        topic.question.push(questionId);
-        await AppDataSource.manager.save(asignature);
-        return true;
-    } */
 
 }

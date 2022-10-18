@@ -1,20 +1,19 @@
 import { Field, ObjectType } from 'type-graphql';
-import { Column, PrimaryGeneratedColumn} from 'typeorm';
+import { Column, PrimaryColumn} from 'typeorm';
 import {Question} from './Question';
 
 @ObjectType()
 export class Topic{
 
-    @Field()
-    @PrimaryGeneratedColumn()
-    _id!: number;
+    @PrimaryColumn()
+    _id!: number
+
 
     @Field()
     @Column('string')
     name!: string;
 
-    @Field(()=>[Question])
-    @Column('array')
-    question!: Array<Question>;
+    @Column(type => Question)
+    question!: Question[];
 
 }
