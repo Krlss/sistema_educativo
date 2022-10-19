@@ -3,7 +3,6 @@ import {Entity, Column, PrimaryColumn} from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
 
 @ObjectType()
-@Entity()
 export class UserTopic {
     @PrimaryColumn()
     _id!: number;

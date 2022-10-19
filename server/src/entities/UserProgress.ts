@@ -5,12 +5,15 @@ import { UserAsignature } from "./UserAsignature";
 
 
 @ObjectType()
-@Entity()
 export class UserProgress {
    
     @PrimaryColumn()
     _id!: number
     
+    @Field()
+    @Column('string')
+    name!: string;
+
     @Column(type => UserAsignature)
     asignature!: UserAsignature[];
 

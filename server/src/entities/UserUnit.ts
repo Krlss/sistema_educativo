@@ -4,7 +4,6 @@ import { Field,  ObjectType } from "type-graphql";
 import { UserTopic } from "./UserTopic";
 
 @ObjectType()
-@Entity()
 export class UserUnit {
   @PrimaryColumn()
   _id!: number;

@@ -4,7 +4,6 @@ import { Field, ObjectType } from 'type-graphql';
 import { UserUnit } from "./UserUnit";
 
 @ObjectType()
-@Entity()
 export class UserAsignature {
    
     @PrimaryColumn()

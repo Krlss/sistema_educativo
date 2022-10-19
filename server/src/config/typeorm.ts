@@ -2,13 +2,19 @@ import "reflect-metadata"
 import {DataSource} from 'typeorm'
 import path from "path";
 
+const USER = process.env.DB_USER;
+const PASSWORD = process.env.DB_PASSWORD;
+const HOST = process.env.DB_HOST;
+const PORT = process.env.DB_PORT || "27017";
+const DATABASE = process.env.DB_DATABASE;
+
 export const AppDataSource = new DataSource({
     type: "mongodb",
-    host: "localhost",
-    port: 27017,
-    username: "root",
-    password: "",
-    database: "sistema_educativo",
+    host: HOST,
+    port: parseInt(PORT),
+    username: USER,
+    password: PASSWORD,
+    database: DATABASE,
     synchronize: true,
     logging: true,
     entities: [

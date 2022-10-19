@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon  src/index.ts  --exec ts-node"
+    "dev": "nodemon  src/index.ts  --exec ts-node",
+    "local": "env-cmd -e development npm run dev"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +14,7 @@
     "@types/bcrypt": "^5.0.0",
     "apollo-server-express": "^2.26.0",
     "bcrypt": "^5.1.0",
+    "class-validator": "^0.13.2",
     "express": "^4.18.1",
     "graphql": "^15.3.0",
     "mongodb": "^3.6.0",
