@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import QuestionTitle from '../title/questionTitle'
+
 const SelectPlaceTableOption = ({
   data
 }: {
@@ -29,9 +31,7 @@ const SelectPlaceTableOption = ({
     <div className="py-20 px-2">
       <div className="container mx-auto">
         <div className="flex items-center justify-center flex-col">
-          <div>
-            <h1 className="text-2xl font-bold text-left">{data.title}</h1>
-          </div>
+          <QuestionTitle title={data.title} />
           <div>
             {selected.map((option, index) => (
               <div

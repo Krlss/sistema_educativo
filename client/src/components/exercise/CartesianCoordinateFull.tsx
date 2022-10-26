@@ -1,20 +1,19 @@
 import CartesianPlane from '../CartesianPlane'
-import HookCartesianCoordinate from '../../hooks/CartesianCoordinate'
+import useCartesianCoordinate from '../../hooks/useCartesianCoordinate'
+import QuestionTitle from '../title/questionTitle'
 
 const CartesianCoordinateFull = ({
   pointNumbers
 }: {
   pointNumbers: number
 }) => {
-  const { cartesian, updateCartesian } = HookCartesianCoordinate(pointNumbers)
+  const { cartesian, updateCartesian } = useCartesianCoordinate(pointNumbers)
 
   return (
     <div className="py-20 px-2">
       <div className="container mx-auto">
         <div className="flex items-center justify-center h-screen-calculator flex-col">
-          <h1>
-            1. Represente las coordenadas (x=-3,y=3) en el plano cartesiano:
-          </h1>
+          <QuestionTitle title="1. Represente las coordenadas (x=-3,y=3) en el plano cartesiano:" />
           <div className="relative flex items-center justify-center mt-10">
             <div>
               {[...Array(21)].map((_, y) => {
