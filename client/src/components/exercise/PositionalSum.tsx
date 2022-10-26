@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { sortData } from '../../utils'
+import QuestionTitle from '../title/questionTitle'
 
 const data = {
   title: 'Realizar la siguiente suma de valores posicionales',
@@ -12,7 +13,7 @@ const PositionalSum = () => {
     <div className="py-20 px-2">
       <div className="container mx-auto">
         <div className="flex items-center justify-center flex-col">
-          <h1 className="text-xl font-bold text-left">{data.title}</h1>
+          <QuestionTitle title={data.title} />
           <div className="flex flex-col mt-2 text-right">
             {value.map((value, index) => {
               return <span key={index}>{value}</span>

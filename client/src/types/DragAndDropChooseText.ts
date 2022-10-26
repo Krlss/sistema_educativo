@@ -3,6 +3,12 @@ export interface DataInterface {
   text: string
 }
 
+export interface DataInterfaceOriginal {
+  title: string
+  options: DataInterface[]
+  type: string
+}
+
 export interface VerifyDragAndDropChooseTextProps {
   response_user: string
   text: string

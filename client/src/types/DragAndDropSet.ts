@@ -15,3 +15,11 @@ export interface ReturnVerifyDragAndDropSetProps {
   correct: number
   qualification: number
 }
+
+export interface HookProps {
+  sets: {
+    title: string
+    options: DataInterface[]
+  }[]
+  options: DataInterface[]
+}

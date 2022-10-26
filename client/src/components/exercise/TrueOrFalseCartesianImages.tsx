@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { typeCartesian } from '../../types/CartesianCoordinate'
 import { changePoints, getCoorValues } from '../../utils/CartesianCoordinate'
 import CartesianQuadrant from '../CartesianPlane/QuadrantPoints'
+import QuestionTitle from '../title/questionTitle'
 
 const TrueOrFalseCartesianImages = ({
   data,
@@ -37,10 +38,7 @@ const TrueOrFalseCartesianImages = ({
       <div className="container mx-auto">
         <div>
           <div className="flex items-center justify-center flex-col">
-            <div>
-              <h1 className="text-xl font-bold text-left">{data.title}</h1>
-              <p className="text-sm text-left">{data.subtitle}</p>
-            </div>
+            <QuestionTitle title={data.title} subtitle={data.subtitle} />
             <div className="flex gap-2 mt-5 flex-wrap items-center justify-center">
               {data.points.map((point, index) => {
                 return (

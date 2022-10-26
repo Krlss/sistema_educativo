@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { selectPointsCoordinatePlane } from '../../types/CartesianCoordinate'
 import CartesianPlane from '../CartesianPlane'
 import { changePoints } from '../../utils/CartesianCoordinate'
+import QuestionTitle from '../title/questionTitle'
+
 const SelectPointsCoordinatePlane = ({
   coordinates
 }: {
@@ -25,11 +27,7 @@ const SelectPointsCoordinatePlane = ({
     <div className="py-20 px-2">
       <div className="container mx-auto">
         <div className="flex items-center justify-center h-screen-calculator flex-col">
-          <h1>
-            13. Observo la tabla y el sistema de coordenadas. Luego, señalo
-            dando clic qué pares ordenados no corresponden a los puntos del
-            plano.
-          </h1>
+          <QuestionTitle title={coordinates.title} />
           <div className="flex flex-wrap max-w-xs items-center justify-center mt-5 gap-1">
             {coordinates.points.map((coordinate, index) => (
               <div

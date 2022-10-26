@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import QuestionTitle from '../title/questionTitle'
 
 const data = {
   title: 'Relaciona lo siguiente',
@@ -50,9 +51,7 @@ const MatchNColumns = () => {
     <div className="py-20 px-2">
       <div className="container mx-auto">
         <div className="flex items-start justify-center flex-col">
-          <div>
-            <h1 className="text-2xl font-bold text-left">{data.title}</h1>
-          </div>
+          <QuestionTitle title={data.title} />
           <div>
             <div className="flex lg:flex-row flex-col items-start w-full">
               {data.columns.map((column, c) => (

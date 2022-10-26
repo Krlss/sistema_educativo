@@ -1,5 +1,7 @@
 import { shuffleArray } from '../../utils'
 import React, { useState } from 'react'
+import QuestionTitle from '../title/questionTitle'
+
 const data_ = {
   title: '¿Cómo se leen los siguientes números?:',
   options: [
@@ -34,7 +36,7 @@ const WriteValueFromText = () => {
     <div className="py-20 px-2">
       <div className="container mx-auto">
         <div className="flex items-start justify-center flex-col w-4/5 mx-auto">
-          <h1>12. {data_.title}</h1>
+          <QuestionTitle title={data_.title} />
           <div className="w-full lg:w-3/4 mx-auto">
             {data2.map((item, index) => (
               <div

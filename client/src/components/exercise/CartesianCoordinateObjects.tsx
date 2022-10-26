@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import QuadrantPoints from '../CartesianPlane/QuadrantPoints'
 import { typeCartesian, objectCartesian } from '../../types/CartesianCoordinate'
 import { getCoorValues } from '../../utils/CartesianCoordinate'
+import QuestionTitle from '../title/questionTitle'
 
 const CartesianCoordinateObjects = ({
   typeCartesian,
@@ -15,7 +16,7 @@ const CartesianCoordinateObjects = ({
     <div className="py-20 px-2">
       <div className="container mx-auto">
         <div className="flex items-center justify-center h-screen-calculator flex-col">
-          <h1>9. Escriba las coordenadas de estos objetos</h1>
+          <QuestionTitle title="9. Escriba las coordenadas de estos objetos" />
           <div className="flex gap-2 mt-5 flex-wrap items-center justify-center">
             {points.map((point, index) => {
               return (

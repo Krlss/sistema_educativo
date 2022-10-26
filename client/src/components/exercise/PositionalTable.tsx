@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
-import { getLengthOfValues } from '../../utils/PositionalTable'
-import { table } from '../../constants/PositionalTable'
-import { onlyNumber } from '../../constants/regex'
+import usePositionalTable from '../../hooks/usePositionalTable'
+import QuestionTitle from '../title/questionTitle'
+
 const PositionalTable = ({
   data
 }: {
@@ -13,48 +12,16 @@ const PositionalTable = ({
     }[]
   }
 }) => {
-  const lengthOfValues = getLengthOfValues({ options: data.options })
-  let newTable = table.slice(0, 6).reverse()
-
-  if (lengthOfValues > 6) {
-    newTable = table.slice(0, lengthOfValues).reverse()
-  }
-
-  const [values, setValues] = useState(data.options)
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    index: number,
-    row: number
-  ) => {
-    const value = e.target.value.replace(onlyNumber, '0')
-    e.target.value = value
-
-    if (e.target.value.length > 1) {
-      e.target.value = e.target.value[e.target.value.length - 1]
-    }
-
-    const toIndex = row === 0 ? index + 1 : index
-    const toRow = row === 0 ? lengthOfValues - 1 : row - 1
-
-    const prevInput = document.querySelector(
-      `input[name="${toIndex}-${toRow}"]`
-    ) as HTMLInputElement
-    if (prevInput) {
-      prevInput.focus()
-    }
-
-    const newValues = [...values]
-    newValues[index].response[row] = e.target.value
-    setValues(newValues)
-  }
+  const { handleChange, newTable, values, lengthOfValues } = usePositionalTable(
+    data.options
+  )
 
   return (
     <div className="py-20 px-2">
       <div className="container mx-auto">
         <div className="flex items-center h-screen-calculator justify-center flex-col">
           <div>
-            <h1 className="text-2xl font-bold text-left">{data.title}</h1>
+            <QuestionTitle title={data.title} />
             <ul>
               {data.options.map((option, index) => (
                 <li key={index} className="list-disc ml-8">

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { NumberToText } from '../../utils/ListenAndWrite'
 import Icon from '../icons'
 import SpeakerIcon from '../icons/speaker'
+import QuestionTitle from '../title/questionTitle'
 
 const data = {
   title: 'Escucha y escribe los siguientes números',
@@ -28,9 +29,7 @@ const ListenAndWrite = () => {
     <div className="py-20 px-2">
       <div className="container mx-auto">
         <div className="flex items-center justify-center flex-col">
-          <div>
-            <h1 className="text-2xl font-bold text-left">{data.title}</h1>
-          </div>
+          <QuestionTitle title={data.title} />
           <div>
             {options.map((option, index) => (
               <div
