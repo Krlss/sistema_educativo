@@ -50,7 +50,6 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/cursos" element={<Courses />} />
           <Route path="/cursos/:curso" element={<CoursePresentation />} />
-          <Route path="*" element={<Page404 />} />
 
           {/* Rutas de test */}
           <Route
@@ -149,6 +148,7 @@ const App = () => {
           />
           <Route path="/coloca-el-signo" element={<PlaceSign />} />
         </Route>
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </>
   )
