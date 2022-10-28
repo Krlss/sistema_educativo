@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import usePlaceSign from '../../hooks/usePlaceSign'
+import QuestionTitle from '../title/questionTitle'
+
 const data = {
   title: 'Coloca los signos > ; < o = en cada caja',
   operators: ['>', '<', '='],
@@ -18,41 +20,13 @@ const data = {
   ]
 }
 const PlaceSign = () => {
-  const [option, setOptions] = useState(data.options)
-  const [response, setResponse] = useState<Boolean[]>(
-    Array(option.length).fill(undefined)
-  )
+  const { handleChange, option } = usePlaceSign(data.options)
 
-  const handleChange = (
-    index: number,
-    operator: string,
-    value1: number,
-    value2: number
-  ) => {
-    switch (operator) {
-      case '>':
-        response[index] = value1 > value2
-        setResponse([...response])
-        break
-      case '<':
-        response[index] = value1 < value2
-        setResponse([...response])
-        break
-      case '=':
-        response[index] = value1 === value2
-        setResponse([...response])
-        break
-      default:
-        break
-    }
-  }
   return (
     <div className="container mx-auto">
       <div className="flex items-center justify-center h-screen-calculator flex-col">
         <div className="flex flex-col items-start justify-center">
-          <div className="text-left">
-            <h1 className="text-2xl font-bold text-center">{data.title}</h1>
-          </div>
+          <QuestionTitle title={data.title} />
           <form className="flex flex-col self-center">
             {option.map((op, index) => (
               <div

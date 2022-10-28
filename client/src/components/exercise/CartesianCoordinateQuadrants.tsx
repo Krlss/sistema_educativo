@@ -1,7 +1,9 @@
 import QuadrantPoints from '../CartesianPlane/QuadrantPoints'
-import HookCartesianCoordinate from '../../hooks/CartesianCoordinate'
+import useCartesianCoordinate from '../../hooks/useCartesianCoordinate'
 import { typeCartesian } from '../../types/CartesianCoordinate'
 import { getCoorValues } from '../../utils/CartesianCoordinate'
+import QuestionTitle from '../title/questionTitle'
+
 const CartesianCoordinateQuadrant = ({
   pointNumbers,
   typeCartesian
@@ -9,16 +11,13 @@ const CartesianCoordinateQuadrant = ({
   pointNumbers: number
   typeCartesian: typeCartesian
 }) => {
-  const { cartesian, updateCartesian } = HookCartesianCoordinate(pointNumbers)
+  const { cartesian, updateCartesian } = useCartesianCoordinate(pointNumbers)
 
   return (
     <div className="py-20 px-2">
       <div className="container mx-auto">
         <div className="flex items-center justify-center h-screen-calculator flex-col">
-          <h1>
-            1. Marcar estos puntos en la cuadricula: (3, 5), (6, 7), (4, 2), (5,
-            8), (1, 4)
-          </h1>
+          <QuestionTitle title="1. Marcar estos puntos en la cuadricula: (3, 5), (6, 7), (4, 2), (5, 8), (1, 4)" />
           <div className="relative flex items-center justify-center mt-10">
             <div>
               {[...Array(11)].map((_, y) => {

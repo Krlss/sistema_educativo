@@ -1,4 +1,5 @@
 import CartesianPlane from '../CartesianPlane'
+import QuestionTitle from '../title/questionTitle'
 
 const TrueOrFalseCartesianCoord = ({
   points
@@ -9,18 +10,13 @@ const TrueOrFalseCartesianCoord = ({
     <div className="container mx-auto pt-20 w-11/12">
       <div className="flex items-center justify-center flex-col">
         <div className="flex flex-col items-start justify-center">
-          <div className="text-left">
-            <h1 className="text-2xl font-bold">
-              Elija la opción correcta: Verdadero o falso
-            </h1>
-          </div>
+          <QuestionTitle
+            title="Elija la opción correcta: Verdadero o falso"
+            subtitle="2. ¿La siguiente coordenada en el plano es la correcta: A(4, -3)?"
+          />
           <form>
             <div className="flex items-start justify-start">
-              <span className="text-lg mr-1">1.</span>
               <div className="flex flex-col items-start">
-                <p className="text-lg">
-                  ¿La siguiente coordenada en el plano es la correcta: A(4, -3)?
-                </p>
                 <div className="flex justify-center w-full">
                   <CartesianPlane points={points} />
                 </div>

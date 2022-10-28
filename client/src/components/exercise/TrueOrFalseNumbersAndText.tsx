@@ -1,3 +1,5 @@
+import QuestionTitle from '../title/questionTitle'
+
 const TrueOrFalseNumbersAndText = ({
   data
 }: {
@@ -15,11 +17,9 @@ const TrueOrFalseNumbersAndText = ({
     <div className="container mx-auto">
       <div className="flex items-center justify-center h-screen-calculator flex-col">
         <div className="flex flex-col items-start justify-center px-4">
-          <div className="text-left mb-4">
-            <h1 className="text-2xl font-bold">{data.title}</h1>
-          </div>
+          <QuestionTitle title={data.title} />
           <form>
-            <div className="flex flex-col items-start">
+            <div className="flex flex-col items-start mt-2">
               <div>
                 {data.options.map((option, index) => {
                   return (

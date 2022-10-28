@@ -73,7 +73,7 @@ export const objectCartesianPoints = [
 
 export const selectPointsCoordinatePlane = {
   title:
-    'Selecciona los puntos que estan correctamente ubicados en el plano cartesiano',
+    '13. Observo la tabla y el sistema de coordenadas. Luego, señalo dando clic qué pares ordenados no corresponden a los puntos del plano.',
   response: true,
   points: [
     { x: 1, y: 1, value: false },

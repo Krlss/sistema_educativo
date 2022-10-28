@@ -4,10 +4,10 @@ const CenterLogo = () => {
     <div
       style={{
         position: 'absolute',
-        top: '40%',
-        left: '40%',
-        width: '20%',
-        height: '20%',
+        top: '30%',
+        right: '0',
+        width: '40%',
+        height: '40%',
         backgroundImage: `url(${Logo})`,
         backgroundSize: 'contain',
         backgroundPosition: 'center',

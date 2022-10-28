@@ -50,7 +50,6 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/cursos" element={<Courses />} />
           <Route path="/cursos/:curso" element={<CoursePresentation />} />
-          <Route path="*" element={<Page404 />} />
 
           {/* Rutas de test */}
           <Route
@@ -92,7 +91,7 @@ const App = () => {
             element={<TrueOrFalseCartesianCoord points={pointsToF} />}
           />
           <Route
-            path="/verdadero-o-falso-numbers-texto"
+            path="/verdadero-o-falso-numberos-texto"
             element={<TrueOrFalseNumbersAndText data={dataFigures} />}
           />
           <Route
@@ -126,7 +125,7 @@ const App = () => {
           />
 
           <Route
-            path="/opciones-en-selects"
+            path="/opciones-en-seleccion"
             element={
               <SelectPlaceTableOption data={dataSelectPlaceTableOption} />
             }
@@ -144,11 +143,12 @@ const App = () => {
 
           <Route path="/relaciona-columnas" element={<MatchNColumns />} />
           <Route
-            path="/arrastrar-y-solta-conjuntos"
+            path="/arrastrar-y-soltar-conjuntos"
             element={<DragAndDropSet />}
           />
           <Route path="/coloca-el-signo" element={<PlaceSign />} />
         </Route>
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </>
   )
