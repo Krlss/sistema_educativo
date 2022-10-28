@@ -14,6 +14,11 @@ export class Question{
     @Column('string')
     question!: string;
 
+    @Field()
+    @Column('string')
+    type!: string;
+
+
     @Field(()=>Int)
     @Column('int')
     answerCorrect!: number;

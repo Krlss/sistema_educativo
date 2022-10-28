@@ -11,6 +11,7 @@ export class QuestionResolver {
     @Arg("question") question: string,
     @Arg("answer", type => [String]) answer: string[], 
     @Arg("answerCorrect") answerCorrect: number,
+    @Arg("type") type: string,
     @Arg("asignatureId") asignatureId: string,
     @Arg("unitId") unitId: string,
     @Arg("topicId") topicId: string
@@ -33,6 +34,7 @@ export class QuestionResolver {
     _question._id = topic.question.length + 1;
     _question.question = question;
     _question.answer = answer;
+    _question.type = type;
     _question.answerCorrect = answerCorrect;
     topic.question.push(_question);
     const index = unit.topic.findIndex(
@@ -154,6 +156,7 @@ export class QuestionResolver {
     @Arg("answerCorrect") answerCorrect: number,
     @Arg("questionId") questionId: string,
     @Arg("question") question: string,
+    @Arg("type") type: string,
     @Arg("answer", type => [String]) answer: string[], 
   ) {
     const asignature = await AppDataSource.manager.findOneBy(Asignature, {
@@ -178,6 +181,7 @@ export class QuestionResolver {
     }
     _question.question = question;
     _question.answer = answer;
+    _question.type = type;
     _question.answerCorrect = answerCorrect;
     const index = topic.question.findIndex(
       (question) => question._id.toString() === questionId
