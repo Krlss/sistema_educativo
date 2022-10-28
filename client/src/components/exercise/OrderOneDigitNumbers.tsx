@@ -6,7 +6,6 @@ import ContentDroppable from '../dragAndDrop/contentDroppable'
 import useOrderOneDigitNumbers from '../../hooks/useOrderOneDigitNumbers'
 
 const data = {
-  id: 10,
   pregunta:
     'Ordena los dígitos 4, 9, 8 y 6 para formar el número más pequeño posible.',
   respuesta: '468924512'

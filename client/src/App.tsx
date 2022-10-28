@@ -29,7 +29,7 @@ import MatchNColumns from './components/exercise/MatchNColumns'
 import DragAndDropSet from './components/exercise/DragAndDropSet'
 import PlaceSign from './components/exercise/PlaceSign'
 import {
-  pointsToF,
+  dataPointsToF,
   objectCartesianPoints,
   selectPointsCoordinatePlane,
   dataCartesianPlaneImagesTrueOrFalse
@@ -88,7 +88,7 @@ const App = () => {
           />
           <Route
             path="/verdadero-o-falso-plano-cartesiano"
-            element={<TrueOrFalseCartesianCoord points={pointsToF} />}
+            element={<TrueOrFalseCartesianCoord {...dataPointsToF} />}
           />
           <Route
             path="/verdadero-o-falso-numberos-texto"

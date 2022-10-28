@@ -1,5 +1,5 @@
-import React from 'react';
-import { ApolloConsumer } from 'react-apollo';
+import React from 'react'
+import { ApolloConsumer } from 'react-apollo'
 
 /* import * as routes from '../../constants/routes';
 import history from '../../constants/history'; */
@@ -12,14 +12,14 @@ const SignOutButton = () => (
       </button>
     )}
   </ApolloConsumer>
-);
+)
 
 const signOut = (client: any) => {
   /* localStorage.removeItem('token');
   history.push(routes.SIGN_IN); */
-  client.resetStore();
-};
+  client.resetStore()
+}
 
-export { signOut };
+export { signOut }
 
-export default SignOutButton;
+export default SignOutButton

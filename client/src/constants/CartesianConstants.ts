@@ -1,7 +1,11 @@
 export const smallSize = 350
 export const smallPadding = 40
 
-export const pointsToF = [{ x: 4, y: -3 }]
+export const dataPointsToF = {
+  subtitle: '2. ¿La siguiente coordenada en el plano es la correcta: A(4, -3)?',
+  points: [{ x: 4, y: -3 }],
+  value: true
+}
 
 export const namePoints = [
   'A',

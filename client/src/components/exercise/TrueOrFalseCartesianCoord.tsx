@@ -2,8 +2,12 @@ import CartesianPlane from '../CartesianPlane'
 import QuestionTitle from '../title/questionTitle'
 
 const TrueOrFalseCartesianCoord = ({
-  points
+  subtitle,
+  points,
+  value
 }: {
+  subtitle: string
+  value: boolean
   points: { x: number; y: number }[]
 }) => {
   return (
@@ -12,7 +16,7 @@ const TrueOrFalseCartesianCoord = ({
         <div className="flex flex-col items-start justify-center">
           <QuestionTitle
             title="Elija la opción correcta: Verdadero o falso"
-            subtitle="2. ¿La siguiente coordenada en el plano es la correcta: A(4, -3)?"
+            subtitle={subtitle}
           />
           <form>
             <div className="flex items-start justify-start">
