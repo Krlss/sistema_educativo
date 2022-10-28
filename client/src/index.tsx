@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App'
 
-import { ApolloProvider } from 'react-apollo';
+/* import { ApolloProvider } from 'react-apollo';
 import { ApolloClient } from 'apollo-client';
 import { getMainDefinition } from 'apollo-utilities';
 import { ApolloLink, split } from 'apollo-link';
@@ -11,11 +11,11 @@ import { HttpLink } from 'apollo-link-http';
 import { WebSocketLink } from 'apollo-link-ws';
 import { onError } from 'apollo-link-error';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { signOut } from './components/signout/signout';
+import { signOut } from './components/signout/signout'; */
 
 /* import { signOut } from './components/SignOut'; */
 
-const httpLink = new HttpLink({
+/* const httpLink = new HttpLink({
   uri: 'http://localhost:8000/graphql',
 });
 
@@ -29,9 +29,7 @@ const wsLink = new WebSocketLink({
 const terminatingLink = split(
   ({ query }) => {
     const {kind, name } = getMainDefinition(query);
-    return (
-      kind === 'OperationDefinition'/*  && name === 'subscription' */
-    );
+    return (kind === 'OperationDefinition' && name === 'subscription');
   },
   wsLink,
   httpLink,
@@ -75,13 +73,11 @@ const cache = new InMemoryCache();
 const client = new ApolloClient({
   link,
   cache,
-});
+}); */
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
-  <ApolloProvider client={client}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </ApolloProvider>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
 )
