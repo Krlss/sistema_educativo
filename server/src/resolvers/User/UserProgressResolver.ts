@@ -2,8 +2,7 @@ import { Resolver, Query, Mutation, Arg } from "type-graphql";
 
 import { AppDataSource } from "../../config/typeorm";
 import { User } from "../../entities/User";
-
-import { ObjectID } from 'typeorm';
+const {ObjectId}  = require('mongodb');
 import { UserProgress } from "../../entities/UserProgress";
 
 @Resolver()
@@ -15,15 +14,16 @@ export class UserProgressResolver {
         @Arg("userId") userId: string,
     ) {
         const user = await AppDataSource.manager.findOneBy(User, {
-            _id: new ObjectID(userId)
+            _id: new ObjectId(userId)
         });
         if(!user) {
             return false;
         }
         const userProgress = new UserProgress();
+        userProgress._id = user.progress.length + 1;
         userProgress.asignature = [];
         user.progress.push(userProgress);
-        await AppDataSource.manager.save(user);
+        await AppDataSource.manager.update(User, user._id, user);
         return userProgress._id.toString();
     }
 
@@ -34,7 +34,7 @@ export class UserProgressResolver {
         @Arg("userProgressId") userProgressId: string
     ) {
         const user = await AppDataSource.manager.findOneBy(User, {
-            _id: new ObjectID(userId)
+            _id: new ObjectId(userId)
         })
         if (!user) {
             return false;
@@ -44,7 +44,7 @@ export class UserProgressResolver {
             return false;
         }
         user.progress = user.progress.filter((progress) => progress._id.toString() !== userProgressId);
-        await AppDataSource.manager.save(user);
+        await AppDataSource.manager.update(User, user._id, user);
         return true;
     }
 
@@ -55,7 +55,7 @@ export class UserProgressResolver {
         @Arg("userProgressId") userProgressId: string
     ) {
         const user = await AppDataSource.manager.findOneBy(User, {
-            _id: new ObjectID(userId)
+            _id: new ObjectId(userId)
         });
         if(!user) {
             return false;
@@ -65,6 +65,27 @@ export class UserProgressResolver {
             return false;
         }
         return progress;
+    }
+    /* Actualiza el progreso de un usuario */
+    @Mutation(() => Boolean)
+    async updateUserProgress(
+        @Arg("userId") userId: string,
+        @Arg("userProgressId") userProgressId: string,
+        @Arg("name") name: string
+    ) {
+        const user = await AppDataSource.manager.findOneBy(User, {
+            _id: new ObjectId(userId)
+        });
+        if(!user) {
+            return false;
+        }
+        const progress = user.progress.find((progress) => progress._id.toString() === userProgressId);
+        if(!progress) {
+            return false;
+        }
+        progress.name = name;
+        await AppDataSource.manager.update(User, user._id, user);
+        return true;
     }
 
 }

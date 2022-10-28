@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
 import { AppDataSource } from "../../config/typeorm";
-import { ObjectID } from "typeorm";
+const {ObjectId}  = require('mongodb');
 import { UserTopic } from "../../entities/UserTopic";
 import { User } from "../../entities/User";
 
@@ -16,7 +16,7 @@ export class UserTopicResolver {
         @Arg("topicId") topicId: string
     ) {
         const user = await AppDataSource.manager.findOneBy(User, {
-            _id: new ObjectID(userId),
+            _id: new ObjectId(userId),
         });
         if (!user) {
             return false;
@@ -40,13 +40,14 @@ export class UserTopicResolver {
             return false;
         }
         const topic = new UserTopic();
+        topic._id = unit.topic.length + 1;
         topic.id_topic = parseInt(topicId);
         topic.nota = 0;
         unit.topic.push(topic);
         asignature.unit.push(unit);
         progress.asignature.push(asignature);
         user.progress.push(progress);
-        await AppDataSource.manager.save(user);
+        await AppDataSource.manager.update(User, user._id, user);
         return topic._id.toString();
     }
 
@@ -60,7 +61,7 @@ export class UserTopicResolver {
         @Arg("topicId") topicId: string
     ) {
         const user = await AppDataSource.manager.findOneBy(User, {
-            _id: new ObjectID(userId),
+            _id: new ObjectId(userId),
         });
         if (!user) {
             return false;
@@ -95,7 +96,7 @@ export class UserTopicResolver {
         asignature.unit.push(unit);
         progress.asignature.push(asignature);
         user.progress.push(progress);
-        await AppDataSource.manager.save(user);
+        await AppDataSource.manager.update(User, user._id, user);
         return true;
     }
 
@@ -109,7 +110,7 @@ export class UserTopicResolver {
         @Arg("topicId") topicId: string = ""
     ) {
         const user = await AppDataSource.manager.findOneBy(User, {
-            _id: new ObjectID(userId),
+            _id: new ObjectId(userId),
         });
         if (!user) {
             return false;
@@ -155,7 +156,7 @@ export class UserTopicResolver {
         @Arg("nota") nota: number
     ) {
         const user = await AppDataSource.manager.findOneBy(User, {
-            _id: new ObjectID(userId),
+            _id: new ObjectId(userId),
         });
         if (!user) {
             return false;
@@ -201,7 +202,7 @@ export class UserTopicResolver {
             (progress) => progress._id.toString() === progressId
         );
         user.progress[index4] = progress;
-        await AppDataSource.manager.save(user);
+        await AppDataSource.manager.update(User, user._id, user);
         return true;
     }
 }

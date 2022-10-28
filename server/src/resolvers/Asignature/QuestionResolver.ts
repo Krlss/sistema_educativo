@@ -2,8 +2,7 @@ import { Resolver, Query, Mutation, Arg } from "type-graphql";
 import { Asignature } from "../../entities/Asignature";
 import { Question } from "../../entities/Question";
 import { AppDataSource } from "../../config/typeorm";
-import { ObjectID } from "typeorm";
-
+const {ObjectId}  = require('mongodb');
 @Resolver()
 export class QuestionResolver {
   /* Crea una nueva pregunta */
@@ -17,7 +16,7 @@ export class QuestionResolver {
     @Arg("topicId") topicId: string
   ) {
     const asignature = await AppDataSource.manager.findOneBy(Asignature, {
-      _id: new ObjectID(asignatureId),
+      _id: new ObjectId(asignatureId),
     });
     if (!asignature) {
       return false;
@@ -31,6 +30,7 @@ export class QuestionResolver {
       return false;
     }
     const _question = new Question();
+    _question._id = topic.question.length + 1;
     _question.question = question;
     _question.answer = answer;
     _question.answerCorrect = answerCorrect;
@@ -43,8 +43,8 @@ export class QuestionResolver {
       (unit) => unit._id.toString() === unitId
     );
     asignature.unit[index2] = unit;
-    await AppDataSource.manager.save(asignature);
-    return _question._id.toString();
+    await AppDataSource.manager.update(Asignature, asignature._id, asignature);
+    return _question._id;
   }
 
   /* Elimina una pregunta */
@@ -56,7 +56,7 @@ export class QuestionResolver {
     @Arg("questionId") questionId: string
   ) {
     const asignature = await AppDataSource.manager.findOneBy(Asignature, {
-      _id: new ObjectID(asignatureId),
+      _id: new ObjectId(asignatureId),
     });
     if (!asignature) {
       return false;
@@ -86,7 +86,7 @@ export class QuestionResolver {
       (unit) => unit._id.toString() === unitId
     );
     asignature.unit[index2] = unit;
-    await AppDataSource.manager.save(asignature);
+    await AppDataSource.manager.update(Asignature, asignature._id, asignature);
     return true;
   }
 
@@ -99,7 +99,7 @@ export class QuestionResolver {
     @Arg("questionId") questionId: string
   ) {
     const asignature = await AppDataSource.manager.findOneBy(Asignature, {
-      _id: new ObjectID(asignatureId),
+      _id: new ObjectId(asignatureId),
     });
     if (!asignature) {
       return false;
@@ -129,7 +129,7 @@ export class QuestionResolver {
     @Arg("topicId") topicId: string
   ) {
     const asignature = await AppDataSource.manager.findOneBy(Asignature, {
-      _id: new ObjectID(asignatureId),
+      _id: new ObjectId(asignatureId),
     });
     if (!asignature) {
       return false;
@@ -157,7 +157,7 @@ export class QuestionResolver {
     @Arg("answer", type => [String]) answer: string[], 
   ) {
     const asignature = await AppDataSource.manager.findOneBy(Asignature, {
-      _id: new ObjectID(asignatureId),
+      _id: new ObjectId(asignatureId),
     });
     if (!asignature) {
       return false;
@@ -191,7 +191,7 @@ export class QuestionResolver {
       (unit) => unit._id.toString() === unitId
     );
     asignature.unit[index3] = unit;
-    await AppDataSource.manager.save(asignature);
+    await AppDataSource.manager.update(Asignature, asignature._id, asignature);
     return true;
   }
 }

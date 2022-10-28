@@ -1,6 +1,6 @@
 import {Resolver, Query, Mutation, Arg} from 'type-graphql';
+const {ObjectId}  = require('mongodb');
 import { AppDataSource } from '../../config/typeorm';
-import { ObjectID } from 'typeorm';
 import {Asignature} from '../../entities/Asignature';
 import {Unit} from '../../entities/Unit';
 
@@ -11,19 +11,21 @@ export class UnitResolver{
     async createUnit(
         @Arg("name") name: string,
         @Arg("asignatureId") asignatureId: string ){
+            
         const asignature = await AppDataSource.manager.findOneBy(Asignature, {
-            _id: new ObjectID(asignatureId)
+            _id: new ObjectId(asignatureId)
         })
         if (!asignature){
             return false;
         }
         const unit = new Unit();
+        unit._id = asignature.unit.length + 1;
         unit.name = name;
         unit.topic = [];
 
         asignature.unit.push(unit);
-        await AppDataSource.manager.save(asignature);
-        return unit._id.toString();
+        await AppDataSource.manager.update(Asignature, asignature._id, asignature);
+        return unit._id;
     }
 
     /* Elimina una unidad */
@@ -32,7 +34,7 @@ export class UnitResolver{
         @Arg("asignatureId") asignatureId: string,
         @Arg("unitId") unitId: string ){
         const asignature = await AppDataSource.manager.findOneBy(Asignature, {
-            _id: new ObjectID(asignatureId)
+            _id: new ObjectId(asignatureId)
         })
         if (!asignature){
             return false;
@@ -42,7 +44,7 @@ export class UnitResolver{
             return false;
         }
         asignature.unit = asignature.unit.filter((unit) => unit._id.toString() !== unitId);
-        await AppDataSource.manager.save(asignature);
+        await AppDataSource.manager.update(Asignature, asignature._id, asignature);
         return true;
     }
     
@@ -52,7 +54,7 @@ export class UnitResolver{
         @Arg("asignatureId") asignatureId: string,
         @Arg("unitId") unitId: string ){
         const asignature = await AppDataSource.manager.findOneBy(Asignature, {
-            _id: new ObjectID(asignatureId)
+            _id: new ObjectId(asignatureId)
         })
         if (!asignature){
             return false;
@@ -69,7 +71,7 @@ export class UnitResolver{
     async getUnits(
         @Arg("asignatureId") asignatureId: string ){
         const asignature = await AppDataSource.manager.findOneBy(Asignature, {
-            _id: new ObjectID(asignatureId)
+            _id: new ObjectId(asignatureId)
         })
         if (!asignature){
             return false;
@@ -84,7 +86,7 @@ export class UnitResolver{
         @Arg("unitId") unitId: string,
         @Arg("name") name: string ){
         const asignature = await AppDataSource.manager.findOneBy(Asignature, {
-            _id: new ObjectID(asignatureId)
+            _id: new ObjectId(asignatureId)
         })
         if (!asignature){
             return false;
@@ -96,7 +98,7 @@ export class UnitResolver{
         unit.name = name;
         const index = asignature.unit.findIndex((unit) => unit._id.toString() === unitId);
         asignature.unit[index] = unit;
-        await AppDataSource.manager.save(asignature);
+        await AppDataSource.manager.update(Asignature, asignature._id, asignature);
         return true;
     }
     

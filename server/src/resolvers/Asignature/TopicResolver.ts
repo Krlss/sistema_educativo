@@ -1,7 +1,7 @@
 import {Resolver, Query, Mutation, Arg} from 'type-graphql';
 import {Asignature} from '../../entities/Asignature';
 import { AppDataSource } from '../../config/typeorm';
-import { ObjectID } from 'typeorm';
+const {ObjectId}  = require('mongodb');
 import {Topic} from '../../entities/Topic';
 
 @Resolver()
@@ -13,7 +13,7 @@ export class TopicResolver{
         @Arg("asignatureId") asignatureId: string,
         @Arg("unitId") unitId: string ){
         const asignature = await AppDataSource.manager.findOneBy(Asignature, {
-            _id: new ObjectID(asignatureId)
+            _id: new ObjectId(asignatureId)
         })
         if (!asignature){
             return false;
@@ -23,13 +23,14 @@ export class TopicResolver{
             return false;
         }
         const topic = new Topic();
+        topic._id =unit.topic.length + 1; 
         topic.name = name;
         topic.question = [];
         unit.topic.push(topic);
         const index = asignature.unit.findIndex((unit) => unit._id.toString() === unitId);
         asignature.unit[index] = unit;
-        await AppDataSource.manager.save(asignature);
-        return topic._id.toString();
+        await AppDataSource.manager.update(Asignature, asignature._id, asignature);
+        return topic._id;
     }
 
     /* Elimina un tema */
@@ -39,7 +40,7 @@ export class TopicResolver{
         @Arg("unitId") unitId: string,
         @Arg("topicId") topicId: string ){
         const asignature = await AppDataSource.manager.findOneBy(Asignature, {
-            _id: new ObjectID(asignatureId)
+            _id: new ObjectId(asignatureId)
         })
         if (!asignature){
             return false;
@@ -55,7 +56,7 @@ export class TopicResolver{
         unit.topic = unit.topic.filter((topic) => topic._id.toString() !== topicId);
         const index = asignature.unit.findIndex((unit) => unit._id.toString() === unitId);
         asignature.unit[index] = unit;
-        await AppDataSource.manager.save(asignature);
+        await AppDataSource.manager.update(Asignature, asignature._id, asignature);
         return true;
     }
     
@@ -66,7 +67,7 @@ export class TopicResolver{
         @Arg("unitId") unitId: string,
         @Arg("topicId") topicId: string ){
         const asignature = await AppDataSource.manager.findOneBy(Asignature, {
-            _id: new ObjectID(asignatureId)
+            _id: new ObjectId(asignatureId)
         })
         if (!asignature){
             return false;
@@ -88,7 +89,7 @@ export class TopicResolver{
         @Arg("asignatureId") asignatureId: string,
         @Arg("unitId") unitId: string ){
         const asignature = await AppDataSource.manager.findOneBy(Asignature, {
-            _id: new ObjectID(asignatureId)
+            _id: new ObjectId(asignatureId)
         })
         if (!asignature){
             return false;
@@ -108,7 +109,7 @@ export class TopicResolver{
         @Arg("topicId") topicId: string,
         @Arg("name") name: string ){
         const asignature = await AppDataSource.manager.findOneBy(Asignature, {
-            _id: new ObjectID(asignatureId)
+            _id: new ObjectId(asignatureId)
         })
         if (!asignature){
             return false;
@@ -126,7 +127,7 @@ export class TopicResolver{
         unit.topic[index] = topic;
         const index2 = asignature.unit.findIndex((unit) => unit._id.toString() === unitId);
         asignature.unit[index2] = unit;
-        await AppDataSource.manager.save(asignature);
+        await AppDataSource.manager.update(Asignature, asignature._id, asignature);
         return true;
     }
 

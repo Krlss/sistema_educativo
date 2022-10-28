@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
 import { AppDataSource } from "../../config/typeorm";
-import { ObjectID } from 'typeorm';
+const {ObjectId}  = require('mongodb');
 
 import { User } from "../../entities/User";
 import { comparePassword, hashPassword } from "../../helpers/bcrypt";
@@ -18,25 +18,25 @@ export class UserResolver {
     @Arg("password") password: string,
     @Arg("rol", (type) => [String]) rol: string[]
   ) {
-    const user = new User();
-    user.name = name;
-    user.lastname = lastname;
-    user.mail = mail;
-    user.username = username;
-    user.password = hashPassword(password);
-    if (rol.length == 0) {
-      user.rol = ["Estudiante"];
-    }
-    user.progress = [];
-    await AppDataSource.manager.save(user);
-    return user._id.toString();
+      const user = new User();
+      user.name = name;
+      user.lastname = lastname;
+      user.mail = mail;
+      user.username = username;
+      user.password = hashPassword(password);
+      if (rol.length == 0) {
+        user.rol = ["Estudiante"];
+      }
+      user.progress = [];
+      await AppDataSource.manager.save(user);
+      return user._id.toString();
   }
 
   /* Elimina un usuario */
   @Mutation(() => Boolean)
   async DeleteUser(@Arg("userId") userId: string) {
     const user = await AppDataSource.manager.findOneBy(User, {
-      _id: new ObjectID(userId),
+      _id: new ObjectId(userId),
     });
     if (!user) {
       return false;
@@ -49,17 +49,11 @@ export class UserResolver {
   @Query(() => [User])
   async getUser(@Arg("userId") userId: string) {
     const user = await AppDataSource.manager.findOneBy(User, {
-      _id: new ObjectID(userId),
+      _id: new ObjectId(userId),
     });
     if (!user) {
       return false;
     }
-    /*  if (password == ""){
-            return user;
-        }
-        if (comparePassword(password, user.password)){
-            return user;
-        } */
     return false;
   }
 
@@ -73,13 +67,14 @@ export class UserResolver {
       username: username,
     });
     if (!user) {
-        return null;
+      return null;
     }
-    if (!comparePassword(password, user.password)){
-        return null;
+    if (!comparePassword(password, user.password)) {
+      return null;
     }
     return user;
   }
+  
   /* Consulta todos los usuarios */
   @Query(() => [User])
   async getUsers() {
@@ -99,7 +94,7 @@ export class UserResolver {
     @Arg("rol", (type) => [String]) rol: string[]
   ) {
     let user = await AppDataSource.manager.findOneBy(User, {
-      _id: new ObjectID(userId),
+      _id: new ObjectId(userId),
     });
     if (!user) {
       return false;
@@ -110,7 +105,7 @@ export class UserResolver {
     user.username = username;
     user.password = hashPassword(password);
     user.rol = [...new Set<string>(user.rol.concat(rol))];
-    await AppDataSource.manager.save(user);
+    await AppDataSource.manager.update(User, user._id, user);
     return true;
   }
 }

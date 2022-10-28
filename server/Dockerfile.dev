@@ -34,7 +34,7 @@ COPY package.json ./
 COPY package-lock.json ./
 COPY ./ ./
 RUN touch .env
-
+#RUN systemctl start mongodb
 RUN npm install
 
 

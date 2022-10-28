@@ -1,5 +1,5 @@
 # Specify a base image
-FROM node:10-stretch-slim AS debian
+FROM node:16.15.1-stretch-slim AS debian
 
 # Install our basic requirements
 RUN apt-get update && \

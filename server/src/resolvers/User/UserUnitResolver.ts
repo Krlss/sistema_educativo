@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
 import { AppDataSource } from "../../config/typeorm";
-import { ObjectID } from "typeorm";
+const {ObjectId}  = require('mongodb');
 import { UserUnit } from "../../entities/UserUnit";
 import { User } from "../../entities/User";
 
@@ -16,7 +16,7 @@ export class UserUnitResolver {
         @Arg("unitId") unitId: string
     ) {
         const user = await AppDataSource.manager.findOneBy(User, {
-            _id: new ObjectID(userId),
+            _id: new ObjectId(userId),
         });
         if (!user) {
             return false;
@@ -34,13 +34,14 @@ export class UserUnitResolver {
             return false;
         }
         const unit = new UserUnit();
+        unit._id = asignature.unit.length + 1;
         unit.id_unit = parseInt(unitId);
         unit.nota = 0;
         unit.topic = [];
         asignature.unit.push(unit);
         progress.asignature.push(asignature);
         user.progress.push(progress);
-        await AppDataSource.manager.save(user);
+        await AppDataSource.manager.update(User, user._id, user);
         return unit._id.toString();
     }
     /* Eliminar unidades de una asignatura en el progreso del usuario */
@@ -52,7 +53,7 @@ export class UserUnitResolver {
         @Arg("unitId") unitId: string
     ) {
         const user = await AppDataSource.manager.findOneBy(User, {
-            _id: new ObjectID(userId),
+            _id: new ObjectId(userId),
         });
         if (!user) {
             return false;
@@ -79,7 +80,7 @@ export class UserUnitResolver {
         asignature.unit.splice(index, 1);
         progress.asignature.push(asignature);
         user.progress.push(progress);
-        await AppDataSource.manager.save(user);
+        await AppDataSource.manager.update(User, user._id, user);
         return true;
     }
 
@@ -92,7 +93,7 @@ export class UserUnitResolver {
         @Arg("unitId") unitId: string = ""
     ) {
         const user = await AppDataSource.manager.findOneBy(User, {
-            _id: new ObjectID(userId),
+            _id: new ObjectId(userId),
         });
         if (!user) {
             return false;
@@ -131,7 +132,7 @@ export class UserUnitResolver {
         @Arg("nota") nota: number
     ) {
         const user = await AppDataSource.manager.findOneBy(User, {
-            _id: new ObjectID(userId),
+            _id: new ObjectId(userId),
         });
         if (!user) {
             return false;
@@ -161,7 +162,7 @@ export class UserUnitResolver {
         progress.asignature[index2] = asignature;
         const index3 = user.progress.indexOf(progress);
         user.progress[index3] = progress;
-        await AppDataSource.manager.save(user);
+        await AppDataSource.manager.update(User, user._id, user);
         return true;
     }
 

@@ -1,7 +1,7 @@
 import {Resolver, Query, Mutation, Arg} from 'type-graphql';
 import {Asignature} from '../../entities/Asignature';
 import { AppDataSource } from '../../config/typeorm';
-import { ObjectID } from 'typeorm';
+const {ObjectId}  = require('mongodb');
 @Resolver()
 export class AsignatureResolver{
    
@@ -29,7 +29,7 @@ export class AsignatureResolver{
     async getAsignature(
         @Arg("id") id: string ){
         const asignature = await AppDataSource.manager.findOneBy(Asignature, {
-            _id: new ObjectID(id)
+            _id: new ObjectId(id)
         })
         console.log(asignature);
         return asignature;
@@ -49,13 +49,13 @@ export class AsignatureResolver{
         @Arg("name") name: string
         ){
         let asignature = await AppDataSource.manager.findOneBy(Asignature, {
-            _id: new ObjectID(id)
+            _id: new ObjectId(id)
         })
         if (!asignature){
             return false;
         }
         asignature.name = name;
-        await AppDataSource.manager.save(asignature);
+        await AppDataSource.manager.update(Asignature, asignature._id, asignature);
         return true;
     }
 

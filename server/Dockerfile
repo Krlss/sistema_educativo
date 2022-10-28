@@ -36,4 +36,4 @@ RUN npm ci --only=production
 
 # Default command
 EXPOSE 8000
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]

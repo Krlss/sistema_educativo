@@ -3,7 +3,7 @@ services:
   mongodb:
     image: mongo:latest
     ports:
-      - 27017:27017
+      - 27018:27017
     restart: unless-stopped
     container_name: mongodb
     volumes:
@@ -11,8 +11,9 @@ services:
       - mongodb_data_container:/data/db
     environment: 
       - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=
-      - MONGO_INITDB_DATABASE=sistema_educativo
+      - MONGO_INITDB_ROOT_PASSWORD=root_password
+      - MONGO_INITDB_DATABASE=admin
+    
   web-app:
     depends_on: 
       - api
@@ -38,7 +39,12 @@ services:
     volumes:
       - /app/fullstack-apollo-express-mongodb-boilerplate/node_modules # Inside the container, don't try to override this folder, just leave as is
     environment:
-      - DATABASE_URL=mongodb://mongo:db_password@mongodb:27017/mydatabase
+      - DATABASE_URL=mongodb://root:root_password@mongodb:27018/sistema_educativo
+      - DB_USER=root
+      - DB_PASSWORD=root_password
+      - DB_DATABASE=sistema_educativo
+      - DB_HOST=mongodb
+      - DB_PORT=27018
       - SECRET=asdlplplfwfwefwekwself.2342.dawasdq
 volumes: 
   mongodb_data_container:
