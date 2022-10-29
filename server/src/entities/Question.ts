@@ -7,12 +7,17 @@ export class Question{
     @PrimaryColumn()
     _id!: number
 
-    @Field(() => [Object])
-    answer!: Object[];
+    @Field(() => [String])
+    answer!: string[];
 
     @Field()
     @Column('string')
     question!: string;
+
+    @Field()
+    @Column('string')
+    type!: string;
+
 
     @Field(()=>Int)
     @Column('int')
