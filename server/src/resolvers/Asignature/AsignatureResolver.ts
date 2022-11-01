@@ -6,9 +6,13 @@ const { ObjectId } = require("mongodb");
 export class AsignatureResolver {
   /* Crea una nueva materia con un arreglo de unidades vacio */
   @Mutation(() => String)
-  async createAsignature(@Arg("name") name: string) {
+  async createAsignature(
+    @Arg("name") name: string,
+    @Arg("description") description: string
+  ) {
     const asignature = new Asignature();
     asignature.name = name;
+    asignature.description = description;
     asignature.unit = [];
     await AppDataSource.manager.save(asignature);
     return asignature._id.toString();

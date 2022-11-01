@@ -1,10 +1,9 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
 import { AppDataSource } from "../../config/typeorm";
-const {ObjectId}  = require('mongodb');
+const { ObjectId } = require("mongodb");
 
 import { User } from "../../entities/User";
 import { comparePassword, hashPassword } from "../../helpers/bcrypt";
-
 
 @Resolver()
 export class UserResolver {
@@ -18,18 +17,20 @@ export class UserResolver {
     @Arg("password") password: string,
     @Arg("rol", (type) => [String]) rol: string[]
   ) {
-      const user = new User();
-      user.name = name;
-      user.lastname = lastname;
-      user.mail = mail;
-      user.username = username;
-      user.password = hashPassword(password);
-      if (rol.length == 0) {
-        user.rol = ["Estudiante"];
-      }
-      user.progress = [];
-      await AppDataSource.manager.save(user);
-      return user._id.toString();
+    const user = new User();
+    user.name = name;
+    user.lastname = lastname;
+    user.mail = mail;
+    user.username = username;
+    user.password = hashPassword(password);
+    if (rol.length == 0) {
+      user.rol = ["Student"];
+    } else {
+      user.rol = rol;
+    }
+    user.progress = [];
+    await AppDataSource.manager.save(user);
+    return user._id.toString();
   }
 
   /* Elimina un usuario */
@@ -74,7 +75,7 @@ export class UserResolver {
     }
     return user;
   }
-  
+
   /* Consulta todos los usuarios */
   @Query(() => [User])
   async getUsers() {
