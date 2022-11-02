@@ -4,6 +4,7 @@ import { Question } from "./Question";
 
 @ObjectType()
 export class Topic {
+  @Field()
   @PrimaryColumn()
   _id!: number;
 
@@ -19,6 +20,7 @@ export class Topic {
   @Column("string")
   video!: string;
 
+  @Field(() => [Question])
   @Column((type) => Question)
   question!: Question[];
 }

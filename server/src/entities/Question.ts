@@ -1,30 +1,24 @@
-import { Field, Int, ObjectType} from 'type-graphql';
-import { Column, PrimaryColumn} from 'typeorm';
+import { Field, Int, ObjectType } from "type-graphql";
+import { Column, PrimaryColumn } from "typeorm";
 
 @ObjectType()
-export class Question{
+export class Question {
+  @Field()
+  @PrimaryColumn()
+  _id!: number;
 
-    @PrimaryColumn()
-    _id!: number
+  @Field(() => [String])
+  options!: string[];
 
-    @Field(() => [String])
-    answer!: string[];
+  @Field()
+  @Column("string")
+  title!: string;
 
-    @Field()
-    @Column('string')
-    question!: string;
+  @Field()
+  @Column("string")
+  type!: string;
 
-    @Field()
-    @Column('string')
-    type!: string;
-
-
-    @Field(()=>Int)
-    @Column('int')
-    answerCorrect!: number;
-
-    @Field()
-    @Column('string')
-    text!: string;
-
+  @Field()
+  @Column("string")
+  subtitle?: string;
 }

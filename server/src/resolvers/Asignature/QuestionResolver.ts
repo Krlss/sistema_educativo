@@ -2,15 +2,15 @@ import { Resolver, Query, Mutation, Arg } from "type-graphql";
 import { Asignature } from "../../entities/Asignature";
 import { Question } from "../../entities/Question";
 import { AppDataSource } from "../../config/typeorm";
-const {ObjectId}  = require('mongodb');
+const { ObjectId } = require("mongodb");
 @Resolver()
 export class QuestionResolver {
   /* Crea una nueva pregunta */
   @Mutation(() => String)
   async createQuestion(
-    @Arg("question") question: string,
-    @Arg("answer", type => [String]) answer: string[], 
-    @Arg("answerCorrect") answerCorrect: number,
+    @Arg("title") title: string,
+    @Arg("subtitle") subtitle: string,
+    @Arg("options", (type) => [String]) options: string[],
     @Arg("type") type: string,
     @Arg("asignatureId") asignatureId: string,
     @Arg("unitId") unitId: string,
@@ -32,10 +32,10 @@ export class QuestionResolver {
     }
     const _question = new Question();
     _question._id = topic.question.length + 1;
-    _question.question = question;
-    _question.answer = answer;
+    _question.subtitle = subtitle;
+    _question.title = title;
+    _question.options = options;
     _question.type = type;
-    _question.answerCorrect = answerCorrect;
     topic.question.push(_question);
     const index = unit.topic.findIndex(
       (topic) => topic._id.toString() === topicId
@@ -153,11 +153,11 @@ export class QuestionResolver {
     @Arg("asignatureId") asignatureId: string,
     @Arg("unitId") unitId: string,
     @Arg("topicId") topicId: string,
-    @Arg("answerCorrect") answerCorrect: number,
     @Arg("questionId") questionId: string,
-    @Arg("question") question: string,
+    @Arg("title") title: string,
+    @Arg("subtitle") subtitle: string,
     @Arg("type") type: string,
-    @Arg("answer", type => [String]) answer: string[], 
+    @Arg("options", (type) => [String]) options: string[]
   ) {
     const asignature = await AppDataSource.manager.findOneBy(Asignature, {
       _id: new ObjectId(asignatureId),
@@ -179,10 +179,9 @@ export class QuestionResolver {
     if (!_question) {
       return false;
     }
-    _question.question = question;
-    _question.answer = answer;
+    _question.subtitle = subtitle;
+    _question.options = options;
     _question.type = type;
-    _question.answerCorrect = answerCorrect;
     const index = topic.question.findIndex(
       (question) => question._id.toString() === questionId
     );

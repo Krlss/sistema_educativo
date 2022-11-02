@@ -18,7 +18,7 @@ export class Asignature {
   @Column("string")
   description!: string;
 
-  @Field((type) => [Unit])
+  @Field(() => [Unit])
   @Column((type) => Unit)
   unit!: Unit[];
 }
