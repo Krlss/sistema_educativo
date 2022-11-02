@@ -12,7 +12,7 @@ export class Unit {
   @Column("string")
   name!: string;
 
-  @Field((type) => [Topic])
-  @Column((type) => Topic)
+  @Field(() => [Topic])
+  @Column(() => Topic)
   topic!: Topic[];
 }

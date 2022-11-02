@@ -1,14 +1,15 @@
 import "reflect-metadata";
 import { Entity, Column, PrimaryColumn } from "typeorm";
-import { Field,  ObjectType } from "type-graphql";
+import { Field, ObjectType } from "type-graphql";
 import { UserTopic } from "./UserTopic";
 
 @ObjectType()
 export class UserUnit {
+  @Field()
   @PrimaryColumn()
   _id!: number;
 
-  @Column(type=>UserTopic)
+  @Column((type) => UserTopic)
   topic!: UserTopic[];
 
   @Field()
@@ -16,6 +17,6 @@ export class UserUnit {
   nota!: number;
 
   @Field()
-  @Column('int')
+  @Column("int")
   id_unit!: number;
 }

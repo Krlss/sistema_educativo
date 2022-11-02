@@ -35,6 +35,6 @@ export class User {
   @Column([String])
   rol!: Array<string>;
 
-  @Column((type) => UserProgress)
+  @Column(() => UserProgress)
   progress!: UserProgress[];
 }
