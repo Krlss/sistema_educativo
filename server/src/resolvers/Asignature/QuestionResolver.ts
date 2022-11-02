@@ -131,20 +131,21 @@ export class QuestionResolver {
     @Arg("topicId") topicId: string
   ) {
     const asignature = await AppDataSource.manager.findOneBy(Asignature, {
-      _id: asignatureId,
+      _id: new ObjectId(asignatureId),
     });
     if (!asignature) {
-      return false;
+      return [];
     }
     const unit = asignature.unit.find((unit) => unit._id.toString() === unitId);
     if (!unit) {
-      return false;
+      return [];
     }
     const topic = unit.topic.find((topic) => topic._id.toString() === topicId);
     if (!topic) {
-      return false;
+      return [];
     }
-    return topic;
+
+    return topic.question;
   }
 
   /* Actualiza una pregunta */
