@@ -10,7 +10,7 @@ export class QuestionResolver {
   async createQuestion(
     @Arg("title") title: string,
     @Arg("subtitle") subtitle: string,
-    @Arg("options", (type) => Array<{}>) options: Array<{}>,
+    @Arg("options") options: string,
     @Arg("type") type: string,
     @Arg("asignatureId") asignatureId: string,
     @Arg("unitId") unitId: string,
@@ -157,7 +157,7 @@ export class QuestionResolver {
     @Arg("title") title: string,
     @Arg("subtitle") subtitle: string,
     @Arg("type") type: string,
-    @Arg("options", (type) => Array<{}>) options: Array<{}>
+    @Arg("options") options: string
   ) {
     const asignature = await AppDataSource.manager.findOneBy(Asignature, {
       _id: new ObjectId(asignatureId),

@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType } from "type-graphql";
-import { Column, PrimaryColumn } from "typeorm";
+import { Any, Column, PrimaryColumn } from "typeorm";
 
 @ObjectType()
 export class Question {
@@ -7,8 +7,9 @@ export class Question {
   @PrimaryColumn()
   _id!: number;
 
-  @Field(() => Array<{}>)
-  options!: Array<{}>;
+  @Field()
+  @Column("string")
+  options!: string;
 
   @Field()
   @Column("string")
