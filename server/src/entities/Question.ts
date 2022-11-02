@@ -7,8 +7,8 @@ export class Question {
   @PrimaryColumn()
   _id!: number;
 
-  @Field(() => [String])
-  options!: string[];
+  @Field(() => Array<{}>)
+  options!: Array<{}>;
 
   @Field()
   @Column("string")
