@@ -93,7 +93,7 @@ export class QuestionResolver {
   }
 
   /* Consulta una pregunta por medio del _id */
-  @Query(() => [Question])
+  @Query(() => Question)
   async getQuestion(
     @Arg("asignatureId") asignatureId: string,
     @Arg("unitId") unitId: string,
@@ -131,7 +131,7 @@ export class QuestionResolver {
     @Arg("topicId") topicId: string
   ) {
     const asignature = await AppDataSource.manager.findOneBy(Asignature, {
-      _id: new ObjectId(asignatureId),
+      _id: asignatureId,
     });
     if (!asignature) {
       return false;
@@ -144,7 +144,7 @@ export class QuestionResolver {
     if (!topic) {
       return false;
     }
-    return topic.question;
+    return topic;
   }
 
   /* Actualiza una pregunta */
