@@ -78,7 +78,7 @@ export const objectCartesianPoints = [
 export const selectPointsCoordinatePlane = {
   title:
     '13. Observo la tabla y el sistema de coordenadas. Luego, señalo dando clic qué pares ordenados no corresponden a los puntos del plano.',
-  response: true,
+  response: false,
   points: [
     { x: 1, y: 1, value: false },
     { x: -8, y: 2, value: true },
@@ -94,7 +94,7 @@ export const dataCartesianPlaneImagesTrueOrFalse = {
     'Leo la información y analizo en la tabla el par ordenado que le corresponde a cada estudiante. Luego, verifico si los materiales que los estudiantes reciclaron están ubicados correctamente en el sistema de coordenadas.',
   subtitle:
     'Con el fin de reducir la contaminación ambiental, 4 estudiantes de quinto año reciclaron diferentes deshechos.',
-  response: false,
+  response: true,
   points: [
     {
       x: 3,

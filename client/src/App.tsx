@@ -39,6 +39,9 @@ import { dataFigures } from './constants/TrueOrFalse'
 import PositionalTable from './components/exercise/PositionalTable'
 import { dataPositionalTable } from './constants/PositionalTable'
 import { dataSelectPlaceTableOption } from './constants/SelectPlaceTableOption'
+import WritePointsCartesianPlane from './components/exercise/WritePointsCartesianPlane'
+import ChooseAnOptionNumToText from './components/exercise/chooseAnOptionNumToText'
+import WriteNumberPositional from './components/exercise/WriteNumberPositional'
 
 const App = () => {
   return (
@@ -84,7 +87,7 @@ const App = () => {
 
           <Route
             path="/plano-cartesiano"
-            element={<CartesianCoordinateFull pointNumbers={4} />}
+            element={<CartesianCoordinateFull pointNumbers={8} />}
           />
           <Route
             path="/verdadero-o-falso-plano-cartesiano"
@@ -99,7 +102,7 @@ const App = () => {
             element={
               <CartesianCoordinateQuadrants
                 pointNumbers={5}
-                typeCartesian="IV"
+                typeCartesian="III"
               />
             }
           />
@@ -112,6 +115,16 @@ const App = () => {
               />
             }
           />
+          <Route
+            path="/escribe-puntos-plano-cartesiano"
+            element={
+              <WritePointsCartesianPlane points={objectCartesianPoints} />
+            }
+          />
+          <Route
+            path="/escoge-una-opcion-numero-a-texto"
+            element={<ChooseAnOptionNumToText />}
+          />
           <Route path="/verdadero-o-falso" element={<TrueOrFalse />} />
           <Route path="/elegir-una-opcion" element={<ChooseAnOption />} />
           <Route path="/ordenar-digitos" element={<OrderOneDigitNumbers />} />
@@ -122,6 +135,10 @@ const App = () => {
           <Route
             path="/escribir-el-valor-de-un-texto"
             element={<WriteValueFromText />}
+          />
+          <Route
+            path="/escribe-el-numero-posicional"
+            element={<WriteNumberPositional />}
           />
 
           <Route

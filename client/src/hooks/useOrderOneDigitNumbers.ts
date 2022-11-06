@@ -1,10 +1,10 @@
-import { shuffleArray, CreateArrayFromText, AddKeyToArrayItems } from '../utils'
+import { shuffleArray, AddKeyToArrayItems } from '../utils'
 import { useState } from 'react'
 import { DropResult } from 'react-beautiful-dnd'
 
-const useOrderOneDigitNumbers = (data: string) => {
+const useOrderOneDigitNumbers = (data: string[]) => {
   const [opciones, setOpciones] = useState(
-    AddKeyToArrayItems(shuffleArray(CreateArrayFromText(data)))
+    AddKeyToArrayItems(shuffleArray(data))
   )
 
   const onDragEnd = (result: DropResult) => {

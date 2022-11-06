@@ -7,40 +7,50 @@ const data = {
     {
       key: 'A',
       options: [
-        { text: 'La cifra de las centenas es 1' },
-        { text: 'Soy el mayor de todos' },
-        { text: 'Soy el resultado de multiplicar 59140 x 6' },
-        { text: 'Mi cifra de las unidades y centenas de millar es 6' },
-        { text: 'La suma de las unidades y las centenas es 4' }
-      ]
-    },
-    {
-      key: 'B',
-      options: [
         { text: '696321' },
         { text: '354840' },
         { text: '632152' },
         { text: '693006' },
         { text: '853210' }
       ]
+    },
+    {
+      key: 'B',
+      options: [
+        {
+          text: 'La cifra de las centenas es 1'
+        },
+        {
+          text: 'Soy el mayor de todos'
+        },
+        {
+          text: 'Soy el resultado de multiplicar 59140 x 6'
+        },
+        {
+          text: 'Mi cifra de las unidades y centenas de millar es 6'
+        },
+        {
+          text: 'La suma de las unidades y las centenas es 4'
+        }
+      ]
     }
   ],
   options: [
     {
+      isCorrect: false,
+      value: 'A2 - B1, A3 - B2, A4 - B3, A5 - B4, A1 - B5'
+    },
+    {
+      isCorrect: false,
+      value: 'A1 - B1, A2 - B2, A3 - B3, A4 - B4, A5 - B5'
+    },
+    {
       isCorrect: true,
-      value: 'A1 - B3, A2 - B5, A3 - B2, A4 - B4, A5 - B1'
+      value: 'A1 - B5, A2 - B3, A3 - B1, A4 - B4, A5 - B2'
     },
     {
       isCorrect: false,
-      value: 'A5 - B3, A3 - B2, A3 - B1, A4 - B4, A5 - B2'
-    },
-    {
-      isCorrect: false,
-      value: 'A5 - B2, A3 - B2, A3 - B1, A4 - B4, A5 - B2'
-    },
-    {
-      isCorrect: false,
-      value: 'A5 - B4, A3 - B2, A3 - B1, A4 - B4, A5 - B2'
+      value: 'A1 - B5, A2 - B4, A3 - B3, A4 - B2, A5 - B1'
     }
   ]
 }

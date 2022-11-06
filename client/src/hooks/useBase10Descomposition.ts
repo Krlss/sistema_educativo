@@ -12,7 +12,7 @@ const useBase10Descomposition = (number: number) => {
     setValue(newValue)
   }
 
-  return { value, handleChange }
+  return { value, handleChange, setValue }
 }
 
 export default useBase10Descomposition

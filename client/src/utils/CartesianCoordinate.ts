@@ -207,7 +207,7 @@ export const changePoints = ({
   points.forEach(point => {
     const { value, x, y, url } = point
 
-    if (response !== value) {
+    if (!value) {
       let newX = x
       let newY = y
       let selected = true
@@ -250,4 +250,40 @@ export const changePoints = ({
   })
 
   return newPoints
+}
+
+export const getQuadrant = (
+  Array: { x: number; y: number; [key: string]: any }[]
+) => {
+  const quadrant = Array.reduce(
+    (acc, curr) => {
+      const { x, y } = curr
+      if (x >= 0 && y > 0) {
+        acc[0]++
+      } else if (x <= 0 && y > 0) {
+        acc[1]++
+      } else if (x <= 0 && y < 0) {
+        acc[2]++
+      } else if (x >= 0 && y < 0) {
+        acc[3]++
+      }
+      return acc
+    },
+    [0, 0, 0, 0]
+  )
+  let cont = 0
+  quadrant.forEach(e => {
+    if (e > 0) {
+      cont++
+    }
+  })
+  if (cont >= 2) {
+    return 0
+  } else {
+    return (
+      quadrant.findIndex(
+        e => e === Math.max(quadrant[0], quadrant[1], quadrant[2], quadrant[3])
+      ) + 1
+    )
+  }
 }

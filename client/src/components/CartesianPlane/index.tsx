@@ -113,11 +113,10 @@ const DrawPoints = ({ points }: { points?: { x: number; y: number }[] }) => {
               cx="0"
               cy="0"
               r="5"
-              fill="black"
-              stroke="black"
+              fill="rgba(204, 37, 37, 0.6 )"
               strokeWidth="1"
             />
-            <text x="10" y="0" textAnchor="start" fontSize="11" fill="black">
+            <text x="4" y="-3" textAnchor="start" fontSize="11" fill="black">
               {namePoints[i]}
             </text>
           </g>

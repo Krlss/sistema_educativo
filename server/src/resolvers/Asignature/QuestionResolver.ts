@@ -9,7 +9,7 @@ export class QuestionResolver {
   @Mutation(() => String)
   async createQuestion(
     @Arg("title") title: string,
-    @Arg("subtitle") subtitle: string,
+    @Arg("subtitle", { nullable: true }) subtitle: string,
     @Arg("options") options: string,
     @Arg("type") type: string,
     @Arg("asignatureId") asignatureId: string,

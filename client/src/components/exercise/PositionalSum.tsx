@@ -4,7 +4,7 @@ import QuestionTitle from '../title/questionTitle'
 
 const data = {
   title: 'Realizar la siguiente suma de valores posicionales',
-  value: [900, 90000, 6, 7000, 70]
+  value: [60000, 60, 3, 0, 0]
 }
 
 const PositionalSum = () => {

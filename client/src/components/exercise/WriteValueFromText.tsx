@@ -3,19 +3,19 @@ import React, { useState } from 'react'
 import QuestionTitle from '../title/questionTitle'
 
 const data_ = {
-  title: '¿Cómo se leen los siguientes números?:',
+  title: 'Escribe con cifras:',
   options: [
     {
-      text: '415874',
-      value: 'cuatrocientos quince mil ochocientos setenta y cuatro'
+      text: 'Doscientos cincuenta  y cinco mil seiscientos',
+      value: '255600'
     },
     {
-      text: '924568',
-      value: 'novecientos veinticuatro mil quinientos sesenta y ocho'
+      text: 'Ciento veinticuatro mil quinientos treinta y nueve',
+      value: '124539'
     },
     {
-      text: '115987',
-      value: 'ciento quince mil novecientos ochenta y siete'
+      text: 'Cuatrocientos cuarenta y siete mil nueve',
+      value: '447009'
     }
   ]
 }

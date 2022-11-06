@@ -30,3 +30,16 @@ export const table = [
   'DMMM',
   'CMMM'
 ]
+
+export const NamePositional = [
+  'U',
+  'D',
+  'C',
+  'UM',
+  'UMi',
+  'DMi',
+  'CMi',
+  'UMMi',
+  'UMiMi',
+  'DMiMi'
+]

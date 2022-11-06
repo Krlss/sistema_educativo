@@ -8,7 +8,7 @@ import useOrderOneDigitNumbers from '../../hooks/useOrderOneDigitNumbers'
 const data = {
   pregunta:
     'Ordena los dígitos 4, 9, 8 y 6 para formar el número más pequeño posible.',
-  respuesta: '468924512'
+  respuesta: ['4', '6', '8', '9', '2', '4', '5', '1', '2']
 }
 
 const OrderOneDigitNumbers = () => {
