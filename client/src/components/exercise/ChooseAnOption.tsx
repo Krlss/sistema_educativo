@@ -17,7 +17,8 @@ const data = {
       title: 'Forma estándar',
       data: ['1547', '586', '3257']
     }
-  ]
+  ],
+  url_description: 'https://cdn-icons-png.flaticon.com/512/4718/4718657.png'
 } as {
   id: number
   pregunta: string
@@ -25,10 +26,11 @@ const data = {
     opcion: boolean
     texto: string
   }[]
-  columns: {
+  columns?: {
     title: string
     data: string[]
   }[]
+  url_description?: string
 }
 
 const ChooseAnOption = () => {
@@ -53,6 +55,11 @@ const ChooseAnOption = () => {
                   ))}
                 </div>
               ))}
+            </div>
+          )}
+          {data?.url_description && (
+            <div className="flex flex-col items-center justify-center">
+              <img src={data.url_description} alt="description" width={150} />
             </div>
           )}
           <form>
