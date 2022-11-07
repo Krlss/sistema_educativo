@@ -183,6 +183,7 @@ export class QuestionResolver {
     _question.subtitle = subtitle;
     _question.options = options;
     _question.type = type;
+    _question.title = title;
     const index = topic.question.findIndex(
       (question) => question._id.toString() === questionId
     );

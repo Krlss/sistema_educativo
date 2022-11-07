@@ -12,9 +12,9 @@ export class Topic {
   @Column("string")
   name!: string;
 
-  @Field()
-  @Column("string")
-  description!: string;
+  @Field({ nullable: true })
+  @Column("string", { nullable: true })
+  description?: string;
 
   @Field()
   @Column("string")

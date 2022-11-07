@@ -10,7 +10,7 @@ export class TopicResolver {
   @Mutation(() => String)
   async createTopic(
     @Arg("name") name: string,
-    @Arg("desciption") desciption: string,
+    @Arg("description", { nullable: true }) description: string,
     @Arg("video") video: string,
     @Arg("asignatureId") asignatureId: string,
     @Arg("unitId") unitId: string
@@ -28,6 +28,7 @@ export class TopicResolver {
     const topic = new Topic();
     topic._id = unit.topic.length + 1;
     topic.name = name;
+    topic.description = description ?? null;
     topic.question = [];
     unit.topic.push(topic);
     const index = asignature.unit.findIndex(
@@ -69,7 +70,7 @@ export class TopicResolver {
   }
 
   /* Consulta un tema por medio del _id */
-  @Query(() => [Topic])
+  @Query(() => Topic)
   async getTopic(
     @Arg("asignatureId") asignatureId: string,
     @Arg("unitId") unitId: string,
@@ -111,13 +112,14 @@ export class TopicResolver {
     return unit.topic;
   }
 
-  /* Actualiza el nombre de un tema */
+  /* Actualiza un tema */
   @Mutation(() => Boolean)
-  async updateTopicName(
+  async updateTopic(
     @Arg("asignatureId") asignatureId: string,
     @Arg("unitId") unitId: string,
     @Arg("topicId") topicId: string,
-    @Arg("name") name: string
+    @Arg("name", { nullable: true }) name: string,
+    @Arg("description", { nullable: true }) description: string
   ) {
     const asignature = await AppDataSource.manager.findOneBy(Asignature, {
       _id: new ObjectId(asignatureId),
@@ -133,7 +135,12 @@ export class TopicResolver {
     if (!topic) {
       return false;
     }
-    topic.name = name;
+    if (name) {
+      topic.name = name;
+    }
+    if (description) {
+      topic.description = description;
+    }
     const index = unit.topic.findIndex(
       (topic) => topic._id.toString() === topicId
     );
