@@ -155,10 +155,10 @@ export class QuestionResolver {
     @Arg("unitId") unitId: string,
     @Arg("topicId") topicId: string,
     @Arg("questionId") questionId: string,
-    @Arg("title") title: string,
+    @Arg("title", { nullable: true }) title: string,
     @Arg("subtitle", { nullable: true }) subtitle: string,
-    @Arg("type") type: string,
-    @Arg("options") options: string
+    @Arg("type", { nullable: true }) type: string,
+    @Arg("options", { nullable: true }) options: string
   ) {
     const asignature = await AppDataSource.manager.findOneBy(Asignature, {
       _id: new ObjectId(asignatureId),
@@ -180,10 +180,18 @@ export class QuestionResolver {
     if (!_question) {
       return false;
     }
-    _question.subtitle = subtitle;
-    _question.options = options;
-    _question.type = type;
-    _question.title = title;
+    if (subtitle) {
+      _question.subtitle = subtitle;
+    }
+    if (options) {
+      _question.options = options;
+    }
+    if (type) {
+      _question.type = type;
+    }
+    if (title) {
+      _question.title = title;
+    }
     const index = topic.question.findIndex(
       (question) => question._id.toString() === questionId
     );
