@@ -19,7 +19,7 @@ export class Question {
   @Column("string")
   type!: string;
 
-  @Field()
-  @Column("string")
+  @Field({ nullable: true })
+  @Column("string", { nullable: true })
   subtitle?: string;
 }
