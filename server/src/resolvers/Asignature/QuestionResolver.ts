@@ -156,7 +156,7 @@ export class QuestionResolver {
     @Arg("topicId") topicId: string,
     @Arg("questionId") questionId: string,
     @Arg("title") title: string,
-    @Arg("subtitle") subtitle: string,
+    @Arg("subtitle", { nullable: true }) subtitle: string,
     @Arg("type") type: string,
     @Arg("options") options: string
   ) {
@@ -197,5 +197,34 @@ export class QuestionResolver {
     asignature.unit[index3] = unit;
     await AppDataSource.manager.update(Asignature, asignature._id, asignature);
     return true;
+  }
+
+  /* Consulta 10 preguntas de un tema */
+  @Query(() => [Question])
+  async getRandomQuestions(
+    @Arg("asignatureId") asignatureId: string,
+    @Arg("unitId") unitId: string,
+    @Arg("topicId") topicId: string
+  ) {
+    const asignature = await AppDataSource.manager.findOneBy(Asignature, {
+      _id: new ObjectId(asignatureId),
+    });
+    if (!asignature) {
+      return [];
+    }
+    const unit = asignature.unit.find((unit) => unit._id.toString() === unitId);
+    if (!unit) {
+      return [];
+    }
+    const topic = unit.topic.find((topic) => topic._id.toString() === topicId);
+    if (!topic) {
+      return [];
+    }
+
+    const questions = topic.question
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 10);
+
+    return questions;
   }
 }
