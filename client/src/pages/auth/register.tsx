@@ -6,8 +6,10 @@ import Authbutton from '../../components/buttons/auth'
 
 import { useFormik } from 'formik'
 import { registerValidationSchema } from '../../schemas'
+import { useRegister } from '../../service/user/custom-hook'
 
 const Register = () => {
+  const { registerHandler } = useRegister()
   const formik = useFormik({
     initialValues: {
       firstname: '',
@@ -18,7 +20,7 @@ const Register = () => {
     },
     validationSchema: registerValidationSchema,
     onSubmit: values => {
-      console.log(values)
+      registerHandler({ ...values })
     }
   })
 
