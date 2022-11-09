@@ -7,16 +7,19 @@ import { ImagesSliders } from '../../constants/images'
 import { useFormik } from 'formik'
 import { loginValidationSchema } from '../../schemas'
 
+import { useLogin } from '../../service/user/custom-hook'
+
 const Login = () => {
+  const { loginHandler } = useLogin()
   const formik = useFormik({
     initialValues: {
-      email: '',
+      username: '',
       password: '',
       rememberMe: false
     },
     validationSchema: loginValidationSchema,
     onSubmit: values => {
-      console.log(values)
+      loginHandler({ ...values })
     }
   })
 
@@ -32,13 +35,13 @@ const Login = () => {
         </div>
         <form onSubmit={formik.handleSubmit}>
           <Input
-            name="email"
-            label="Correo electrónico"
-            placeholder="ejemplo@ejemplo.com"
-            type="email"
+            name="username"
+            label="Usuario"
+            placeholder="miusuario"
+            type="text"
             autoFocus
             onChange={formik.handleChange}
-            error={formik.errors.email}
+            error={formik.errors.username}
           />
 
           <Input

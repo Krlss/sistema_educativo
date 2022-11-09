@@ -10,7 +10,7 @@ import {
 } from './validations'
 
 export const loginValidationSchema = object().shape({
-  email,
+  username,
   password
 })
 
