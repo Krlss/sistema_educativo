@@ -22,7 +22,7 @@ export class UserResolver {
     @Arg("mail") mail: string,
     @Arg("username") username: string,
     @Arg("password") password: string,
-    @Arg("rol", () => [String]) rol: Array<String>
+    @Arg("rol", () => [String], { nullable: true }) rol: Array<String>
   ) {
     try {
       if (!name || !lastname || !mail || !username || !password) {
@@ -47,7 +47,7 @@ export class UserResolver {
       user.mail = _mail;
       user.username = username;
       user.password = hashPassword(password);
-      if (rol.length == 0) {
+      if (!rol || rol.length == 0) {
         user.rol = ["Student"];
       } else {
         user.rol = rol;
@@ -99,14 +99,22 @@ export class UserResolver {
   /* Consultar login de usuario */
   @Query(() => User)
   async login(
-    @Arg("username") username: string,
-    @Arg("password") password: string,
-    @Ctx() { req, res }: Context
+    @Arg("username", { nullable: true }) username: string,
+    @Arg("mail", { nullable: true }) mail: string,
+    @Arg("password") password: string
   ) {
     try {
-      const user = await AppDataSource.manager.findOneBy(User, {
-        username: username,
-      });
+      let user = null;
+      if (username) {
+        user = await AppDataSource.manager.findOneBy(User, {
+          username: username,
+        });
+      }
+      if (mail) {
+        user = await AppDataSource.manager.findOneBy(User, {
+          mail: mail.toLowerCase(),
+        });
+      }
       if (!user) {
         throw new Error("El usuario no existe");
       }
@@ -122,14 +130,7 @@ export class UserResolver {
         mail: user.mail,
       };
 
-      const token = signJwt(data);
-      res.cookie("accessToken", token, {
-        httpOnly: true,
-        secure: true,
-        maxAge: 3.154e10,
-        sameSite: "none",
-      });
-      return user;
+      return data;
     } catch (e: any) {
       console.log(e);
       return e;
@@ -147,12 +148,12 @@ export class UserResolver {
   @Mutation(() => String)
   async updateUser(
     @Arg("userId") userId: string,
-    @Arg("name") name: string,
-    @Arg("lastname") lastname: string,
-    @Arg("mail") mail: string,
-    @Arg("username") username: string,
-    @Arg("password") password: string,
-    @Arg("rol", () => [String]) rol: Array<String>
+    @Arg("name", { nullable: true }) name: string,
+    @Arg("lastname", { nullable: true }) lastname: string,
+    @Arg("mail", { nullable: true }) mail: string,
+    @Arg("username", { nullable: true }) username: string,
+    @Arg("password", { nullable: true }) password: string,
+    @Arg("rol", () => [String], { nullable: true }) rol: Array<String>
   ) {
     try {
       let user = await AppDataSource.manager.findOneBy(User, {
