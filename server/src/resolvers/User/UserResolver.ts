@@ -1,9 +1,16 @@
-import { Resolver, Query, Mutation, Arg } from "type-graphql";
+import { Request, Response } from "express";
+import { Resolver, Query, Mutation, Arg, Ctx } from "type-graphql";
 import { AppDataSource } from "../../config/typeorm";
 const { ObjectId } = require("mongodb");
 
-import { User } from "../../entities/User";
+import { User, UserRol, Roles } from "../../entities/User";
 import { comparePassword, hashPassword } from "../../helpers/bcrypt";
+import { signJwt } from "../../utils/jwt";
+
+interface Context {
+  req: Request;
+  res: Response;
+}
 
 @Resolver()
 export class UserResolver {
@@ -15,65 +22,118 @@ export class UserResolver {
     @Arg("mail") mail: string,
     @Arg("username") username: string,
     @Arg("password") password: string,
-    @Arg("rol", (type) => [String]) rol: string[]
+    @Arg("rol", () => [String]) rol: Array<String>
   ) {
-    const user = new User();
-    user.name = name;
-    user.lastname = lastname;
-    user.mail = mail;
-    user.username = username;
-    user.password = hashPassword(password);
-    if (rol.length == 0) {
-      user.rol = ["Student"];
-    } else {
-      user.rol = rol;
+    try {
+      if (!name || !lastname || !mail || !username || !password) {
+        throw new Error("No puede ingresar datos vacíos");
+      }
+      const _mail = mail.toLowerCase();
+      const mailexist = await AppDataSource.manager.findOneBy(User, {
+        mail: _mail,
+      });
+      if (mailexist) {
+        throw new Error("El correo ya existe");
+      }
+      const userexist = await AppDataSource.manager.findOneBy(User, {
+        username,
+      });
+      if (userexist) {
+        throw new Error("El usuario ya existe");
+      }
+      const user = new User();
+      user.name = name;
+      user.lastname = lastname;
+      user.mail = _mail;
+      user.username = username;
+      user.password = hashPassword(password);
+      if (rol.length == 0) {
+        user.rol = ["Student"];
+      } else {
+        user.rol = rol;
+      }
+      user.progress = [];
+      await AppDataSource.manager.save(user);
+      return user._id.toString();
+    } catch (e: any) {
+      console.log(e);
+      return e;
     }
-    user.progress = [];
-    await AppDataSource.manager.save(user);
-    return user._id.toString();
   }
 
   /* Elimina un usuario */
-  @Mutation(() => Boolean)
+  @Mutation(() => String)
   async DeleteUser(@Arg("userId") userId: string) {
-    const user = await AppDataSource.manager.findOneBy(User, {
-      _id: new ObjectId(userId),
-    });
-    if (!user) {
-      return false;
+    try {
+      const user = await AppDataSource.manager.findOneBy(User, {
+        _id: new ObjectId(userId),
+      });
+      if (!user) {
+        throw new Error("El usuario no existe");
+      }
+      await AppDataSource.manager.delete(User, user._id);
+      return "Usuario eliminado";
+    } catch (e: any) {
+      console.log(e);
+      return e;
     }
-    await AppDataSource.manager.delete(User, user._id);
-    return true;
   }
 
   /* Consulta un usuario por medio del _id */
-  @Query(() => [User])
+  @Query(() => User)
   async getUser(@Arg("userId") userId: string) {
-    const user = await AppDataSource.manager.findOneBy(User, {
-      _id: new ObjectId(userId),
-    });
-    if (!user) {
-      return false;
+    try {
+      const user = await AppDataSource.manager.findOneBy(User, {
+        _id: new ObjectId(userId),
+      });
+      if (!user) {
+        throw new Error("El usuario no existe");
+      }
+      return user;
+    } catch (e: any) {
+      console.log(e);
+      return e;
     }
-    return false;
   }
 
   /* Consultar login de usuario */
   @Query(() => User)
   async login(
     @Arg("username") username: string,
-    @Arg("password") password: string
+    @Arg("password") password: string,
+    @Ctx() { req, res }: Context
   ) {
-    const user = await AppDataSource.manager.findOneBy(User, {
-      username: username,
-    });
-    if (!user) {
-      return null;
+    try {
+      const user = await AppDataSource.manager.findOneBy(User, {
+        username: username,
+      });
+      if (!user) {
+        throw new Error("El usuario no existe");
+      }
+      if (!comparePassword(password, user.password)) {
+        throw new Error("Contraseña incorrecta");
+      }
+      const data = {
+        _id: user._id,
+        username: user.username,
+        rol: user.rol,
+        name: user.name,
+        lastname: user.lastname,
+        mail: user.mail,
+      };
+
+      const token = signJwt(data);
+      res.cookie("accessToken", token, {
+        httpOnly: true,
+        secure: true,
+        maxAge: 3.154e10,
+        sameSite: "none",
+      });
+      return user;
+    } catch (e: any) {
+      console.log(e);
+      return e;
     }
-    if (!comparePassword(password, user.password)) {
-      return null;
-    }
-    return user;
   }
 
   /* Consulta todos los usuarios */
@@ -84,7 +144,7 @@ export class UserResolver {
   }
 
   /* Actualiza un usuario */
-  @Mutation(() => Boolean)
+  @Mutation(() => String)
   async updateUser(
     @Arg("userId") userId: string,
     @Arg("name") name: string,
@@ -92,21 +152,43 @@ export class UserResolver {
     @Arg("mail") mail: string,
     @Arg("username") username: string,
     @Arg("password") password: string,
-    @Arg("rol", (type) => [String]) rol: string[]
+    @Arg("rol", () => [String]) rol: Array<String>
   ) {
-    let user = await AppDataSource.manager.findOneBy(User, {
-      _id: new ObjectId(userId),
-    });
-    if (!user) {
-      return false;
+    try {
+      let user = await AppDataSource.manager.findOneBy(User, {
+        _id: new ObjectId(userId),
+      });
+      if (!user) {
+        throw new Error("El usuario no existe");
+      }
+      if (mail) {
+        const _mail = mail.toLowerCase();
+        const mailexist = await AppDataSource.manager.findOneBy(User, {
+          mail: _mail,
+        });
+        if (mailexist) {
+          throw new Error("El correo ya existe");
+        }
+      }
+      if (username) {
+        const userexist = await AppDataSource.manager.findOneBy(User, {
+          username,
+        });
+        if (userexist) {
+          throw new Error("El usuario ya existe");
+        }
+      }
+      if (name) user.name = name;
+      if (lastname) user.lastname = lastname;
+      if (mail) user.mail = mail.toLowerCase();
+      if (username) user.username = username;
+      if (password) user.password = hashPassword(password);
+      if (rol) user.rol = rol;
+      await AppDataSource.manager.update(User, user._id, user);
+      return "Usuario actualizado";
+    } catch (e: any) {
+      console.log(e);
+      return e;
     }
-    user.name = name;
-    user.lastname = lastname;
-    user.mail = mail;
-    user.username = username;
-    user.password = hashPassword(password);
-    user.rol = [...new Set<string>(user.rol.concat(rol))];
-    await AppDataSource.manager.update(User, user._id, user);
-    return true;
   }
 }

@@ -1,6 +1,7 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
-import {buildSchema} from 'type-graphql';
+import { buildSchema } from "type-graphql";
+import cookieParser from "cookie-parser";
 
 import {
   AsignatureResolver,
@@ -17,7 +18,7 @@ import {
   UserUnitResolver,
 } from "./resolvers/User";
 
-const morgan = require('morgan');
+const morgan = require("morgan");
 
 export async function start() {
   const app = express();
@@ -40,7 +41,8 @@ export async function start() {
     context: ({ req, res }) => ({ req, res }),
   });
 
-  app.use(morgan('dev'));
-  server.applyMiddleware({ app, path: "/graphql" });
+  app.use(morgan("dev"));
+  app.use(cookieParser());
+  server.applyMiddleware({ app, path: "/" });
   return app;
 }
