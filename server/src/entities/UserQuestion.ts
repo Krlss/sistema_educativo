@@ -1,18 +1,22 @@
 import "reflect-metadata";
 import { Entity, Column, PrimaryColumn } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
-import { UserAsignature } from "./UserAsignature";
 
 @ObjectType()
-export class UserProgress {
+export class UserQuestion {
   @Field()
   @PrimaryColumn()
   _id!: number;
 
   @Field()
-  @Column("string")
-  name!: string;
+  @Column("int")
+  nota!: number;
 
-  @Column((type) => UserAsignature)
-  asignature!: UserAsignature[];
+  @Field()
+  @Column("string")
+  id_question!: string;
+
+  @Field()
+  @Column("boolean")
+  isDone!: boolean;
 }

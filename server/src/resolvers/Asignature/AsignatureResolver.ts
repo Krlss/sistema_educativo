@@ -1,6 +1,7 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
 import { Asignature } from "../../entities/Asignature";
 import { AppDataSource } from "../../config/typeorm";
+import { User } from "../../entities/User";
 const { ObjectId } = require("mongodb");
 @Resolver()
 export class AsignatureResolver {
@@ -54,5 +55,16 @@ export class AsignatureResolver {
     asignature.name = name;
     await AppDataSource.manager.update(Asignature, asignature._id, asignature);
     return true;
+  }
+
+  @Query(() => [Asignature])
+  async getUserAsignatures(@Arg("userId") userId: string) {
+    const user = await AppDataSource.manager.findOneBy(User, {
+      _id: new ObjectId(userId),
+    });
+    if (!user) {
+      throw new Error("El usuario no existe");
+    }
+    return user.progress;
   }
 }

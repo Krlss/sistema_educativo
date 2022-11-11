@@ -3,9 +3,8 @@ import { Resolver, Query, Mutation, Arg, Ctx } from "type-graphql";
 import { AppDataSource } from "../../config/typeorm";
 const { ObjectId } = require("mongodb");
 
-import { User, UserRol, Roles } from "../../entities/User";
+import { User } from "../../entities/User";
 import { comparePassword, hashPassword } from "../../helpers/bcrypt";
-import { signJwt } from "../../utils/jwt";
 
 interface Context {
   req: Request;
@@ -53,6 +52,7 @@ export class UserResolver {
         user.rol = rol;
       }
       user.progress = [];
+
       await AppDataSource.manager.save(user);
       return user._id.toString();
     } catch (e: any) {
@@ -128,6 +128,7 @@ export class UserResolver {
         name: user.name,
         lastname: user.lastname,
         mail: user.mail,
+        progress: user.progress,
       };
 
       return data;

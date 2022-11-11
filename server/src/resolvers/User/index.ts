@@ -1,13 +1,13 @@
 import { UserResolver } from "./UserResolver";
 import { UserAsignatureResolver } from "./UserAsignatureResolver";
-import { UserProgressResolver } from "./UserProgressResolver";
 import { UserTopicResolver } from "./UserTopicResolver";
 import { UserUnitResolver } from "./UserUnitResolver";
+import { UserQuestionResolver } from "./UserQuestionResolver";
 
 export {
   UserResolver,
   UserAsignatureResolver,
-  UserProgressResolver,
   UserTopicResolver,
   UserUnitResolver,
+  UserQuestionResolver,
 };

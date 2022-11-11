@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
 import { AppDataSource } from "../../config/typeorm";
-const {ObjectId}  = require('mongodb');
+const { ObjectId } = require("mongodb");
 import { UserAsignature } from "../../entities/UserAsignature";
 import { User } from "../../entities/User";
 
@@ -10,7 +10,6 @@ export class UserAsignatureResolver {
   @Mutation(() => String)
   async createUserAsignature(
     @Arg("userId") userId: string,
-    @Arg("progressId") progressId: string,
     @Arg("asignatureId") asignatureId: string
   ) {
     const user = await AppDataSource.manager.findOneBy(User, {
@@ -19,20 +18,20 @@ export class UserAsignatureResolver {
     if (!user) {
       return false;
     }
-    const progress = user.progress.find(
-      (progress) => progress._id.toString() === progressId
-    );
-    if (!progress) {
-      return false;
-    }
+    // const progress = user.progress.find(
+    //   (progress) => progress._id.toString() === progressId
+    // );
+    // if (!progress) {
+    //   return false;
+    // }
 
     const asignature = new UserAsignature();
-    asignature._id = progress.asignature.length + 1;
+    asignature._id = user.progress.length + 1;
     asignature.unit = [];
     asignature.nota = 0;
-    asignature.id_asignature = parseInt(asignatureId);
-    progress.asignature.push(asignature);
-    user.progress.push(progress);
+    asignature.id_asignature = asignatureId;
+    user.progress.push(asignature);
+    // user.progress.push(progress);
     await AppDataSource.manager.update(User, user._id, user);
     return asignature._id.toString();
   }
@@ -55,46 +54,46 @@ export class UserAsignatureResolver {
     if (!progress) {
       return false;
     }
-    const asignature = progress.asignature.find(
-      (asignature) => asignature._id.toString() === asignatureId
-    );
-    if (!asignature) {
-      return false;
-    }
-    progress.asignature = progress.asignature.filter(
-      (asignature) => asignature._id.toString() !== asignatureId
-    );
+    // const asignature = progress.asignature.find(
+    //   (asignature) => asignature._id.toString() === asignatureId
+    // );
+    // if (!asignature) {
+    //   return false;
+    // }
+    // progress.asignature = progress.asignature.filter(
+    //   (asignature) => asignature._id.toString() !== asignatureId
+    // );
     user.progress.push(progress);
     await AppDataSource.manager.update(User, user._id, user);
     return true;
   }
   /* Consulta una asignatura en el progreso del usuario */
-  @Query(() => [UserAsignature])
-  async getUserAsignatureId(
-    @Arg("userId") userId: string,
-    @Arg("progressId") progressId: string,
-    @Arg("asignatureId") asignatureId: string
-  ) {
-    const user = await AppDataSource.manager.findOneBy(User, {
-      _id: new ObjectId(userId),
-    });
-    if (!user) {
-      return false;
-    }
-    const progress = user.progress.find(
-      (progress) => progress._id.toString() === progressId
-    );
-    if (!progress) {
-      return false;
-    }
-    const asignature = progress.asignature.find(
-      (asignature) => asignature._id.toString() === asignatureId
-    );
-    if (!asignature) {
-      return false;
-    }
-    return asignature;
-  }
+  // @Query(() => [UserAsignature])
+  // async getUserAsignatureId(
+  //   @Arg("userId") userId: string,
+  //   @Arg("progressId") progressId: string,
+  //   @Arg("asignatureId") asignatureId: string
+  // ) {
+  //   const user = await AppDataSource.manager.findOneBy(User, {
+  //     _id: new ObjectId(userId),
+  //   });
+  //   if (!user) {
+  //     return false;
+  //   }
+  //   const progress = user.progress.find(
+  //     (progress) => progress._id.toString() === progressId
+  //   );
+  //   if (!progress) {
+  //     return false;
+  //   }
+  //   const asignature = progress.asignature.find(
+  //     (asignature) => asignature._id.toString() === asignatureId
+  //   );
+  //   if (!asignature) {
+  //     return false;
+  //   }
+  //   return asignature;
+  // }
   /* Consulta todas las asignaturas en el progreso del usuario */
   @Query(() => [UserAsignature])
   async getUserAsignatures(
@@ -113,7 +112,7 @@ export class UserAsignatureResolver {
     if (!progress) {
       return false;
     }
-    return progress.asignature;
+    return progress;
   }
   /* Actualiza una asignatura en el progreso del usuario */
   @Mutation(() => Boolean)
@@ -135,19 +134,19 @@ export class UserAsignatureResolver {
     if (!progress) {
       return false;
     }
-    const asignature = progress.asignature.find(
+    // const asignature = progress.asignature.find(
+    //   (asignature) => asignature._id.toString() === asignatureId
+    // );
+    // if (!asignature) {
+    //   return false;
+    // }
+    progress.nota = nota;
+    const index = user.progress.findIndex(
       (asignature) => asignature._id.toString() === asignatureId
     );
-    if (!asignature) {
-      return false;
-    }
-    asignature.nota = nota;
-    const index = progress.asignature.findIndex(
-      (asignature) => asignature._id.toString() === asignatureId
-    );
-    progress.asignature[index] = asignature;
+    user.progress[index] = progress;
     const index2 = user.progress.findIndex(
-        (progress) => progress._id.toString() === progressId
+      (progress) => progress._id.toString() === progressId
     );
     user.progress[index2] = progress;
     await AppDataSource.manager.update(User, user._id, user);

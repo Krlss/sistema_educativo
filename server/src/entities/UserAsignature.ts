@@ -18,6 +18,6 @@ export class UserAsignature {
   unit!: UserUnit[];
 
   @Field()
-  @Column("int")
-  id_asignature!: number;
+  @Column("string")
+  id_asignature!: string;
 }

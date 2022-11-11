@@ -2,7 +2,7 @@ import "reflect-metadata";
 import "reflect-metadata";
 import { Entity, Column, ObjectID, ObjectIdColumn, BaseEntity } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
-import { UserProgress } from "./UserProgress";
+import { UserAsignature } from "./UserAsignature";
 import { type } from "os";
 import { isEmail } from "class-validator";
 export enum UserRol {
@@ -41,6 +41,7 @@ export class User {
   @Column("string", { array: true })
   rol!: Array<String>;
 
-  @Column(() => UserProgress)
-  progress!: UserProgress[];
+  @Field(() => [UserAsignature])
+  @Column(() => UserAsignature)
+  progress!: UserAsignature[];
 }

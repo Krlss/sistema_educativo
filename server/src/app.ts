@@ -12,10 +12,10 @@ import {
 
 import {
   UserAsignatureResolver,
-  UserProgressResolver,
   UserResolver,
   UserTopicResolver,
   UserUnitResolver,
+  UserQuestionResolver,
 } from "./resolvers/User";
 
 const morgan = require("morgan");
@@ -32,10 +32,10 @@ export async function start() {
         TopicResolver,
         /* Resolvers User */
         UserAsignatureResolver,
-        UserProgressResolver,
         UserResolver,
         UserTopicResolver,
         UserUnitResolver,
+        UserQuestionResolver,
       ],
     }),
     context: ({ req, res }) => ({ req, res }),

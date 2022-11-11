@@ -9,6 +9,7 @@ export class UserUnit {
   @PrimaryColumn()
   _id!: number;
 
+  @Field(() => [UserTopic])
   @Column((type) => UserTopic)
   topic!: UserTopic[];
 
@@ -17,6 +18,6 @@ export class UserUnit {
   nota!: number;
 
   @Field()
-  @Column("int")
-  id_unit!: number;
+  @Column("string")
+  id_unit!: string;
 }
