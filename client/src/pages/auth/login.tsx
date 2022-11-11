@@ -1,7 +1,7 @@
 import Input from '../../components/inputs/inputWithLabel'
 import RemenberMe from '../../components/inputs/rememberMe'
 import FullScreenSlider from '../../components/sliders/h-screen'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Navigate } from 'react-router-dom'
 import { ImagesSliders } from '../../constants/images'
 
 import { useFormik } from 'formik'
@@ -10,7 +10,12 @@ import { loginValidationSchema } from '../../schemas'
 import { useLogin } from '../../service/user/custom-hook'
 
 const Login = () => {
-  const { loginHandler } = useLogin()
+  const { loginHandler, token } = useLogin()
+
+  if (token) {
+    return <Navigate to="/" />
+  }
+
   const formik = useFormik({
     initialValues: {
       username: '',

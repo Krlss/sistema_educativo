@@ -1,9 +1,19 @@
 import Navbar from '../components/header/navbar'
-import { Outlet } from 'react-router-dom'
+import { Outlet, Navigate } from 'react-router-dom'
 import Footer from '../components/footer'
+import { getCookie } from '../utils/Cookie'
+import { useEffect } from 'react'
 
 const Aplication = () => {
-  document.body.classList.add('bg-slate-50')
+  document.body.classList.add('bg-slate-200')
+
+  const token = getCookie('token')
+  if (!token) {
+    return <Navigate to="/iniciar-sesion" />
+  }
+
+  useEffect(() => {}, [])
+
   return (
     <>
       <Navbar />

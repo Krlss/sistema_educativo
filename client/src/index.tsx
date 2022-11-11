@@ -8,7 +8,7 @@ import {
   InMemoryCache,
   ApolloProvider
 } from '@apollo/client'
-import UserProvider from './contexts/user/provider'
+import GeneralProvider from './contexts/provider'
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -22,9 +22,9 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <BrowserRouter>
     <ApolloProvider client={client}>
-      <UserProvider>
+      <GeneralProvider>
         <App />
-      </UserProvider>
+      </GeneralProvider>
     </ApolloProvider>
   </BrowserRouter>
 )

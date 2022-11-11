@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import Logo from '../../assets/logo.png'
 import MenuNavigation from './menu-navigation'
@@ -6,9 +6,12 @@ import MenuUser from './menu-user'
 import DefaultAvatar from '../../assets/default_avatar.png'
 import MobileMenuNormal from '../navLink/mobileMenuNormal'
 
+import GeneralContext from '../../contexts/context'
+
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isCourseMenuOpen, setIsCourseMenuOpen] = useState(false)
+  const { user } = useContext(GeneralContext)
 
   return (
     <nav className="bg-white p-2 w-full z-50 mb-8 shadow">
@@ -38,7 +41,7 @@ const Navbar = () => {
                     src={DefaultAvatar}
                     className="w-6 h-6 rounded-full bg-gray-300"
                   />
-                  <span className="mx-2">Krlss</span>
+                  <span className="mx-2">{user.username}</span>
                 </li>
               </NavLink>
 

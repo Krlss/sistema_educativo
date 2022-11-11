@@ -338,7 +338,7 @@ const CoursePresentation = () => {
         <div className="mx-auto max-w-5xl">
           {data.unidades.map((unidad, index) => (
             <div
-              className="rounded-md flex items-center my-3 justify-start shadow cursor-pointer hover:shadow-md"
+              className="rounded-md flex items-center my-3 justify-start shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white"
               key={index}>
               <div
                 className="flex items-center justify-center min-w-[104px] max-w-[80px] w-full rounded-l-md font-bold text-xl h-[104px]"

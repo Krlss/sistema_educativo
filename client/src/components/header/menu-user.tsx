@@ -3,6 +3,8 @@ import HambugerMenu from '../icons/hamburger-menu'
 import CrossIcon from '../icons/cross'
 import DefaultAvatar from '../../assets/default_avatar.png'
 import { NavLink } from 'react-router-dom'
+import { useContext } from 'react'
+import GeneralContext from '../../contexts/context'
 
 interface MenuUserProps {
   isMenuOpen: boolean
@@ -10,6 +12,8 @@ interface MenuUserProps {
 }
 
 const MenuUser = ({ isMenuOpen, setIsMenuOpen }: MenuUserProps) => {
+  const { user, logout } = useContext(GeneralContext)
+
   return (
     <>
       <div className="md:flex items-center md:order-2 hidden group relative">
@@ -18,7 +22,7 @@ const MenuUser = ({ isMenuOpen, setIsMenuOpen }: MenuUserProps) => {
             src={DefaultAvatar}
             className="w-10 h-10 rounded-full bg-gray-300"
           />
-          <span className="mx-2">Krlss</span>
+          <span className="mx-2">{user.username}</span>
           <svg
             className="h-6 w-6 text-gray-600 fill-current"
             viewBox="0 0 24 24">
@@ -26,12 +30,12 @@ const MenuUser = ({ isMenuOpen, setIsMenuOpen }: MenuUserProps) => {
           </svg>
         </button>
         <div className="absolute hidden group-hover:block top-6 -left-20 z-50 my-4 bg-white rounded divide-y divide-gray-100 shadow-md">
-          <div className="py-3 px-4 max-w-xs">
+          <div className="py-3 px-4 max-w-[200px]">
             <span className="block text-sm font-medium truncate">
-              Carlos Pico
+              {user.lastname} {user.name}
             </span>
             <span className="block text-sm font-medium truncate">
-              cpico6375@gmail.com
+              {user.mail}
             </span>
           </div>
           <ul className="py-1">
@@ -47,7 +51,7 @@ const MenuUser = ({ isMenuOpen, setIsMenuOpen }: MenuUserProps) => {
               </li>
             </NavLink>
 
-            <NavLink to="/">
+            <NavLink onClick={() => logout()} to="/iniciar-sesion">
               <li className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">
                 Cerrar sesión
               </li>
