@@ -1,14 +1,17 @@
+import { useContext } from 'react'
+import GeneralContext from '../../contexts/context'
 import HomeCard from '../../components/cards/homeCard'
 import LogoComputer from '../../assets/class_computer.jpeg'
 import LogoEnglish from '../../assets/class_english.jpeg'
 import LogoMath from '../../assets/class_math.jpg'
 import CenterLogo from '../../components/logo/centerLogo'
 const Home = () => {
+  const { user } = useContext(GeneralContext)
   return (
     <>
       <CenterLogo />
       <h1 className="text-4xl font-bold text-gray-800">
-        ¡Hola, @Krlss bienvenido a{' '}
+        ¡Hola, @{user.username} bienvenido a{' '}
         <span className="text-red-logo font-chivo">Mapple</span>!
       </h1>
 

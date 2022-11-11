@@ -1,6 +1,6 @@
 import Input from '../../components/inputs/inputWithLabel'
 import FullScreenSlider from '../../components/sliders/h-screen'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Navigate } from 'react-router-dom'
 import { ImagesSliders } from '../../constants/images'
 import Authbutton from '../../components/buttons/auth'
 
@@ -9,7 +9,12 @@ import { registerValidationSchema } from '../../schemas'
 import { useRegister } from '../../service/user/custom-hook'
 
 const Register = () => {
-  const { registerHandler } = useRegister()
+  const { registerHandler, token } = useRegister()
+
+  if (token) {
+    return <Navigate to="/" />
+  }
+
   const formik = useFormik({
     initialValues: {
       firstname: '',
