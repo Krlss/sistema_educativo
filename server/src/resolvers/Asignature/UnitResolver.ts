@@ -77,7 +77,7 @@ export class UnitResolver {
       _id: new ObjectId(asignatureId),
     });
     if (!asignature) {
-      return false;
+      return [];
     }
     return asignature.unit;
   }

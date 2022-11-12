@@ -3,7 +3,9 @@ import { Resolver, Query, Mutation, Arg, Ctx } from "type-graphql";
 import { AppDataSource } from "../../config/typeorm";
 const { ObjectId } = require("mongodb");
 
-import { User } from "../../entities/User";
+import { User, UserAsignature, Asignature } from "../../entities/";
+import { UserAsignatureResolver } from "./";
+import { AsignatureResolver } from "../Asignature";
 import { comparePassword, hashPassword } from "../../helpers/bcrypt";
 
 interface Context {
@@ -46,13 +48,25 @@ export class UserResolver {
       user.mail = _mail;
       user.username = username;
       user.password = hashPassword(password);
-      if (!rol || rol.length == 0) {
+      if (!rol || !rol.length) {
         user.rol = ["Student"];
       } else {
         user.rol = rol;
       }
       user.progress = [];
 
+      const asignature = new AsignatureResolver();
+
+      const asignatures = await asignature.getAsignatures();
+
+      asignatures.forEach(async (asignature: any) => {
+        const asig = new UserAsignature();
+        asig._id = user.progress.length + 1;
+        asig.unit = [];
+        asig.nota = 0;
+        asig.id_asignature = asignature._id;
+        user.progress.push(asig);
+      });
       await AppDataSource.manager.save(user);
       return user._id.toString();
     } catch (e: any) {
@@ -104,7 +118,7 @@ export class UserResolver {
     @Arg("password") password: string
   ) {
     try {
-      let user = null;
+      let user: any;
       if (username) {
         user = await AppDataSource.manager.findOneBy(User, {
           username: username,
@@ -121,6 +135,43 @@ export class UserResolver {
       if (!comparePassword(password, user.password)) {
         throw new Error("Contraseña incorrecta");
       }
+
+      const asignature = new AsignatureResolver();
+      const asignatures = await asignature.getAsignatures();
+
+      if (asignatures) {
+        asignatures.forEach((asig: Asignature) => {
+          const aux = user.progress.filter((item: UserAsignature) => {
+            return item.id_asignature === asig._id;
+          });
+          if (!aux) {
+            const auxasig = new UserAsignature();
+            auxasig._id = user.progress.length + 1;
+            auxasig.unit = [];
+            auxasig.nota = 0;
+            auxasig.id_asignature = asig._id;
+            user.progress.push(auxasig);
+          }
+        });
+        const auxprogress = user.progress.filter((item: UserAsignature) =>
+          asignatures.some((asig: Asignature) => asig._id == item.id_asignature)
+        );
+        if (auxprogress.length) {
+          user.progress = auxprogress;
+        }
+        if (!user.progress.length) {
+          asignatures.forEach((asig: Asignature) => {
+            const auxasig = new UserAsignature();
+            auxasig._id = user.progress.length + 1;
+            auxasig.unit = [];
+            auxasig.nota = 0;
+            auxasig.id_asignature = asig._id;
+            user.progress.push(auxasig);
+          });
+          await AppDataSource.manager.update(User, user._id, user);
+        }
+      }
+
       const data = {
         _id: user._id,
         username: user.username,

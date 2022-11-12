@@ -18,12 +18,6 @@ export class UserAsignatureResolver {
     if (!user) {
       return false;
     }
-    // const progress = user.progress.find(
-    //   (progress) => progress._id.toString() === progressId
-    // );
-    // if (!progress) {
-    //   return false;
-    // }
 
     const asignature = new UserAsignature();
     asignature._id = user.progress.length + 1;
@@ -31,9 +25,10 @@ export class UserAsignatureResolver {
     asignature.nota = 0;
     asignature.id_asignature = asignatureId;
     user.progress.push(asignature);
-    // user.progress.push(progress);
+
+    // await AppDataSource.manager.save(user);
     await AppDataSource.manager.update(User, user._id, user);
-    return asignature._id.toString();
+    return user.progress;
   }
   /* Eliminar una nueva asignatura en el progreso del usuario */
   @Mutation(() => Boolean)
@@ -54,15 +49,7 @@ export class UserAsignatureResolver {
     if (!progress) {
       return false;
     }
-    // const asignature = progress.asignature.find(
-    //   (asignature) => asignature._id.toString() === asignatureId
-    // );
-    // if (!asignature) {
-    //   return false;
-    // }
-    // progress.asignature = progress.asignature.filter(
-    //   (asignature) => asignature._id.toString() !== asignatureId
-    // );
+
     user.progress.push(progress);
     await AppDataSource.manager.update(User, user._id, user);
     return true;
@@ -134,12 +121,7 @@ export class UserAsignatureResolver {
     if (!progress) {
       return false;
     }
-    // const asignature = progress.asignature.find(
-    //   (asignature) => asignature._id.toString() === asignatureId
-    // );
-    // if (!asignature) {
-    //   return false;
-    // }
+
     progress.nota = nota;
     const index = user.progress.findIndex(
       (asignature) => asignature._id.toString() === asignatureId

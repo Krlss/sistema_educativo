@@ -1,8 +1,15 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
 import { AppDataSource } from "../../config/typeorm";
 const { ObjectId } = require("mongodb");
-import { UserUnit } from "../../entities/UserUnit";
-import { User } from "../../entities/User";
+import {
+  User,
+  UserUnit,
+  Asignature,
+  UserAsignature,
+  Unit,
+} from "../../entities/";
+import { AsignatureResolver, UnitResolver } from "../Asignature/";
+import { UserAsignatureResolver } from "./";
 
 @Resolver()
 export class UserUnitResolver {
@@ -25,23 +32,55 @@ export class UserUnitResolver {
     if (!progress) {
       return false;
     }
-    // const asignature = progress.asignature.find(
-    //   (asignature) => asignature.id_asignature.toString() === asignatureId
-    // );
-    // if (!asignature) {
-    //   return false;
-    // }
+
     const unit = new UserUnit();
     unit._id = progress.unit.length + 1;
     unit.id_unit = unitId;
     unit.nota = 0;
     unit.topic = [];
     progress.unit.push(unit);
-    // progress.asignature.push(asignature);
-    // user.progress.push(progress);
     await AppDataSource.manager.update(User, user._id, user);
     return unit._id.toString();
   }
+
+  // @Mutation(() => Boolean)
+  // async createUserAllUnit(@Arg("userId") userId: string) {
+  //   const user = await AppDataSource.manager.findOneBy(User, {
+  //     _id: new ObjectId(userId),
+  //   });
+  //   if (!user) {
+  //     return false;
+  //   }
+
+  //   if (!user.progress) {
+  //     return false;
+  //   }
+
+  //   const userAsignatureResolver = new UserAsignatureResolver();
+  //   // const progress = await userAsignatureResolver.getUserAsignatures(user._id);
+
+  //   const unitResolver = new UnitResolver();
+  //   const newProgress: UserAsignature[] = [];
+  //   if (user.progress) {
+  //     user.progress.map(async (asignature: UserAsignature) => {
+  //       const units = await unitResolver.getUnits(asignature.id_asignature);
+  //       const auxUnit: UserUnit[] = [];
+  //       units.map((unit: Unit) => {
+  //         const userUnit = new UserUnit();
+  //         userUnit._id = asignature.unit.length + 1;
+  //         userUnit.id_unit = unit._id.toString();
+  //         userUnit.nota = 0;
+  //         userUnit.topic = [];
+  //         asignature.unit.push(userUnit);
+  //         return asignature.unit;
+  //       });
+  //       return asignature;
+  //     });
+  //     await AppDataSource.manager.update(User, user._id, user);
+  //   }
+  //   return true;
+  // }
+
   /* Eliminar unidades de una asignatura en el progreso del usuario */
   @Mutation(() => Boolean)
   async deleteUserUnit(
