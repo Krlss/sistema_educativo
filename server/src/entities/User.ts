@@ -44,4 +44,8 @@ export class User {
   @Field(() => [UserAsignature])
   @Column(() => UserAsignature)
   progress!: UserAsignature[];
+
+  @Field()
+  @Column("boolean")
+  remember?: boolean;
 }

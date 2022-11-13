@@ -7,7 +7,7 @@ import { User } from "../../entities/User";
 @Resolver()
 export class UserTopicResolver {
   /* Agregar un tema en la unidad de la asignatura en el progreso del usuario */
-  @Mutation(() => String)
+  @Mutation(() => Boolean)
   async createUserTopic(
     @Arg("userId") userId: string,
     @Arg("asignatureId") asignatureId: string,
@@ -26,18 +26,18 @@ export class UserTopicResolver {
     if (!progress) {
       return false;
     }
-    // const asignature = progress.asignature.find(
-    //   (asignature) => asignature.id_asignature.toString() === asignatureId
-    // );
-    // if (!asignature) {
-    //   return false;
-    // }
+
     const unit = progress.unit.find(
       (unit) => unit.id_unit.toString() === unitId
     );
     if (!unit) {
       return false;
     }
+
+    if (unit.topic.find((topic) => topic.id_topic.toString() === topicId)) {
+      return false;
+    }
+
     const topic = new UserTopic();
     topic._id = unit.topic.length + 1;
     topic.id_topic = topicId;
@@ -48,7 +48,7 @@ export class UserTopicResolver {
     // progress.asignature.push(asignature);
     // user.progress.push(progress);
     await AppDataSource.manager.update(User, user._id, user);
-    return topic._id.toString();
+    return true;
   }
 
   /* Eliminar un tema en la unidad de la asignatura en el progreso del usuario */
