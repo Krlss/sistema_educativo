@@ -42,11 +42,9 @@ export class UserTopicResolver {
     topic._id = unit.topic.length + 1;
     topic.id_topic = topicId;
     topic.nota = 0;
+    topic.finished = false;
     topic.questions = [];
     unit.topic.push(topic);
-    // asignature.unit.push(unit);
-    // progress.asignature.push(asignature);
-    // user.progress.push(progress);
     await AppDataSource.manager.update(User, user._id, user);
     return true;
   }
@@ -143,7 +141,8 @@ export class UserTopicResolver {
     @Arg("asignatureId") asignatureId: string,
     @Arg("unitId") unitId: string,
     @Arg("topicId") topicId: string,
-    @Arg("nota") nota: number
+    @Arg("nota", { nullable: true }) nota: number,
+    @Arg("finished", { nullable: true }) finished: boolean
   ) {
     const user = await AppDataSource.manager.findOneBy(User, {
       _id: new ObjectId(userId),
@@ -171,7 +170,12 @@ export class UserTopicResolver {
     if (!topic) {
       return false;
     }
-    topic.nota = nota;
+    if (nota) {
+      topic.nota = nota;
+    }
+    if (finished) {
+      topic.finished = finished;
+    }
     const index = unit.topic.findIndex(
       (topic) => topic._id.toString() === topicId
     );
