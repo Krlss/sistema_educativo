@@ -1,21 +1,36 @@
-import { useState, useContext, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useState, useEffect, useContext } from 'react'
+import { useParams, NavLink, useNavigate } from 'react-router-dom'
 import GeneralContext from '../../contexts/context'
-import { pastelColors } from '../../constants/colors'
+import { pastelColors, getRamdonArrayColors } from '../../constants/colors'
 import { ASIGNATURE } from '../../types/ContextAsignature'
-
+import { useGetAsignature } from '../../service/asignatures/custom-hook'
 const CoursePresentation = () => {
   const { curso } = useParams()
-  const [colors] = useState(pastelColors)
+  const [colors, setColors] = useState(pastelColors)
   const [asignature, setAsignature] = useState<ASIGNATURE>()
-
-  const { config } = useContext(GeneralContext)
+  const { getAsignature } = useGetAsignature()
+  const navigate = useNavigate()
+  const { setLoading } = useContext(GeneralContext)
 
   useEffect(() => {
-    const asignature_ = config.asignatures.find(
-      asignature => asignature._id === curso
-    ) as ASIGNATURE
-    setAsignature(asignature_)
+    if (curso) {
+      setLoading(true)
+      getAsignature({
+        variables: {
+          id: curso
+        },
+        onCompleted: data => {
+          setAsignature(data.getAsignature)
+          setColors(getRamdonArrayColors(data.getAsignature.unit.length))
+          setLoading(false)
+        },
+        onError: () => {
+          setLoading(false)
+          navigate('/')
+        }
+      })
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [curso])
 
   return (
@@ -31,14 +46,14 @@ const CoursePresentation = () => {
         </div>
         <div className="mx-auto max-w-5xl pb-20">
           {asignature?.unit?.map((unt, index) => (
-            <div
+            <NavLink
               className="rounded-md flex items-center my-3 justify-start shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white"
-              key={index}>
+              key={index}
+              to={`/curso/${curso}/${unt._id}`}>
               <div
                 className="flex items-center justify-center min-w-[104px] max-w-[80px] w-full rounded-l-md font-bold text-xl h-[104px]"
                 style={{
-                  backgroundColor:
-                    colors[Math.floor(Math.random() * colors.length)]
+                  backgroundColor: colors[index]
                 }}>
                 {unt._id} .°
               </div>
@@ -64,7 +79,7 @@ const CoursePresentation = () => {
                     </li>
                   </NavLink> */}
               </div>
-            </div>
+            </NavLink>
           ))}
         </div>
       </div>

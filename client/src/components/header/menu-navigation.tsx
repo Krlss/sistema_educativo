@@ -21,7 +21,7 @@ const MenuNavigation = () => {
 
         <ul className="absolute hidden group-hover:block border top-10 left-0 bg-white shadow-md z-50">
           {config.asignatures.map((asignature, index) => (
-            <NavLink to={`/cursos/${asignature._id}`} key={index}>
+            <NavLink to={`/curso/${asignature._id}`} key={index}>
               <li className="text-black-logo font-semibold hover:bg-yellow-page py-4 px-6">
                 {asignature.name}
               </li>

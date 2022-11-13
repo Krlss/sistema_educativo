@@ -29,7 +29,7 @@ const HomeCard = ({
               />
             </div>
             <div className="ml-4">
-              <NavLink to={`/cursos/${to}`}>
+              <NavLink to={`/curso/${to}`}>
                 <h3 className="text-gray-700 font-semibold text-lg">
                   {nameCourse}
                 </h3>
