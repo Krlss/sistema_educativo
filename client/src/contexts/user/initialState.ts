@@ -27,6 +27,7 @@ export const InitialStateUser: {
   username: string
   rol: string[]
   isLogged: boolean
+  rememberMe: boolean
   progress?: {
     _id: number
     nota: number
@@ -41,5 +42,6 @@ export const InitialStateUser: {
   mail: '',
   rol: [],
   isLogged: false,
+  rememberMe: false,
   progress: []
 }

@@ -6,4 +6,5 @@ export interface USER {
   mail: string
   rol: string[]
   isLogged: boolean
+  rememberMe: boolean
 }

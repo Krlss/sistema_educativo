@@ -8,6 +8,7 @@ export const LOGIN = gql`
       lastname
       mail
       rol
+      rememberMe
       progress {
         _id
         nota

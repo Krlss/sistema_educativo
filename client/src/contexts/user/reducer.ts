@@ -10,7 +10,7 @@ export default (state: USER, action: UserReducerProps) => {
 
   switch (type) {
     case 'setUser':
-      setCookie('token', payload)
+      setCookie('token', payload, payload.rememberMe)
       return {
         ...state,
         ...payload,

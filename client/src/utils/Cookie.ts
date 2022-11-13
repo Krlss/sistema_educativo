@@ -1,10 +1,11 @@
 import Cookie from 'universal-cookie'
 
-export const setCookie = (key: string, value: any) => {
+export const setCookie = (key: string, value: any, rememberMe: boolean) => {
   const cookie = new Cookie()
+  // rememberMe false = 3 hours
   cookie.set(key, value, {
     path: '/',
-    expires: new Date(Date.now() + 3 * 60 * 60 * 1000)
+    expires: rememberMe ? undefined : new Date(Date.now() + 3 * 60 * 60 * 1000)
   })
 }
 
