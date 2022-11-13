@@ -20,4 +20,8 @@ export class UserTopic {
   @Field(() => [UserQuestion])
   @Column(() => UserQuestion)
   questions!: UserQuestion[];
+
+  @Field()
+  @Column("boolean")
+  finished!: boolean;
 }
