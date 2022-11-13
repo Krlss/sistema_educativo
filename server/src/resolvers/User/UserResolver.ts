@@ -115,7 +115,8 @@ export class UserResolver {
   async login(
     @Arg("username", { nullable: true }) username: string,
     @Arg("mail", { nullable: true }) mail: string,
-    @Arg("password") password: string
+    @Arg("password") password: string,
+    @Arg("rememberMe") rememberMe: boolean
   ) {
     try {
       let user: any;
@@ -180,6 +181,7 @@ export class UserResolver {
         lastname: user.lastname,
         mail: user.mail,
         progress: user.progress,
+        rememberMe: rememberMe,
       };
 
       return data;

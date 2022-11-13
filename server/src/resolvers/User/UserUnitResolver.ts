@@ -14,7 +14,7 @@ import { UserAsignatureResolver } from "./";
 @Resolver()
 export class UserUnitResolver {
   /* Crear una nueva unidad de asignatura en el progreso del usuario */
-  @Mutation(() => String)
+  @Mutation(() => Boolean)
   async createUserUnit(
     @Arg("userId") userId: string,
     @Arg("asignatureId") asignatureId: string,
@@ -33,6 +33,10 @@ export class UserUnitResolver {
       return false;
     }
 
+    if (progress.unit.find((unit) => unit._id.toString() === unitId)) {
+      return false;
+    }
+
     const unit = new UserUnit();
     unit._id = progress.unit.length + 1;
     unit.id_unit = unitId;
@@ -40,7 +44,7 @@ export class UserUnitResolver {
     unit.topic = [];
     progress.unit.push(unit);
     await AppDataSource.manager.update(User, user._id, user);
-    return unit._id.toString();
+    return true;
   }
 
   // @Mutation(() => Boolean)
