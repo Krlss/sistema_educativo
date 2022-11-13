@@ -47,11 +47,11 @@ const CoursePresentation = () => {
         <div className="mx-auto max-w-5xl pb-20">
           {asignature?.unit?.map((unt, index) => (
             <NavLink
-              className="rounded-md flex items-center my-3 justify-start shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white"
+              className="rounded-md flex items-center my-3 justify-start shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white h-[150px] md:h-[160px]"
               key={index}
               to={`/curso/${curso}/${unt._id}`}>
               <div
-                className="flex items-center justify-center min-w-[104px] max-w-[80px] w-full rounded-l-md font-bold text-xl h-[104px]"
+                className="items-center justify-center min-w-[104px] max-w-[80px] w-full rounded-l-md font-bold text-xl md:flex hidden h-full"
                 style={{
                   backgroundColor: colors[index]
                 }}>
@@ -60,7 +60,7 @@ const CoursePresentation = () => {
               <div className="flex items-center flex-1">
                 <div className="p-4">
                   <h1 className="font-semibold">Unidad {unt._id}</h1>
-                  <div className="line-clamp-2">
+                  <div className="line-clamp-3 pr-5">
                     <span className="text-sm text-gray-600 font-semibold mr-1">
                       Incluye:
                     </span>
@@ -71,13 +71,6 @@ const CoursePresentation = () => {
                     ))}
                   </div>
                 </div>
-              </div>
-              <div className="mr-10">
-                {/* <NavLink to="/">
-                    <li className="bg-lightblue-page text-white font-bold text-sm px-4 py-2 rounded text-center list-none">
-                      Realizar prueba
-                    </li>
-                  </NavLink> */}
               </div>
             </NavLink>
           ))}
