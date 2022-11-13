@@ -6,6 +6,8 @@ import DefaultAplicacion from './pages/aplication'
 import CoursePresentation from './pages/home/CoursePresentation'
 import Courses from './pages/home/courses'
 import { Routes, Route } from 'react-router-dom'
+import { useContext } from 'react'
+import GeneralContext from './contexts/context'
 
 // tests
 import DragAndDropChoose from './components/exercise/DragAndDropChooseText'
@@ -42,8 +44,10 @@ import { dataSelectPlaceTableOption } from './constants/SelectPlaceTableOption'
 import WritePointsCartesianPlane from './components/exercise/WritePointsCartesianPlane'
 import ChooseAnOptionNumToText from './components/exercise/chooseAnOptionNumToText'
 import WriteNumberPositional from './components/exercise/WriteNumberPositional'
+import LoadingAllScreen from './components/loader/all-screen'
 
 const App = () => {
+  const { config } = useContext(GeneralContext)
   return (
     <>
       <Routes>
@@ -167,6 +171,7 @@ const App = () => {
         </Route>
         <Route path="*" element={<Page404 />} />
       </Routes>
+      {config.loading && <LoadingAllScreen />}
     </>
   )
 }

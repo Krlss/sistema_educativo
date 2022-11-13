@@ -13,24 +13,22 @@ export default (state: USER, action: UserReducerProps) => {
       setCookie('token', payload)
       return {
         ...state,
-        _id: payload._id,
-        lastname: payload.lastname,
-        name: payload.name,
-        mail: payload.mail,
-        username: payload.username,
-        password: payload.password,
-        rol: payload.rol
+        ...payload,
+        isLogged: true
       }
     case 'resetUser':
       removeCookie('token')
       return {
         ...state,
         _id: '',
+        username: '',
         lastname: '',
         name: '',
         mail: '',
         password: '',
-        rol: []
+        rol: [],
+        progress: [],
+        isLogged: false
       }
     default:
       return state

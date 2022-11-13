@@ -5,8 +5,6 @@ import { getCookie } from '../utils/Cookie'
 import { useEffect } from 'react'
 
 const Aplication = () => {
-  document.body.classList.add('bg-slate-200')
-
   const token = getCookie('token')
   if (!token) {
     return <Navigate to="/iniciar-sesion" />
@@ -17,7 +15,7 @@ const Aplication = () => {
   return (
     <>
       <Navbar />
-      <div className="container min-h-screen max-w-[1366px] mx-auto lg:px-0 px-5">
+      <div className="container min-h-screen max-w-[1366px] mx-auto px-5">
         <Outlet />
       </div>
       <Footer />

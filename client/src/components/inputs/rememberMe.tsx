@@ -8,7 +8,7 @@ const RemenberMe = (Props: Props) => {
         type="checkbox"
         name="remember"
         id="remember"
-        className="appearance-none w-4 h-4 rounded checked:bg-yellow-page border-2 checked:border-0"
+        className="appearance-none bg-white w-4 h-4 rounded checked:bg-yellow-page border-2 checked:border-0"
         {...Props}
       />
       <label htmlFor="remember" className="ml-2">

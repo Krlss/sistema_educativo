@@ -6,6 +6,15 @@ export const GETASIGNATURES = gql`
       _id
       name
       description
+      unit {
+        _id
+        name
+        topic {
+          _id
+          name
+          description
+        }
+      }
     }
   }
 `

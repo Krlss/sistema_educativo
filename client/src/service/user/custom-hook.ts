@@ -29,38 +29,55 @@ interface RegisterUser {
 }
 
 export const useLogin = () => {
-  const [login, { data, error, loading }] = useLazyQuery<LoginUser>(LOGIN)
-  const { setUser } = useContext(GeneralContext)
+  const { setUser, setLoading } = useContext(GeneralContext)
   const token = getCookie('token')
   const navigate = useNavigate()
+
+  const [login, { data, error, loading }] = useLazyQuery<LoginUser>(LOGIN, {
+    onError: () => {
+      setLoading(false)
+    },
+    onCompleted({ login }) {
+      setLoading(false)
+      setUser({ ...login })
+      navigate('/')
+    }
+  })
+
   const loginHandler = (Props: PropsLogin) => {
+    setLoading(true)
     login({ variables: { ...Props } })
-  }
-  if (data && !loading) {
-    setUser(data.login)
-    navigate('/')
   }
 
   return { loginHandler, data, error, loading, token }
 }
 
 export const useRegister = () => {
-  const [createUser, { data, error, loading }] =
-    useMutation<RegisterUser>(REGISTER)
   const token = getCookie('token')
   const navigate = useNavigate()
+  const { setLoading } = useContext(GeneralContext)
+
+  const [createUser, { data, error, loading }] = useMutation<RegisterUser>(
+    REGISTER,
+    {
+      onError: () => {
+        setLoading(false)
+      },
+      onCompleted() {
+        setLoading(false)
+        navigate('/iniciar-sesion')
+      }
+    }
+  )
 
   const registerHandler = (Props: PropsRegister) => {
+    setLoading(true)
     createUser({
       variables: {
         ...Props,
         rol: ['Student']
       }
     })
-  }
-
-  if (data && !loading) {
-    navigate('/iniciar-sesion')
   }
 
   return { registerHandler, data, error, loading, token }

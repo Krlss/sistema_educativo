@@ -8,9 +8,10 @@ import { useFormik } from 'formik'
 import { loginValidationSchema } from '../../schemas'
 
 import { useLogin } from '../../service/user/custom-hook'
+import Authbutton from '../../components/buttons/auth'
 
 const Login = () => {
-  const { loginHandler, token } = useLogin()
+  const { loginHandler, token, error } = useLogin()
 
   if (token) {
     return <Navigate to="/" />
@@ -31,18 +32,26 @@ const Login = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
       <section className="flex flex-col justify-center mx-auto px-10 max-w-[40rem]">
-        <div className="mb-6">
+        <div className="mb-3">
           <h1 className="text-5xl font-semibold mb-1">Inicio de sesión</h1>
           <span>
             Bienvenido a Mapple, por favor digita tus credenciales para iniciar
             sesión en la plataforma.
           </span>
         </div>
+        {error && (
+          <div
+            className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-2"
+            role="alert">
+            <strong className="font-bold mr-2">Error!</strong>
+            <span className="block sm:inline break-words">{error.message}</span>
+          </div>
+        )}
         <form onSubmit={formik.handleSubmit}>
           <Input
             name="username"
-            label="Usuario"
-            placeholder="miusuario"
+            label="Usuario o correo electrónico"
+            placeholder="Ingresa tu usuario o correo electrónico"
             type="text"
             autoFocus
             onChange={formik.handleChange}
@@ -65,17 +74,11 @@ const Login = () => {
             </NavLink>
           </div>
 
-          <button
-            type="submit"
-            className="w-full bg-yellow-page text-white font-semibold py-2 rounded-md text-lg mt-4">
-            Iniciar sesión
-          </button>
+          <Authbutton label="Iniciar sesión" type="submit" />
 
           <div className="flex justify-center items-center mt-4">
             <span className="text-gray-500">¿No tienes una cuenta?</span>
-            <NavLink
-              to="/registrarse"
-              className="text-yellow-page font-medium ml-2">
+            <NavLink to="/registrarse" className="font-medium ml-2">
               Regístrate
             </NavLink>
           </div>

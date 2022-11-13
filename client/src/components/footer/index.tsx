@@ -14,7 +14,7 @@ const Footer = () => {
               Mapple
             </h1>
           </div>
-          <p className="text-sm font-medium text-center">
+          <p className="text-sm font-medium text-justify">
             Mapple es una aplicación web que te ayudará a aprender matemáticas,
             computación e inglés de una manera divertida y fácil.
           </p>

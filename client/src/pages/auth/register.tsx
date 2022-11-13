@@ -92,9 +92,7 @@ const Register = () => {
 
           <div className="flex justify-center items-center mt-4">
             <span className="text-gray-500">¿Ya tienes una cuenta?</span>
-            <NavLink
-              to="/iniciar-sesion"
-              className="text-yellow-page font-medium ml-2">
+            <NavLink to="/iniciar-sesion" className="font-medium ml-2">
               Iniciar sesión
             </NavLink>
           </div>

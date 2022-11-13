@@ -1,6 +1,9 @@
+import { useContext } from 'react'
+import GeneralContext from '../../contexts/context'
 import { NavLink } from 'react-router-dom'
 
 const MenuNavigation = () => {
+  const { config } = useContext(GeneralContext)
   const navLinkDefaultclassName =
     'hover:bg-yellow-page py-2 px-3 rounded-md mx-1'
   return (
@@ -17,21 +20,13 @@ const MenuNavigation = () => {
         <li className="text-black-logo font-semibold">Cursos</li>
 
         <ul className="absolute hidden group-hover:block border top-10 left-0 bg-white shadow-md z-50">
-          <NavLink to="/cursos/computacion">
-            <li className="text-black-logo font-semibold hover:bg-yellow-page py-4 px-6">
-              Computación
-            </li>
-          </NavLink>
-          <NavLink to="/cursos/ingles">
-            <li className="text-black-logo font-semibold hover:bg-yellow-page py-4 px-6">
-              Inglés
-            </li>
-          </NavLink>
-          <NavLink to="/cursos/matematicas">
-            <li className="text-black-logo font-semibold hover:bg-yellow-page py-4 px-6">
-              Matemáticas
-            </li>
-          </NavLink>
+          {config.asignatures.map((asignature, index) => (
+            <NavLink to={`/cursos/${asignature._id}`} key={index}>
+              <li className="text-black-logo font-semibold hover:bg-yellow-page py-4 px-6">
+                {asignature.name}
+              </li>
+            </NavLink>
+          ))}
         </ul>
       </div>
     </ul>

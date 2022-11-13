@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 
 interface Props {
   progress: number
-  StringImage: string
+  StringImage?: string
   nameCourse: string
   numberCourse: number
   to: string
