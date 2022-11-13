@@ -2,7 +2,7 @@ import { Resolver, Query, Mutation, Arg } from "type-graphql";
 import { Asignature } from "../../entities/Asignature";
 import { AppDataSource } from "../../config/typeorm";
 const { ObjectId } = require("mongodb");
-import { Topic } from "../../entities/Topic";
+import { Topic, Unit } from "../../entities";
 
 @Resolver()
 export class TopicResolver {
@@ -70,7 +70,7 @@ export class TopicResolver {
   }
 
   /* Consulta un tema por medio del _id */
-  @Query(() => Topic)
+  @Query(() => Unit)
   async getTopic(
     @Arg("asignatureId") asignatureId: string,
     @Arg("unitId") unitId: string,
@@ -94,7 +94,7 @@ export class TopicResolver {
   }
 
   /* Consulta todos los temas de una unidad */
-  @Query(() => [Topic])
+  @Query(() => Unit)
   async getTopics(
     @Arg("asignatureId") asignatureId: string,
     @Arg("unitId") unitId: string
@@ -109,7 +109,9 @@ export class TopicResolver {
     if (!unit) {
       return false;
     }
-    return unit.topic;
+
+    unit.asignature_name = asignature.name;
+    return unit;
   }
 
   /* Actualiza un tema */

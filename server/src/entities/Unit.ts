@@ -15,4 +15,8 @@ export class Unit {
   @Field(() => [Topic])
   @Column(() => Topic)
   topic!: Topic[];
+
+  @Field()
+  @Column("string")
+  asignature_name?: string;
 }
