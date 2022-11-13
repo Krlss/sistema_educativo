@@ -116,7 +116,7 @@ export class UserResolver {
     @Arg("username", { nullable: true }) username: string,
     @Arg("mail", { nullable: true }) mail: string,
     @Arg("password") password: string,
-    @Arg("remember") remember: boolean
+    @Arg("rememberMe") rememberMe: boolean
   ) {
     try {
       let user: any;
@@ -181,7 +181,7 @@ export class UserResolver {
         lastname: user.lastname,
         mail: user.mail,
         progress: user.progress,
-        remember: remember,
+        rememberMe: rememberMe,
       };
 
       return data;

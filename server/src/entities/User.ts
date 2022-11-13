@@ -47,5 +47,5 @@ export class User {
 
   @Field()
   @Column("boolean")
-  remember?: boolean;
+  rememberMe?: boolean;
 }
