@@ -9,6 +9,7 @@ interface topic {
   _id: number
   nota: number
   id_topic: string
+  finished: boolean
   questions?: questions[]
 }
 

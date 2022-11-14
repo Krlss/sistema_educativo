@@ -1,7 +1,10 @@
 import { useEffect, useState, useContext } from 'react'
 import GeneralContext from '../../contexts/context'
 import { useParams, NavLink } from 'react-router-dom'
-import { useGetTopics } from '../../service/topic/custom-hook'
+import {
+  useGetTopics,
+  useCreateUserTopic
+} from '../../service/topic/custom-hook'
 import { pastelColors, getRamdonArrayColors } from '../../constants/colors'
 
 interface TOPIC {
@@ -20,30 +23,25 @@ interface ASIGNATURES {
 const UnitPresentation = () => {
   const { setLoading } = useContext(GeneralContext)
   const [asignature, setAsignature] = useState<ASIGNATURES>()
-  const [colors, setColors] = useState(pastelColors)
-  const { curso, unidad } = useParams() as { curso: string; unidad: string }
-  const { getTopics } = useGetTopics()
+  const [colors, setColors] = useState<string[]>([])
+  const { asinatureId, unitId } = useParams() as {
+    asinatureId: string
+    unitId: string
+  }
+  const { getTopicsHandler } = useGetTopics({
+    setLoading,
+    setAsignature,
+    setColors
+  })
 
   useEffect(() => {
-    setLoading(true)
-    getTopics({
-      variables: {
-        asinatureId: curso,
-        unitId: unidad
-      },
-      onCompleted: data => {
-        setAsignature(data.getTopics)
-        setColors(getRamdonArrayColors(data.getTopics.topic.length))
-        setLoading(false)
-      },
-      onError: error => {
-        console.log(error)
-        setLoading(false)
-      }
+    getTopicsHandler({
+      asinatureId,
+      unitId
     })
 
     window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [curso, unidad])
+  }, [asinatureId, unitId])
   return (
     <div>
       <div className="flex flex-col items-center justify-center">
@@ -62,7 +60,7 @@ const UnitPresentation = () => {
             <NavLink
               className="rounded-md flex items-center my-3 justify-start shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white h-[150px] md:h-[120px]"
               key={index}
-              to={`/curso/${curso}/${top._id}`}>
+              to={`/curso/${asinatureId}/${top._id}`}>
               <div
                 className="items-center justify-center min-w-[104px] max-w-[80px] w-full rounded-l-md font-bold text-xl md:flex hidden h-full"
                 style={{

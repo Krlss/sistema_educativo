@@ -22,6 +22,7 @@ export const LOGIN = gql`
             _id
             nota
             id_topic
+            finished
             questions {
               _id
               nota

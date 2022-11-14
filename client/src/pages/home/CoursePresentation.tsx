@@ -1,37 +1,26 @@
 import { useState, useEffect, useContext } from 'react'
-import { useParams, NavLink, useNavigate } from 'react-router-dom'
+import { useParams, NavLink } from 'react-router-dom'
 import GeneralContext from '../../contexts/context'
-import { pastelColors, getRamdonArrayColors } from '../../constants/colors'
+import { pastelColors } from '../../constants/colors'
 import { ASIGNATURE } from '../../types/ContextAsignature'
 import { useGetAsignature } from '../../service/asignatures/custom-hook'
 const CoursePresentation = () => {
-  const { curso } = useParams()
+  const { asinatureId } = useParams()
   const [colors, setColors] = useState(pastelColors)
   const [asignature, setAsignature] = useState<ASIGNATURE>()
-  const { getAsignature } = useGetAsignature()
-  const navigate = useNavigate()
   const { setLoading } = useContext(GeneralContext)
+  const { getAsignatureHandler } = useGetAsignature({
+    setAsignature,
+    setLoading,
+    setColors
+  })
 
   useEffect(() => {
-    if (curso) {
-      setLoading(true)
-      getAsignature({
-        variables: {
-          id: curso
-        },
-        onCompleted: data => {
-          setAsignature(data.getAsignature)
-          setColors(getRamdonArrayColors(data.getAsignature.unit.length))
-          setLoading(false)
-        },
-        onError: () => {
-          setLoading(false)
-          navigate('/')
-        }
-      })
+    if (asinatureId) {
+      getAsignatureHandler(asinatureId)
     }
     window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [curso])
+  }, [asinatureId])
 
   return (
     <div className="px-2">
@@ -49,7 +38,7 @@ const CoursePresentation = () => {
             <NavLink
               className="rounded-md flex items-center my-3 justify-start shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white h-[150px] md:h-[120px]"
               key={index}
-              to={`/curso/${curso}/unidad/${unt._id}`}>
+              to={`/curso/${asinatureId}/unidad/${unt._id}`}>
               <div
                 className="items-center justify-center min-w-[104px] max-w-[80px] w-full rounded-l-md font-bold text-xl md:flex hidden h-full"
                 style={{
