@@ -9,7 +9,9 @@ export type GeneralContextProps = {
   setAsignatures: (asignatures: ASIGNATURE[]) => void
   config: {
     asignatures: ASIGNATURE[]
+    loading: boolean
   }
+  setLoading: (loading: boolean) => void
 }
 
 const GeneralContext = createContext<GeneralContextProps>(

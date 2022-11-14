@@ -11,8 +11,8 @@ export const pastelColors = [
   '#7FFFD4',
   '#7FFF00',
   '#FF00FF',
-  '#FFD700',
-  '#F5DEB3',
+  '#fdffae',
+  '#b54573',
   '#FF7F50',
   '#FFF8DC',
   '#DC143C',
@@ -21,6 +21,24 @@ export const pastelColors = [
   '#FFD700',
   '#F5DEB3',
   '#FF7F50',
-  '#FFF8DC',
-  '#DC143C'
+  '#f6c542',
+  '#e74f2b',
+  '#ff6289'
 ]
+
+export const getRamdonArrayColors = (length: number) => {
+  const colors: string[] = []
+  for (let i = 0; i < length; i++) {
+    do {
+      const color =
+        pastelColors[Math.floor(Math.random() * pastelColors.length)]
+      if (!colors.includes(color)) {
+        colors.push(color)
+        break
+      }
+    } while (true)
+
+    // colors.push(pastelColors[Math.floor(Math.random() * pastelColors.length)])
+  }
+  return colors
+}

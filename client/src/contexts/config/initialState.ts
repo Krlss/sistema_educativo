@@ -1,9 +1,9 @@
+import { ASIGNATURE } from '../../types/ContextAsignature'
+
 export const InitialStateConfig: {
-  asignatures: {
-    _id: string
-    name: string
-    description: string
-  }[]
+  asignatures: ASIGNATURE[]
+  loading: boolean
 } = {
-  asignatures: []
+  asignatures: [],
+  loading: false
 }

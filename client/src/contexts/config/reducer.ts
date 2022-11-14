@@ -2,13 +2,11 @@ import { ASIGNATURE } from '../../types/ContextAsignature'
 type UserReducerProps =
   | { type: 'setAsignature'; payload: ASIGNATURE }
   | { type: 'setAsignatures'; payload: ASIGNATURE[] }
+  | { type: 'setLoading'; payload: boolean }
 
 interface StateProps {
-  asignatures: {
-    _id: string
-    name: string
-    description: string
-  }[]
+  asignatures: ASIGNATURE[]
+  loading: boolean
 }
 
 export default (state: StateProps, action: UserReducerProps) => {
@@ -25,6 +23,11 @@ export default (state: StateProps, action: UserReducerProps) => {
       return {
         ...state,
         asignatures: payload
+      }
+    case 'setLoading':
+      return {
+        ...state,
+        loading: payload
       }
     default:
       return state

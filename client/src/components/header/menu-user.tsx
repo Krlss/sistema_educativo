@@ -17,20 +17,24 @@ const MenuUser = ({ isMenuOpen, setIsMenuOpen }: MenuUserProps) => {
   return (
     <>
       <div className="md:flex items-center md:order-2 hidden group relative">
-        <button type="button" className="flex items-center">
-          <img
-            src={DefaultAvatar}
-            className="w-10 h-10 rounded-full bg-gray-300"
-          />
-          <span className="mx-2">{user.username}</span>
+        <button
+          type="button"
+          className="flex items-center min-w-[200px] justify-between">
+          <div className="flex items-center max-w-[180px]">
+            <img
+              src={DefaultAvatar}
+              className="w-10 h-10 rounded-full bg-gray-300"
+            />
+            <span className="mx-2 truncate">{user.username}</span>
+          </div>
           <svg
             className="h-6 w-6 text-gray-600 fill-current"
             viewBox="0 0 24 24">
             <path d="M7 10l5 5 5-5z" fill="currentColor" />
           </svg>
         </button>
-        <div className="absolute hidden group-hover:block top-6 -left-20 z-50 my-4 bg-white rounded divide-y divide-gray-100 shadow-md">
-          <div className="py-3 px-4 max-w-[200px]">
+        <div className="absolute hidden group-hover:block top-6 z-50 my-4 bg-white rounded divide-y divide-gray-100 shadow-md max-w-[200px]">
+          <div className="py-3 px-4">
             <span className="block text-sm font-medium truncate">
               {user.lastname} {user.name}
             </span>
@@ -39,12 +43,6 @@ const MenuUser = ({ isMenuOpen, setIsMenuOpen }: MenuUserProps) => {
             </span>
           </div>
           <ul className="py-1">
-            <NavLink to="/">
-              <li className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">
-                Dashboard
-              </li>
-            </NavLink>
-
             <NavLink to="/">
               <li className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">
                 Mi perfil

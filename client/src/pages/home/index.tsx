@@ -6,7 +6,8 @@ import LogoEnglish from '../../assets/class_english.jpeg'
 import LogoMath from '../../assets/class_math.jpg'
 import CenterLogo from '../../components/logo/centerLogo'
 const Home = () => {
-  const { user } = useContext(GeneralContext)
+  const { user, config } = useContext(GeneralContext)
+
   return (
     <>
       <CenterLogo />
@@ -21,27 +22,15 @@ const Home = () => {
 
       <div className="flex items-center justify-between">
         <div className="flex flex-wrap mt-4 gap-8">
-          <HomeCard
-            StringImage={LogoComputer}
-            nameCourse="Computación"
-            numberCourse={1}
-            progress={50}
-            to="computacion"
-          />
-          <HomeCard
-            StringImage={LogoEnglish}
-            nameCourse="Inglés"
-            numberCourse={2}
-            progress={45}
-            to="ingles"
-          />
-          <HomeCard
-            StringImage={LogoMath}
-            nameCourse="Matemáticas"
-            numberCourse={3}
-            progress={100}
-            to="matematicas"
-          />
+          {config.asignatures.map((asignature, index) => (
+            <HomeCard
+              key={index}
+              numberCourse={index + 1}
+              nameCourse={asignature.name}
+              progress={0}
+              to={asignature._id}
+            />
+          ))}
         </div>
       </div>
     </>
