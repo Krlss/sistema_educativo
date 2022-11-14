@@ -20,7 +20,7 @@ import { UserAsignatureResolver } from "./";
 @Resolver()
 export class UserUnitResolver {
   /* Crear una nueva unidad de asignatura en el progreso del usuario */
-  @Mutation(() => Boolean)
+  @Mutation(() => User)
   async createUserUnit(
     @Arg("userId") userId: string,
     @Arg("asignatureId") asignatureId: string,
