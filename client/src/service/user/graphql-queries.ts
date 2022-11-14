@@ -3,6 +3,7 @@ import { gql } from '@apollo/client'
 export const LOGIN = gql`
   query LOGIN($username: String!, $password: String!, $rememberMe: Boolean!) {
     login(username: $username, password: $password, rememberMe: $rememberMe) {
+      _id
       username
       name
       lastname

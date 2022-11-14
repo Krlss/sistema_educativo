@@ -1,6 +1,6 @@
-import { useLazyQuery } from '@apollo/client'
+import { useLazyQuery, useMutation } from '@apollo/client'
 import { GETTOPICS } from './graphql-queries'
-
+import { CREATEUSERTOPIC } from './graphql-mutations'
 interface IGetTopics {
   _id: number
   name: string
@@ -25,4 +25,15 @@ export const useGetTopics = () => {
   )
 
   return { getTopics, data, error, loading }
+}
+
+export interface IcreateUserUnit {
+  createUserUnit: boolean
+}
+
+export const useCreateUserTopic = () => {
+  const [createUserTopic, { data, error, loading }] =
+    useMutation<IcreateUserUnit>(CREATEUSERTOPIC)
+
+  return { createUserTopic, data, error, loading }
 }

@@ -44,12 +44,12 @@ const CoursePresentation = () => {
         <div className="max-w-3xl mx-auto text-center">
           <span className="text-sm font-medium">{asignature?.description}</span>
         </div>
-        <div className="mx-auto max-w-5xl pb-20">
+        <div className="mx-auto max-w-5xl pb-20 w-full">
           {asignature?.unit?.map((unt, index) => (
             <NavLink
-              className="rounded-md flex items-center my-3 justify-start shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white h-[150px] md:h-[160px]"
+              className="rounded-md flex items-center my-3 justify-start shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white h-[150px] md:h-[120px]"
               key={index}
-              to={`/curso/${curso}/${unt._id}`}>
+              to={`/curso/${curso}/unidad/${unt._id}`}>
               <div
                 className="items-center justify-center min-w-[104px] max-w-[80px] w-full rounded-l-md font-bold text-xl md:flex hidden h-full"
                 style={{

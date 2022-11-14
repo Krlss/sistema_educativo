@@ -57,10 +57,10 @@ const UnitPresentation = () => {
             </span>
           )}
         </div>
-        <div className="mx-auto max-w-5xl pb-20">
+        <div className="mx-auto max-w-5xl pb-20 w-full">
           {asignature?.topic?.map((top, index) => (
             <NavLink
-              className="rounded-md flex items-center my-3 justify-start shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white h-[225px] md:h-[160px]"
+              className="rounded-md flex items-center my-3 justify-start shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white h-[150px] md:h-[120px]"
               key={index}
               to={`/curso/${curso}/${top._id}`}>
               <div
