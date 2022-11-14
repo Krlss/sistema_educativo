@@ -18,6 +18,8 @@ const client = new ApolloClient({
   })
 })
 
+document.body.classList.add('bg-slate-200')
+
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <BrowserRouter>

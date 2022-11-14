@@ -10,27 +10,25 @@ export default (state: USER, action: UserReducerProps) => {
 
   switch (type) {
     case 'setUser':
-      setCookie('token', payload)
+      setCookie('token', payload, payload.rememberMe)
       return {
         ...state,
-        _id: payload._id,
-        lastname: payload.lastname,
-        name: payload.name,
-        mail: payload.mail,
-        username: payload.username,
-        password: payload.password,
-        rol: payload.rol
+        ...payload,
+        isLogged: true
       }
     case 'resetUser':
       removeCookie('token')
       return {
         ...state,
         _id: '',
+        username: '',
         lastname: '',
         name: '',
         mail: '',
         password: '',
-        rol: []
+        rol: [],
+        progress: [],
+        isLogged: false
       }
     default:
       return state

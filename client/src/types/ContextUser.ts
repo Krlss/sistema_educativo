@@ -4,6 +4,7 @@ export interface USER {
   name: string
   username: string
   mail: string
-  password: string
   rol: string[]
+  isLogged: boolean
+  rememberMe: boolean
 }

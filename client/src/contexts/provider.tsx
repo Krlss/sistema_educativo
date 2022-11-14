@@ -6,19 +6,35 @@ import GeneralContext from './context'
 import ConfigReducer from './config/reducer'
 import { USER } from '../types/ContextUser'
 import { ASIGNATURE } from '../types/ContextAsignature'
-
+import {
+  useGetAsignatures,
+  getAsignaturesProps
+} from '../service/asignatures/custom-hook'
 import { getCookie } from '../utils/Cookie'
 
 const GeneralProvider = (props: any) => {
   const [user, dispatchUser] = useReducer(UserReducer, InitialStateUser)
   const [config, dispatchConfig] = useReducer(ConfigReducer, InitialStateConfig)
-
+  const { getAsignatures } = useGetAsignatures()
   useEffect(() => {
     const token = getCookie('token')
     if (token) {
       dispatchUser({ type: 'setUser', payload: token })
     }
   }, [])
+
+  useEffect(() => {
+    if (user.isLogged) {
+      getAsignatures({
+        onCompleted(data: getAsignaturesProps) {
+          dispatchConfig({
+            type: 'setAsignatures',
+            payload: data.getAsignatures
+          })
+        }
+      })
+    }
+  }, [user.isLogged])
 
   const setUser = (user: USER) => {
     dispatchUser({
@@ -31,6 +47,13 @@ const GeneralProvider = (props: any) => {
     dispatchConfig({
       type: 'setAsignatures',
       payload: asignatures
+    })
+  }
+
+  const setLoading = (loading: boolean) => {
+    dispatchConfig({
+      type: 'setLoading',
+      payload: loading
     })
   }
 
@@ -48,6 +71,7 @@ const GeneralProvider = (props: any) => {
         setUser,
         logout,
         setAsignatures,
+        setLoading,
         config
       }}>
       {props.children}

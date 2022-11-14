@@ -4,8 +4,11 @@ import Home from './pages/home'
 import Page404 from './pages/_404'
 import DefaultAplicacion from './pages/aplication'
 import CoursePresentation from './pages/home/CoursePresentation'
+import UnitPresentation from './pages/home/UnitPresentation'
 import Courses from './pages/home/courses'
 import { Routes, Route } from 'react-router-dom'
+import { useContext } from 'react'
+import GeneralContext from './contexts/context'
 
 // tests
 import DragAndDropChoose from './components/exercise/DragAndDropChooseText'
@@ -42,8 +45,10 @@ import { dataSelectPlaceTableOption } from './constants/SelectPlaceTableOption'
 import WritePointsCartesianPlane from './components/exercise/WritePointsCartesianPlane'
 import ChooseAnOptionNumToText from './components/exercise/chooseAnOptionNumToText'
 import WriteNumberPositional from './components/exercise/WriteNumberPositional'
+import LoadingAllScreen from './components/loader/all-screen'
 
 const App = () => {
+  const { config } = useContext(GeneralContext)
   return (
     <>
       <Routes>
@@ -52,7 +57,11 @@ const App = () => {
         <Route path="/" element={<DefaultAplicacion />}>
           <Route path="/" element={<Home />} />
           <Route path="/cursos" element={<Courses />} />
-          <Route path="/cursos/:curso" element={<CoursePresentation />} />
+          <Route path="/curso/:curso" element={<CoursePresentation />} />
+          <Route
+            path="/curso/:curso/unidad/:unidad"
+            element={<UnitPresentation />}
+          />
 
           {/* Rutas de test */}
           <Route
@@ -167,6 +176,7 @@ const App = () => {
         </Route>
         <Route path="*" element={<Page404 />} />
       </Routes>
+      {config.loading && <LoadingAllScreen />}
     </>
   )
 }

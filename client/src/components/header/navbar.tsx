@@ -11,11 +11,11 @@ import GeneralContext from '../../contexts/context'
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isCourseMenuOpen, setIsCourseMenuOpen] = useState(false)
-  const { user } = useContext(GeneralContext)
+  const { user, logout, config } = useContext(GeneralContext)
 
   return (
     <nav className="bg-white p-2 w-full z-50 mb-8 shadow">
-      <div className="max-w-[1366px] h-full mx-auto lg:px-0 px-5">
+      <div className="max-w-[1366px] h-full mx-auto px-5">
         <div className="flex justify-between items-center mx-auto">
           <div className="flex items-center justify-center">
             <img src={Logo} alt="Logo" className="h-10 mr-2" />
@@ -32,8 +32,11 @@ const Navbar = () => {
         {isMenuOpen && (
           <div className="md:hidden block bg-white">
             <ul className="py-1">
-              <MobileMenuNormal label="Inicio" to="/" />
-              <MobileMenuNormal label="Dashboard" to="/dashboard" />
+              <MobileMenuNormal
+                label="Inicio"
+                to="/"
+                onClick={() => setIsMenuOpen(false)}
+              />
 
               <NavLink to="/mi-perfil">
                 <li className="flex items-center py-2 px-2 text-sm text-gray-700 hover:bg-gray-100">
@@ -53,21 +56,26 @@ const Navbar = () => {
                 </button>
                 {isCourseMenuOpen && (
                   <ul>
-                    <MobileMenuNormal
-                      label="Computación"
-                      to="/cursos/computacion"
-                      sub
-                    />
-                    <MobileMenuNormal label="Inglés" to="/cursos/ingles" sub />
-                    <MobileMenuNormal
-                      label="Matemáticas"
-                      to="/cursos/matematicas"
-                      sub
-                    />
+                    {config.asignatures.map((asignature, index) => (
+                      <MobileMenuNormal
+                        key={index}
+                        label={asignature.name}
+                        to={`/curso/${asignature._id}`}
+                        sub
+                        onClick={() => {
+                          setIsMenuOpen(false)
+                          setIsCourseMenuOpen(false)
+                        }}
+                      />
+                    ))}
                   </ul>
                 )}
               </li>
-              <MobileMenuNormal label="Cerrar sesión" to="#" />
+              <MobileMenuNormal
+                label="Cerrar sesión"
+                to="#"
+                onClick={() => logout()}
+              />
             </ul>
           </div>
         )}

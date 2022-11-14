@@ -4,11 +4,12 @@ interface Props {
   to?: string
   label: string
   sub?: boolean
+  onClick?: () => void
 }
 
-const MobileMenuNormal = ({ to, label, sub = false }: Props) => {
+const MobileMenuNormal = ({ to, label, sub = false, onClick }: Props) => {
   return (
-    <NavLink to={to ?? '#'}>
+    <NavLink onClick={onClick} to={to ?? '#'}>
       <li
         className={`py-2 text-sm text-gray-700 hover:bg-gray-100 ${
           sub ? 'px-4' : 'px-2'

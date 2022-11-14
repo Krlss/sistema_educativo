@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import GeneralContext from '../../contexts/context'
 import Icon from '../icons'
 import EyeClose from '../icons/eye-close'
 import EyeOpen from '../icons/eye-open'
@@ -25,6 +26,7 @@ const Input = ({
   ...props
 }: InputProps) => {
   const [inputType, setInputType] = useState(type)
+  const { config } = useContext(GeneralContext)
   return (
     <div className={`flex flex-col my-2 w-full ${containerStyles ?? ''}`}>
       <label htmlFor={name} className="text-lg font-semibold">
@@ -39,12 +41,15 @@ const Input = ({
           className={`border border-placeholder px-4 py-1.5 rounded-md focus:outline-none focus:ring-1 focus:ring-yellow-page focus:border-transparent ${
             styles ?? ''
           } w-full`}
+          disabled={config.loading}
+          autoComplete="off"
           {...props}
         />
         {error && <span className="text-error text-sm">{error}</span>}
         {name === 'password' && (
           <button
             type="button"
+            disabled={config.loading}
             onClick={() => {
               setInputType(inputType === 'text' ? 'password' : 'text')
             }}>
