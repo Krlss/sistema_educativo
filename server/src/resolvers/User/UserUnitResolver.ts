@@ -7,8 +7,14 @@ import {
   Asignature,
   UserAsignature,
   Unit,
+  Topic,
+  UserTopic,
 } from "../../entities/";
-import { AsignatureResolver, UnitResolver } from "../Asignature/";
+import {
+  AsignatureResolver,
+  UnitResolver,
+  TopicResolver,
+} from "../Asignature/";
 import { UserAsignatureResolver } from "./";
 
 @Resolver()
@@ -42,9 +48,32 @@ export class UserUnitResolver {
     unit.id_unit = unitId;
     unit.nota = 0;
     unit.topic = [];
+
+    const topicResolver = new TopicResolver();
+    const topics = await topicResolver.getTopics(asignatureId, unitId);
+
+    if (!topics) {
+      return false;
+    }
+
+    if (!topics?.topic.length) {
+      return false;
+    }
+
+    unit.topic = topics?.topic.map((topic: Topic) => {
+      const userTopic = new UserTopic();
+      userTopic._id = topic._id;
+      userTopic.nota = 0;
+      userTopic.id_topic = topic._id.toString();
+      userTopic.questions = [];
+      userTopic.finished = false;
+      return userTopic;
+    });
+
     progress.unit.push(unit);
+
     await AppDataSource.manager.update(User, user._id, user);
-    return true;
+    return user;
   }
 
   // @Mutation(() => Boolean)
