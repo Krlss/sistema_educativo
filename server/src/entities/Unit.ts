@@ -1,12 +1,17 @@
 import { Field, ObjectType } from "type-graphql";
-import { Column, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+  ObjectID,
+} from "typeorm";
 import { Topic } from "./Topic";
 
 @ObjectType()
 export class Unit {
   @Field()
   @PrimaryColumn()
-  _id!: number;
+  _id!: ObjectID;
 
   @Field()
   @Column("string")

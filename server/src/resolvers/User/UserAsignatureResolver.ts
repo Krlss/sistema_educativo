@@ -20,7 +20,7 @@ export class UserAsignatureResolver {
     }
 
     const asignature = new UserAsignature();
-    asignature._id = user.progress.length + 1;
+    asignature._id = new ObjectId();
     asignature.unit = [];
     asignature.nota = 0;
     asignature.id_asignature = asignatureId;

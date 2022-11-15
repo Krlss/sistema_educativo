@@ -39,7 +39,7 @@ export class UserTopicResolver {
     }
 
     const topic = new UserTopic();
-    topic._id = unit.topic.length + 1;
+    topic._id = new ObjectId();
     topic.id_topic = topicId;
     topic.nota = 0;
     topic.finished = false;
@@ -156,12 +156,6 @@ export class UserTopicResolver {
     if (!progress) {
       return false;
     }
-    // const asignature = progress.asignature.find(
-    //   (asignature) => asignature._id.toString() === asignatureId
-    // );
-    // if (!asignature) {
-    //   return false;
-    // }
     const unit = progress.unit.find((unit) => unit._id.toString() === unitId);
     if (!unit) {
       return false;

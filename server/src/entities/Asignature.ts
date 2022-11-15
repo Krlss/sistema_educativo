@@ -8,7 +8,7 @@ import { Field, ObjectType } from "type-graphql";
 export class Asignature {
   @Field()
   @ObjectIdColumn()
-  _id!: string;
+  _id!: ObjectID;
 
   @Field()
   @Column("string")

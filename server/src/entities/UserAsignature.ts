@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { Entity, Column, PrimaryColumn } from "typeorm";
+import { Entity, Column, PrimaryColumn, ObjectID } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 import { UserUnit } from "./UserUnit";
 
@@ -7,7 +7,7 @@ import { UserUnit } from "./UserUnit";
 export class UserAsignature {
   @Field()
   @PrimaryColumn()
-  _id!: number;
+  _id!: ObjectID;
 
   @Field()
   @Column("int")

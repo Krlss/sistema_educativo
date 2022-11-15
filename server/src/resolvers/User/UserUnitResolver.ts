@@ -1,4 +1,5 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
+import { ObjectID } from "typeorm";
 import { AppDataSource } from "../../config/typeorm";
 const { ObjectId } = require("mongodb");
 import {
@@ -20,7 +21,7 @@ import { UserAsignatureResolver } from "./";
 @Resolver()
 export class UserUnitResolver {
   /* Crear una nueva unidad de asignatura en el progreso del usuario */
-  @Mutation(() => Boolean)
+  @Mutation(() => User)
   async createUserUnit(
     @Arg("userId") userId: string,
     @Arg("asignatureId") asignatureId: string,
@@ -44,7 +45,7 @@ export class UserUnitResolver {
     }
 
     const unit = new UserUnit();
-    unit._id = progress.unit.length + 1;
+    unit._id = new ObjectId();
     unit.id_unit = unitId;
     unit.nota = 0;
     unit.topic = [];
