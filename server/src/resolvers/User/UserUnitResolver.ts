@@ -1,4 +1,5 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
+import { ObjectID } from "typeorm";
 import { AppDataSource } from "../../config/typeorm";
 const { ObjectId } = require("mongodb");
 import {
@@ -44,7 +45,7 @@ export class UserUnitResolver {
     }
 
     const unit = new UserUnit();
-    unit._id = progress.unit.length + 1;
+    unit._id = new ObjectId();
     unit.id_unit = unitId;
     unit.nota = 0;
     unit.topic = [];

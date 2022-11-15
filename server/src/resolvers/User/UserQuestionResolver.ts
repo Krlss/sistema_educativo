@@ -56,9 +56,6 @@ export class UserQuestionResolver {
     question.isDone = false;
 
     topic.questions.push(question);
-    // asignature.unit.push(unit);
-    // progress.asignature.push(asignature);
-    // user.progress.push(progress);
     await AppDataSource.manager.update(User, user._id, user);
     return topic._id.toString();
   }
@@ -256,7 +253,7 @@ export class UserQuestionResolver {
                 .slice(0, 10);
               randomQuestions.map((question) => {
                 const userQuestion = new UserQuestion();
-                userQuestion._id = userquestions.length + 1;
+                userQuestion._id = new ObjectId();
                 userQuestion.id_question = question._id.toString();
                 userQuestion.nota = 0;
                 userQuestion.isDone = false;

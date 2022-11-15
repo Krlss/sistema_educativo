@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { Entity, Column, PrimaryColumn } from "typeorm";
+import { Entity, Column, PrimaryColumn, ObjectID } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 import { UserQuestion } from "./UserQuestion";
 
@@ -7,7 +7,7 @@ import { UserQuestion } from "./UserQuestion";
 export class UserTopic {
   @Field()
   @PrimaryColumn()
-  _id!: number;
+  _id!: ObjectID;
 
   @Field()
   @Column("int")

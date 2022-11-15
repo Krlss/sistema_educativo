@@ -1,11 +1,11 @@
 import { Field, Int, ObjectType } from "type-graphql";
-import { Any, Column, PrimaryColumn } from "typeorm";
+import { Any, Column, PrimaryColumn, ObjectID } from "typeorm";
 
 @ObjectType()
 export class Question {
   @Field()
   @PrimaryColumn()
-  _id!: number;
+  _id!: ObjectID;
 
   @Field()
   @Column("string")

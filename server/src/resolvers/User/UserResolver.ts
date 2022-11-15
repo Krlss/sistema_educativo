@@ -61,7 +61,7 @@ export class UserResolver {
 
       asignatures.forEach(async (asignature: any) => {
         const asig = new UserAsignature();
-        asig._id = user.progress.length + 1;
+        asig._id = new ObjectId();
         asig.unit = [];
         asig.nota = 0;
         asig.id_asignature = asignature._id;
@@ -143,19 +143,21 @@ export class UserResolver {
       if (asignatures) {
         asignatures.forEach((asig: Asignature) => {
           const aux = user.progress.filter((item: UserAsignature) => {
-            return item.id_asignature === asig._id;
+            return item.id_asignature === asig._id.toString();
           });
           if (!aux) {
             const auxasig = new UserAsignature();
             auxasig._id = user.progress.length + 1;
             auxasig.unit = [];
             auxasig.nota = 0;
-            auxasig.id_asignature = asig._id;
+            auxasig.id_asignature = asig._id.toString();
             user.progress.push(auxasig);
           }
         });
         const auxprogress = user.progress.filter((item: UserAsignature) =>
-          asignatures.some((asig: Asignature) => asig._id == item.id_asignature)
+          asignatures.some(
+            (asig: Asignature) => asig._id.toString() == item.id_asignature
+          )
         );
         if (auxprogress.length) {
           user.progress = auxprogress;
@@ -163,10 +165,10 @@ export class UserResolver {
         if (!user.progress.length) {
           asignatures.forEach((asig: Asignature) => {
             const auxasig = new UserAsignature();
-            auxasig._id = user.progress.length + 1;
+            auxasig._id = new ObjectId();
             auxasig.unit = [];
             auxasig.nota = 0;
-            auxasig.id_asignature = asig._id;
+            auxasig.id_asignature = asig._id.toString();
             user.progress.push(auxasig);
           });
           await AppDataSource.manager.update(User, user._id, user);
