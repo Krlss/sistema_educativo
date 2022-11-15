@@ -1,8 +1,11 @@
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect, useContext } from 'react'
+import { useNavigate, useParams, NavLink } from 'react-router-dom'
 import { useLazyQuery } from '@apollo/client'
 import { ASIGNATURE } from '../../types/ContextAsignature'
 import { GETASIGNATURES, GETASIGNATURE } from './graphql-queries'
-import { getRamdonArrayColors } from '../../constants/colors'
+import { getRamdonArrayColors, pastelColors } from '../../constants/colors'
+
+import GeneralContext from '../../contexts/context'
 
 export interface getAsignaturesProps {
   getAsignatures: ASIGNATURE[]
@@ -21,16 +24,12 @@ export const useGetAsignatures = () => {
   return { getAsignatures, data, error, loading }
 }
 
-export const useGetAsignature = ({
-  setLoading,
-  setAsignature,
-  setColors
-}: {
-  setLoading: (loading: boolean) => void
-  setAsignature: (asignature: ASIGNATURE) => void
-  setColors: (colors: string[]) => void
-}) => {
+export const useGetAsignature = () => {
+  const { asinatureId } = useParams()
   const navigate = useNavigate()
+  const [colors, setColors] = useState(pastelColors)
+  const [asignature, setAsignature] = useState<ASIGNATURE>()
+  const { setLoading } = useContext(GeneralContext)
   const [getAsignature, { data, error, loading }] =
     useLazyQuery<getAsignatureProps>(GETASIGNATURE, {
       fetchPolicy: 'no-cache'
@@ -54,5 +53,21 @@ export const useGetAsignature = ({
     })
   }
 
-  return { getAsignature, getAsignatureHandler, data, error, loading }
+  useEffect(() => {
+    if (asinatureId) {
+      getAsignatureHandler(asinatureId)
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [asinatureId])
+
+  return {
+    getAsignature,
+    getAsignatureHandler,
+    data,
+    error,
+    loading,
+    asignature,
+    colors,
+    asinatureId
+  }
 }

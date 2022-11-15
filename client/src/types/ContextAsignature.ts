@@ -3,10 +3,10 @@ export interface ASIGNATURE {
   name: string
   description: string
   unit: {
-    _id: number
+    _id: string
     name: string
     topic: {
-      _id: number
+      _id: string
       name: string
     }[]
   }[]

@@ -19,7 +19,7 @@ export class UnitResolver {
       return false;
     }
     const unit = new Unit();
-    unit._id = asignature.unit.length + 1;
+    unit._id = new ObjectId();
     unit.name = name;
     unit.topic = [];
 

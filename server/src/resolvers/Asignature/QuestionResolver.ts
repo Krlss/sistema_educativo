@@ -31,7 +31,7 @@ export class QuestionResolver {
       return false;
     }
     const _question = new Question();
-    _question._id = topic.question.length + 1;
+    _question._id = new ObjectId();
     _question.subtitle = subtitle;
     _question.title = title;
     _question.options = options;

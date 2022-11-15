@@ -26,7 +26,7 @@ export class TopicResolver {
       return false;
     }
     const topic = new Topic();
-    topic._id = unit.topic.length + 1;
+    topic._id = new ObjectId();
     topic.name = name;
     topic.description = description ?? null;
     topic.question = [];

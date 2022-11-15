@@ -1,26 +1,7 @@
-import { useState, useEffect, useContext } from 'react'
-import { useParams, NavLink } from 'react-router-dom'
-import GeneralContext from '../../contexts/context'
-import { pastelColors } from '../../constants/colors'
-import { ASIGNATURE } from '../../types/ContextAsignature'
+import { NavLink } from 'react-router-dom'
 import { useGetAsignature } from '../../service/asignatures/custom-hook'
 const CoursePresentation = () => {
-  const { asinatureId } = useParams()
-  const [colors, setColors] = useState(pastelColors)
-  const [asignature, setAsignature] = useState<ASIGNATURE>()
-  const { setLoading } = useContext(GeneralContext)
-  const { getAsignatureHandler } = useGetAsignature({
-    setAsignature,
-    setLoading,
-    setColors
-  })
-
-  useEffect(() => {
-    if (asinatureId) {
-      getAsignatureHandler(asinatureId)
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [asinatureId])
+  const { asignature, asinatureId, colors } = useGetAsignature()
 
   return (
     <div className="px-2">
@@ -44,11 +25,11 @@ const CoursePresentation = () => {
                 style={{
                   backgroundColor: colors[index]
                 }}>
-                {unt._id} .°
+                {index + 1} .°
               </div>
               <div className="flex items-center flex-1">
                 <div className="p-4">
-                  <h1 className="font-semibold">Unidad {unt._id}</h1>
+                  <h1 className="font-semibold">Unidad {index + 1}</h1>
                   <div className="line-clamp-3 pr-5">
                     <span className="text-sm text-gray-600 font-semibold mr-1">
                       Incluye:

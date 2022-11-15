@@ -1,16 +1,18 @@
+import "reflect-metadata";
 import { Field, ObjectType } from "type-graphql";
 import {
   Column,
   PrimaryColumn,
   PrimaryGeneratedColumn,
+  ObjectIdColumn,
   ObjectID,
 } from "typeorm";
 import { Topic } from "./Topic";
 
 @ObjectType()
 export class Unit {
-  @Field()
-  @PrimaryColumn()
+  @Field(() => String)
+  @ObjectIdColumn()
   _id!: ObjectID;
 
   @Field()
