@@ -1,10 +1,11 @@
+import "reflect-metadata";
 import { Field, Int, ObjectType } from "type-graphql";
-import { Any, Column, PrimaryColumn, ObjectID } from "typeorm";
+import { Any, Column, ObjectIdColumn, ObjectID } from "typeorm";
 
 @ObjectType()
 export class Question {
-  @Field()
-  @PrimaryColumn()
+  @Field(() => String)
+  @ObjectIdColumn()
   _id!: ObjectID;
 
   @Field()

@@ -1,12 +1,12 @@
 import "reflect-metadata";
-import { Entity, Column, PrimaryColumn, ObjectID } from "typeorm";
+import { Entity, Column, ObjectIdColumn, ObjectID } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 import { UserUnit } from "./UserUnit";
 
 @ObjectType()
 export class UserAsignature {
-  @Field()
-  @PrimaryColumn()
+  @Field(() => String)
+  @ObjectIdColumn()
   _id!: ObjectID;
 
   @Field()

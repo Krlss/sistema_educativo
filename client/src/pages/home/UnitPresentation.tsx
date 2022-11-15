@@ -1,49 +1,9 @@
-import { useEffect, useState, useContext } from 'react'
-import GeneralContext from '../../contexts/context'
-import { useParams, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { useGetTopics } from '../../service/topic/custom-hook'
-import { pastelColors, getRamdonArrayColors } from '../../constants/colors'
-
-interface TOPIC {
-  _id: number
-  name: string
-  description?: string
-}
-
-interface ASIGNATURES {
-  _id: number
-  asignature_name: string
-  name: string
-  topic?: TOPIC[]
-}
 
 const UnitPresentation = () => {
-  const { setLoading } = useContext(GeneralContext)
-  const [asignature, setAsignature] = useState<ASIGNATURES>()
-  const [colors, setColors] = useState(pastelColors)
-  const { curso, unidad } = useParams() as { curso: string; unidad: string }
-  const { getTopics } = useGetTopics()
+  const { asignature, colors, asinatureId } = useGetTopics()
 
-  useEffect(() => {
-    setLoading(true)
-    getTopics({
-      variables: {
-        asinatureId: curso,
-        unitId: unidad
-      },
-      onCompleted: data => {
-        setAsignature(data.getTopics)
-        setColors(getRamdonArrayColors(data.getTopics.topic.length))
-        setLoading(false)
-      },
-      onError: error => {
-        console.log(error)
-        setLoading(false)
-      }
-    })
-
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [curso, unidad])
   return (
     <div>
       <div className="flex flex-col items-center justify-center">
@@ -52,9 +12,7 @@ const UnitPresentation = () => {
             {asignature?.asignature_name}
           </span>
           {asignature?.name && (
-            <span className="text-2xl font-bold">
-              - unidad {asignature?.name}
-            </span>
+            <span className="text-2xl font-bold">- {asignature?.name}</span>
           )}
         </div>
         <div className="mx-auto max-w-5xl pb-20 w-full">
@@ -62,17 +20,17 @@ const UnitPresentation = () => {
             <NavLink
               className="rounded-md flex items-center my-3 justify-start shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white h-[150px] md:h-[120px]"
               key={index}
-              to={`/curso/${curso}/${top._id}`}>
+              to={`/curso/${asinatureId}/${top._id}`}>
               <div
                 className="items-center justify-center min-w-[104px] max-w-[80px] w-full rounded-l-md font-bold text-xl md:flex hidden h-full"
                 style={{
                   backgroundColor: colors[index]
                 }}>
-                {top._id} .°
+                {index + 1} .°
               </div>
               <div className="flex md:flex-row flex-col justify-between md:items-center w-full p-5">
                 <div className="md:pb-0 pb-4 md:pr-10">
-                  <h1 className="font-semibold">Tema {top._id}</h1>
+                  <h1 className="font-semibold">Tema {index + 1}</h1>
                   <div className="line-clamp-3 max-w-lg">
                     <span className="text-sm text-gray-600 font-semibold">
                       {top.name}

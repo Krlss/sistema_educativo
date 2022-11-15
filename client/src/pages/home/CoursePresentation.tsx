@@ -1,37 +1,7 @@
-import { useState, useEffect, useContext } from 'react'
-import { useParams, NavLink, useNavigate } from 'react-router-dom'
-import GeneralContext from '../../contexts/context'
-import { pastelColors, getRamdonArrayColors } from '../../constants/colors'
-import { ASIGNATURE } from '../../types/ContextAsignature'
+import { NavLink } from 'react-router-dom'
 import { useGetAsignature } from '../../service/asignatures/custom-hook'
 const CoursePresentation = () => {
-  const { curso } = useParams()
-  const [colors, setColors] = useState(pastelColors)
-  const [asignature, setAsignature] = useState<ASIGNATURE>()
-  const { getAsignature } = useGetAsignature()
-  const navigate = useNavigate()
-  const { setLoading } = useContext(GeneralContext)
-
-  useEffect(() => {
-    if (curso) {
-      setLoading(true)
-      getAsignature({
-        variables: {
-          id: curso
-        },
-        onCompleted: data => {
-          setAsignature(data.getAsignature)
-          setColors(getRamdonArrayColors(data.getAsignature.unit.length))
-          setLoading(false)
-        },
-        onError: () => {
-          setLoading(false)
-          navigate('/')
-        }
-      })
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [curso])
+  const { asignature, asinatureId, colors } = useGetAsignature()
 
   return (
     <div className="px-2">
@@ -49,17 +19,17 @@ const CoursePresentation = () => {
             <NavLink
               className="rounded-md flex items-center my-3 justify-start shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white h-[150px] md:h-[120px]"
               key={index}
-              to={`/curso/${curso}/unidad/${unt._id}`}>
+              to={`/curso/${asinatureId}/unidad/${unt._id}`}>
               <div
                 className="items-center justify-center min-w-[104px] max-w-[80px] w-full rounded-l-md font-bold text-xl md:flex hidden h-full"
                 style={{
                   backgroundColor: colors[index]
                 }}>
-                {unt._id} .°
+                {index + 1} .°
               </div>
               <div className="flex items-center flex-1">
                 <div className="p-4">
-                  <h1 className="font-semibold">Unidad {unt._id}</h1>
+                  <h1 className="font-semibold">Unidad {index + 1}</h1>
                   <div className="line-clamp-3 pr-5">
                     <span className="text-sm text-gray-600 font-semibold mr-1">
                       Incluye:

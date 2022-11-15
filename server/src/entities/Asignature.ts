@@ -6,7 +6,7 @@ import { Field, ObjectType } from "type-graphql";
 @ObjectType()
 @Entity()
 export class Asignature {
-  @Field()
+  @Field(() => String)
   @ObjectIdColumn()
   _id!: ObjectID;
 
