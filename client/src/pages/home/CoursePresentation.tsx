@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import { useGetAsignature } from '../../service/asignatures/custom-hook'
 const CoursePresentation = () => {
-  const { asignature, asinatureId, colors } = useGetAsignature()
+  const { asignature, asignatureId, colors } = useGetAsignature()
 
   return (
     <div className="px-2">
@@ -19,7 +19,7 @@ const CoursePresentation = () => {
             <NavLink
               className="rounded-md flex items-center my-3 justify-start shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white h-[150px] md:h-[120px]"
               key={index}
-              to={`/curso/${asinatureId}/unidad/${unt._id}`}>
+              to={`/curso/${asignatureId}/unidad/${unt._id}`}>
               <div
                 className="items-center justify-center min-w-[104px] max-w-[80px] w-full rounded-l-md font-bold text-xl md:flex hidden h-full"
                 style={{

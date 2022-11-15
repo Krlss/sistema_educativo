@@ -1,11 +1,11 @@
 import { useLazyQuery, useMutation } from '@apollo/client'
 import { GETTOPICS } from './graphql-queries'
-import { CREATEUSERTOPIC } from './graphql-mutations'
+import { CREATEUSERUNIT } from './graphql-mutations'
 import { getRamdonArrayColors } from '../../constants/colors'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState, useContext } from 'react'
 import GeneralContext from '../../contexts/context'
-
+import { USER } from '../../types/ContextUser'
 interface IGetTopics {
   _id: string
   name: string
@@ -34,21 +34,27 @@ export interface getTopicsProps {
   getTopics: IGetTopics
 }
 
+export interface IcreateUserUnit {
+  createUserUnit: USER
+}
+
 export const useGetTopics = () => {
   const navigate = useNavigate()
-  const { setLoading } = useContext(GeneralContext)
+  const { setLoading, user, setUser } = useContext(GeneralContext)
   const [asignature, setAsignature] = useState<ASIGNATURES>()
   const [colors, setColors] = useState<string[]>([])
 
-  const { asinatureId, unitId } = useParams() as {
-    asinatureId: string
+  const { asignatureId, unitId } = useParams() as {
+    asignatureId: string
     unitId: string
   }
 
-  const [getTopics, { data, error, loading }] =
-    useLazyQuery<getTopicsProps>(GETTOPICS)
+  const [getTopics] = useLazyQuery<getTopicsProps>(GETTOPICS)
 
-  const getTopicsHandler = (props: { asinatureId: string; unitId: string }) => {
+  const getTopicsHandler = (props: {
+    asignatureId: string
+    unitId: string
+  }) => {
     setLoading(true)
     getTopics({
       variables: { ...props },
@@ -59,39 +65,57 @@ export const useGetTopics = () => {
       },
       onError: () => {
         setLoading(false)
-        navigate(`/curso/${props.asinatureId}`)
+        navigate(`/curso/${props.asignatureId}`)
+      }
+    })
+  }
+
+  const createdUserUnit = user.progress
+    .find(progress => progress.id_asignature === asignatureId)
+    ?.unit?.find(unit => unit.id_unit === unitId)
+
+  const [createUserUnit] = useMutation<IcreateUserUnit>(CREATEUSERUNIT, {
+    onError(error) {
+      console.log(error)
+    },
+    onCompleted(data) {
+      const { createUserUnit } = data
+      setUser({ ...createUserUnit, rememberMe: user.rememberMe })
+      console.log('unidad agregada al progreso del usuario')
+    }
+  })
+
+  const createUserUnitHandler = (props: {
+    asignatureId: string
+    unitId: string
+    userId: string
+  }) => {
+    createUserUnit({
+      variables: { ...props },
+      onCompleted: ({ createUserUnit }) => {
+        setUser({ ...createUserUnit })
       }
     })
   }
 
   useEffect(() => {
     getTopicsHandler({
-      asinatureId,
+      asignatureId,
       unitId
     })
 
+    if (createdUserUnit === undefined) {
+      createUserUnitHandler({ asignatureId, unitId, userId: user._id })
+    }
+
     window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [asinatureId, unitId])
+  }, [asignatureId, unitId])
 
   return {
     getTopics,
     getTopicsHandler,
-    data,
-    error,
-    loading,
     asignature,
     colors,
-    asinatureId
+    asignatureId
   }
-}
-
-export interface IcreateUserUnit {
-  createUserUnit: boolean
-}
-
-export const useCreateUserTopic = () => {
-  const [createUserTopic, { data, error, loading }] =
-    useMutation<IcreateUserUnit>(CREATEUSERTOPIC)
-
-  return { createUserTopic, data, error, loading }
 }

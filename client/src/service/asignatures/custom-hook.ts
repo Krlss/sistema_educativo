@@ -23,7 +23,7 @@ export const useGetAsignatures = () => {
 }
 
 export const useGetAsignature = () => {
-  const { asinatureId } = useParams()
+  const { asignatureId } = useParams()
   const navigate = useNavigate()
   const [colors, setColors] = useState(pastelColors)
   const [asignature, setAsignature] = useState<ASIGNATURE>()
@@ -31,11 +31,11 @@ export const useGetAsignature = () => {
   const [getAsignature, { data, error, loading }] =
     useLazyQuery<getAsignatureProps>(GETASIGNATURE)
 
-  const getAsignatureHandler = (asinatureId: string) => {
+  const getAsignatureHandler = (asignatureId: string) => {
     setLoading(true)
     getAsignature({
       variables: {
-        asinatureId
+        asignatureId
       },
       onCompleted: ({ getAsignature }) => {
         setAsignature(getAsignature)
@@ -50,11 +50,11 @@ export const useGetAsignature = () => {
   }
 
   useEffect(() => {
-    if (asinatureId) {
-      getAsignatureHandler(asinatureId)
+    if (asignatureId) {
+      getAsignatureHandler(asignatureId)
     }
     window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [asinatureId])
+  }, [asignatureId])
 
   return {
     getAsignature,
@@ -64,6 +64,6 @@ export const useGetAsignature = () => {
     loading,
     asignature,
     colors,
-    asinatureId
+    asignatureId
   }
 }
