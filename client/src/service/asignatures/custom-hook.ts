@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import { useNavigate, useParams, NavLink } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useLazyQuery } from '@apollo/client'
 import { ASIGNATURE } from '../../types/ContextAsignature'
 import { GETASIGNATURES, GETASIGNATURE } from './graphql-queries'
@@ -17,9 +17,7 @@ export interface getAsignatureProps {
 
 export const useGetAsignatures = () => {
   const [getAsignatures, { data, error, loading }] =
-    useLazyQuery<getAsignaturesProps>(GETASIGNATURES, {
-      fetchPolicy: 'no-cache'
-    })
+    useLazyQuery<getAsignaturesProps>(GETASIGNATURES)
 
   return { getAsignatures, data, error, loading }
 }
@@ -31,9 +29,7 @@ export const useGetAsignature = () => {
   const [asignature, setAsignature] = useState<ASIGNATURE>()
   const { setLoading } = useContext(GeneralContext)
   const [getAsignature, { data, error, loading }] =
-    useLazyQuery<getAsignatureProps>(GETASIGNATURE, {
-      fetchPolicy: 'no-cache'
-    })
+    useLazyQuery<getAsignatureProps>(GETASIGNATURE)
 
   const getAsignatureHandler = (asinatureId: string) => {
     setLoading(true)

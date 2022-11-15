@@ -45,12 +45,8 @@ export const useGetTopics = () => {
     unitId: string
   }
 
-  const [getTopics, { data, error, loading }] = useLazyQuery<getTopicsProps>(
-    GETTOPICS,
-    {
-      fetchPolicy: 'no-cache'
-    }
-  )
+  const [getTopics, { data, error, loading }] =
+    useLazyQuery<getTopicsProps>(GETTOPICS)
 
   const getTopicsHandler = (props: { asinatureId: string; unitId: string }) => {
     setLoading(true)
