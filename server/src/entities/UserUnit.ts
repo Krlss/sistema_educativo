@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { Entity, Column, ObjectIdColumn, ObjectID } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
-import { UserTopic } from "./UserTopic";
+import { UserTopic, UserQuestion } from "./";
 
 @ObjectType()
 export class UserUnit {
@@ -20,4 +20,12 @@ export class UserUnit {
   @Field()
   @Column("string")
   id_unit!: string;
+
+  @Field(() => [UserQuestion])
+  @Column(() => UserQuestion)
+  questions!: UserQuestion[];
+
+  @Field()
+  @Column("boolean")
+  finished!: boolean;
 }
