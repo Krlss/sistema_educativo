@@ -20,8 +20,8 @@ export const GETASIGNATURES = gql`
 `
 
 export const GETASIGNATURE = gql`
-  query ASIGNATURE($asinatureId: String!) {
-    getAsignature(id: $asinatureId) {
+  query ASIGNATURE($asignatureId: String!) {
+    getAsignature(id: $asignatureId) {
       _id
       name
       description

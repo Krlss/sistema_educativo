@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 import { useGetTopics } from '../../service/topic/custom-hook'
 
 const UnitPresentation = () => {
-  const { asignature, colors, asinatureId } = useGetTopics()
+  const { asignature, colors, asignatureId } = useGetTopics()
 
   return (
     <div>
@@ -20,7 +20,7 @@ const UnitPresentation = () => {
             <NavLink
               className="rounded-md flex items-center my-3 justify-start shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white h-[150px] md:h-[120px]"
               key={index}
-              to={`/curso/${asinatureId}/${top._id}`}>
+              to={`/curso/${asignatureId}/${top._id}`}>
               <div
                 className="items-center justify-center min-w-[104px] max-w-[80px] w-full rounded-l-md font-bold text-xl md:flex hidden h-full"
                 style={{
