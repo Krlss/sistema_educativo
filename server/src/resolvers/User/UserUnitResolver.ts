@@ -40,7 +40,7 @@ export class UserUnitResolver {
       return false;
     }
 
-    if (progress.unit.find((unit) => unit._id.toString() === unitId)) {
+    if (progress.unit.find((unit) => unit.id_unit.toString() === unitId)) {
       return false;
     }
 
