@@ -27,7 +27,7 @@ const GeneralProvider = (props: any) => {
       })
       dispatchUser({
         type: 'setUserProgress',
-        payload: data?.getUserProgress
+        payload: data?.getUserProgress ?? []
       })
     }
   }, [])
