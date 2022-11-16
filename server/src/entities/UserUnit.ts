@@ -25,7 +25,7 @@ export class UserUnit {
   @Column(() => UserQuestion)
   questions!: UserQuestion[];
 
-  @Field()
-  @Column("boolean")
+  @Field({ nullable: true })
+  @Column("boolean", { nullable: true })
   finished!: boolean;
 }
