@@ -83,23 +83,14 @@ export class UserAsignatureResolver {
   // }
   /* Consulta todas las asignaturas en el progreso del usuario */
   @Query(() => [UserAsignature])
-  async getUserAsignatures(
-    @Arg("userId") userId: string,
-    @Arg("progressId") progressId: string
-  ) {
+  async getUserProgress(@Arg("userId") userId: string) {
     const user = await AppDataSource.manager.findOneBy(User, {
       _id: new ObjectId(userId),
     });
     if (!user) {
       return false;
     }
-    const progress = user.progress.find(
-      (progress) => progress._id.toString() === progressId
-    );
-    if (!progress) {
-      return false;
-    }
-    return progress;
+    return user.progress;
   }
   /* Actualiza una asignatura en el progreso del usuario */
   @Mutation(() => Boolean)

@@ -2,6 +2,7 @@ import { Resolver, Query, Mutation, Arg } from "type-graphql";
 import { Asignature } from "../../entities/Asignature";
 import { AppDataSource } from "../../config/typeorm";
 import { User } from "../../entities/User";
+import { getGoogleDriveId } from "../../utils/image";
 const { ObjectId } = require("mongodb");
 @Resolver()
 export class AsignatureResolver {
@@ -9,11 +10,15 @@ export class AsignatureResolver {
   @Mutation(() => String)
   async createAsignature(
     @Arg("name") name: string,
-    @Arg("description") description: string
+    @Arg("description") description: string,
+    @Arg("image") image: string
   ) {
     const asignature = new Asignature();
     asignature.name = name;
     asignature.description = description;
+
+    const aux = getGoogleDriveId(image);
+    if (aux) asignature.image = aux ?? "";
     asignature.unit = [];
     await AppDataSource.manager.save(asignature);
     return asignature._id.toString();
@@ -45,14 +50,24 @@ export class AsignatureResolver {
 
   /* Actualiza las materias */
   @Mutation(() => Boolean)
-  async updateAsignature(@Arg("id") id: string, @Arg("name") name: string) {
+  async updateAsignature(
+    @Arg("id") id: string,
+    @Arg("name", { nullable: true }) name: string,
+    @Arg("description", { nullable: true }) description: string,
+    @Arg("image", { nullable: true }) image: string
+  ) {
     let asignature = await AppDataSource.manager.findOneBy(Asignature, {
       _id: new ObjectId(id),
     });
     if (!asignature) {
       return false;
     }
-    asignature.name = name;
+    if (name) asignature.name = name;
+    if (description) asignature.description = description;
+    if (image) {
+      const aux = getGoogleDriveId(image);
+      if (aux) asignature.image = aux;
+    }
     await AppDataSource.manager.update(Asignature, asignature._id, asignature);
     return true;
   }

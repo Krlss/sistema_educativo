@@ -16,6 +16,10 @@ export class Asignature {
 
   @Field()
   @Column("string")
+  image!: string;
+
+  @Field()
+  @Column("string")
   description!: string;
 
   @Field(() => [Unit])
