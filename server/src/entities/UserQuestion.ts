@@ -4,19 +4,19 @@ import { Field, ObjectType } from "type-graphql";
 
 @ObjectType()
 export class UserQuestion {
-  @Field(() => String)
+  @Field(() => String || null)
   @ObjectIdColumn()
   _id!: ObjectID;
 
-  @Field()
+  @Field({ nullable: true })
   @Column("int")
   nota!: number;
 
-  @Field()
+  @Field({ nullable: true })
   @Column("string")
   id_question!: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column("boolean")
   isDone!: boolean;
 }
