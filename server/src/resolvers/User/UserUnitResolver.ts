@@ -197,8 +197,8 @@ export class UserUnitResolver {
     @Arg("progressId") progressId: string,
     @Arg("asignatureId") asignatureId: string,
     @Arg("unitId") unitId: string,
-    @Arg("nota") nota: number,
-    @Arg("finished") finished: boolean
+    @Arg("nota", { nullable: true }) nota: number,
+    @Arg("finished", { nullable: true }) finished: boolean
   ) {
     const user = await AppDataSource.manager.findOneBy(User, {
       _id: new ObjectId(userId),
