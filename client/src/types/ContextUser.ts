@@ -1,3 +1,28 @@
+export interface TOPIC {
+  _id: string
+  nota: number
+  id_topic: string
+  finished: boolean
+  questions: {
+    _id: string
+    nota: number
+    id_question: string
+    isDone: boolean
+  }[]
+}
+export interface UNIT {
+  _id: string
+  nota: number
+  id_unit: string
+  topic: TOPIC[]
+}
+
+export interface PROGRESS {
+  _id: string
+  nota: number
+  id_asignature: string
+  unit?: UNIT[]
+}
 export interface USER {
   _id: string
   lastname: string
@@ -7,4 +32,5 @@ export interface USER {
   rol: string[]
   isLogged: boolean
   rememberMe: boolean
+  progress: PROGRESS[]
 }

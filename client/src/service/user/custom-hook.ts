@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { LOGIN } from './graphql-queries'
 import { REGISTER } from './graphql-mutations'
 import { useLazyQuery, useMutation } from '@apollo/client'
-import { getCookie } from '../../utils/Cookie'
+import { getDataSession } from '../../utils/dataSession'
 import GeneralContext from '../../contexts/context'
 import { USER } from '../../types/ContextUser'
 import { useNavigate } from 'react-router-dom'
@@ -30,7 +30,7 @@ interface RegisterUser {
 
 export const useLogin = () => {
   const { setUser, setLoading } = useContext(GeneralContext)
-  const token = getCookie('token')
+  const token = getDataSession('token')
   const navigate = useNavigate()
 
   const [login, { data, error, loading }] = useLazyQuery<LoginUser>(LOGIN, {
@@ -38,6 +38,7 @@ export const useLogin = () => {
       setLoading(false)
     },
     onCompleted({ login }) {
+      console.log({ login })
       setLoading(false)
       setUser({ ...login })
       navigate('/')
@@ -53,7 +54,7 @@ export const useLogin = () => {
 }
 
 export const useRegister = () => {
-  const token = getCookie('token')
+  const token = getDataSession('token')
   const navigate = useNavigate()
   const { setLoading } = useContext(GeneralContext)
 
