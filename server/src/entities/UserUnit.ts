@@ -21,7 +21,7 @@ export class UserUnit {
   @Column("string")
   id_unit!: string;
 
-  @Field(() => [UserQuestion])
+  @Field(() => [UserQuestion], { nullable: true })
   @Column(() => UserQuestion)
   questions!: UserQuestion[];
 

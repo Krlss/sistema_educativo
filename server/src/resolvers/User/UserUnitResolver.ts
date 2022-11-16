@@ -40,8 +40,8 @@ export class UserUnitResolver {
       return false;
     }
 
-    if (!progress.unit.find((unit) => unit.id_unit.toString() === unitId)) {
-      return false;
+    if (progress.unit.find((unit) => unit.id_unit.toString() === unitId)) {
+      return user;
     }
 
     const unit = new UserUnit();
@@ -55,11 +55,11 @@ export class UserUnitResolver {
     const topics = await topicResolver.getTopics(asignatureId, unitId);
 
     if (!topics) {
-      return false;
+      return user;
     }
 
     if (!topics?.topic.length) {
-      return false;
+      return user;
     }
 
     unit.topic = topics?.topic.map((topic: Topic) => {
