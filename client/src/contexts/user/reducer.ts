@@ -1,5 +1,5 @@
 import { USER } from '../../types/ContextUser'
-import { setCookie, removeCookie } from '../../utils/Cookie'
+import { setDataSession, removeDataSession } from '../../utils/dataSession'
 
 type UserReducerProps =
   | { type: 'setUser'; payload: USER }
@@ -10,14 +10,14 @@ export default (state: USER, action: UserReducerProps) => {
 
   switch (type) {
     case 'setUser':
-      setCookie('token', payload, payload.rememberMe)
+      setDataSession('token', payload)
       return {
         ...state,
         ...payload,
         isLogged: true
       }
     case 'resetUser':
-      removeCookie('token')
+      removeDataSession('token')
       return {
         ...state,
         _id: '',

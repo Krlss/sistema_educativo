@@ -10,14 +10,14 @@ import {
   useGetAsignatures,
   getAsignaturesProps
 } from '../service/asignatures/custom-hook'
-import { getCookie } from '../utils/Cookie'
+import { getDataSession } from '../utils/dataSession'
 
 const GeneralProvider = (props: any) => {
   const [user, dispatchUser] = useReducer(UserReducer, InitialStateUser)
   const [config, dispatchConfig] = useReducer(ConfigReducer, InitialStateConfig)
   const { getAsignatures } = useGetAsignatures()
   useEffect(() => {
-    const token = getCookie('token')
+    const token = getDataSession('token')
     if (token) {
       dispatchUser({ type: 'setUser', payload: token })
     }

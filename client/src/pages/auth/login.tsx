@@ -68,7 +68,11 @@ const Login = () => {
           />
 
           <div className="flex justify-between lg:items-center mt-4 xs:flex-row flex-col">
-            <RemenberMe name="rememberMe" onChange={formik.handleChange} />
+            <RemenberMe
+              name="rememberMe"
+              onChange={formik.handleChange}
+              defaultChecked={true}
+            />
             <NavLink to="#recuperar-contraseña" className="text-blue-500">
               ¿Olvidaste tu contraseña?
             </NavLink>

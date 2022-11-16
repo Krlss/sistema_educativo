@@ -1,16 +1,13 @@
 import Navbar from '../components/header/navbar'
 import { Outlet, Navigate } from 'react-router-dom'
 import Footer from '../components/footer'
-import { getCookie } from '../utils/Cookie'
-import { useEffect } from 'react'
+import { getDataSession } from '../utils/dataSession'
 
 const Aplication = () => {
-  const token = getCookie('token')
+  const token = getDataSession('token')
   if (!token) {
     return <Navigate to="/iniciar-sesion" />
   }
-
-  useEffect(() => {}, [])
 
   return (
     <>

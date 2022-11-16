@@ -1,9 +1,6 @@
 import { useContext } from 'react'
 import GeneralContext from '../../contexts/context'
 import HomeCard from '../../components/cards/homeCard'
-import LogoComputer from '../../assets/class_computer.jpeg'
-import LogoEnglish from '../../assets/class_english.jpeg'
-import LogoMath from '../../assets/class_math.jpg'
 import CenterLogo from '../../components/logo/centerLogo'
 const Home = () => {
   const { user, config } = useContext(GeneralContext)

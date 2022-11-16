@@ -80,7 +80,7 @@ export const useGetTopics = () => {
     },
     onCompleted(data) {
       const { createUserUnit } = data
-      setUser({ ...createUserUnit, rememberMe: user.rememberMe })
+      setUser({ ...createUserUnit })
       console.log('unidad agregada al progreso del usuario')
     }
   })
