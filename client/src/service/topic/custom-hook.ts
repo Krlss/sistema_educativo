@@ -6,6 +6,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState, useContext } from 'react'
 import GeneralContext from '../../contexts/context'
 import { USER } from '../../types/ContextUser'
+import { getDataSession } from '../../utils/dataSession'
+
 interface IGetTopics {
   _id: string
   name: string
@@ -21,6 +23,7 @@ interface TOPIC {
   _id: string
   name: string
   description?: string
+  video?: string
 }
 
 interface ASIGNATURES {
@@ -43,6 +46,7 @@ export const useGetTopics = () => {
   const { setLoading, user, setUser } = useContext(GeneralContext)
   const [asignature, setAsignature] = useState<ASIGNATURES>()
   const [colors, setColors] = useState<string[]>([])
+  const token = getDataSession('token')
 
   const { asignatureId, unitId } = useParams() as {
     asignatureId: string
@@ -76,12 +80,12 @@ export const useGetTopics = () => {
 
   const [createUserUnit] = useMutation<IcreateUserUnit>(CREATEUSERUNIT, {
     onError(error) {
-      console.log(error)
+      console.error('Error creating user unit', error)
     },
     onCompleted(data) {
       const { createUserUnit } = data
       setUser({ ...createUserUnit })
-      console.log('unidad agregada al progreso del usuario')
+      console.log('unit created')
     }
   })
 
@@ -93,7 +97,7 @@ export const useGetTopics = () => {
     createUserUnit({
       variables: { ...props },
       onCompleted: ({ createUserUnit }) => {
-        setUser({ ...createUserUnit })
+        setUser({ ...createUserUnit, rememberMe: token.rememberMe })
       }
     })
   }
@@ -104,8 +108,8 @@ export const useGetTopics = () => {
       unitId
     })
 
-    if (createdUserUnit === undefined) {
-      createUserUnitHandler({ asignatureId, unitId, userId: user._id })
+    if (createdUserUnit === undefined && token) {
+      createUserUnitHandler({ asignatureId, unitId, userId: token._id })
     }
 
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -116,6 +120,7 @@ export const useGetTopics = () => {
     getTopicsHandler,
     asignature,
     colors,
-    asignatureId
+    asignatureId,
+    unitId
   }
 }

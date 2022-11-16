@@ -6,6 +6,7 @@ export const GETASIGNATURES = gql`
       _id
       name
       description
+      image
       unit {
         _id
         name
@@ -25,6 +26,7 @@ export const GETASIGNATURE = gql`
       _id
       name
       description
+      image
       unit {
         _id
         name

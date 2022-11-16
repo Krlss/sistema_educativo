@@ -12,10 +12,10 @@ export const CREATEUSERUNIT = gql`
       userId: $userId
     ) {
       _id
-      username
       name
       lastname
       mail
+      username
       rol
       progress {
         _id
@@ -25,6 +25,7 @@ export const CREATEUSERUNIT = gql`
           _id
           nota
           id_unit
+          finished
           topic {
             _id
             nota
@@ -36,6 +37,12 @@ export const CREATEUSERUNIT = gql`
               id_question
               isDone
             }
+          }
+          questions {
+            _id
+            nota
+            id_question
+            isDone
           }
         }
       }

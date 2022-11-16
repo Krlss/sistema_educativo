@@ -1,9 +1,10 @@
-import { USER } from '../../types/ContextUser'
+import { USER, PROGRESS } from '../../types/ContextUser'
 import { setDataSession, removeDataSession } from '../../utils/dataSession'
 
-type UserReducerProps =
+export type UserReducerProps =
   | { type: 'setUser'; payload: USER }
   | { type: 'resetUser'; payload: undefined }
+  | { type: 'setUserProgress'; payload: PROGRESS[] }
 
 export default (state: USER, action: UserReducerProps) => {
   const { type, payload } = action
@@ -29,6 +30,11 @@ export default (state: USER, action: UserReducerProps) => {
         rol: [],
         progress: [],
         isLogged: false
+      }
+    case 'setUserProgress':
+      return {
+        ...state,
+        progress: payload
       }
     default:
       return state

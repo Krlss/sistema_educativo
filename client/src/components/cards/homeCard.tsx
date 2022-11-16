@@ -18,28 +18,28 @@ const HomeCard = ({
 }: Props) => {
   return (
     <div className="w-full">
-      <div className="bg-white rounded border-2 p-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center">
-            <div className="w-12 h-12 bg-gray-200 rounded-full">
-              <img
-                src={StringImage}
-                alt={nameCourse}
-                className="w-full h-full rounded-full object-cover"
-              />
-            </div>
-            <div className="ml-4">
-              <NavLink to={`/curso/${to}`}>
+      <NavLink to={`/curso/${to}`}>
+        <div className="rounded-md p-4 shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <div className="w-16 h-16 rounded">
+                <img
+                  src={StringImage}
+                  alt={nameCourse}
+                  className="object-center object-contain rounded"
+                />
+              </div>
+              <div className="ml-4">
                 <h3 className="text-gray-700 font-semibold text-lg">
                   {nameCourse}
                 </h3>
-              </NavLink>
-              <p className="text-gray-500 text-sm">Curso {numberCourse}</p>
+                <p className="text-gray-500 text-sm">Curso {numberCourse}</p>
+              </div>
             </div>
           </div>
+          <ProgressBar progress={progress} />
         </div>
-        <ProgressBar progress={progress} />
-      </div>
+      </NavLink>
     </div>
   )
 }
