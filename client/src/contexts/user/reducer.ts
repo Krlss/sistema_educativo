@@ -1,7 +1,7 @@
 import { USER, PROGRESS } from '../../types/ContextUser'
 import { setDataSession, removeDataSession } from '../../utils/dataSession'
 
-type UserReducerProps =
+export type UserReducerProps =
   | { type: 'setUser'; payload: USER }
   | { type: 'resetUser'; payload: undefined }
   | { type: 'setUserProgress'; payload: PROGRESS[] }

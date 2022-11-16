@@ -23,6 +23,7 @@ interface TOPIC {
   _id: string
   name: string
   description?: string
+  video?: string
 }
 
 interface ASIGNATURES {
@@ -84,7 +85,7 @@ export const useGetTopics = () => {
     onCompleted(data) {
       const { createUserUnit } = data
       setUser({ ...createUserUnit })
-      console.log('unidad agregada al progreso del usuario')
+      console.log('unit created')
     }
   })
 
@@ -96,7 +97,7 @@ export const useGetTopics = () => {
     createUserUnit({
       variables: { ...props },
       onCompleted: ({ createUserUnit }) => {
-        setUser({ ...createUserUnit })
+        setUser({ ...createUserUnit, rememberMe: token.rememberMe })
       }
     })
   }
@@ -119,6 +120,7 @@ export const useGetTopics = () => {
     getTopicsHandler,
     asignature,
     colors,
-    asignatureId
+    asignatureId,
+    unitId
   }
 }

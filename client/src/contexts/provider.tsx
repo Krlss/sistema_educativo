@@ -17,7 +17,7 @@ const GeneralProvider = (props: any) => {
   const [user, dispatchUser] = useReducer(UserReducer, InitialStateUser)
   const [config, dispatchConfig] = useReducer(ConfigReducer, InitialStateConfig)
   const { getAsignatures } = useGetAsignatures()
-  const { handleGetUserProgress, data } = useGetUserProgress()
+  const { handleGetUserProgress } = useGetUserProgress({ dispatchUser })
   useEffect(() => {
     const token = getDataSession('token')
     if (token) {
@@ -25,14 +25,8 @@ const GeneralProvider = (props: any) => {
       handleGetUserProgress({
         userId: token._id
       })
-      dispatchUser({
-        type: 'setUserProgress',
-        payload: data?.getUserProgress ?? []
-      })
     }
   }, [])
-
-  console.log(user)
 
   useEffect(() => {
     if (user.isLogged) {
