@@ -10,18 +10,29 @@ import {
   useGetAsignatures,
   getAsignaturesProps
 } from '../service/asignatures/custom-hook'
+import { useGetUserProgress } from '../service/progress/custom-hook'
 import { getDataSession } from '../utils/dataSession'
 
 const GeneralProvider = (props: any) => {
   const [user, dispatchUser] = useReducer(UserReducer, InitialStateUser)
   const [config, dispatchConfig] = useReducer(ConfigReducer, InitialStateConfig)
   const { getAsignatures } = useGetAsignatures()
+  const { handleGetUserProgress, data } = useGetUserProgress()
   useEffect(() => {
     const token = getDataSession('token')
     if (token) {
       dispatchUser({ type: 'setUser', payload: token })
+      handleGetUserProgress({
+        userId: token._id
+      })
+      dispatchUser({
+        type: 'setUserProgress',
+        payload: data?.getUserProgress
+      })
     }
   }, [])
+
+  console.log(user)
 
   useEffect(() => {
     if (user.isLogged) {

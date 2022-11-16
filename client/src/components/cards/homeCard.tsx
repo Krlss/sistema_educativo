@@ -22,11 +22,11 @@ const HomeCard = ({
         <div className="rounded-md p-4 shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <div className="w-12 h-12 bg-gray-200 rounded-full">
+              <div className="w-16 h-16 rounded">
                 <img
                   src={StringImage}
                   alt={nameCourse}
-                  className="w-full h-full rounded-full object-contain"
+                  className="object-center object-contain rounded"
                 />
               </div>
               <div className="ml-4">
