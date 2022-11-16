@@ -48,6 +48,7 @@ export class UserUnitResolver {
     unit._id = new ObjectId();
     unit.id_unit = unitId;
     unit.nota = 0;
+    unit.finished = false;
     unit.topic = [];
 
     const topicResolver = new TopicResolver();
@@ -196,7 +197,8 @@ export class UserUnitResolver {
     @Arg("progressId") progressId: string,
     @Arg("asignatureId") asignatureId: string,
     @Arg("unitId") unitId: string,
-    @Arg("nota") nota: number
+    @Arg("nota") nota: number,
+    @Arg("finished") finished: boolean
   ) {
     const user = await AppDataSource.manager.findOneBy(User, {
       _id: new ObjectId(userId),
@@ -210,23 +212,12 @@ export class UserUnitResolver {
     if (!progress) {
       return false;
     }
-    // const asignature = progress.asignature.find(
-    //   (asignature) => asignature._id.toString() === asignatureId
-    // );
-    // if (!asignature) {
-    //   return false;
-    // }
     const unit = progress.unit.find((unit) => unit._id.toString() === unitId);
     if (!unit) {
       return false;
     }
-    unit.nota = nota;
-    const index = progress.unit.indexOf(unit);
-    progress.unit[index] = unit;
-    const index2 = user.progress.indexOf(progress);
-    user.progress[index2] = progress;
-    const index3 = user.progress.indexOf(progress);
-    user.progress[index3] = progress;
+    if (nota) unit.nota = nota;
+    if (finished) unit.finished = finished;
     await AppDataSource.manager.update(User, user._id, user);
     return true;
   }
