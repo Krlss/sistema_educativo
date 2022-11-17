@@ -24,8 +24,9 @@ const Home = () => {
               key={index}
               numberCourse={index + 1}
               nameCourse={asignature.name}
-              progress={0}
+              progress={15}
               to={asignature._id}
+              StringImage={asignature.image}
             />
           ))}
         </div>

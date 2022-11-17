@@ -38,7 +38,6 @@ export const useLogin = () => {
       setLoading(false)
     },
     onCompleted({ login }) {
-      console.log({ login })
       setLoading(false)
       setUser({ ...login })
       navigate('/')

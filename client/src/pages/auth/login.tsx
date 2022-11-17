@@ -21,7 +21,7 @@ const Login = () => {
     initialValues: {
       username: '',
       password: '',
-      rememberMe: false
+      rememberMe: true
     },
     validationSchema: loginValidationSchema,
     onSubmit: values => {
