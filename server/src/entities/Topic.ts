@@ -21,7 +21,7 @@ export class Topic {
   @Column("string")
   video!: string;
 
-  @Field(() => [Question])
+  @Field(() => [Question], { nullable: true })
   @Column((type) => Question)
   question!: Question[];
 }
