@@ -5,6 +5,7 @@ import Page404 from './pages/_404'
 import DefaultAplicacion from './pages/aplication'
 import CoursePresentation from './pages/home/CoursePresentation'
 import UnitPresentation from './pages/home/UnitPresentation'
+import ClassPresentation from './pages/home/ClassPresentation'
 import Courses from './pages/home/courses'
 import { Routes, Route } from 'react-router-dom'
 import { useContext } from 'react'
@@ -57,10 +58,17 @@ const App = () => {
         <Route path="/" element={<DefaultAplicacion />}>
           <Route path="/" element={<Home />} />
           <Route path="/cursos" element={<Courses />} />
-          <Route path="/curso/:asignatureId" element={<CoursePresentation />} />
           <Route
-            path="/curso/:asignatureId/unidad/:unitId"
+            path="/asignatura/:asignatureId"
+            element={<CoursePresentation />}
+          />
+          <Route
+            path="/asignatura/:asignatureId/unidad/:unitId"
             element={<UnitPresentation />}
+          />
+          <Route
+            path="/asignatura/:asignatureId/unidad/:unitId/tema/:topicId"
+            element={<ClassPresentation />}
           />
 
           {/* Rutas de test */}
