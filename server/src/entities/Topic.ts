@@ -17,7 +17,7 @@ export class Topic {
   @Column("string", { nullable: true })
   description?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column("string")
   video!: string;
 
