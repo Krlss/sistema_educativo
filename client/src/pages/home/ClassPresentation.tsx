@@ -22,8 +22,11 @@ const ClassPresentation = () => {
     setTopic(topic)
   }, [asignatureId, unitId])
 
+  const descriptionIsImage = topic?.description?.includes('http')
+
   return (
     <div className="bg-white mb-10">
+      {topic?.video}
       {topic?.video && (
         <div className="relative w-full h-[300px] md:h-[500px] lg:h-[700px]">
           <iframe
@@ -36,24 +39,7 @@ const ClassPresentation = () => {
           />
         </div>
       )}
-
-      {topic?.description && (
-        <div className="py-10">
-          <iframe
-            srcDoc={topic.description}
-            width="100%"
-            height="100%"
-            name="description"
-            className="w-full h-full mb-10"
-            loading="lazy"
-            onLoad={e => {
-              const iframe = e.target as HTMLIFrameElement
-              iframe.style.height =
-                iframe.contentWindow?.document.body.scrollHeight + 'px'
-            }}
-          />
-        </div>
-      )}
+      {descriptionIsImage && <img src={topic?.description} width="100%" />}
     </div>
   )
 }
