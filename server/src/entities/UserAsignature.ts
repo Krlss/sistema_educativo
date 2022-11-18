@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { Entity, Column, ObjectIdColumn, ObjectID } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
-import { UserUnit } from "./UserUnit";
+import { UserUnit, UserQuestion } from "./";
 
 @ObjectType()
 export class UserAsignature {
@@ -20,4 +20,8 @@ export class UserAsignature {
   @Field()
   @Column("string")
   id_asignature!: string;
+
+  @Field(() => [UserQuestion], { nullable: true })
+  @Column(() => UserQuestion)
+  questions!: UserQuestion[];
 }

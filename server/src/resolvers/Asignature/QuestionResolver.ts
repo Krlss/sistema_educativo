@@ -212,8 +212,7 @@ export class QuestionResolver {
   @Query(() => [Question])
   async getRandomQuestions(
     @Arg("asignatureId") asignatureId: string,
-    @Arg("unitId") unitId: string,
-    @Arg("topicId") topicId: string
+    @Arg("unitId") unitId: string
   ) {
     const asignature = await AppDataSource.manager.findOneBy(Asignature, {
       _id: new ObjectId(asignatureId),
@@ -225,12 +224,9 @@ export class QuestionResolver {
     if (!unit) {
       return [];
     }
-    const topic = unit.topic.find((topic) => topic._id.toString() === topicId);
-    if (!topic) {
-      return [];
-    }
+    const unitquestions = unit.topic.map((topic) => topic.question).flat();
 
-    const questions = topic.question
+    const questions = unitquestions
       .sort(() => Math.random() - 0.5)
       .slice(0, 10);
 

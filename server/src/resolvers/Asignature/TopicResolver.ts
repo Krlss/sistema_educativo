@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
 import { Asignature } from "../../entities/Asignature";
 import { AppDataSource } from "../../config/typeorm";
-import { getGoogleDriveId } from "../../utils/image";
+import { getGoogleDriveId, getUrlEmbedYT } from "../../utils/image";
 const { ObjectId } = require("mongodb");
 import { Topic, Unit } from "../../entities";
 
@@ -29,9 +29,10 @@ export class TopicResolver {
     const topic = new Topic();
     topic._id = new ObjectId();
     topic.name = name;
-    const aux = getGoogleDriveId(description);
-    topic.description = aux ?? "";
-    topic.video = video;
+    const auxdesc = getGoogleDriveId(description);
+    topic.description = auxdesc ?? "";
+    const auxvid = getUrlEmbedYT(video);
+    topic.video = auxvid ?? "";
     topic.question = [];
     unit.topic.push(topic);
     const index = asignature.unit.findIndex(
@@ -146,19 +147,12 @@ export class TopicResolver {
     }
     if (description) {
       const aux = getGoogleDriveId(description);
-      if (aux) asignature.description = aux ?? "";
+      if (aux) topic.description = aux ?? "";
     }
     if (video) {
-      topic.video = video;
+      const aux = getUrlEmbedYT(video);
+      topic.video = aux ?? "";
     }
-    const index = unit.topic.findIndex(
-      (topic) => topic._id.toString() === topicId
-    );
-    unit.topic[index] = topic;
-    const index2 = asignature.unit.findIndex(
-      (unit) => unit._id.toString() === unitId
-    );
-    asignature.unit[index2] = unit;
     await AppDataSource.manager.update(Asignature, asignature._id, asignature);
     return true;
   }

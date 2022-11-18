@@ -19,7 +19,7 @@ export class Unit {
   @Column("string")
   name!: string;
 
-  @Field(() => [Topic])
+  @Field(() => [Topic], { nullable: true })
   @Column(() => Topic)
   topic!: Topic[];
 
