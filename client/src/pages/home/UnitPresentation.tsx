@@ -3,6 +3,7 @@ import { useGetTopics } from '../../service/topic/custom-hook'
 
 const UnitPresentation = () => {
   const { asignature, colors, asignatureId, unitId } = useGetTopics()
+
   return (
     <div>
       <div className="flex flex-col items-center justify-center">
@@ -16,6 +17,7 @@ const UnitPresentation = () => {
         </div>
         <div className="mx-auto max-w-5xl pb-20 w-full">
           {asignature?.topic?.map((top, index) => {
+            const haveClass = top.description || top.video
             return (
               <div
                 className="rounded-md flex items-center my-3 justify-start shadow bg-slate-50 h-[150px] md:h-[120px]"
@@ -36,17 +38,16 @@ const UnitPresentation = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="flex md:flex-col flex-row gap-2 mr-5">
-                    {top.video ||
-                      (top.description && (
-                        <NavLink
-                          to={`/asignatura/${asignatureId}/unidad/${unitId}/tema/${top._id}`}>
-                          <li className="bg-lightblue-page text-white font-bold text-sm px-4 py-2 rounded text-center list-none min-w-[115px]">
-                            Ver clase
-                          </li>
-                        </NavLink>
-                      ))}
-                  </div>
+                  {haveClass && (
+                    <div className="flex md:flex-col flex-row gap-2 mr-5">
+                      <NavLink
+                        to={`/asignatura/${asignatureId}/unidad/${unitId}/tema/${top._id}`}>
+                        <li className="bg-lightblue-page text-white font-bold text-sm px-4 py-2 rounded text-center list-none min-w-[115px]">
+                          Ver clase
+                        </li>
+                      </NavLink>
+                    </div>
+                  )}
                 </div>
               </div>
             )

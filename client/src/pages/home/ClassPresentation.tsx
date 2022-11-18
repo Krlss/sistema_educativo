@@ -26,7 +26,6 @@ const ClassPresentation = () => {
 
   return (
     <div className="bg-white mb-10">
-      {topic?.video}
       {topic?.video && (
         <div className="relative w-full h-[300px] md:h-[500px] lg:h-[700px]">
           <iframe
