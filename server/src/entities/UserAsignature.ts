@@ -13,7 +13,7 @@ export class UserAsignature {
   @Column("int")
   nota!: number;
 
-  @Field(() => [UserUnit])
+  @Field(() => [UserUnit], { nullable: true })
   @Column(() => UserUnit)
   unit!: UserUnit[];
 

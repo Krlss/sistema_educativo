@@ -40,7 +40,7 @@ export class User {
   @Column("string", { array: true })
   rol!: Array<String>;
 
-  @Field(() => [UserAsignature])
+  @Field(() => [UserAsignature], { nullable: true })
   @Column(() => UserAsignature)
   progress!: UserAsignature[];
 
