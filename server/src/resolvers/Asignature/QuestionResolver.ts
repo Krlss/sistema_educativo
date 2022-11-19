@@ -1,6 +1,5 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
-import { Asignature } from "../../entities/Asignature";
-import { Question } from "../../entities/Question";
+import { Asignature, Question, Topic, Unit } from "../../entities/";
 import { AppDataSource } from "../../config/typeorm";
 const { ObjectId } = require("mongodb");
 @Resolver()
@@ -231,5 +230,30 @@ export class QuestionResolver {
       .slice(0, 10);
 
     return questions;
+  }
+
+  @Query(() => [Question])
+  async getTypeQuestions() {
+    const asignatures = await AppDataSource.manager.find(Asignature);
+    const questions = asignatures
+      .map((asignature: Asignature) => {
+        return asignature.unit
+          .map((unit: Unit) => {
+            return unit.topic
+              .map((topic: Topic) => {
+                return topic.question.flat();
+              })
+              .flat();
+          })
+          .flat();
+      })
+      .flat();
+    const aux = [
+      ...new Map(
+        questions.map((item: Question) => [item["type"], item])
+      ).values(),
+    ];
+
+    return aux;
   }
 }
