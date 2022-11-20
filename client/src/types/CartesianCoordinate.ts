@@ -1,4 +1,4 @@
-export type typeCartesian = 'I' | 'II' | 'III' | 'IV'
+export type typeCartesian = 'I' | 'II' | 'III' | 'IV' | '0'
 export type objectCartesian = {
   x: number
   y: number

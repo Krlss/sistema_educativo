@@ -1,4 +1,3 @@
-import { Key } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import DragIcon from '../icons/drag'
 import Icon from '../icons'
@@ -15,14 +14,16 @@ const ObjectDraggable = ({
 }) => {
   return (
     <Draggable draggableId={draggableId} index={index}>
-      {(provided, snapshot) => (
+      {({ draggableProps, innerRef, dragHandleProps }) => (
         <div
-          className={`bg-yellow-page shadow rounded p-2 m-1 text-black flex flex-col items-center gap-1 ${
-            snapshot.isDragging ? 'bg-yellow2-page' : ''
-          }`}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}>
+          className="shadow rounded p-2 m-1 text-black flex flex-col items-center gap-1 font-medium"
+          {...draggableProps}
+          {...dragHandleProps}
+          ref={innerRef}
+          style={{
+            ...draggableProps.style,
+            backgroundColor: item.color
+          }}>
           <div className="flex items-center justify-center gap-2">
             <Icon viewBox="24 24">
               <DragIcon />

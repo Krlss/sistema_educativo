@@ -1,50 +1,36 @@
 import QuestionTitle from '../title/questionTitle'
+import { chooseaAndOptionTextNumber_, question } from '../../types/game'
 
-const data = {
-  pregunta:
-    '¿Qué cifras en números está escrita incorrectamente según su lectura?',
-  opciones: [
-    {
-      value: false,
-      texto: 'Cuatrocientos cincuenta y tres mil quinientos sesenta y tres',
-      number: '453 563'
-    },
-    {
-      opcion: true,
-      texto: 'Seiscientos treinta y nueve mil ochocientos cuarenta y dos',
-      number: '639 842'
-    },
-    {
-      opcion: false,
-      texto: 'Novecientos treinta y cinco mil cuatrocientos sesenta y ocho',
-      number: '935 468'
-    }
-  ]
-}
+import { stripquotes } from '../../utils'
 
-const ChooseAnOptionNumToText = () => {
+const ChooseAnOptionNumToText = (props: question) => {
+  const options = stripquotes(props.options) as chooseaAndOptionTextNumber_[]
   return (
     <div className="container mx-auto">
       <div className="flex items-center justify-center h-screen-calculator flex-col">
         <div className="flex flex-col items-start justify-center">
           <div className="text-left">
-            <QuestionTitle title={data.pregunta} />
+            <QuestionTitle
+              title={props.title}
+              index={props.index}
+              subtitle={props.subtitle}
+            />
           </div>
           <form>
             <div className="flex flex-col items-start">
-              {data.opciones.map((opcion, index) => (
+              {options.map((option, index) => (
                 <div
                   key={index}
                   className="flex flex-row items-center justify-center">
                   <input
                     type="radio"
                     name="answer"
-                    value={opcion.texto}
-                    className="appearance-none w-4 h-4 rounded-full checked:bg-yellow-page border-2 checked:border-0 cursor-pointer"
+                    value={option.text}
+                    className="appearance-none w-4 h-4 rounded-full checked:bg-yellow-page border-2 checked:border-0 cursor-pointer bg-white"
                   />
                   <div className="flex items-center">
-                    <span className="ml-2 text-red-500">{opcion.number}</span>
-                    <span className="ml-2">{opcion.texto}</span>
+                    <span className="ml-2 text-red-500">{option.number}</span>
+                    <span className="ml-2">{option.text}</span>
                   </div>
                 </div>
               ))}

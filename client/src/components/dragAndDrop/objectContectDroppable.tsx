@@ -21,7 +21,7 @@ const ObjectContectDroppable = ({
         {(provided, snapshot) => (
           <div
             className={`w-full h-full flex items-center justify-center ${
-              snapshot.isDraggingOver && 'bg-gray-200/80'
+              snapshot.isDraggingOver && 'bg-gray-300'
             }`}
             {...provided.droppableProps}
             ref={provided.innerRef}>

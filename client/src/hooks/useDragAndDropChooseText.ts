@@ -7,11 +7,21 @@ import {
 } from '../types/DragAndDropChooseText'
 import { DropResult } from 'react-beautiful-dnd'
 import { shuffleArray } from '../utils'
+import { getRamdonArrayColors } from '../constants/colors'
 
 const useDragAndDropChooseText = (defaultData: DataInterfaceOriginal) => {
-  const [options, setOptions] = useState<DataInterface[]>(
-    shuffleArray(defaultData.options)
-  )
+  const colors = getRamdonArrayColors(defaultData.options.length)
+
+  const newOptions = defaultData.options.map((option, index) => {
+    return {
+      ...option,
+      color: colors[index]
+    }
+  })
+
+  const [options, setOptions] = useState<
+    { value: string; text: string; color?: string }[]
+  >(shuffleArray(newOptions))
   const [respuestas, setRespuestas] = useState<
     VerifyDragAndDropChooseTextProps[]
   >(Array(options.length).fill(undefined))
@@ -24,19 +34,24 @@ const useDragAndDropChooseText = (defaultData: DataInterfaceOriginal) => {
     const regex = /respuesta-\d+/g
     const isRespuesta = destination.droppableId.match(regex)
     if (isRespuesta) {
-      const [removed] = options.splice(source.index, 1) as DataInterface[]
+      const [removed] = options.splice(source.index, 1) as {
+        value: string
+        text: string
+        color?: string
+      }[]
       const index = destination.droppableId.split('-')[1]
       const newAnswers = [...respuestas]
       newAnswers[parseInt(index)] = {
-        response_user: defaultData.options[parseInt(index)].option,
+        response_user: defaultData.options[parseInt(index)].value,
         text: removed.text,
-        original: removed.option
+        original: removed.value,
+        color: removed.color
       }
       setRespuestas(newAnswers)
 
-      if (!options.length) {
+      /* if (!options.length) {
         const response = verifyDragAndDropChooseText(newAnswers)
-      }
+      } */
       return
     }
 
@@ -51,8 +66,9 @@ const useDragAndDropChooseText = (defaultData: DataInterfaceOriginal) => {
   const removeAnswer = (index: number) => {
     const newOpciones = [...options]
     const oldRespuesta = {
-      option: respuestas[index]?.original,
-      text: respuestas[index]?.text
+      value: respuestas[index]?.original,
+      text: respuestas[index]?.text,
+      color: respuestas[index]?.color
     }
     newOpciones.push(oldRespuesta)
     setOptions(newOpciones)

@@ -9,7 +9,7 @@ import {
 const smallSize = 400
 const smallPadding = 40
 
-type typeCartesian = 'I' | 'II' | 'III' | 'IV'
+type typeCartesian = 'I' | 'II' | 'III' | 'IV' | '0'
 
 const CartesianQuadrant = ({ type }: { type: typeCartesian }) => {
   const { xx, xy, yx, yy } = getPosTextLine(type, smallSize, smallPadding) as {

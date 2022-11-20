@@ -1,32 +1,36 @@
 import { DragDropContext } from 'react-beautiful-dnd'
 import QuestionTitle from '../title/questionTitle'
-
+import { question } from '../../types/game'
+import { stripquotes } from '../../utils'
 import TextDraggable from '../dragAndDrop/textDraggable'
 import ContentDroppable from '../dragAndDrop/contentDroppable'
 import useOrderOneDigitNumbers from '../../hooks/useOrderOneDigitNumbers'
 
-const data = {
-  pregunta:
-    'Ordena los dígitos 4, 9, 8 y 6 para formar el número más pequeño posible.',
-  respuesta: ['4', '6', '8', '9', '2', '4', '5', '1', '2']
-}
-
-const OrderOneDigitNumbers = () => {
-  const { onDragEnd, opciones } = useOrderOneDigitNumbers(data.respuesta)
+const OrderOneDigitNumbers = (props: question) => {
+  const options_ = stripquotes(props.options) as string[]
+  const { onDragEnd, options } = useOrderOneDigitNumbers({
+    numbers: options_,
+    type: props.type === 'order_max' ? 'order_max' : 'order'
+  })
 
   return (
     <div className="py-20 px-2">
       <div className="container mx-auto">
         <div className="flex items-center justify-center h-screen-calculator flex-col">
-          <QuestionTitle title={data.pregunta} />
+          <QuestionTitle
+            title={props.title}
+            index={props.index}
+            subtitle={props.subtitle}
+          />
           <DragDropContext onDragEnd={onDragEnd}>
             <ContentDroppable direction="horizontal" droppableId="items">
-              {opciones.map((item, index) => (
+              {options.map((item, index) => (
                 <TextDraggable
                   draggableId={item.key}
                   index={index}
                   value={item.value}
                   key={item.key}
+                  color={item.color}
                 />
               ))}
             </ContentDroppable>
