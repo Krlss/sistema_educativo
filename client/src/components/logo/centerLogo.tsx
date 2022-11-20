@@ -2,6 +2,7 @@ import Logo from '../../assets/logo.png'
 const CenterLogo = () => {
   return (
     <div
+      className="hidden lg:block"
       style={{
         position: 'absolute',
         top: '30%',

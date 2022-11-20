@@ -5,31 +5,29 @@ import Page404 from './pages/_404'
 import DefaultAplicacion from './pages/aplication'
 import CoursePresentation from './pages/home/CoursePresentation'
 import UnitPresentation from './pages/home/UnitPresentation'
+import ClassPresentation from './pages/home/ClassPresentation'
 import Courses from './pages/home/courses'
 import { Routes, Route } from 'react-router-dom'
 import { useContext } from 'react'
 import GeneralContext from './contexts/context'
+import Game from './pages/home/game'
 
 // tests
 import DragAndDropChoose from './components/exercise/DragAndDropChooseText'
 import CartesianCoordinateFull from './components/exercise/CartesianCoordinateFull'
 import TrueOrFalse from './components/exercise/TrueOrFalse'
-import ChooseAnOption from './components/exercise/ChooseAnOption'
 import OrderOneDigitNumbers from './components/exercise/OrderOneDigitNumbers'
 import CartesianCoordinateQuadrants from './components/exercise/CartesianCoordinateQuadrants'
 import TrueOrFalseCartesianCoord from './components/exercise/TrueOrFalseCartesianCoord'
 import CartesianCoordinateObjects from './components/exercise/CartesianCoordinateObjects'
-import DragAndDropObjects from './components/exercise/DragAndDropObjects'
 import SelectPointsCoordinatePlane from './components/exercise/SelectPointsCoordinatePlane'
 import TrueOrFalseCartesianImages from './components/exercise/TrueOrFalseCartesianImages'
 import TrueOrFalseNumbersAndText from './components/exercise/TrueOrFalseNumbersAndText'
 import WriteValueFromText from './components/exercise/WriteValueFromText'
 import SelectPlaceTableOption from './components/exercise/SelectPlaceTableOption'
 import ListenAndWrite from './components/exercise/ListenAndWrite'
-import Base10Descomposition from './components/exercise/Base10Descomposition'
 import PositionalSum from './components/exercise/PositionalSum'
 import MatchNColumns from './components/exercise/MatchNColumns'
-import DragAndDropSet from './components/exercise/DragAndDropSet'
 import PlaceSign from './components/exercise/PlaceSign'
 import {
   dataPointsToF,
@@ -43,7 +41,6 @@ import PositionalTable from './components/exercise/PositionalTable'
 import { dataPositionalTable } from './constants/PositionalTable'
 import { dataSelectPlaceTableOption } from './constants/SelectPlaceTableOption'
 import WritePointsCartesianPlane from './components/exercise/WritePointsCartesianPlane'
-import ChooseAnOptionNumToText from './components/exercise/chooseAnOptionNumToText'
 import WriteNumberPositional from './components/exercise/WriteNumberPositional'
 import LoadingAllScreen from './components/loader/all-screen'
 
@@ -54,25 +51,24 @@ const App = () => {
       <Routes>
         <Route path="/iniciar-sesion" element={<Login />} />
         <Route path="/registrarse" element={<Register />} />
+        <Route path="/prueba" element={<Game />} />
         <Route path="/" element={<DefaultAplicacion />}>
           <Route path="/" element={<Home />} />
           <Route path="/cursos" element={<Courses />} />
-          <Route path="/curso/:asignatureId" element={<CoursePresentation />} />
           <Route
-            path="/curso/:asignatureId/unidad/:unitId"
+            path="/asignatura/:asignatureId"
+            element={<CoursePresentation />}
+          />
+          <Route
+            path="/asignatura/:asignatureId/unidad/:unitId"
             element={<UnitPresentation />}
+          />
+          <Route
+            path="/asignatura/:asignatureId/unidad/:unitId/tema/:topicId"
+            element={<ClassPresentation />}
           />
 
           {/* Rutas de test */}
-          <Route
-            path="/arrastrar-y-soltar-texto"
-            element={<DragAndDropChoose />}
-          />
-
-          <Route
-            path="/arrastrar-y-soltar-imagenes"
-            element={<DragAndDropObjects typeCartesian="I" />}
-          />
 
           <Route
             path="/seleccionar-puntos-en-el-plano-cartesiano"
@@ -130,13 +126,8 @@ const App = () => {
               <WritePointsCartesianPlane points={objectCartesianPoints} />
             }
           />
-          <Route
-            path="/escoge-una-opcion-numero-a-texto"
-            element={<ChooseAnOptionNumToText />}
-          />
+
           <Route path="/verdadero-o-falso" element={<TrueOrFalse />} />
-          <Route path="/elegir-una-opcion" element={<ChooseAnOption />} />
-          <Route path="/ordenar-digitos" element={<OrderOneDigitNumbers />} />
           <Route
             path="/tabla-posicional"
             element={<PositionalTable data={dataPositionalTable} />}
@@ -157,21 +148,16 @@ const App = () => {
             }
           />
 
-          <Route path="/escucha-y-escribe" element={<ListenAndWrite />} />
-          <Route
-            path="/descomposicion-base-10"
-            element={<Base10Descomposition />}
-          />
           <Route
             path="/suma-de-valores-posicionales"
             element={<PositionalSum />}
           />
 
           <Route path="/relaciona-columnas" element={<MatchNColumns />} />
-          <Route
+          {/* <Route
             path="/arrastrar-y-soltar-conjuntos"
             element={<DragAndDropSet />}
-          />
+          /> */}
           <Route path="/coloca-el-signo" element={<PlaceSign />} />
         </Route>
         <Route path="*" element={<Page404 />} />

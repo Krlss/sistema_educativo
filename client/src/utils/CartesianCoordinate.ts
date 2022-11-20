@@ -180,6 +180,8 @@ export const getCoorValues = ({
       return { valueX: x - length, valueY: -y }
     case 'II':
       return { valueX: x - length, valueY: length - y }
+    default:
+      return { valueX: x, valueY: y }
   }
 }
 
@@ -278,12 +280,16 @@ export const getQuadrant = (
     }
   })
   if (cont >= 2) {
-    return 0
+    return '0'
   } else {
-    return (
+    const type =
       quadrant.findIndex(
         e => e === Math.max(quadrant[0], quadrant[1], quadrant[2], quadrant[3])
       ) + 1
-    )
+    if (type === 1) return 'I'
+    if (type === 2) return 'II'
+    if (type === 3) return 'III'
+    if (type === 4) return 'IV'
+    return '0'
   }
 }

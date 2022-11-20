@@ -1,12 +1,10 @@
 export interface DataInterface {
-  option: string
+  value: string
   text: string
 }
 
 export interface DataInterfaceOriginal {
-  title: string
   options: DataInterface[]
-  type: string
 }
 
 export interface VerifyDragAndDropChooseTextProps {
@@ -14,6 +12,7 @@ export interface VerifyDragAndDropChooseTextProps {
   text: string
   original: string
   correct?: boolean
+  color?: string
 }
 
 export interface ReturnVerifyDragAndDropChooseTextProps {

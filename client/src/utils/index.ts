@@ -1,5 +1,6 @@
 import shortid from 'shortid'
-
+import { getRamdonArrayColors } from '../constants/colors'
+import { dragAndDropSets_ } from '../types/game'
 /**
     Cambia el orden de los elementos de un array
     @param {Array} current - Array a ordenar
@@ -84,4 +85,27 @@ export const convertNumberToBase10 = (number: number) => {
 
 export const sortData = (array: number[]) => {
   return array.sort((a, b) => b - a)
+}
+
+export const stripquotes = (str: string) => {
+  const firstChar = str.charAt(0)
+  const lastChar = str[str.length - 1]
+  // double quotes
+  if (firstChar && lastChar === String.fromCharCode(34)) {
+    str = str.slice(1, -1)
+  }
+  // single quotes
+  if (firstChar && lastChar === String.fromCharCode(39)) {
+    str = str.slice(1, -1)
+  }
+  return JSON.parse(str)
+}
+
+export const getFlatArraySets = ({ sets }: dragAndDropSets_) => {
+  const options = sets.map(e => e.options).flat()
+  const colors = getRamdonArrayColors(options.length)
+
+  return options.map((e, i) => {
+    return { ...e, color: colors[i] }
+  })
 }

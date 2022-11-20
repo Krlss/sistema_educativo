@@ -1,49 +1,26 @@
 import QuestionTitle from '../title/questionTitle'
+import { question, chooseAnOption_ } from '../../types/game'
+import { stripquotes } from '../../utils'
 
-const data = {
-  id: 8,
-  pregunta: '¿Cuál es el valor posicional del 8 en 2,894?',
-  options: [
-    { opcion: true, texto: '1547' },
-    { opcion: false, texto: '586' },
-    { option: false, texto: '3257' }
-  ],
-  columns: [
-    {
-      title: 'Forma expandida',
-      data: ['1000 + 500 + 40 + 7', '800 + 50 + 6', '300 + 2000 + 50 + 7']
-    },
-    {
-      title: 'Forma estándar',
-      data: ['1547', '586', '3257']
-    }
-  ],
-  url_description: 'https://cdn-icons-png.flaticon.com/512/4718/4718657.png'
-} as {
-  id: number
-  pregunta: string
-  options: {
-    opcion: boolean
-    texto: string
-  }[]
-  columns?: {
-    title: string
-    data: string[]
-  }[]
-  url_description?: string
-}
+const ChooseAnOption = (props: question) => {
+  const { options, columns, urlDescription } = stripquotes(
+    props.options
+  ) as chooseAnOption_
 
-const ChooseAnOption = () => {
   return (
     <div className="container mx-auto">
       <div className="flex items-center justify-center h-screen-calculator flex-col">
         <div className="flex flex-col items-start justify-center">
-          <div className="text-left">
-            <QuestionTitle title="Elija la opción correcta según corresponda:" />
+          <div className="self-start">
+            <QuestionTitle
+              title={props.title}
+              subtitle={props.subtitle}
+              index={props.index}
+            />
           </div>
-          {data?.columns && (
+          {columns && (
             <div className="flex">
-              {data?.columns?.map((column, index) => (
+              {columns.map((column, index) => (
                 <div key={index} className="flex flex-col">
                   <span className="text-gray-500 font-semibold p-2 border">
                     {column.title}
@@ -57,24 +34,24 @@ const ChooseAnOption = () => {
               ))}
             </div>
           )}
-          {data?.url_description && (
+          {urlDescription && (
             <div className="flex flex-col items-center justify-center">
-              <img src={data.url_description} alt="description" width={150} />
+              <img src={urlDescription} alt="description" width={150} />
             </div>
           )}
           <form>
             <div className="flex flex-col items-start">
-              {data.options.map((opcion, index) => (
+              {options.map((option, index) => (
                 <div
                   key={index}
                   className="flex flex-row items-center justify-center">
                   <input
                     type="radio"
                     name="answer"
-                    value={opcion.texto}
-                    className="appearance-none w-4 h-4 rounded-full checked:bg-yellow-page border-2 checked:border-0 cursor-pointer"
+                    value={option.text}
+                    className="appearance-none w-4 h-4 rounded-full checked:bg-yellow-page border-2 checked:border-0 cursor-pointer bg-white"
                   />
-                  <label className="ml-2">{opcion.texto}</label>
+                  <label className="ml-2">{option.text}</label>
                 </div>
               ))}
             </div>

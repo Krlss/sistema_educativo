@@ -10,6 +10,7 @@ export const GETTOPICS = gql`
         _id
         name
         description
+        video
       }
     }
   }

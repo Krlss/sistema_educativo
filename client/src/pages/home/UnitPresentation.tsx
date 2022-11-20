@@ -1,11 +1,9 @@
-import { useContext } from 'react'
-import GeneralContext from '../../contexts/context'
 import { NavLink } from 'react-router-dom'
 import { useGetTopics } from '../../service/topic/custom-hook'
 
 const UnitPresentation = () => {
-  const { user } = useContext(GeneralContext)
   const { asignature, colors, asignatureId, unitId } = useGetTopics()
+
   return (
     <div>
       <div className="flex flex-col items-center justify-center">
@@ -19,21 +17,7 @@ const UnitPresentation = () => {
         </div>
         <div className="mx-auto max-w-5xl pb-20 w-full">
           {asignature?.topic?.map((top, index) => {
-            const isFinished = user?.progress
-              ?.find(prog => prog._id === asignatureId)
-              ?.unit?.find(unit => unit._id === unitId)
-              ?.topic.find(topic => topic._id === top._id)?.finished
-
-            let giveProof: boolean = false
-
-            if (!isFinished && (!top?.description || !top?.video)) {
-              giveProof = true
-            } else if (isFinished) {
-              giveProof = true
-            } else {
-              giveProof = false
-            }
-
+            const haveClass = top.description || top.video
             return (
               <div
                 className="rounded-md flex items-center my-3 justify-start shadow bg-slate-50 h-[150px] md:h-[120px]"
@@ -54,23 +38,16 @@ const UnitPresentation = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="flex md:flex-col flex-row gap-2 mr-5">
-                    {top.video ||
-                      (top.description && (
-                        <NavLink to="/">
-                          <li className="bg-lightblue-page text-white font-bold text-sm px-4 py-2 rounded text-center list-none min-w-[115px]">
-                            Ver clase
-                          </li>
-                        </NavLink>
-                      ))}
-                    {giveProof && (
-                      <NavLink to="/">
-                        <li className="bg-yellow-page text-white font-bold text-sm px-4 py-2 rounded text-center list-none min-w-[115px]">
-                          Dar prueba
+                  {haveClass && (
+                    <div className="flex md:flex-col flex-row gap-2 mr-5">
+                      <NavLink
+                        to={`/asignatura/${asignatureId}/unidad/${unitId}/tema/${top._id}`}>
+                        <li className="bg-lightblue-page text-white font-bold text-sm px-4 py-2 rounded text-center list-none min-w-[115px]">
+                          Ver clase
                         </li>
                       </NavLink>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </div>
               </div>
             )

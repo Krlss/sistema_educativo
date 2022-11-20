@@ -22,7 +22,7 @@ const ContentDroppable = ({
       {(provided, snapshot) => (
         <div
           className={`flex flex-wrap justify-start ${
-            snapshot.isDraggingOver && 'bg-gray-200'
+            snapshot.isDraggingOver && 'bg-gray-300'
           }`}
           {...provided.droppableProps}
           ref={provided.innerRef}>
