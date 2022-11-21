@@ -1,19 +1,21 @@
 import { useState } from 'react'
-import { sortData } from '../../utils'
+import { sortData, stripquotes } from '../../utils'
 import QuestionTitle from '../title/questionTitle'
+import { question, positionalSum_ } from '../../types/game'
 
-const data = {
-  title: 'Realizar la siguiente suma de valores posicionales',
-  value: [60000, 60, 3, 0, 0]
-}
+const PositionalSum = (props: question) => {
+  const options_ = stripquotes(props.options) as positionalSum_
 
-const PositionalSum = () => {
-  const [value, setValue] = useState(sortData(data.value))
+  const [value] = useState(sortData(options_.value))
   return (
     <div className="py-20 px-2">
       <div className="container mx-auto">
         <div className="flex items-center justify-center flex-col">
-          <QuestionTitle title={data.title} />
+          <QuestionTitle
+            title={props.title}
+            subtitle={props.subtitle}
+            index={props.index}
+          />
           <div className="flex flex-col mt-2 text-right">
             {value.map((value, index) => {
               return <span key={index}>{value}</span>

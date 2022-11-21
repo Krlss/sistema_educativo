@@ -1,19 +1,29 @@
 import CartesianPlane from '../CartesianPlane'
 import useCartesianCoordinate from '../../hooks/useCartesianCoordinate'
 import QuestionTitle from '../title/questionTitle'
+import { question, cartesianCoordinateFull_ } from '../../types/game'
+import { stripquotes } from '../../utils'
+import { namePoints } from '../../constants/CartesianConstants'
+const CartesianCoordinateFull = (props: question) => {
+  const options_ = stripquotes(props.options) as cartesianCoordinateFull_[]
 
-const CartesianCoordinateFull = ({
-  pointNumbers
-}: {
-  pointNumbers: number
-}) => {
-  const { cartesian, updateCartesian } = useCartesianCoordinate(pointNumbers)
+  const subtitle = options_
+    .map((option, index) => {
+      return `${namePoints[index]}(${option.x}, ${option.y})`
+    })
+    .join(' - ')
+
+  const { cartesian, updateCartesian } = useCartesianCoordinate(options_.length)
 
   return (
     <div className="py-20 px-2">
       <div className="container mx-auto">
         <div className="flex items-center justify-center h-screen-calculator flex-col">
-          <QuestionTitle title="1. Represente las coordenadas (x=-3,y=3) en el plano cartesiano:" />
+          <QuestionTitle
+            title={props.title}
+            subtitle={props.subtitle ? props.subtitle : subtitle}
+            index={props.index}
+          />
           <div className="relative flex items-center justify-center mt-10">
             <div>
               {[...Array(21)].map((_, y) => {

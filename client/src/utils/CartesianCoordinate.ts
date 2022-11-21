@@ -194,12 +194,12 @@ interface ReturnChangePoint {
 }
 
 export const changePoints = ({
-  response,
+  correct,
   points,
   type,
   length = 5
 }: {
-  response: boolean
+  correct: boolean
   points: { x: number; y: number; value: boolean; url?: string }[]
   type?: typeCartesian
   length?: number
@@ -242,7 +242,7 @@ export const changePoints = ({
       newPoints.push({
         x: newX,
         y: newY,
-        value: response,
+        value: correct,
         selected: false,
         url
       })

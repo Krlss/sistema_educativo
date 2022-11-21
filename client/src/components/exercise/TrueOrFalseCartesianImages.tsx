@@ -1,35 +1,27 @@
 import { useState } from 'react'
-import { typeCartesian } from '../../types/CartesianCoordinate'
-import { changePoints, getCoorValues } from '../../utils/CartesianCoordinate'
+import {
+  changePoints,
+  getCoorValues,
+  getQuadrant
+} from '../../utils/CartesianCoordinate'
 import CartesianQuadrant from '../CartesianPlane/QuadrantPoints'
 import QuestionTitle from '../title/questionTitle'
+import { question, trueOrFalseCartesianCoordObjects_ } from '../../types/game'
+import { stripquotes } from '../../utils'
 
-const TrueOrFalseCartesianImages = ({
-  data,
-  type,
-  length
-}: {
-  data: {
-    title: string
-    subtitle?: string
-    response: boolean
-    points: {
-      x: number
-      y: number
-      name?: string
-      resposable?: string
-      url: string
-      value: boolean
-    }[]
-  }
-  type: typeCartesian
-  length?: number
-}) => {
-  const [newData, setNewData] = useState(
+const TrueOrFalseCartesianImages = (props: question) => {
+  const options_ = stripquotes(
+    props.options
+  ) as trueOrFalseCartesianCoordObjects_
+
+  const type = getQuadrant(options_.points)
+
+  const [newData] = useState(
     changePoints({
-      ...data,
+      correct: options_.correct,
+      points: options_.points,
       type,
-      length
+      length: 10
     })
   )
 
@@ -38,9 +30,13 @@ const TrueOrFalseCartesianImages = ({
       <div className="container mx-auto">
         <div>
           <div className="flex items-center justify-center flex-col">
-            <QuestionTitle title={data.title} subtitle={data.subtitle} />
+            <QuestionTitle
+              title={props.title}
+              subtitle={props.subtitle}
+              index={props.index}
+            />
             <div className="flex gap-2 mt-5 flex-wrap items-center justify-center">
-              {data.points.map((point, index) => {
+              {options_.points.map((point, index) => {
                 return (
                   <div
                     key={index}
@@ -108,7 +104,7 @@ const TrueOrFalseCartesianImages = ({
                   type="radio"
                   name="answer"
                   value="true"
-                  className="appearance-none w-4 h-4 rounded-full checked:bg-yellow-page border-2 checked:border-0 cursor-pointer"
+                  className="appearance-none w-4 h-4 rounded-full checked:bg-yellow-page border-2 checked:border-0 cursor-pointer bg-white"
                 />
                 <label className="ml-2">Verdadero</label>
               </div>
@@ -117,7 +113,7 @@ const TrueOrFalseCartesianImages = ({
                   type="radio"
                   name="answer"
                   value="false"
-                  className="appearance-none w-4 h-4 rounded-full checked:bg-yellow-page border-2 checked:border-0 cursor-pointer"
+                  className="appearance-none w-4 h-4 rounded-full checked:bg-yellow-page border-2 checked:border-0 cursor-pointer bg-white"
                 />
                 <label className="ml-2">Falso</label>
               </div>

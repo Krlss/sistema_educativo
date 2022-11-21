@@ -10,7 +10,6 @@ import {
   DragAndDropObjects,
   DragAndDropSet,
   ListenAndWrite,
-  MatchNColumns,
   OrderOneDigitNumbers,
   PlaceSign,
   PositionalSum,
@@ -26,6 +25,9 @@ import {
   WriteValueFromText
 } from '../../components/exercise'
 import { data } from '../../constants'
+import { getQuadrant } from '../../utils/CartesianCoordinate'
+import { writePointsCoordinatePlane_ } from '../../types/game'
+import { stripquotes } from '../../utils'
 
 const Game = () => {
   const [dataGame, setDataGame] = useState<any[]>([])
@@ -82,46 +84,91 @@ const Game = () => {
           )
 
         case 'place_sign':
-          return ''
+          return array.push(<PlaceSign key={index} {...item} index={index} />)
 
         case 'positional_sum':
-          return ''
+          return array.push(
+            <PositionalSum key={index} {...item} index={index} />
+          )
 
         case 'positional_table':
-          return ''
+          return array.push(
+            <PositionalTable key={index} {...item} index={index} />
+          )
 
         case 'put_points_in_cp':
-          return ''
+          const optionsPutPointsInCp = stripquotes(
+            item.options
+          ) as writePointsCoordinatePlane_[]
+          const typeOptionsPutPointsInCp = getQuadrant(optionsPutPointsInCp)
+
+          if (typeOptionsPutPointsInCp === '0') {
+            return array.push(
+              <CartesianCoordinateFull key={index} {...item} index={index} />
+            )
+          } else {
+            return array.push(
+              <CartesianCoordinateQuadrants
+                key={index}
+                {...item}
+                index={index}
+              />
+            )
+          }
 
         case 'select_place_table_option':
-          return ''
+          return array.push(
+            <SelectPlaceTableOption key={index} {...item} index={index} />
+          )
 
         case 'selects_points_in_cp':
-          return ''
+          return array.push(
+            <SelectPointsCoordinatePlane key={index} {...item} index={index} />
+          )
 
         case 'true_or_false':
-          return ''
+          return array.push(<TrueOrFalse key={index} {...item} index={index} />)
 
         case 'true_or_false_cp':
-          return ''
+          return array.push(
+            <TrueOrFalseCartesianCoord key={index} {...item} index={index} />
+          )
 
         case 'true_or_false_cp_objects':
-          return ''
+          return array.push(
+            <TrueOrFalseCartesianImages key={index} {...item} index={index} />
+          )
 
         case 'true_or_false_numbers_and_text':
-          return ''
+          return array.push(
+            <TrueOrFalseNumbersAndText key={index} {...item} index={index} />
+          )
 
         case 'write_coor_cp':
-          return ''
+          const optionsWriteCoorCp = stripquotes(
+            item.options
+          ) as writePointsCoordinatePlane_[]
+          const typeWriteCoorCp = getQuadrant(optionsWriteCoorCp)
+
+          if (typeWriteCoorCp === '0') {
+            return array.push(
+              <WritePointsCartesianPlane key={index} {...item} index={index} />
+            )
+          } else {
+            return array.push(
+              <CartesianCoordinateObjects key={index} {...item} index={index} />
+            )
+          }
 
         case 'write_number_positional':
-          return ''
-
-        case 'write_points_cp':
-          return ''
+          return array.push(
+            <WriteNumberPositional key={index} {...item} index={index} />
+          )
 
         case 'write_value_from_text':
-          return ''
+          return array.push(
+            <WriteValueFromText key={index} {...item} index={index} />
+          )
       }
     })
 
@@ -134,7 +181,6 @@ const Game = () => {
 
   return (
     <>
-      {dataGame[dataGameIndex]}
       <button
         className="p-4 bg-blue-500 text-white"
         onClick={() => {
@@ -149,6 +195,7 @@ const Game = () => {
         }}>
         Siguiente
       </button>
+      {dataGame[dataGameIndex]}
     </>
   )
 }

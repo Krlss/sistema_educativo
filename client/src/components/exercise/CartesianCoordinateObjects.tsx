@@ -1,24 +1,27 @@
 import { useState } from 'react'
 import QuadrantPoints from '../CartesianPlane/QuadrantPoints'
-import { typeCartesian, objectCartesian } from '../../types/CartesianCoordinate'
-import { getCoorValues } from '../../utils/CartesianCoordinate'
+import { getCoorValues, getQuadrant } from '../../utils/CartesianCoordinate'
 import QuestionTitle from '../title/questionTitle'
 
-const CartesianCoordinateObjects = ({
-  typeCartesian,
-  points
-}: {
-  typeCartesian: typeCartesian
-  points: objectCartesian[]
-}) => {
-  const [pointsState, setPointsState] = useState(points)
+import { stripquotes } from '../../utils'
+import { question, writePointsCoordinatePlane_ } from '../../types/game'
+
+const CartesianCoordinateObjects = (props: question) => {
+  const options_ = stripquotes(props.options) as writePointsCoordinatePlane_[]
+  const type = getQuadrant(options_)
+
+  const [pointsState, setPointsState] = useState(options_)
   return (
     <div className="py-20 px-2">
       <div className="container mx-auto">
         <div className="flex items-center justify-center h-screen-calculator flex-col">
-          <QuestionTitle title="9. Escriba las coordenadas de estos objetos" />
+          <QuestionTitle
+            title={props.title}
+            subtitle={props.subtitle}
+            index={props.index}
+          />
           <div className="flex gap-2 mt-5 flex-wrap items-center justify-center">
-            {points.map((point, index) => {
+            {options_.map((point, index) => {
               return (
                 <div
                   key={index}
@@ -57,7 +60,7 @@ const CartesianCoordinateObjects = ({
                       const { valueX, valueY } = getCoorValues({
                         x,
                         y,
-                        type: typeCartesian,
+                        type,
                         length: 10
                       })
                       return (
@@ -65,12 +68,12 @@ const CartesianCoordinateObjects = ({
                           key={x}
                           className="w-[27px] h-[27px] flex items-center justify-center">
                           <div className="w-6 h-6 rounded-full flex items-center justify-center">
-                            {points.find(point => {
+                            {options_.find(point => {
                               return point.x === valueX && point.y === valueY
                             })?.url && (
                               <img
                                 src={
-                                  points.find(point => {
+                                  options_.find(point => {
                                     return (
                                       point.x === valueX && point.y === valueY
                                     )
@@ -88,7 +91,7 @@ const CartesianCoordinateObjects = ({
                 )
               })}
             </div>
-            <QuadrantPoints type={typeCartesian} />
+            <QuadrantPoints type={type} />
           </div>
         </div>
       </div>

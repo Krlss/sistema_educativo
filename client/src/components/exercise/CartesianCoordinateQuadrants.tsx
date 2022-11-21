@@ -1,23 +1,31 @@
 import QuadrantPoints from '../CartesianPlane/QuadrantPoints'
 import useCartesianCoordinate from '../../hooks/useCartesianCoordinate'
-import { typeCartesian } from '../../types/CartesianCoordinate'
-import { getCoorValues } from '../../utils/CartesianCoordinate'
+import { getCoorValues, getQuadrant } from '../../utils/CartesianCoordinate'
 import QuestionTitle from '../title/questionTitle'
+import { stripquotes } from '../../utils'
+import { question, cartesianCoordinateFull_ } from '../../types/game'
+import { namePoints } from '../../constants/CartesianConstants'
 
-const CartesianCoordinateQuadrant = ({
-  pointNumbers,
-  typeCartesian
-}: {
-  pointNumbers: number
-  typeCartesian: typeCartesian
-}) => {
-  const { cartesian, updateCartesian } = useCartesianCoordinate(pointNumbers)
+const CartesianCoordinateQuadrant = (props: question) => {
+  const options_ = stripquotes(props.options) as cartesianCoordinateFull_[]
+  const { cartesian, updateCartesian } = useCartesianCoordinate(options_.length)
+  const type = getQuadrant(options_)
+
+  const subtitle = options_
+    .map((option, index) => {
+      return `${namePoints[index]}(${option.x}, ${option.y})`
+    })
+    .join(' - ')
 
   return (
     <div className="py-20 px-2">
       <div className="container mx-auto">
         <div className="flex items-center justify-center h-screen-calculator flex-col">
-          <QuestionTitle title="1. Marcar estos puntos en la cuadricula: (3, 5), (6, 7), (4, 2), (5, 8), (1, 4)" />
+          <QuestionTitle
+            title={props.title}
+            subtitle={props.subtitle ? props.subtitle : subtitle}
+            index={props.index}
+          />{' '}
           <div className="relative flex items-center justify-center mt-10">
             <div>
               {[...Array(11)].map((_, y) => {
@@ -28,7 +36,7 @@ const CartesianCoordinateQuadrant = ({
                         const { valueX, valueY } = getCoorValues({
                           x,
                           y,
-                          type: typeCartesian,
+                          type,
                           length: 10
                         })
                         return point.x === valueX && point.y === valueY
@@ -39,7 +47,7 @@ const CartesianCoordinateQuadrant = ({
                           className="w-[27px] h-[27px] flex items-center justify-center cursor-pointer group"
                           onClick={() => {
                             const { valueX, valueY } = getCoorValues({
-                              type: typeCartesian,
+                              type,
                               x,
                               y,
                               length: 10
@@ -58,7 +66,7 @@ const CartesianCoordinateQuadrant = ({
                 )
               })}
             </div>
-            <QuadrantPoints type={typeCartesian} />
+            <QuadrantPoints type={type} />
           </div>
         </div>
       </div>

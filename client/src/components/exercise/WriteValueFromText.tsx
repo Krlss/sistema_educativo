@@ -1,28 +1,13 @@
-import { shuffleArray } from '../../utils'
+import { shuffleArray, stripquotes } from '../../utils'
 import React, { useState } from 'react'
 import QuestionTitle from '../title/questionTitle'
+import { question, writeValueFromText_ } from '../../types/game'
 
-const data_ = {
-  title: 'Escribe con cifras:',
-  options: [
-    {
-      text: 'Doscientos cincuenta  y cinco mil seiscientos',
-      value: '255600'
-    },
-    {
-      text: 'Ciento veinticuatro mil quinientos treinta y nueve',
-      value: '124539'
-    },
-    {
-      text: 'Cuatrocientos cuarenta y siete mil nueve',
-      value: '447009'
-    }
-  ]
-}
-const data2 = shuffleArray(data_.options)
-
-const WriteValueFromText = () => {
-  const [data, setData] = useState(data2)
+const WriteValueFromText = (props: question) => {
+  const options_ = shuffleArray(
+    stripquotes(props.options)
+  ) as writeValueFromText_[]
+  const [data, setData] = useState(options_)
   const handleChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>,
     index: number
@@ -36,9 +21,13 @@ const WriteValueFromText = () => {
     <div className="py-20 px-2">
       <div className="container mx-auto">
         <div className="flex items-start justify-center flex-col w-4/5 mx-auto">
-          <QuestionTitle title={data_.title} />
+          <QuestionTitle
+            title={props.title}
+            subtitle={props.subtitle}
+            index={props.index}
+          />
           <div className="w-full lg:w-3/4 mx-auto">
-            {data2.map((item, index) => (
+            {options_.map((item, index) => (
               <div
                 key={index}
                 className="flex border border-gray-300 lg:flex-row flex-col">
@@ -49,7 +38,7 @@ const WriteValueFromText = () => {
                 </div>
                 <div className="w-8/12">
                   <textarea
-                    className="p-2 w-full outline-none focus:border-0 bg-transparent h-full resize-none"
+                    className="p-2 w-full outline-none focus:border-0 bg-transparent h-full resize-none bg-white"
                     onChange={e => handleChange(e, index)}
                   />
                 </div>

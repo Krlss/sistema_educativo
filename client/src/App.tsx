@@ -51,7 +51,6 @@ const App = () => {
       <Routes>
         <Route path="/iniciar-sesion" element={<Login />} />
         <Route path="/registrarse" element={<Register />} />
-        <Route path="/prueba" element={<Game />} />
         <Route path="/" element={<DefaultAplicacion />}>
           <Route path="/" element={<Home />} />
           <Route path="/cursos" element={<Courses />} />
@@ -68,98 +67,9 @@ const App = () => {
             element={<ClassPresentation />}
           />
 
-          {/* Rutas de test */}
-
-          <Route
-            path="/seleccionar-puntos-en-el-plano-cartesiano"
-            element={
-              <SelectPointsCoordinatePlane
-                coordinates={selectPointsCoordinatePlane}
-              />
-            }
-          />
-
-          <Route
-            path="/verdadero-o-falso-images-en-el-plano-cartesiano"
-            element={
-              <TrueOrFalseCartesianImages
-                type="I"
-                data={dataCartesianPlaneImagesTrueOrFalse}
-                length={10}
-              />
-            }
-          />
-
-          <Route
-            path="/plano-cartesiano"
-            element={<CartesianCoordinateFull pointNumbers={8} />}
-          />
-          <Route
-            path="/verdadero-o-falso-plano-cartesiano"
-            element={<TrueOrFalseCartesianCoord {...dataPointsToF} />}
-          />
-          <Route
-            path="/verdadero-o-falso-numberos-texto"
-            element={<TrueOrFalseNumbersAndText data={dataFigures} />}
-          />
-          <Route
-            path="/cuadrante-plano-cartesiano"
-            element={
-              <CartesianCoordinateQuadrants
-                pointNumbers={5}
-                typeCartesian="III"
-              />
-            }
-          />
-          <Route
-            path="/objetos-plano-cartesiano"
-            element={
-              <CartesianCoordinateObjects
-                points={objectCartesianPoints}
-                typeCartesian="I"
-              />
-            }
-          />
-          <Route
-            path="/escribe-puntos-plano-cartesiano"
-            element={
-              <WritePointsCartesianPlane points={objectCartesianPoints} />
-            }
-          />
-
-          <Route path="/verdadero-o-falso" element={<TrueOrFalse />} />
-          <Route
-            path="/tabla-posicional"
-            element={<PositionalTable data={dataPositionalTable} />}
-          />
-          <Route
-            path="/escribir-el-valor-de-un-texto"
-            element={<WriteValueFromText />}
-          />
-          <Route
-            path="/escribe-el-numero-posicional"
-            element={<WriteNumberPositional />}
-          />
-
-          <Route
-            path="/opciones-en-seleccion"
-            element={
-              <SelectPlaceTableOption data={dataSelectPlaceTableOption} />
-            }
-          />
-
-          <Route
-            path="/suma-de-valores-posicionales"
-            element={<PositionalSum />}
-          />
-
           <Route path="/relaciona-columnas" element={<MatchNColumns />} />
-          {/* <Route
-            path="/arrastrar-y-soltar-conjuntos"
-            element={<DragAndDropSet />}
-          /> */}
-          <Route path="/coloca-el-signo" element={<PlaceSign />} />
         </Route>
+        <Route path="/prueba" element={<Game />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
       {config.loading && <LoadingAllScreen />}

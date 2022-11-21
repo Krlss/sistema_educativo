@@ -1,17 +1,13 @@
 import { useState } from 'react'
-import { selectPointsCoordinatePlane } from '../../types/CartesianCoordinate'
 import CartesianPlane from '../CartesianPlane'
 import { changePoints } from '../../utils/CartesianCoordinate'
 import QuestionTitle from '../title/questionTitle'
+import { question, selectPointsCoordinatePlane_ } from '../../types/game'
+import { stripquotes } from '../../utils'
 
-const SelectPointsCoordinatePlane = ({
-  coordinates
-}: {
-  coordinates: selectPointsCoordinatePlane
-}) => {
-  const [newCoordinates, setNewCoordinates] = useState(
-    changePoints(coordinates)
-  )
+const SelectPointsCoordinatePlane = (props: question) => {
+  const options_ = stripquotes(props.options) as selectPointsCoordinatePlane_
+  const [newCoordinates, setNewCoordinates] = useState(changePoints(options_))
 
   const selectedCoordinates = (x: number, y: number) => {
     const selected = newCoordinates.find(
@@ -27,9 +23,13 @@ const SelectPointsCoordinatePlane = ({
     <div className="py-20 px-2">
       <div className="container mx-auto">
         <div className="flex items-center justify-center h-screen-calculator flex-col">
-          <QuestionTitle title={coordinates.title} />
+          <QuestionTitle
+            title={props.title}
+            subtitle={props.subtitle}
+            index={props.index}
+          />
           <div className="flex flex-wrap max-w-xs items-center justify-center mt-5 gap-1">
-            {coordinates.points.map((coordinate, index) => (
+            {options_.points.map((coordinate, index) => (
               <div
                 key={index}
                 className="border border-black p-1 basis-24 flex items-center justify-center">

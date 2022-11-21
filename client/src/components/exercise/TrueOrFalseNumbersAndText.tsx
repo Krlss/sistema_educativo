@@ -1,27 +1,22 @@
 import QuestionTitle from '../title/questionTitle'
+import { question, trueOrFalseNumbersAndText_ } from '../../types/game'
+import { stripquotes } from '../../utils'
 
-const TrueOrFalseNumbersAndText = ({
-  data
-}: {
-  data: {
-    title: string
-    value: boolean
-    options: {
-      name: string
-      text: string
-      value: string
-    }[]
-  }
-}) => {
+const TrueOrFalseNumbersAndText = (props: question) => {
+  const options_ = stripquotes(props.options) as trueOrFalseNumbersAndText_
   return (
     <div className="container mx-auto">
       <div className="flex items-center justify-center h-screen-calculator flex-col">
         <div className="flex flex-col items-start justify-center px-4">
-          <QuestionTitle title={data.title} />
+          <QuestionTitle
+            title={props.title}
+            subtitle={props.subtitle}
+            index={props.index}
+          />
           <form>
             <div className="flex flex-col items-start mt-2">
               <div>
-                {data.options.map((option, index) => {
+                {options_.options.map((option, index) => {
                   return (
                     <div
                       className="flex items-center border px-4 py-2 gap-2 rounded-md mb-2"
@@ -44,7 +39,7 @@ const TrueOrFalseNumbersAndText = ({
                   type="radio"
                   name="answer"
                   value="true"
-                  className="appearance-none w-4 h-4 rounded-full checked:bg-yellow-page border-2 checked:border-0 cursor-pointer"
+                  className="appearance-none w-4 h-4 rounded-full checked:bg-yellow-page border-2 checked:border-0 cursor-pointer bg-white"
                 />
                 <label className="ml-2">Verdadero</label>
               </div>
@@ -53,7 +48,7 @@ const TrueOrFalseNumbersAndText = ({
                   type="radio"
                   name="answer"
                   value="false"
-                  className="appearance-none w-4 h-4 rounded-full checked:bg-yellow-page border-2 checked:border-0 cursor-pointer"
+                  className="appearance-none w-4 h-4 rounded-full checked:bg-yellow-page border-2 checked:border-0 cursor-pointer bg-white"
                 />
                 <label className="ml-2">Falso</label>
               </div>

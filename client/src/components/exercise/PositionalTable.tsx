@@ -1,29 +1,25 @@
 import usePositionalTable from '../../hooks/usePositionalTable'
 import QuestionTitle from '../title/questionTitle'
+import { question, positionalTable_ } from '../../types/game'
+import { stripquotes } from '../../utils'
 
-const PositionalTable = ({
-  data
-}: {
-  data: {
-    title: string
-    options: {
-      value: string
-      response: string[]
-    }[]
-  }
-}) => {
-  const { handleChange, newTable, values, lengthOfValues } = usePositionalTable(
-    data.options
-  )
+const PositionalTable = (props: question) => {
+  const options_ = stripquotes(props.options) as positionalTable_[]
+  const { handleChange, newTable, values, lengthOfValues, colors } =
+    usePositionalTable(options_)
 
   return (
     <div className="py-20 px-2">
       <div className="container mx-auto">
         <div className="flex items-center h-screen-calculator justify-center flex-col">
           <div>
-            <QuestionTitle title={data.title} />
+            <QuestionTitle
+              title={props.title}
+              index={props.index}
+              subtitle={props.subtitle}
+            />
             <ul>
-              {data.options.map((option, index) => (
+              {options_.map((option, index) => (
                 <li key={index} className="list-disc ml-8">
                   <span className="text-2xl font-medium">{option.value}</span>
                 </li>
@@ -34,8 +30,11 @@ const PositionalTable = ({
                 <tr className="flex items-center">
                   {newTable.map((row, index) => (
                     <td
-                      className="py-3 border border-gray-300 w-full text-center bg-gray-200 text-2xl font-medium"
-                      key={index}>
+                      className="py-3 border border-3 border-gray-300 w-full text-center text-2xl font-medium"
+                      key={index}
+                      style={{
+                        backgroundColor: colors[index]
+                      }}>
                       {row}
                     </td>
                   ))}
@@ -45,10 +44,12 @@ const PositionalTable = ({
                 {values.map((option, index) => (
                   <tr key={index} className="flex items-center">
                     {newTable.map((row, r) => (
-                      <td className="border border-gray-300 w-full" key={r}>
+                      <td
+                        className="border border-3 border-gray-300 w-full"
+                        key={r}>
                         <input
                           name={`${index}-${r}`}
-                          className="w-full outline-red-600 focus:outline outline-3 caret-red-600 text-center py-2 text-2xl"
+                          className="w-full focus:outline outline-3 text-center py-2 text-2xl"
                           min={0}
                           autoFocus={index === 0 && r === lengthOfValues - 1}
                           onChange={e => handleChange(e, index, r)}

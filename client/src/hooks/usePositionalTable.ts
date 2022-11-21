@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { getLengthOfValues } from '../utils/PositionalTable'
 import { table } from '../constants/PositionalTable'
 import { onlyNumber } from '../constants/regex'
+import { getRamdonArrayColors } from '../constants/colors'
 
 interface IPositionalTable {
   value: string
@@ -17,6 +18,11 @@ const usePositionalTable = (data: IPositionalTable[]) => {
   }
 
   const [values, setValues] = useState(data)
+  const [colors, setColors] = useState<string[]>([])
+
+  useEffect(() => {
+    setColors(getRamdonArrayColors(lengthOfValues))
+  }, [])
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -49,7 +55,8 @@ const usePositionalTable = (data: IPositionalTable[]) => {
     values,
     newTable,
     handleChange,
-    lengthOfValues
+    lengthOfValues,
+    colors
   }
 }
 

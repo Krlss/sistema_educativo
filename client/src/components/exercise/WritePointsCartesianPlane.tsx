@@ -1,22 +1,25 @@
 import { useState } from 'react'
 import CartesianPlane from '../CartesianPlane'
-import { objectCartesian } from '../../types/CartesianCoordinate'
 import QuestionTitle from '../title/questionTitle'
 import { namePoints } from '../../constants/CartesianConstants'
+import { question, writePointsCoordinatePlane_ } from '../../types/game'
+import { stripquotes } from '../../utils'
 
-const WritePointsCartesianPlane = ({
-  points
-}: {
-  points: objectCartesian[]
-}) => {
-  const [pointsState, setPointsState] = useState(points)
+const WritePointsCartesianPlane = (props: question) => {
+  const options_ = stripquotes(props.options) as writePointsCoordinatePlane_[]
+  const [pointsState, setPointsState] = useState(options_)
+
   return (
     <div className="py-20 px-2">
       <div className="container mx-auto">
         <div className="flex items-center justify-center h-screen-calculator flex-col">
-          <QuestionTitle title="9. Escriba las coordenadas de estos objetos" />
+          <QuestionTitle
+            title={props.title}
+            subtitle={props.subtitle}
+            index={props.index}
+          />
           <div className="flex gap-2 mt-5 flex-wrap items-center justify-center">
-            {points.map((point, index) => {
+            {pointsState.map((point, index) => {
               return (
                 <div
                   key={index}
@@ -51,7 +54,7 @@ const WritePointsCartesianPlane = ({
             })}
           </div>
           <div className="relative flex items-center justify-center mt-8">
-            <CartesianPlane points={points} />
+            <CartesianPlane points={pointsState} />
           </div>
         </div>
       </div>

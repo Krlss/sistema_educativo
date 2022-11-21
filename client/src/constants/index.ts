@@ -37,7 +37,7 @@ export const data = [
     title: '¿Las siguientes coordenadas en el plano son correcta: A(4, -1) B(4, -2) C(1, -3)?'
   },
   {
-    type: 'write_points_cp',
+    type: 'write_coor_cp',
     _id: '637371f4fd325626f8d337d4',
     options: "'[{\"x\":1,\"y\":1},{\"x\":1,\"y\":-3},{\"x\":2,\"y\":-5}]'",
     subtitle: '',
@@ -53,7 +53,7 @@ export const data = [
   {
     type: 'selects_points_in_cp',
     _id: '63737202fd325626f8d337d6',
-    options: "'{\"response\":false,\"points\":[{\"x\":2,\"y\":1,\"value\":false},{\"x\":4,\"y\":3,\"value\":true},{\"x\":7,\"y\":1,\"value\":true},{\"x\":3,\"y\":1,\"value\":true},{\"x\":6,\"y\":2,\"value\":false},{\"x\":8,\"y\":2,\"value\":true}]}'",
+    options: "'{\"correct\":false,\"points\":[{\"x\":2,\"y\":1,\"value\":false},{\"x\":4,\"y\":3,\"value\":true},{\"x\":7,\"y\":1,\"value\":true},{\"x\":3,\"y\":1,\"value\":true},{\"x\":6,\"y\":2,\"value\":false},{\"x\":8,\"y\":2,\"value\":true}]}'",
     subtitle: '',
     title: 'Observe la tabla y el sistema de coordenadas. Luego, señalo dando clic qué pares ordenados no corresponden a los puntos del plano.'
   },
@@ -86,11 +86,18 @@ export const data = [
     title: 'Escriba las siguientes cantidades en la tabla posicional:'
   },
   {
-    type: 'match_n_columns',
+    type: 'drag_and_drop_text',
     _id: '637373a3fd325626f8d337f3',
-    options: "'{\"columns\":[{\"key\":\"A\",\"options\":[{\"text\":\"Centena de mil\"},{\"text\":\"Decena de mil\"},{\"text\":\"Unidad de mil\"},{\"text\":\"Centena\"},{\"text\":\"Decena\"},{\"text\":\"Unidad\"}]},{\"key\":\"B\",\"options\":[{\"text\":\"U\"},{\"text\":\"C\"},{\"text\":\"CM\"},{\"text\":\"D\"},{\"text\":\"DM\"},{\"text\":\"UM\"}]}],\"options\":[{\"isCorrect\":false,\"value\":\"A2 - B1, A3 - B2, A4 - B3, A5 - B4, A6 - B5, A1 - B6\"},{\"isCorrect\":false,\"value\":\"A1 - B1, A2 - B2, A3 - B3, A4 - B4, A5 - B5, A6 - B6\"},{\"isCorrect\":false,\"value\":\"A1 - B6, A2 - B5, A3 - B4, A4 - B3, A5 - B2, A6 - B1\"},{\"isCorrect\":true,\"value\":\"A1 - B3, A2 - B5, A3 - B6, A4 - B2, A5 - B4, A6 - B1\"}]}'",
+    options: "'[{\"value\":\"910 608\",\"text\":\"NOVECIENTOS DIEZ MIL SEISCIENTOS OCHO\"},{\"value\":\"200 457\",\"text\":\"DOSCIENTOS MIL CUATROCIENTOS CINCUENTA Y SIETE\"},{\"value\":\"305 034\",\"text\":\"TRESCIENTOS CINCO MIL TREINTA Y CUATRO\"}]'",
     subtitle: null,
-    title: 'Unir con línea según corresponda las abreviaturas de las unidades en las lecturas'
+    title: 'Relaciona el valor con su escritura'
+  },
+  {
+    type: 'drag_and_drop_text',
+    _id: '637373a3fd325626f8d337f6',
+    options: "'[{\"value\":\"696321\",\"text\":\"La suma de las unidades y las centenas es 4\"},{\"value\":\"354840\",\"text\":\"Soy el resultado de multiplicar 59140 x 6\"},{\"value\":\"632152\",\"text\":\"La cifra de las centenas es 1\"},{\"value\":\"693006\",\"text\":\"Mi cifra de las unidades y centenas de millar es 6\"},{\"value\":\"853210\",\"text\":\"Soy el mayor de todos\"}]'",
+    subtitle: null,
+    title: 'Relaciona lo siguiente:'
   },
   {
     type: 'write_value_from_text',

@@ -1,22 +1,12 @@
 import React, { useState } from 'react'
 import QuestionTitle from '../title/questionTitle'
+import { question, selectPlaceTableOption_ } from '../../types/game'
+import { stripquotes } from '../../utils'
 
-const SelectPlaceTableOption = ({
-  data
-}: {
-  data: {
-    title: string
-    options: {
-      text: string
-      selects: {
-        text: string
-        correct: boolean
-      }[]
-      response?: string
-    }[]
-  }
-}) => {
-  const [selected, setSelected] = useState(data.options)
+const SelectPlaceTableOption = (props: question) => {
+  const options_ = stripquotes(props.options) as selectPlaceTableOption_[]
+
+  const [selected, setSelected] = useState(options_)
   const handleChange = (
     e: React.ChangeEvent<HTMLSelectElement>,
     index: number
@@ -31,7 +21,11 @@ const SelectPlaceTableOption = ({
     <div className="py-20 px-2">
       <div className="container mx-auto">
         <div className="flex items-center justify-center flex-col">
-          <QuestionTitle title={data.title} />
+          <QuestionTitle
+            title={props.title}
+            subtitle={props.subtitle}
+            index={props.index}
+          />
           <div>
             {selected.map((option, index) => (
               <div

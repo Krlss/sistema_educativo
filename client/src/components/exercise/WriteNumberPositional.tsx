@@ -1,20 +1,21 @@
 import QuestionTitle from '../title/questionTitle'
 import useNumberPositional from '../../hooks/useNumberPositional'
 import { NamePositional } from '../../constants/PositionalTable'
+import { question, writeNumberPositional_ } from '../../types/game'
+import { stripquotes } from '../../utils'
 
-const data = {
-  title:
-    'Observo la siguiente cifra y realizo su valor posicional según su lectura en la tabla posicional.',
-  subtitle: 'Valor posicional de 35 002 642:',
-  value: 35002642
-}
-const WriteNumberPositional = () => {
-  const { handleChange, value } = useNumberPositional(data.value)
+const WriteNumberPositional = (props: question) => {
+  const options_ = stripquotes(props.options) as writeNumberPositional_
+  const { handleChange, value } = useNumberPositional(options_.value)
   return (
     <div className="py-20 px-2">
       <div className="container mx-auto">
         <div className="flex items-center justify-center flex-col">
-          <QuestionTitle title={data.title} subtitle={data.subtitle} />
+          <QuestionTitle
+            title={props.title}
+            subtitle={props.subtitle}
+            index={props.index}
+          />
           <div className="flex md:flex-row flex-col gap-2 mt-2 items-center">
             {value.map((item, index) => (
               <div key={index}>
