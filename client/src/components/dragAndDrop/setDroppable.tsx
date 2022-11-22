@@ -12,7 +12,7 @@ const SetDroppable = ({
 }) => {
   return (
     <div className="flex flex-col items-center gap-2 m-1">
-      <span>{title}</span>
+      <span className="font-semibold">{title}</span>
       <Droppable droppableId={droppableId}>
         {(provided, snapshot) => (
           <div

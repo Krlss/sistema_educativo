@@ -22,47 +22,43 @@ const ListenAndWrite = (props: question) => {
     setOptions(newOptions)
   }
   return (
-    <div className="py-20 px-2">
-      <div className="container mx-auto">
-        <div className="flex items-center justify-center flex-col">
-          <QuestionTitle
-            title={props.title}
-            index={props.index}
-            subtitle={props.subtitle}
+    <>
+      <QuestionTitle
+        title={props.title}
+        index={props.index}
+        subtitle={props.subtitle}
+      />
+      {options.map((option, index) => (
+        <div
+          key={index}
+          className={`flex items-center justify-center gap-2 my-2 ${
+            props.type === 'listen_numbers' ? '' : 'w-full'
+          }`}>
+          <input
+            className="border border-yellow-page p-2 rounded outline-none w-full"
+            onChange={e => handleChange(e, index)}
           />
-          <div>
-            {options.map((option, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-center gap-2 my-2">
-                <input
-                  className="border border-yellow-page p-2 rounded outline-none"
-                  onChange={e => handleChange(e, index)}
-                />
-                <button
-                  className="flex items-center justify-center"
-                  onClick={() => {
-                    const msg = new SpeechSynthesisUtterance(option.text)
-                    window.speechSynthesis.speak(msg)
-                  }}>
-                  <Icon
-                    viewBox="64 64"
-                    className="text-gray-600"
-                    width={20}
-                    height={20}
-                    style={{
-                      // rotate: '90deg',
-                      transform: 'rotate(180deg)'
-                    }}>
-                    <SpeakerIcon />
-                  </Icon>
-                </button>
-              </div>
-            ))}
-          </div>
+          <button
+            className="flex items-center justify-center"
+            onClick={() => {
+              const msg = new SpeechSynthesisUtterance(option.text)
+              window.speechSynthesis.speak(msg)
+            }}>
+            <Icon
+              viewBox="64 64"
+              className="text-gray-600"
+              width={20}
+              height={20}
+              style={{
+                // rotate: '90deg',
+                transform: 'rotate(180deg)'
+              }}>
+              <SpeakerIcon />
+            </Icon>
+          </button>
         </div>
-      </div>
-    </div>
+      ))}
+    </>
   )
 }
 export default ListenAndWrite

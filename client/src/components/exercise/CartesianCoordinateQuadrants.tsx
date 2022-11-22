@@ -18,59 +18,55 @@ const CartesianCoordinateQuadrant = (props: question) => {
     .join(' - ')
 
   return (
-    <div className="py-20 px-2">
-      <div className="container mx-auto">
-        <div className="flex items-center justify-center h-screen-calculator flex-col">
-          <QuestionTitle
-            title={props.title}
-            subtitle={props.subtitle ? props.subtitle : subtitle}
-            index={props.index}
-          />{' '}
-          <div className="relative flex items-center justify-center mt-10">
-            <div>
-              {[...Array(11)].map((_, y) => {
-                return (
-                  <div key={y} className="flex items-center justify-center">
-                    {[...Array(11)].map((_, x) => {
-                      const isClicked = !!cartesian.find(point => {
+    <>
+      <QuestionTitle
+        title={props.title}
+        subtitle={props.subtitle ? props.subtitle : subtitle}
+        index={props.index}
+      />{' '}
+      <div className="relative flex items-center justify-center mt-5">
+        <div>
+          {[...Array(11)].map((_, y) => {
+            return (
+              <div key={y} className="flex items-center justify-center">
+                {[...Array(11)].map((_, x) => {
+                  const isClicked = !!cartesian.find(point => {
+                    const { valueX, valueY } = getCoorValues({
+                      x,
+                      y,
+                      type,
+                      length: 10
+                    })
+                    return point.x === valueX && point.y === valueY
+                  })
+                  return (
+                    <div
+                      key={x}
+                      className="w-[27px] h-[27px] flex items-center justify-center cursor-pointer group"
+                      onClick={() => {
                         const { valueX, valueY } = getCoorValues({
+                          type,
                           x,
                           y,
-                          type,
                           length: 10
                         })
-                        return point.x === valueX && point.y === valueY
-                      })
-                      return (
-                        <div
-                          key={x}
-                          className="w-[27px] h-[27px] flex items-center justify-center cursor-pointer group"
-                          onClick={() => {
-                            const { valueX, valueY } = getCoorValues({
-                              type,
-                              x,
-                              y,
-                              length: 10
-                            })
-                            updateCartesian(valueX, valueY)
-                          }}>
-                          <div className="w-[27px] h-[27px] rounded-full border-2 border-dashed border-transparent group-hover:border-gray-500 flex items-center justify-center">
-                            {isClicked && (
-                              <div className="w-2 h-2 rounded-full bg-red-logo"></div>
-                            )}
-                          </div>
-                        </div>
-                      )
-                    })}
-                  </div>
-                )
-              })}
-            </div>
-            <QuadrantPoints type={type} />
-          </div>
+                        updateCartesian(valueX, valueY)
+                      }}>
+                      <div className="w-[27px] h-[27px] rounded-full border-2 border-dashed border-transparent group-hover:border-gray-500 flex items-center justify-center">
+                        {isClicked && (
+                          <div className="w-2 h-2 rounded-full bg-red-logo"></div>
+                        )}
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )
+          })}
         </div>
+        <QuadrantPoints type={type} />
       </div>
-    </div>
+    </>
   )
 }
 

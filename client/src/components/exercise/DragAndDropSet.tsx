@@ -17,49 +17,45 @@ const DragAndDropSet = (props: question) => {
     sets
   })
   return (
-    <div className="py-20 px-2">
-      <div className="container mx-auto">
-        <div className="flex items-center justify-center h-screen-calculator flex-col">
-          <QuestionTitle
-            title={props.title}
-            subtitle={props.subtitle}
-            index={props.index}
-          />
-          <DragDropContext onDragEnd={onDragEnd}>
-            <ContentDroppable direction="horizontal" droppableId="items">
-              {options_.map((item, index) => (
-                <TextDraggable
+    <>
+      <QuestionTitle
+        title={props.title}
+        subtitle={props.subtitle}
+        index={props.index}
+      />
+      <DragDropContext onDragEnd={onDragEnd}>
+        <ContentDroppable direction="horizontal" droppableId="items">
+          {options_.map((item, index) => (
+            <TextDraggable
+              key={item.value}
+              draggableId={item.value}
+              index={index}
+              value={item.text}
+              color={item.color}
+            />
+          ))}
+        </ContentDroppable>
+
+        <div className="flex gap-4">
+          {sets.map((item, set) => (
+            <SetDroppable
+              droppableId={`respuesta-${set}`}
+              key={set}
+              title={item.title}>
+              {respuestas[set]?.map((item: any, index: number) => (
+                <ResponseTextSetDraggable
                   key={item.value}
                   draggableId={item.value}
                   index={index}
-                  value={item.text}
+                  value={item.value}
                   color={item.color}
                 />
               ))}
-            </ContentDroppable>
-
-            <div className="flex gap-4">
-              {sets.map((item, set) => (
-                <SetDroppable
-                  droppableId={`respuesta-${set}`}
-                  key={set}
-                  title={item.title}>
-                  {respuestas[set]?.map((item: any, index: number) => (
-                    <ResponseTextSetDraggable
-                      key={item.value}
-                      draggableId={item.value}
-                      index={index}
-                      value={item.value}
-                      color={item.color}
-                    />
-                  ))}
-                </SetDroppable>
-              ))}
-            </div>
-          </DragDropContext>
+            </SetDroppable>
+          ))}
         </div>
-      </div>
-    </div>
+      </DragDropContext>
+    </>
   )
 }
 

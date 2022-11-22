@@ -14,30 +14,26 @@ const OrderOneDigitNumbers = (props: question) => {
   })
 
   return (
-    <div className="py-20 px-2">
-      <div className="container mx-auto">
-        <div className="flex items-center justify-center h-screen-calculator flex-col">
-          <QuestionTitle
-            title={props.title}
-            index={props.index}
-            subtitle={props.subtitle}
-          />
-          <DragDropContext onDragEnd={onDragEnd}>
-            <ContentDroppable direction="horizontal" droppableId="items">
-              {options.map((item, index) => (
-                <TextDraggable
-                  draggableId={item.key}
-                  index={index}
-                  value={item.value}
-                  key={item.key}
-                  color={item.color}
-                />
-              ))}
-            </ContentDroppable>
-          </DragDropContext>
-        </div>
-      </div>
-    </div>
+    <>
+      <QuestionTitle
+        title={props.title}
+        index={props.index}
+        subtitle={props.subtitle}
+      />
+      <DragDropContext onDragEnd={onDragEnd}>
+        <ContentDroppable direction="horizontal" droppableId="items">
+          {options.map((item, index) => (
+            <TextDraggable
+              draggableId={item.key}
+              index={index}
+              value={item.value}
+              key={item.key}
+              color={item.color}
+            />
+          ))}
+        </ContentDroppable>
+      </DragDropContext>
+    </>
   )
 }
 
