@@ -13,7 +13,7 @@ const TrueOrFalseCartesianCoord = (props: question) => {
         index={props.index}
       />
       <form>
-        <div className="flex items-center justify-start">
+        <div className="flex items-center justify-start mb-10">
           <div className="flex flex-col items-start">
             <CartesianPlane points={options_.points} />
             <div className="flex flex-row items-center justify-center">

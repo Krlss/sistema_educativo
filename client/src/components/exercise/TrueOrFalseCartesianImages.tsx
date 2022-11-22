@@ -32,7 +32,7 @@ const TrueOrFalseCartesianImages = (props: question) => {
         subtitle={props.subtitle}
         index={props.index}
       />
-      <div className="flex items-center justify-start flex-col">
+      <div className="flex items-center justify-start flex-col mb-10">
         <div className="flex gap-2 mt-5 flex-wrap items-center justify-center">
           {options_.points.map((point, index) => {
             return (

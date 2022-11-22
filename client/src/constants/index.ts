@@ -70,8 +70,7 @@ export const data = [
     options: "'{\"correct\":false,\"points\":[{\"x\":4,\"y\":-1}]}'",
     subtitle: '',
     title: '¿La siguiente coordenada en el plano es la correcta: A(4, -3)?'
-  },
-  {
+  } /* {
     type: 'write_coor_cp',
     _id: '637371f4fd325626f8d337d4',
     options: "'[{\"x\":1,\"y\":1},{\"x\":1,\"y\":-3},{\"x\":2,\"y\":-5}]'",
@@ -92,7 +91,7 @@ export const data = [
     subtitle: '',
     title: 'Observe la tabla y el sistema de coordenadas. Luego, señalo dando clic qué pares ordenados no corresponden a los puntos del plano.'
   },
-  {
+   {
     type: 'true_or_false_cp',
     _id: '6373720bfd325626f8d337d7',
     options: "'{\"correct\":true,\"points\":[{\"x\":4,\"y\":-1},{\"x\":4,\"y\":-2},{\"x\":1,\"y\":-3}]}'",
@@ -225,7 +224,7 @@ export const data = [
     subtitle: null,
     title: '¿Cuál es el valor posicional del 5 en 3,654?'
   },
-  {
+   {
     type: 'order',
     _id: '63737367fd325626f8d337eb',
     options: "'[\"4\", \"9\", \"8\", \"6\"]'",
@@ -539,7 +538,7 @@ export const data = [
     options: "'{\"options\":[{\"value\":false,\"text\":\"Cacao - 24 752 230\"},{\"value\":false,\"text\":\"Banano - 41 252 320\"},{\"value\":true,\"text\":\"Café - 62 262 457\"}]}'",
     subtitle: null,
     title: 'Cúal es el producto con más producción'
-  }
+  } */
 ] as {
   _id: string
   options: string

@@ -38,6 +38,7 @@ const useGame = (
   }[]
 ) => {
   const [dataGame, setDataGame] = useState<any[]>([])
+  const [timer, setTimer] = useState(5400)
   const [dataGameIndex, setDataGameIndex] = useState<number>(0)
   const loadExercise = () => {
     const array: any[] = []
@@ -186,7 +187,17 @@ const useGame = (
     loadExercise()
   }, [])
 
-  return { dataGame, dataGameIndex, setDataGameIndex }
+  useEffect(() => {
+    if (timer === 0) {
+      alert('Se acabo el tiempo')
+    } else {
+      setTimeout(() => {
+        setTimer(timer - 1)
+      }, 1000)
+    }
+  }, [timer])
+
+  return { dataGame, dataGameIndex, setDataGameIndex, timer }
 }
 
 export default useGame

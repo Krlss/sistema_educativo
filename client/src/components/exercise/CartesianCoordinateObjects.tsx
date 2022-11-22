@@ -18,7 +18,7 @@ const CartesianCoordinateObjects = (props: question) => {
         subtitle={props.subtitle}
         index={props.index}
       />
-      <div className="flex gap-2 mt-2 flex-wrap items-center justify-start">
+      <div className="flex gap-2 mt-2 flex-wrap items-center justify-start mb-10">
         {options_.map((point, index) => {
           return (
             <div

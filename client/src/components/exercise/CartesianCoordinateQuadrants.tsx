@@ -24,7 +24,7 @@ const CartesianCoordinateQuadrant = (props: question) => {
         subtitle={props.subtitle ? props.subtitle : subtitle}
         index={props.index}
       />{' '}
-      <div className="relative flex items-center justify-center mt-5">
+      <div className="relative flex items-center justify-center mt-5 mb-10">
         <div>
           {[...Array(11)].map((_, y) => {
             return (

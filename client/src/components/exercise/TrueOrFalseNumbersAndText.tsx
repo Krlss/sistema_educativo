@@ -12,7 +12,7 @@ const TrueOrFalseNumbersAndText = (props: question) => {
         index={props.index}
       />
       <form>
-        <div className="flex flex-col items-start mt-2">
+        <div className="flex flex-col items-start mt-2 mb-10">
           <div>
             {options_.options.map((option, index) => {
               return (
