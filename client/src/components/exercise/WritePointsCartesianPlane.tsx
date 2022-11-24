@@ -9,6 +9,10 @@ const WritePointsCartesianPlane = (props: question) => {
   const options_ = stripquotes(props.options) as writePointsCoordinatePlane_[]
   const [pointsState, setPointsState] = useState(options_)
 
+  const [response, setResponse] = useState<{ x: number; y: number }[]>(
+    Array(options_.length).fill(undefined)
+  )
+
   return (
     <>
       <QuestionTitle
@@ -32,18 +36,26 @@ const WritePointsCartesianPlane = (props: question) => {
                   type="text"
                   className="w-[75px] h-8 border border-gray-300 text-center"
                   onChange={e => {
-                    const newPoints = [...pointsState]
-                    newPoints[index].responseX = Number(e.target.value)
-                    setPointsState(newPoints)
+                    const newPointsIndex = {
+                      ...response[index],
+                      x: Number(e.target.value)
+                    }
+                    const newPoints = [...response]
+                    newPoints[index] = newPointsIndex
+                    setResponse(newPoints)
                   }}
                 />
                 <input
                   type="text"
                   className="w-[75px] h-8 border border-gray-300 text-center"
                   onChange={e => {
-                    const newPoints = [...pointsState]
-                    newPoints[index].responseY = Number(e.target.value)
-                    setPointsState(newPoints)
+                    const newPointsIndex = {
+                      ...response[index],
+                      y: Number(e.target.value)
+                    }
+                    const newPoints = [...response]
+                    newPoints[index] = newPointsIndex
+                    setResponse(newPoints)
                   }}
                 />
               </div>

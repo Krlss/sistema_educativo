@@ -173,8 +173,6 @@ export interface writePointsCoordinatePlane_ {
   y: number
   url?: string
   key?: string
-  responseX?: number
-  responseY?: number
 }
 
 export interface writeNumberPositional_ {

@@ -13,15 +13,26 @@ const useCartesianCoordinate = (
 
   useEffect(() => {
     if (cartesian.length === numbersCoordinate) {
-      const sortedPoints = points.sort((a, b) => a.x - b.x)
-      const sortedCartesian = cartesian.sort((a, b) => a.x - b.x)
-      const verify = sortedPoints.every((point, index) => {
-        return (
-          point.x === sortedCartesian[index].x &&
-          point.y === sortedCartesian[index].y
-        )
-      })
-      console.log(verify)
+      const correct = points.reduce(
+        (acc, point, index) => {
+          const isCorrect = cartesian.find(
+            cartesian => cartesian.x === point.x && cartesian.y === point.y
+          )
+          if (isCorrect) {
+            acc.correct++
+          }
+          return {
+            ...acc,
+            note: Number((acc.correct / numbersCoordinate).toFixed(2))
+          }
+        },
+        {
+          note: 0,
+          correct: 0
+        }
+      )
+
+      console.log(correct)
     }
   }, [cartesian])
 

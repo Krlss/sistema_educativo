@@ -10,11 +10,15 @@ const ChooseAnOption = (props: question) => {
   ) as chooseAnOption_
 
   const [answer, setAnswer] = useState<string>('')
-  const [, setCorrect] = useState<boolean | undefined>(false)
+  const [correct, setCorrect] = useState<number>()
 
   useEffect(() => {
-    setCorrect(options.find(option => option.text === answer)?.value)
+    if (answer) {
+      setCorrect(options.find(option => option.text === answer)?.value ? 1 : 0)
+    }
   }, [answer])
+
+  console.log(correct)
 
   return (
     <>

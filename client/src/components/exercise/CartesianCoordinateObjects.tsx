@@ -1,16 +1,15 @@
-import { useState } from 'react'
 import QuadrantPoints from '../CartesianPlane/QuadrantPoints'
-import { getCoorValues, getQuadrant } from '../../utils/CartesianCoordinate'
+import { getCoorValues } from '../../utils/CartesianCoordinate'
 import QuestionTitle from '../title/questionTitle'
 
 import { stripquotes } from '../../utils'
 import { question, writePointsCoordinatePlane_ } from '../../types/game'
+import useWriteCoorCP from '../../hooks/useWriteCoorCP'
 
 const CartesianCoordinateObjects = (props: question) => {
   const options_ = stripquotes(props.options) as writePointsCoordinatePlane_[]
-  const type = getQuadrant(options_)
+  const { response, setResponse, options, type } = useWriteCoorCP(options_)
 
-  const [pointsState, setPointsState] = useState(options_)
   return (
     <>
       <QuestionTitle
@@ -19,7 +18,7 @@ const CartesianCoordinateObjects = (props: question) => {
         index={props.index}
       />
       <div className="flex gap-2 mt-2 flex-wrap items-center justify-start">
-        {options_.map((point, index) => {
+        {options.map((point, index) => {
           return (
             <div
               key={index}
@@ -29,19 +28,31 @@ const CartesianCoordinateObjects = (props: question) => {
                 <input
                   type="text"
                   className="w-[75px] h-8 border border-gray-300 text-center"
+                  placeholder="x"
                   onChange={e => {
-                    const newPoints = [...pointsState]
-                    newPoints[index].responseX = Number(e.target.value)
-                    setPointsState(newPoints)
+                    const newPointsIndex = {
+                      ...response[index],
+                      key: point.key,
+                      x: Number(e.target.value)
+                    }
+                    const newPoints = [...response]
+                    newPoints[index] = newPointsIndex
+                    setResponse(newPoints)
                   }}
                 />
                 <input
                   type="text"
                   className="w-[75px] h-8 border border-gray-300 text-center"
+                  placeholder="y"
                   onChange={e => {
-                    const newPoints = [...pointsState]
-                    newPoints[index].responseY = Number(e.target.value)
-                    setPointsState(newPoints)
+                    const newPointsIndex = {
+                      ...response[index],
+                      key: point.key,
+                      y: Number(e.target.value)
+                    }
+                    const newPoints = [...response]
+                    newPoints[index] = newPointsIndex
+                    setResponse(newPoints)
                   }}
                 />
               </div>
