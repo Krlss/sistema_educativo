@@ -13,7 +13,10 @@ const CartesianCoordinateFull = (props: question) => {
     })
     .join(' - ')
 
-  const { cartesian, updateCartesian } = useCartesianCoordinate(options_.length)
+  const { cartesian, updateCartesian } = useCartesianCoordinate(
+    options_.length,
+    options_
+  )
 
   return (
     <>
@@ -22,7 +25,7 @@ const CartesianCoordinateFull = (props: question) => {
         subtitle={props.subtitle ? props.subtitle : subtitle}
         index={props.index}
       />
-      <div className="relative flex items-center justify-center mt-5 mb-10">
+      <div className="relative flex items-center justify-center mt-5 mb-10 ml-5">
         <div>
           {[...Array(21)].map((_, y) => {
             return (
@@ -38,7 +41,7 @@ const CartesianCoordinateFull = (props: question) => {
                       onClick={() => updateCartesian(x - 10, 10 - y)}>
                       <div className="w-3 h-3 rounded-full border-2 border-dashed border-transparent group-hover:border-gray-500 flex items-center justify-center">
                         {isClicked && (
-                          <div className="w-2 h-2 rounded-full bg-red-logo"></div>
+                          <div className="w-2 h-2 rounded-full bg-red-logo-stronger"></div>
                         )}
                       </div>
                     </div>

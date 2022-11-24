@@ -22,3 +22,10 @@ export const removeDataSession = (key: string) => {
   const cookie = new Cookie()
   cookie.remove(key, { path: '/' })
 }
+
+export const setDataTest = (key: string, value: any) => {
+  const cookie = new Cookie()
+  cookie.set(key, value, {
+    path: '/'
+  })
+}

@@ -8,7 +8,10 @@ import { namePoints } from '../../constants/CartesianConstants'
 
 const CartesianCoordinateQuadrant = (props: question) => {
   const options_ = stripquotes(props.options) as cartesianCoordinateFull_[]
-  const { cartesian, updateCartesian } = useCartesianCoordinate(options_.length)
+  const { cartesian, updateCartesian } = useCartesianCoordinate(
+    options_.length,
+    options_
+  )
   const type = getQuadrant(options_)
 
   const subtitle = options_
@@ -23,8 +26,8 @@ const CartesianCoordinateQuadrant = (props: question) => {
         title={props.title}
         subtitle={props.subtitle ? props.subtitle : subtitle}
         index={props.index}
-      />{' '}
-      <div className="relative flex items-center justify-center mt-5 mb-10">
+      />
+      <div className="relative flex items-center justify-center mt-5 mb-10 ml-5">
         <div>
           {[...Array(11)].map((_, y) => {
             return (
@@ -54,7 +57,7 @@ const CartesianCoordinateQuadrant = (props: question) => {
                       }}>
                       <div className="w-[27px] h-[27px] rounded-full border-2 border-dashed border-transparent group-hover:border-gray-500 flex items-center justify-center">
                         {isClicked && (
-                          <div className="w-2 h-2 rounded-full bg-red-logo"></div>
+                          <div className="w-2 h-2 rounded-full bg-red-logo-stronger"></div>
                         )}
                       </div>
                     </div>

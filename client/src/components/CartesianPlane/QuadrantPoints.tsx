@@ -28,10 +28,10 @@ const CartesianQuadrant = ({ type }: { type: typeCartesian }) => {
           <DrawCartesianPlane isY type={type} />
         </g>
         <text x={xx} y={xy} textAnchor="start" dominantBaseline="middle">
-          {type === 'I' || type === 'II' ? 'x' : '-x'}
+          {type === 'I' || type === 'IV' ? 'x' : '-x'}
         </text>
         <text x={yx} y={yy} textAnchor="middle" dominantBaseline="middle">
-          {type === 'I' || type === 'IV' ? 'y' : '-y'}
+          {type === 'I' || type === 'II' ? 'y' : '-y'}
         </text>
       </svg>
     </div>

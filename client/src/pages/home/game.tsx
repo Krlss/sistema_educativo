@@ -3,58 +3,55 @@ import useGame from '../../hooks/useGame'
 import { secondsToTime } from '../../utils'
 
 const Game = () => {
-  const { dataGame, dataGameIndex, setDataGameIndex, timer } = useGame(data)
+  const { dataGame, dataGameIndex, timer, nextExercise } = useGame(data)
   const { h, m, s } = secondsToTime(timer)
 
   return (
     <div className="md:grid md:grid-cols-3 flex flex-col gap-4">
       <div className="md:col-span-2">
-        <div className="container mx-auto min-h-[385px] h-full">
+        <div className="mx-auto">
           <div className="flex flex-col items-start justify-center">
             {dataGame[dataGameIndex]}
           </div>
         </div>
-        <div>
-          <div className="flex w-full justify-end">
-            {/* <button
-              className="p-4 bg-blue-500 text-white"
-              onClick={() => {
-                if (dataGameIndex > 0) {
-                  setDataGameIndex(dataGameIndex - 1)
-                }
-              }}>
-              anterior
-            </button> */}
-            <button
-              className="p-4 bg-blue-500 text-white"
-              onClick={() => {
-                if (dataGameIndex < dataGame.length - 1) {
-                  setDataGameIndex(dataGameIndex + 1)
-                }
-              }}>
-              Siguiente
-            </button>
-          </div>
-        </div>
       </div>
-      <div className="md:order-last order-first">
-        <div className="flex flex-wrap w-full items-center">
-          {dataGame.map((item, index) => (
-            <div
-              key={index}
-              className={`flex items-center justify-center basis-14 m-0.5 rounded h-12 ${
-                index < dataGameIndex ? 'bg-yellow-page' : 'bg-gray-300'
-              } ${
-                index === dataGameIndex ? 'bg-red-logo-stronger text-white' : ''
-              }`}>
-              <span className="font-semibold">{index + 1}</span>
+      <div className="md:order-last order-first mb-5">
+        <div className="bg-white p-4 rounded-lg shadow">
+          <div className="grid gap-1.5 grid-cols-auto-index">
+            {dataGame.map((_, index) => (
+              <div
+                key={index}
+                className={`flex items-center justify-center rounded-md h-11 shadow-md ${
+                  index < dataGameIndex ? 'bg-yellow-page' : 'bg-gray-300'
+                } ${
+                  index === dataGameIndex
+                    ? 'bg-red-logo-stronger text-white'
+                    : ''
+                }`}>
+                <span className="font-bold text-lg">{index + 1}</span>
+              </div>
+            ))}
+          </div>
+          <div className="mt-2">
+            <div className="flex flex-col">
+              <span>Tiempo restante</span>
+              <span className="font-semibold text-xl ml-0.5">{`${h}:${
+                m < 10 ? `0${m}` : m
+              }:${s < 10 ? `0${s}` : s}`}</span>
             </div>
-          ))}
-        </div>
-        <div className="mt-2">
-          <span className="font-semibold text-xl ml-0.5">{`${h}:${
-            m < 10 ? `0${m}` : m
-          }:${s < 10 ? `0${s}` : s}`}</span>
+            <div className="flex w-full justify-end">
+              <button
+                disabled={timer === 0}
+                className={`px-4 py-2 bg-red-logo-stronger text-white rounded-md shadow font-semibold ${
+                  timer === 0 ? 'cursor-not-allowed opacity-40' : ''
+                }`}
+                onClick={nextExercise}>
+                {dataGameIndex === dataGame.length - 1
+                  ? 'Finalizar'
+                  : 'Siguiente'}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

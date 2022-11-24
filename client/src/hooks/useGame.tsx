@@ -27,7 +27,11 @@ import {
 import { getQuadrant } from '../utils/CartesianCoordinate'
 import { writePointsCoordinatePlane_, typeQuestion } from '../types/game'
 import { stripquotes } from '../utils'
-
+import {
+  setDataTest,
+  getDataSession,
+  removeDataSession
+} from '../utils/dataSession'
 const useGame = (
   data: {
     _id: string
@@ -38,8 +42,10 @@ const useGame = (
   }[]
 ) => {
   const [dataGame, setDataGame] = useState<any[]>([])
-  const [timer, setTimer] = useState(5400)
-  const [dataGameIndex, setDataGameIndex] = useState<number>(0)
+  const [timer, setTimer] = useState(getDataSession('test')?.timer ?? 3599)
+  const [dataGameIndex, setDataGameIndex] = useState<number>(
+    getDataSession('test')?.dataGameIndex ?? 0
+  )
   const loadExercise = () => {
     const array: any[] = []
     data.forEach((item, index) => {
@@ -183,21 +189,48 @@ const useGame = (
     setDataGame(array)
   }
 
-  useEffect(() => {
-    loadExercise()
-  }, [])
+  const nextExercise = () => {
+    if (timer > 0) {
+      if (dataGameIndex === dataGame.length - 1) {
+        alert('Terminaste el juego')
+        setDataGameIndex(0)
+      }
+      if (dataGameIndex < dataGame.length - 1) {
+        setDataGameIndex(dataGameIndex + 1)
+      }
+    }
+  }
 
   useEffect(() => {
     if (timer === 0) {
+      removeDataSession('test')
       alert('Se acabo el tiempo')
     } else {
       setTimeout(() => {
         setTimer(timer - 1)
       }, 1000)
     }
+    setDataTest('test', { dataGameIndex, timer })
   }, [timer])
 
-  return { dataGame, dataGameIndex, setDataGameIndex, timer }
+  useEffect(() => {
+    const data = getDataSession('test')
+    if (data.timer === 0) {
+      removeDataSession('test')
+      setDataGameIndex(0)
+      setTimer(3599)
+    }
+
+    loadExercise()
+    const handleTabClose = (event: any) => {
+      event.preventDefault()
+      return (event.returnValue = '')
+    }
+
+    window.addEventListener('beforeunload', handleTabClose)
+  }, [])
+
+  return { dataGame, dataGameIndex, setDataGameIndex, timer, nextExercise }
 }
 
 export default useGame

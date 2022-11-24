@@ -8,8 +8,8 @@ const QuestionTitle = ({
   subtitle?: string | null
 }) => {
   return (
-    <div className="self-start mb-2">
-      <h1 className="text-xl font-bold text-left flex flex-col">
+    <div className="mb-2">
+      <h1 className="text-xl font-bold text-left flex flex-col w-full">
         {index + 1}. {title}
         {subtitle && (
           <span className="text-gray-600 text-base"> {subtitle}</span>

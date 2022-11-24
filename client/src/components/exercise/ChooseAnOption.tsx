@@ -1,21 +1,28 @@
 import QuestionTitle from '../title/questionTitle'
 import { question, chooseAnOption_ } from '../../types/game'
 import { stripquotes } from '../../utils'
+import Radio from '../inputs/radio'
+import { useState, useEffect } from 'react'
 
 const ChooseAnOption = (props: question) => {
   const { options, columns, urlDescription } = stripquotes(
     props.options
   ) as chooseAnOption_
 
+  const [answer, setAnswer] = useState<string>('')
+  const [, setCorrect] = useState<boolean | undefined>(false)
+
+  useEffect(() => {
+    setCorrect(options.find(option => option.text === answer)?.value)
+  }, [answer])
+
   return (
     <>
-      <div className="self-start">
-        <QuestionTitle
-          title={props.title}
-          subtitle={props.subtitle}
-          index={props.index}
-        />
-      </div>
+      <QuestionTitle
+        title={props.title}
+        subtitle={props.subtitle}
+        index={props.index}
+      />
       {columns && (
         <div className="flex">
           {columns.map((column, index) => (
@@ -38,16 +45,15 @@ const ChooseAnOption = (props: question) => {
         </div>
       )}
       <form>
-        <div className="flex flex-col items-start">
+        <div className="flex flex-col items-start mb-6">
           {options.map((option, index) => (
             <div
               key={index}
               className="flex flex-row items-center justify-center">
-              <input
-                type="radio"
+              <Radio
                 name="answer"
                 value={option.text}
-                className="appearance-none w-4 h-4 rounded-full checked:bg-yellow-page border-2 checked:border-0 cursor-pointer bg-white"
+                onChange={e => setAnswer(e.target.value)}
               />
               <label className="ml-2">{option.text}</label>
             </div>
