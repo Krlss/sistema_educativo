@@ -145,8 +145,6 @@ export class UserQuestionResolver {
     @Arg("userId") userId: string,
     @Arg("progressId") progressId: string,
     @Arg("unitId") unitId: string,
-    @Arg("topicId") topicId: string,
-    @Arg("response") response: string,
     @Arg("data", { nullable: true }) data: string
   ) {
     const user = await AppDataSource.manager.findOneBy(User, {
