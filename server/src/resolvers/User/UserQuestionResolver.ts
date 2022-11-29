@@ -49,6 +49,7 @@ export class UserQuestionResolver {
     question.nota = 0;
     question.id_question = questionId;
     question.isDone = false;
+    question.response = undefined;
 
     topic.questions.push(question);
     await AppDataSource.manager.update(User, user._id, user);
@@ -57,12 +58,13 @@ export class UserQuestionResolver {
 
   /* Eliminar un tema en la unidad de la asignatura en el progreso del usuario */
   @Mutation(() => Boolean)
-  async deleteUserTopic(
+  async deleteUserQuestion(
     @Arg("userId") userId: string,
     @Arg("progressId") progressId: string,
     @Arg("asignatureId") asignatureId: string,
     @Arg("unitId") unitId: string,
-    @Arg("topicId") topicId: string
+    @Arg("topicId") topicId: string,
+    @Arg("questionId") questionId: string
   ) {
     const user = await AppDataSource.manager.findOneBy(User, {
       _id: new ObjectId(userId),
@@ -85,63 +87,20 @@ export class UserQuestionResolver {
       return false;
     }
     unit.topic = unit.topic.filter((topic) => topic._id.toString() !== topicId);
-    progress.unit.push(unit);
-    // progress.asignature.push(asignature);
-    // user.progress.push(progress);
+
     await AppDataSource.manager.update(User, user._id, user);
     return true;
   }
 
-  /* Obtener un tema en la unidad de la asignatura en el progreso del usuario */
-  @Query(() => UserQuestion)
-  async getUserTopic(
-    @Arg("userId") userId: string,
-    @Arg("progressId") progressId: string,
-    @Arg("asignatureId") asignatureId: string,
-    @Arg("unitId") unitId: string,
-    @Arg("topicId") topicId: string = ""
-  ) {
-    const user = await AppDataSource.manager.findOneBy(User, {
-      _id: new ObjectId(userId),
-    });
-    if (!user) {
-      return false;
-    }
-    const progress = user.progress.find(
-      (progress) => progress._id.toString() === progressId
-    );
-    if (!progress) {
-      return false;
-    }
-    // const asignature = progress.asignature.find(
-    //   (asignature) => asignature._id.toString() === asignatureId
-    // );
-    // if (!asignature) {
-    //   return false;
-    // }
-    const unit = progress.unit.find((unit) => unit._id.toString() === unitId);
-    if (!unit) {
-      return false;
-    }
-    if (topicId === "") {
-      return unit.topic;
-    }
-    const topic = unit.topic.find((topic) => topic._id.toString() === topicId);
-    if (!topic) {
-      return false;
-    }
-    return topic;
-  }
-
   /* Actualizar un tema en la unidad de la asignatura en el progreso del usuario */
   @Mutation(() => Boolean)
-  async updateUserTopic(
+  async updateUserQuestion(
     @Arg("userId") userId: string,
     @Arg("progressId") progressId: string,
-    @Arg("asignatureId") asignatureId: string,
     @Arg("unitId") unitId: string,
     @Arg("topicId") topicId: string,
-    @Arg("nota") nota: number
+    @Arg("questionId") questionId: string,
+    @Arg("id_question") id_question: string
   ) {
     const user = await AppDataSource.manager.findOneBy(User, {
       _id: new ObjectId(userId),
@@ -160,27 +119,80 @@ export class UserQuestionResolver {
     if (!unit) {
       return false;
     }
+
     const topic = unit.topic.find((topic) => topic._id.toString() === topicId);
     if (!topic) {
       return false;
     }
-    topic.nota = nota;
-    const index = unit.topic.findIndex(
-      (topic) => topic._id.toString() === topicId
+
+    const question = topic.questions.find(
+      (question) => question._id.toString() === questionId
     );
-    unit.topic[index] = topic;
-    const index2 = progress.unit.findIndex(
-      (unit) => unit._id.toString() === unitId
-    );
-    progress.unit[index2] = unit;
-    const index3 = user.progress.findIndex(
-      (asignature) => asignature._id.toString() === asignatureId
-    );
-    user.progress[index3] = progress;
-    const index4 = user.progress.findIndex(
+
+    if (!question) {
+      return false;
+    }
+
+    question.id_question = id_question;
+
+    await AppDataSource.manager.update(User, user._id, user);
+    return true;
+  }
+
+  /* Guardar pregunta calificada */
+  @Mutation(() => Boolean)
+  async qualifyUserQuestion(
+    @Arg("userId") userId: string,
+    @Arg("progressId") progressId: string,
+    @Arg("unitId") unitId: string,
+    @Arg("topicId") topicId: string,
+    @Arg("response") response: string,
+    @Arg("data", { nullable: true }) data: string
+  ) {
+    const user = await AppDataSource.manager.findOneBy(User, {
+      _id: new ObjectId(userId),
+    });
+    if (!user) {
+      return false;
+    }
+    const progress = user.progress.find(
       (progress) => progress._id.toString() === progressId
     );
-    user.progress[index4] = progress;
+    if (!progress) {
+      return false;
+    }
+
+    const unit = progress.unit.find((unit) => unit._id.toString() === unitId);
+    if (!unit) {
+      return false;
+    }
+
+    interface userData {
+      nota: number;
+      _id: string;
+      isDone: boolean;
+    }
+
+    const _data: userData[] = JSON.parse(data);
+
+    if (!_data) {
+      return false;
+    }
+
+    let nota = 0;
+
+    _data.map((item: userData) => {
+      const question = unit.questions.find(
+        (question) => question.id_question.toString() === item._id
+      );
+      if (!question) return false;
+      question.nota = item.nota;
+      question.isDone = item.isDone;
+      nota += item.nota;
+    });
+
+    unit.nota = nota / 10;
+
     await AppDataSource.manager.update(User, user._id, user);
     return true;
   }

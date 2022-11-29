@@ -4,7 +4,6 @@ import { AppDataSource } from "../../config/typeorm";
 const { ObjectId } = require("mongodb");
 
 import { User, UserAsignature, Asignature } from "../../entities/";
-import { UserAsignatureResolver } from "./";
 import { AsignatureResolver } from "../Asignature";
 import { comparePassword, hashPassword } from "../../helpers/bcrypt";
 

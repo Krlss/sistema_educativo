@@ -248,12 +248,8 @@ export class QuestionResolver {
           .flat();
       })
       .flat();
-    const aux = [
-      ...new Map(
-        questions.map((item: Question) => [item["type"], item])
-      ).values(),
-    ];
+    console.log(questions.length);
 
-    return aux;
+    return questions;
   }
 }

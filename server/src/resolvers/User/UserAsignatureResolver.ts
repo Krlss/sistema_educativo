@@ -55,33 +55,7 @@ export class UserAsignatureResolver {
     await AppDataSource.manager.update(User, user._id, user);
     return true;
   }
-  /* Consulta una asignatura en el progreso del usuario */
-  // @Query(() => [UserAsignature])
-  // async getUserAsignatureId(
-  //   @Arg("userId") userId: string,
-  //   @Arg("progressId") progressId: string,
-  //   @Arg("asignatureId") asignatureId: string
-  // ) {
-  //   const user = await AppDataSource.manager.findOneBy(User, {
-  //     _id: new ObjectId(userId),
-  //   });
-  //   if (!user) {
-  //     return false;
-  //   }
-  //   const progress = user.progress.find(
-  //     (progress) => progress._id.toString() === progressId
-  //   );
-  //   if (!progress) {
-  //     return false;
-  //   }
-  //   const asignature = progress.asignature.find(
-  //     (asignature) => asignature._id.toString() === asignatureId
-  //   );
-  //   if (!asignature) {
-  //     return false;
-  //   }
-  //   return asignature;
-  // }
+
   /* Consulta todas las asignaturas en el progreso del usuario */
   @Query(() => [UserAsignature])
   async getUserProgress(@Arg("userId") userId: string) {
