@@ -17,11 +17,11 @@ const MenuNavigation = () => {
       </NavLink>
 
       <div className="hover:bg-yellow-page group relative py-2 cursor-default px-4 rounded-md">
-        <li className="text-black-logo font-semibold">Cursos</li>
+        <li className="text-black-logo font-semibold">Asignaturas</li>
 
         <ul className="absolute hidden group-hover:block border top-10 left-0 bg-white shadow-md z-50">
           {config.asignatures.map((asignature, index) => (
-            <NavLink to={`/curso/${asignature._id}`} key={index}>
+            <NavLink to={`/asignatura/${asignature._id}`} key={index}>
               <li className="text-black-logo font-semibold hover:bg-yellow-page py-4 px-6">
                 {asignature.name}
               </li>

@@ -5,23 +5,27 @@ import Icon from '../icons'
 const ResponseTextSetDraggable = ({
   draggableId,
   index,
-  value
+  value,
+  color
 }: {
   draggableId: string
   index: number
   value: string
+  color?: string
 }) => {
   return (
     <Draggable draggableId={draggableId} index={index}>
-      {(provided, snapshot) => (
+      {({ draggableProps, innerRef, dragHandleProps }) => (
         <div
-          className={`shadow px-3 py-2 text-white flex items-center justify-around m-2 ${
-            snapshot.isDragging ? 'bg-blue-700' : 'bg-blue-500'
-          }`}
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}>
-          <Icon viewBox="24 24" fill="white">
+          className="shadow px-3 py-2 text-black flex items-center justify-around m-2 font-medium"
+          ref={innerRef}
+          {...draggableProps}
+          {...dragHandleProps}
+          style={{
+            ...draggableProps.style,
+            backgroundColor: color
+          }}>
+          <Icon viewBox="24 24">
             <DragIcon />
           </Icon>
           {value}

@@ -14,6 +14,7 @@ export const GETASIGNATURES = gql`
           _id
           name
           description
+          video
         }
       }
     }
@@ -34,6 +35,7 @@ export const GETASIGNATURE = gql`
           _id
           name
           description
+          video
         }
       }
     }

@@ -4,11 +4,9 @@ import { DropResult } from 'react-beautiful-dnd'
 
 import { DataInterface, HookProps } from '../types/DragAndDropSet'
 
-const useDragAndDropSets = (defaultData: HookProps) => {
-  const [options, setOptions] = useState(shuffleArray(defaultData.options))
-  const [respuestas, setRespuestas] = useState<any>(
-    Array(defaultData.sets.length).fill([])
-  )
+const useDragAndDropSets = ({ options, sets }: HookProps) => {
+  const [options_, setOptions] = useState(shuffleArray(options))
+  const [respuestas, setRespuestas] = useState<any>(Array(sets.length).fill([]))
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source } = result
@@ -36,10 +34,10 @@ const useDragAndDropSets = (defaultData: HookProps) => {
 
     // del conjunto general a un conjunto especifico
     if (destid) {
-      const [removed] = options.splice(source.index, 1) as DataInterface[]
+      const [removed] = options_.splice(source.index, 1) as DataInterface[]
       const index = destination.droppableId.split('-')[1]
 
-      const newAnswers = [...respuestas[index]]
+      const newAnswers = [...respuestas[Number(index)]]
 
       newAnswers.push({
         ...removed
@@ -61,21 +59,21 @@ const useDragAndDropSets = (defaultData: HookProps) => {
         source.index,
         1
       )
-      options.splice(destination.index, 0, removed)
-      setOptions([...options])
+      options_.splice(destination.index, 0, removed)
+      setOptions([...options_])
       return
     }
 
     // re ordenar el conjunto general
     if (source.droppableId === 'items' && destination.droppableId === 'items') {
-      const items = [...options]
+      const items = [...options_]
       const [reorderedItem] = items.splice(source.index, 1)
       items.splice(destination.index, 0, reorderedItem)
       setOptions(items)
     }
   }
   return {
-    options,
+    options_,
     respuestas,
     onDragEnd
   }

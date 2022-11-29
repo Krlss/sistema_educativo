@@ -9,6 +9,8 @@ export interface ASIGNATURE {
     topic: {
       _id: string
       name: string
+      description?: string
+      video?: string
     }[]
   }[]
 }

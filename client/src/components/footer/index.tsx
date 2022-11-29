@@ -5,8 +5,8 @@ import EmailIcon from '../../components/icons/email'
 import Logo from '../../assets/logo.png'
 const Footer = () => {
   return (
-    <footer className="bg-yellow-page text-black p-4">
-      <div className="flex justify-center flex-col md:flex-row md:justify-around items-center gap-3">
+    <footer className="bg-yellow-page text-black">
+      <div className="flex justify-center flex-col md:flex-row md:justify-between items-center gap-3 container max-w-[1366px] mx-auto p-5">
         <div className="flex flex-col justify-center items-center md:items-start">
           <div className="flex gap-2 items-center">
             <img src={Logo} alt="Logo" className="h-14" />

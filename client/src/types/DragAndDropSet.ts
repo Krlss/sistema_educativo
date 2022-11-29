@@ -1,3 +1,4 @@
+import { dragAndDropSets_ } from './game'
 export interface DataInterface {
   value: string
   text: string
@@ -16,10 +17,6 @@ export interface ReturnVerifyDragAndDropSetProps {
   qualification: number
 }
 
-export interface HookProps {
-  sets: {
-    title: string
-    options: DataInterface[]
-  }[]
+export interface HookProps extends dragAndDropSets_ {
   options: DataInterface[]
 }

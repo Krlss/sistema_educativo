@@ -3,19 +3,15 @@ import { NumberToText } from '../../utils/ListenAndWrite'
 import Icon from '../icons'
 import SpeakerIcon from '../icons/speaker'
 import QuestionTitle from '../title/questionTitle'
-
-const data = {
-  title: 'Escucha y escribe los siguientes números',
-  type: 'numbers',
-  options: [
-    { text: '521489' },
-    { text: '254897' },
-    { text: '126504' },
-    { text: '625301' }
-  ]
-}
-const ListenAndWrite = () => {
-  const [options, setOptions] = useState(NumberToText({ array: data.options }))
+import { ListenAndWrite_, question } from '../../types/game'
+import { stripquotes } from '../../utils'
+const ListenAndWrite = (props: question) => {
+  const options_ = stripquotes(props.options) as ListenAndWrite_[]
+  const [options, setOptions] = useState(
+    props.type === 'listen_numbers'
+      ? NumberToText({ array: options_ })
+      : options_
+  )
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
@@ -29,7 +25,11 @@ const ListenAndWrite = () => {
     <div className="py-20 px-2">
       <div className="container mx-auto">
         <div className="flex items-center justify-center flex-col">
-          <QuestionTitle title={data.title} />
+          <QuestionTitle
+            title={props.title}
+            index={props.index}
+            subtitle={props.subtitle}
+          />
           <div>
             {options.map((option, index) => (
               <div

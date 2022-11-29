@@ -5,10 +5,9 @@ import {
   getPosText,
   getPosTextLine
 } from '../../utils/CartesianCoordinate'
+import { typeCartesian } from '../../types/CartesianCoordinate'
 
 import { smallPadding, smallSize } from '../../constants/CartesianConstants'
-
-type typeCartesian = 'I' | 'II' | 'III' | 'IV'
 
 const CartesianQuadrant = ({ type }: { type: typeCartesian }) => {
   const { xx, xy, yx, yy } = getPosTextLine(type, smallSize, smallPadding) as {

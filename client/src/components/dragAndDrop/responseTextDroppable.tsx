@@ -11,7 +11,7 @@ interface Props {
   response: VerifyDragAndDropChooseTextProps[]
   index: number
   item: {
-    option: string
+    value: string
     text: string
   }
   removeAnswer: (index: number) => void
@@ -35,20 +35,17 @@ const ResponseTextDroppable = ({
         {(provided, snapshot) => (
           <div
             className={`h-10 ${
-              !response[index] ? 'border border-blue-300' : ''
-            } rounded min-w-[120px] ${
-              snapshot.isDraggingOver && 'bg-gray-100 border-2'
-            }`}
+              !response[index] ? 'border border-gray-400' : ''
+            } rounded min-w-[120px] ${snapshot.isDraggingOver && 'bg-white'}`}
             {...provided.droppableProps}
             ref={provided.innerRef}>
             {response[index] && (
               <div
                 key={response[index].response_user}
-                className={
-                  'bg-blue-500 shadow rounded px-3 py-2 text-white flex items-center justify-around gap-2'
-                }>
+                className="shadow rounded px-3 py-2 text-black flex items-center justify-around gap-2 font-medium"
+                style={{ backgroundColor: response[index].color }}>
                 <button
-                  className="hover:text-red-400 text-white"
+                  className="hover:text-red-800"
                   onClick={() => removeAnswer(index)}>
                   <Icon viewBox="16 16">
                     <CrossIcon />
@@ -61,7 +58,7 @@ const ResponseTextDroppable = ({
           </div>
         )}
       </Droppable>
-      <h2 key={item.option} className="text-sm">
+      <h2 key={item.value} className="text-sm">
         {item.text}
       </h2>
     </div>

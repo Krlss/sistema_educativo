@@ -52,7 +52,7 @@ const Navbar = () => {
                 <button
                   onClick={() => setIsCourseMenuOpen(!isCourseMenuOpen)}
                   className="block py-2 px-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
-                  Cursos
+                  Asignaturas
                 </button>
                 {isCourseMenuOpen && (
                   <ul>
@@ -60,7 +60,7 @@ const Navbar = () => {
                       <MobileMenuNormal
                         key={index}
                         label={asignature.name}
-                        to={`/curso/${asignature._id}`}
+                        to={`/asignatura/${asignature._id}`}
                         sub
                         onClick={() => {
                           setIsMenuOpen(false)
