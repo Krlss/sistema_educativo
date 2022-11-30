@@ -95,11 +95,6 @@ const useGame = (
             <OrderOneDigitNumbers key={index} {...item} index={index} />
           )
 
-        case 'order_max':
-          return array.push(
-            <OrderOneDigitNumbers key={index} {...item} index={index} />
-          )
-
         case 'place_sign':
           return array.push(<PlaceSign key={index} {...item} index={index} />)
 

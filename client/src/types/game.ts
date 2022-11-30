@@ -18,7 +18,6 @@ export type typeQuestion =
   | 'listen_numbers'
   | 'listen_text'
   | 'order'
-  | 'order_max'
   | 'base10_descomposition'
   | 'positional_sum'
   | 'place_sign'
