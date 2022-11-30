@@ -1,7 +1,7 @@
 import { typeQuestion } from '../types/game'
 // prettier-ignore
 export const data = [
-  /* {
+  {
     type: 'true_or_false',
     _id: '637370e6fd325626f8d337ca',
     options: "'{\"correct\":true}'",
@@ -97,7 +97,7 @@ export const data = [
     options: "'{\"correct\":true,\"points\":[{\"x\":4,\"y\":-1},{\"x\":4,\"y\":-2},{\"x\":1,\"y\":-3}]}'",
     subtitle: '',
     title: '¿Las siguientes coordenadas en el plano son correcta: A(4, -1) B(4, -2) C(1, -3)?'
-  } ,
+  },
   {
     type: 'true_or_false_cp_objects',
     _id: '63737216fd325626f8d337d8',
@@ -475,7 +475,7 @@ export const data = [
     options: "'{\"sets\":[{\"title\":\"Números mayores a 700 000\",\"options\":[{\"text\":\"700 001\",\"value\":\"700001\"},{\"text\":\"800 020\",\"value\":\"800020\"},{\"text\":\"900 030\",\"value\":\"900030\"}]},{\"title\":\"Números menores a 500 000\",\"options\":[{\"text\":\"499 600\",\"value\":\"499600\"},{\"text\":\"499 000\",\"value\":\"499000\"},{\"text\":\"400 999\",\"value\":\"400999\"}]}]}'",
     subtitle: null,
     title: 'Lleva los números a cada conjunto'
-  }, */
+  },
   {
     type: 'place_sign',
     _id: '637374dffd325626f8d3380f',

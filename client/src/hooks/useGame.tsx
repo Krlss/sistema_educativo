@@ -248,7 +248,14 @@ const useGame = (
     else setNextDisabled(false)
   }, [gameState])
 
-  console.log(gameState)
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }, [gameState.index])
+
+  console.log(gameState.questions)
 
   return {
     dataGame,

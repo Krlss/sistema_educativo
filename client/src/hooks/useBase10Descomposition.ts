@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { convertNumberToBase10, stripquotes } from '../utils'
 import { question, valueBase10Descomposition } from '../types/game'
 import GeneralContext from '../contexts/context'
+import { onlyNumber } from '../constants/regex'
 
 const useBase10Descomposition = (props: question) => {
   const { setQuestion, gameState, updatedQuestion } = useContext(GeneralContext)
@@ -12,6 +13,10 @@ const useBase10Descomposition = (props: question) => {
     index: number
   ) => {
     const newValue = [...value_]
+
+    const value = e.target.value.replace(onlyNumber, '0')
+    e.target.value = value
+
     newValue[index].response = e.target.value
     setValue(newValue)
   }
