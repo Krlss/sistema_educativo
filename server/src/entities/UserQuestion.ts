@@ -19,4 +19,8 @@ export class UserQuestion {
   @Field({ nullable: true })
   @Column("boolean")
   isDone!: boolean;
+
+  @Field({ nullable: true })
+  @Column("string", { nullable: true })
+  response?: string;
 }
