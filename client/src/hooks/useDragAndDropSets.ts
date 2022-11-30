@@ -1,12 +1,30 @@
-import { shuffleArray } from '../utils'
-import { useState } from 'react'
+import { shuffleArray, stripquotes, getFlatArraySets } from '../utils'
+import { useState, useEffect, useContext } from 'react'
 import { DropResult } from 'react-beautiful-dnd'
+import GeneralContext from '../contexts/context'
 
-import { DataInterface, HookProps } from '../types/DragAndDropSet'
+import { DataInterface } from '../types/dragAndDropSet'
+import { question, dragAndDropSets_ } from '../types/game'
 
-const useDragAndDropSets = ({ options, sets }: HookProps) => {
+interface iVerify {
+  correct: number
+  note: number
+}
+
+interface iRespuesta {
+  text: string
+  value: string
+  color?: string
+}
+
+const useDragAndDropSets = (props: question) => {
+  const { setQuestion, gameState, updatedQuestion } = useContext(GeneralContext)
+  const { sets } = stripquotes(props.options) as dragAndDropSets_
+  const options = getFlatArraySets({ sets })
+
   const [options_, setOptions] = useState(shuffleArray(options))
-  const [respuestas, setRespuestas] = useState<any>(Array(sets.length).fill([]))
+  const [lenghtOptions_] = useState(options_.length)
+  const [answer, setAnswer] = useState<any>(Array(sets.length).fill([]))
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source } = result
@@ -18,16 +36,16 @@ const useDragAndDropSets = ({ options, sets }: HookProps) => {
 
     // de un conjunto a otro conjunto
     if (destid && sourceid) {
-      const [removed] = respuestas[source.droppableId.split('-')[1]].splice(
+      const [removed] = answer[source.droppableId.split('-')[1]].splice(
         source.index,
         1
       )
-      respuestas[destination.droppableId.split('-')[1]].splice(
+      answer[destination.droppableId.split('-')[1]].splice(
         destination.index,
         0,
         removed
       )
-      setRespuestas([...respuestas])
+      setAnswer([...answer])
 
       return
     }
@@ -37,25 +55,21 @@ const useDragAndDropSets = ({ options, sets }: HookProps) => {
       const [removed] = options_.splice(source.index, 1) as DataInterface[]
       const index = destination.droppableId.split('-')[1]
 
-      const newAnswers = [...respuestas[Number(index)]]
+      const newAnswers = [...answer[Number(index)]]
 
       newAnswers.push({
         ...removed
       })
 
-      respuestas[index] = newAnswers
+      answer[index] = newAnswers
 
-      setRespuestas([...respuestas])
-
-      /* if (!options.length) {
-        const response = verifyDragAndDropChooseText(newAnswers)
-      } */
+      setAnswer([...answer])
       return
     }
 
     // del conjunto especifico al conjunto general
     if (destination.droppableId === 'items' && sourceid) {
-      const [removed] = respuestas[source.droppableId.split('-')[1]].splice(
+      const [removed] = answer[source.droppableId.split('-')[1]].splice(
         source.index,
         1
       )
@@ -72,10 +86,63 @@ const useDragAndDropSets = ({ options, sets }: HookProps) => {
       setOptions(items)
     }
   }
+
+  useEffect(() => {
+    if (!options_.length) {
+      const correct = answer.reduce(
+        (acc: iVerify, current: [], set: number) => {
+          const arr = current.map((item: iRespuesta) => item)
+          const correct = arr.filter((item: iRespuesta) => {
+            return sets[set].options.some(
+              (i: iRespuesta) => item.value === i.value
+            )
+          }).length
+
+          if (correct) {
+            acc.correct = acc.correct + correct
+          }
+          return {
+            ...acc,
+            note: Number((acc.correct / lenghtOptions_).toFixed(2))
+          }
+        },
+        {
+          correct: 0,
+          note: 0
+        }
+      )
+
+      const newQuestion = {
+        _id: props._id,
+        nota: correct.note,
+        isDone: true,
+        responseUser: JSON.stringify({ answer })
+      }
+
+      const find = gameState.questions.find(
+        question => question._id === newQuestion._id
+      )
+
+      if (find) {
+        updatedQuestion(newQuestion)
+      } else {
+        setQuestion(newQuestion)
+      }
+    } else {
+      updatedQuestion({
+        _id: props._id,
+        nota: 0,
+        isDone: false,
+        responseUser: undefined
+      })
+    }
+  }, [answer])
+
   return {
     options_,
-    respuestas,
-    onDragEnd
+    answer,
+    onDragEnd,
+    sets
   }
 }
 

@@ -1,5 +1,5 @@
 import Cookie from 'universal-cookie'
-import { USER } from '../types/ContextUser'
+import { USER } from '../types/contextUser'
 
 export const setDataSession = (key: string, value: USER) => {
   const cookie = new Cookie()
@@ -21,4 +21,11 @@ export const getDataSession = (key: string) => {
 export const removeDataSession = (key: string) => {
   const cookie = new Cookie()
   cookie.remove(key, { path: '/' })
+}
+
+export const setDataTest = (key: string, value: any) => {
+  const cookie = new Cookie()
+  cookie.set(key, value, {
+    path: '/'
+  })
 }

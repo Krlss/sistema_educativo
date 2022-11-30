@@ -1,4 +1,4 @@
-import { namePoints } from '../../constants/CartesianConstants'
+import { namePoints } from '../../constants/cartesianConstants'
 const size = 400
 const padding = 40
 const CartesianPlane = ({

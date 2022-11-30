@@ -5,8 +5,8 @@ interface PlaceSignProps {
   text: string
 }
 
-const usePlaceSign = (data: Array<Array<PlaceSignProps>>) => {
-  const [option, setOptions] = useState(data)
+const usePlaceSign = (data: PlaceSignProps[][]) => {
+  const [option] = useState(data)
   const [response, setResponse] = useState<Boolean[]>(
     Array(option.length).fill(undefined)
   )

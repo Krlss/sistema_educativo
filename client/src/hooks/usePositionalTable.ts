@@ -1,22 +1,40 @@
-import React, { useState } from 'react'
-import { getLengthOfValues } from '../utils/PositionalTable'
-import { table } from '../constants/PositionalTable'
+import React, { useState, useEffect, useContext } from 'react'
+import { getLengthOfValues } from '../utils/positionalTable'
+import { table } from '../constants/positionalTable'
 import { onlyNumber } from '../constants/regex'
+import { getRamdonArrayColors } from '../constants/colors'
+import GeneralContext from '../contexts/context'
+import { question } from '../types/game'
 
 interface IPositionalTable {
   value: string
   response: string[]
 }
 
-const usePositionalTable = (data: IPositionalTable[]) => {
-  const lengthOfValues = getLengthOfValues({ options: data })
+const usePositionalTable = ({
+  options_,
+  question
+}: {
+  options_: IPositionalTable[]
+  question: question
+}) => {
+  const { setQuestion, gameState, updatedQuestion } = useContext(GeneralContext)
+  const lengthOfValues = getLengthOfValues({ options: options_ })
   let newTable = table.slice(0, 6).reverse()
 
   if (lengthOfValues > 6) {
     newTable = table.slice(0, lengthOfValues).reverse()
   }
 
-  const [values, setValues] = useState(data)
+  const [values] = useState(options_)
+  const [colors, setColors] = useState<string[]>([])
+  const [tableValues, setTableValues] = useState<Array<Array<string>>>(
+    Array(values.length).fill(Array(lengthOfValues).fill(undefined))
+  )
+
+  useEffect(() => {
+    setColors(getRamdonArrayColors(lengthOfValues))
+  }, [])
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -40,16 +58,76 @@ const usePositionalTable = (data: IPositionalTable[]) => {
       prevInput.focus()
     }
 
-    const newValues = [...values]
-    newValues[index].response[row] = e.target.value
-    setValues(newValues)
+    const newValues = tableValues.map((item, i) => {
+      if (i === index) {
+        return item.map((value, j) => {
+          if (j === row) {
+            return e.target.value
+          }
+          return value
+        })
+      }
+      return item
+    })
+
+    setTableValues(newValues)
   }
+
+  useEffect(() => {
+    const isAllFilled = tableValues.every(item => {
+      return item.every(value => !!value)
+    })
+    if (isAllFilled) {
+      const joinedValues = tableValues.map(item => item.join(''))
+      const correct = joinedValues.reduce(
+        (acc, value, i) => {
+          if (value === values[i].value) {
+            acc.correct++
+          }
+          return {
+            ...acc,
+            note: Number((acc.correct / joinedValues.length).toFixed(2))
+          }
+        },
+        {
+          correct: 0,
+          note: 0
+        }
+      )
+
+      const newQuestion = {
+        _id: question._id,
+        nota: correct.note,
+        isDone: true,
+        responseUser: JSON.stringify({ joinedValues })
+      }
+
+      const find = gameState.questions.find(
+        question => question._id === newQuestion._id
+      )
+
+      if (find) {
+        updatedQuestion(newQuestion)
+      } else {
+        setQuestion(newQuestion)
+      }
+    } else {
+      updatedQuestion({
+        _id: question._id,
+        nota: 0,
+        isDone: false,
+        responseUser: undefined
+      })
+    }
+  }, [tableValues])
 
   return {
     values,
     newTable,
     handleChange,
-    lengthOfValues
+    lengthOfValues,
+    colors,
+    tableValues
   }
 }
 

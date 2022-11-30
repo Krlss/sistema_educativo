@@ -1,4 +1,5 @@
-import { typeCartesian } from '../types/CartesianCoordinate'
+import { typeCartesian, ReturnChangePoint } from '../types/cartesianCoordinate'
+
 export const getNumbers = ({
   isX,
   i,
@@ -185,21 +186,13 @@ export const getCoorValues = ({
   }
 }
 
-interface ReturnChangePoint {
-  x: number
-  y: number
-  value: boolean
-  selected: boolean
-  url?: string
-}
-
 export const changePoints = ({
-  response,
+  correct,
   points,
   type,
-  length = 5
+  length = 10
 }: {
-  response: boolean
+  correct: boolean
   points: { x: number; y: number; value: boolean; url?: string }[]
   type?: typeCartesian
   length?: number
@@ -231,9 +224,9 @@ export const changePoints = ({
           newX = randomX
           newY = randomY
         }
-        const exist = newPoints.find(
-          point => point.x === newX && point.y === newY
-        )
+        const exist =
+          newPoints.find(point => point.x === newX && point.y === newY) ||
+          points.find(point => point.x === newX && point.y === newY)
 
         if (!exist) {
           selected = false
@@ -242,7 +235,7 @@ export const changePoints = ({
       newPoints.push({
         x: newX,
         y: newY,
-        value: response,
+        value: correct,
         selected: false,
         url
       })

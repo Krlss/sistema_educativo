@@ -1,4 +1,4 @@
-import { USER, PROGRESS } from '../../types/ContextUser'
+import { USER, PROGRESS } from '../../types/contextUser'
 import { setDataSession, removeDataSession } from '../../utils/dataSession'
 
 export type UserReducerProps =

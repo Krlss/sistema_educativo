@@ -38,6 +38,9 @@ module.exports = {
       },
       height: {
         'screen-calculator': 'calc(100vh - 10rem)'
+      },
+      gridTemplateColumns: {
+        'auto-index': 'repeat(auto-fill, minmax(4rem, 1fr))'
       }
     }
   },

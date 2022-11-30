@@ -2,7 +2,7 @@ import { Droppable } from 'react-beautiful-dnd'
 
 import Icon from '../icons'
 import CrossIcon from '../icons/cross'
-import { VerifyDragAndDropChooseTextProps } from '../../types/DragAndDropChooseText'
+import { VerifyDragAndDropChooseTextProps } from '../../types/dragAndDropChooseText'
 
 interface Props {
   droppableId: string
@@ -12,7 +12,10 @@ interface Props {
   index: number
   item: {
     value: string
-    text: string
+    text?: string
+    text1?: string
+    text2?: string
+    key: string
   }
   removeAnswer: (index: number) => void
 }
@@ -28,6 +31,7 @@ const ResponseTextDroppable = ({
 }: Props) => {
   return (
     <div className="flex items-center gap-2 m-1">
+      {item.text1 && <h2 className="text-sm">{item.text1}</h2>}
       <Droppable
         droppableId={droppableId}
         direction={direction}
@@ -41,7 +45,7 @@ const ResponseTextDroppable = ({
             ref={provided.innerRef}>
             {response[index] && (
               <div
-                key={response[index].response_user}
+                key={response[index].response}
                 className="shadow rounded px-3 py-2 text-black flex items-center justify-around gap-2 font-medium"
                 style={{ backgroundColor: response[index].color }}>
                 <button
@@ -51,16 +55,16 @@ const ResponseTextDroppable = ({
                     <CrossIcon />
                   </Icon>
                 </button>
-                {response[index].response_user}
+                {response[index].response}
               </div>
             )}
             {provided.placeholder}
           </div>
         )}
       </Droppable>
-      <h2 key={item.value} className="text-sm">
-        {item.text}
-      </h2>
+      {item.text && <h2 className="text-sm">{item.text}</h2>}
+
+      {item.text2 && <h2 className="text-sm">{item.text2}</h2>}
     </div>
   )
 }

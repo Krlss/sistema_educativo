@@ -1,14 +1,19 @@
-import { shuffleArray, AddKeyToArrayItems } from '../utils'
-import { useState } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { shuffleArray, AddKeyToArrayItems, stripquotes } from '../utils'
 import { DropResult } from 'react-beautiful-dnd'
 import { getRamdonArrayColors } from '../constants/colors'
+import GeneralContext from '../contexts/context'
 
-const useOrderOneDigitNumbers = (props: {
-  numbers: string[]
-  type: 'order' | 'order_max'
-}) => {
-  const colors = getRamdonArrayColors(props.numbers.length)
-  const newOptions = AddKeyToArrayItems(shuffleArray(props.numbers)).map(
+import { question } from '../types/game'
+
+const useOrderOneDigitNumbers = (props: question) => {
+  const options_ = stripquotes(props.options) as {
+    value: string
+  }
+  const { setQuestion, gameState, updatedQuestion } = useContext(GeneralContext)
+  const colors = getRamdonArrayColors(options_.value.length)
+  const array = options_.value.split('')
+  const newOptions = AddKeyToArrayItems(shuffleArray(array)).map(
     (option, index) => {
       return {
         ...option,
@@ -28,6 +33,28 @@ const useOrderOneDigitNumbers = (props: {
     newOptions.splice(destination.index, 0, removed)
     setOptions(newOptions)
   }
+
+  useEffect(() => {
+    const response = options.map(option => option.value).join('')
+
+    const newQuestion = {
+      _id: props._id,
+      nota: options_.value === response ? 1 : 0,
+      isDone: true,
+      responseUser: JSON.stringify({ response })
+    }
+
+    const find = gameState.questions.find(
+      question => question._id === newQuestion._id
+    )
+
+    if (find) {
+      updatedQuestion(newQuestion)
+    } else {
+      setQuestion(newQuestion)
+    }
+  }, [options])
+
   return {
     options,
     onDragEnd

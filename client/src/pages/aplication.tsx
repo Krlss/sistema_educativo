@@ -10,13 +10,13 @@ const Aplication = () => {
   }
 
   return (
-    <>
+    <div className="flex flex-col justify-between h-screen">
       <Navbar />
-      <div className="container min-h-screen max-w-[1366px] mx-auto px-5">
+      <div className="container max-w-[1366px] mx-auto px-5 mb-auto">
         <Outlet />
       </div>
       <Footer />
-    </>
+    </div>
   )
 }
 

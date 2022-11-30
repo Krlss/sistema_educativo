@@ -1,4 +1,4 @@
-import { ASIGNATURE } from '../../types/ContextAsignature'
+import { ASIGNATURE } from '../../types/contextAsignature'
 type UserReducerProps =
   | { type: 'setAsignature'; payload: ASIGNATURE }
   | { type: 'setAsignatures'; payload: ASIGNATURE[] }

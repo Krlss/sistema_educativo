@@ -4,7 +4,7 @@ import {
   getPosSmallLine,
   getPosText,
   getPosTextLine
-} from '../../utils/CartesianCoordinate'
+} from '../../utils/cartesianCoordinate'
 
 const smallSize = 400
 const smallPadding = 40
