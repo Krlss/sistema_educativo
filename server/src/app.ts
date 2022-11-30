@@ -13,7 +13,6 @@ import {
 import {
   UserAsignatureResolver,
   UserResolver,
-  UserTopicResolver,
   UserUnitResolver,
   UserQuestionResolver,
 } from "./resolvers/User";
@@ -33,7 +32,6 @@ export async function start() {
         /* Resolvers User */
         UserAsignatureResolver,
         UserResolver,
-        UserTopicResolver,
         UserUnitResolver,
         UserQuestionResolver,
       ],
