@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import {
   Base10Descomposition,
   CartesianCoordinateFull,
@@ -24,7 +24,7 @@ import {
   WritePointsCartesianPlane,
   WriteValueFromText
 } from '../components/exercise'
-import { getQuadrant } from '../utils/CartesianCoordinate'
+import { getQuadrant } from '../utils/cartesianCoordinate'
 import { writePointsCoordinatePlane_, typeQuestion } from '../types/game'
 import { stripquotes } from '../utils'
 import {
@@ -32,6 +32,8 @@ import {
   getDataSession,
   removeDataSession
 } from '../utils/dataSession'
+import GeneralContext from '../contexts/context'
+
 const useGame = (
   data: {
     _id: string
@@ -41,11 +43,12 @@ const useGame = (
     subtitle: string | null
   }[]
 ) => {
+  const { gameState, setIndex, setQuestions } = useContext(GeneralContext)
   const [dataGame, setDataGame] = useState<any[]>([])
   const [timer, setTimer] = useState(getDataSession('test')?.timer ?? 3599)
-  const [dataGameIndex, setDataGameIndex] = useState<number>(
-    getDataSession('test')?.dataGameIndex ?? 0
-  )
+
+  const [nextDisabled, setNextDisabled] = useState(false)
+
   const loadExercise = () => {
     const array: any[] = []
     data.forEach((item, index) => {
@@ -187,21 +190,32 @@ const useGame = (
     })
 
     setDataGame(array)
+
+    const questions = data.map(item => ({
+      _id: item._id,
+      nota: 0,
+      isDone: false
+    })) as {
+      _id: string
+      nota: number
+      isDone: boolean
+    }[]
+    setQuestions(questions)
   }
 
   const nextExercise = () => {
     if (timer > 0) {
-      if (dataGameIndex === dataGame.length - 1) {
+      if (gameState.index === dataGame.length - 1) {
         alert('Terminaste el juego')
-        setDataGameIndex(0)
+        setIndex(0)
       }
-      if (dataGameIndex < dataGame.length - 1) {
-        setDataGameIndex(dataGameIndex + 1)
+      if (gameState.index < dataGame.length - 1) {
+        setIndex(gameState.index + 1)
       }
     }
   }
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (timer === 0) {
       removeDataSession('test')
       alert('Se acabo el tiempo')
@@ -211,13 +225,12 @@ const useGame = (
       }, 1000)
     }
     setDataTest('test', { dataGameIndex, timer })
-  }, [timer])
+  }, [timer]) */
 
   useEffect(() => {
     const data = getDataSession('test')
-    if (data.timer === 0) {
+    if (data?.timer === 0) {
       removeDataSession('test')
-      setDataGameIndex(0)
       setTimer(3599)
     }
 
@@ -230,7 +243,20 @@ const useGame = (
     window.addEventListener('beforeunload', handleTabClose)
   }, [])
 
-  return { dataGame, dataGameIndex, setDataGameIndex, timer, nextExercise }
+  useEffect(() => {
+    if (gameState.questions[gameState.index]?.isDone) setNextDisabled(true)
+    else setNextDisabled(false)
+  }, [gameState])
+
+  console.log(gameState)
+
+  return {
+    dataGame,
+    gameState,
+    timer,
+    nextExercise,
+    nextDisabled
+  }
 }
 
 export default useGame

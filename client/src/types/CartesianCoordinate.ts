@@ -17,3 +17,11 @@ export type selectPointsCoordinatePlane = {
     value: boolean
   }[]
 }
+
+export interface ReturnChangePoint {
+  x: number
+  y: number
+  value: boolean
+  selected: boolean
+  url?: string
+}

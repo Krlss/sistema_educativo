@@ -1,9 +1,18 @@
-import React, { useState, useEffect } from 'react'
-import { writePointsCoordinatePlane_ } from '../types/game'
-import { getQuadrant } from '../utils/CartesianCoordinate'
+import React, { useState, useEffect, useContext } from 'react'
+import { question, writePointsCoordinatePlane_ } from '../types/game'
+import GeneralContext from '../contexts/context'
+
+import { getQuadrant } from '../utils/cartesianCoordinate'
 import { AddKeyToObj } from '../utils'
 
-const useWriteCoorCP = (array: writePointsCoordinatePlane_[]) => {
+const useWriteCoorCP = ({
+  array,
+  question
+}: {
+  array: writePointsCoordinatePlane_[]
+  question: question
+}) => {
+  const { setQuestion, gameState, updatedQuestion } = useContext(GeneralContext)
   const [options] = useState<writePointsCoordinatePlane_[]>(AddKeyToObj(array))
   const type = getQuadrant(options)
   const [response, setResponse] = useState<writePointsCoordinatePlane_[]>(
@@ -38,7 +47,32 @@ const useWriteCoorCP = (array: writePointsCoordinatePlane_[]) => {
           correct: 0
         }
       )
+
+      const newQuestion = {
+        _id: question._id,
+        nota: correct.note,
+        isDone: true,
+        responseUser: JSON.stringify({ response })
+      }
+
+      const find = gameState.questions.find(
+        question => question._id === newQuestion._id
+      )
+
+      if (find) {
+        updatedQuestion(newQuestion)
+      } else {
+        setQuestion(newQuestion)
+      }
+
       console.log(correct)
+    } else {
+      updatedQuestion({
+        _id: question._id,
+        nota: 0,
+        isDone: false,
+        responseUser: undefined
+      })
     }
   }, [response])
 

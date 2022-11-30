@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import QuestionTitle from '../title/questionTitle'
 import { question, selectPlaceTableOption_ } from '../../types/game'
 import { stripquotes } from '../../utils'
 import { getRamdonArrayColors } from '../../constants/colors'
+import GeneralContext from '../../contexts/context'
 
 const SelectPlaceTableOption = (props: question) => {
+  const { setQuestion, gameState, updatedQuestion } = useContext(GeneralContext)
   const options_ = stripquotes(props.options) as selectPlaceTableOption_[]
   const [colors] = useState<string[]>(getRamdonArrayColors(options_.length))
 
@@ -18,6 +20,54 @@ const SelectPlaceTableOption = (props: question) => {
       e.target.value === 'Selecciona una opción' ? undefined : e.target.value
     setSelected(newSelected)
   }
+
+  useEffect(() => {
+    const isCompleted = selected.every(option => option.response)
+    if (isCompleted) {
+      const correct = selected.reduce(
+        (acc, option) => {
+          const isCorrect = option.selects.find(select => select.correct)?.text
+          if (option.response === isCorrect) {
+            acc.correct++
+          }
+          return {
+            ...acc,
+            note: Number((acc.correct / selected.length).toFixed(2))
+          }
+        },
+        { note: 0, correct: 0 }
+      )
+      const response = selected.map(option => ({
+        text: option.text,
+        response: option.response
+      }))
+      const newQuestion = {
+        _id: props._id,
+        nota: correct.note,
+        isDone: true,
+        responseUser: JSON.stringify({ response })
+      }
+
+      const find = gameState.questions.find(
+        question => question._id === newQuestion._id
+      )
+
+      if (find) {
+        updatedQuestion(newQuestion)
+      } else {
+        setQuestion(newQuestion)
+      }
+    } else {
+      updatedQuestion({
+        _id: props._id,
+        nota: 0,
+        isDone: false,
+        responseUser: undefined
+      })
+    }
+  }, [selected])
+
+  console.log(selected)
 
   return (
     <>

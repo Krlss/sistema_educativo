@@ -2,23 +2,17 @@ import QuestionTitle from '../title/questionTitle'
 import { question, chooseAnOption_ } from '../../types/game'
 import { stripquotes } from '../../utils'
 import Radio from '../inputs/radio'
-import { useState, useEffect } from 'react'
+import useChooseAnOption from '../../hooks/useChooseAnOption'
 
 const ChooseAnOption = (props: question) => {
   const { options, columns, urlDescription } = stripquotes(
     props.options
   ) as chooseAnOption_
 
-  const [answer, setAnswer] = useState<string>('')
-  const [correct, setCorrect] = useState<number>()
-
-  useEffect(() => {
-    if (answer) {
-      setCorrect(options.find(option => option.text === answer)?.value ? 1 : 0)
-    }
-  }, [answer])
-
-  console.log(correct)
+  const { setAnswer } = useChooseAnOption({
+    options_: options,
+    question: props
+  })
 
   return (
     <>

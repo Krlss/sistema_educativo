@@ -1,6 +1,6 @@
 import { DragDropContext } from 'react-beautiful-dnd'
-import { getCoorValues, getQuadrant } from '../../utils/CartesianCoordinate'
-import QuadrantDragAndDrop from '../CartesianPlane/QuadrantDragAndDrop'
+import { getCoorValues, getQuadrant } from '../../utils/cartesianCoordinate'
+import QuadrantDragAndDrop from '../CartesianPlane/quadrantDragAndDrop'
 
 import ObjectDraggable from '../dragAndDrop/objectDraggable'
 import ContentDroppable from '../dragAndDrop/contentDroppable'
@@ -16,9 +16,10 @@ const DragAndDropChooseText = (props: question) => {
   const options = stripquotes(props.options) as DragAndDropChooseText_[]
   const typeCartesian = getQuadrant(options)
 
-  const { onDragEnd, options_, removeAnswer } = useDragAndDropObject({
+  const { onDragEnd, options_, removeAnswer, response } = useDragAndDropObject({
     options,
-    typeCartesian
+    typeCartesian,
+    question: props
   })
 
   return (
@@ -64,13 +65,13 @@ const DragAndDropChooseText = (props: question) => {
                         direction="horizontal"
                         droppableId={`respuesta.${x}.${y}`}
                         isDropDisabled={
-                          options_.find(
+                          response.find(
                             item =>
                               item.responseX === valueX &&
                               item.responseY === valueY
                           ) !== undefined
                         }>
-                        {options_.map((item, index) => {
+                        {response.map((item, index) => {
                           return (
                             item?.responseX === valueX &&
                             item?.responseY === valueY && (

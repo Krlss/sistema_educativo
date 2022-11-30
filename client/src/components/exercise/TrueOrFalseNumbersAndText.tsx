@@ -1,9 +1,11 @@
 import QuestionTitle from '../title/questionTitle'
-import { question, trueOrFalseNumbersAndText_ } from '../../types/game'
-import { stripquotes } from '../../utils'
-
+import { question } from '../../types/game'
+import useTrueOrFalseNumbersAndText from '../../hooks/useTrueOrFalseNumbersAndText'
+import Radio from '../inputs/radio'
 const TrueOrFalseNumbersAndText = (props: question) => {
-  const options_ = stripquotes(props.options) as trueOrFalseNumbersAndText_
+  const { options_, setAnswer } = useTrueOrFalseNumbersAndText({
+    question: props
+  })
   return (
     <>
       <QuestionTitle
@@ -33,20 +35,18 @@ const TrueOrFalseNumbersAndText = (props: question) => {
             })}
           </div>
           <div className="flex flex-row items-center justify-center">
-            <input
-              type="radio"
+            <Radio
               name="answer"
               value="true"
-              className="appearance-none w-4 h-4 rounded-full checked:bg-yellow-page border-2 checked:border-0 cursor-pointer bg-white"
+              onChange={e => setAnswer(e.target.value)}
             />
             <label className="ml-2">Verdadero</label>
           </div>
           <div className="flex flex-row items-center justify-center">
-            <input
-              type="radio"
+            <Radio
               name="answer"
               value="false"
-              className="appearance-none w-4 h-4 rounded-full checked:bg-yellow-page border-2 checked:border-0 cursor-pointer bg-white"
+              onChange={e => setAnswer(e.target.value)}
             />
             <label className="ml-2">Falso</label>
           </div>

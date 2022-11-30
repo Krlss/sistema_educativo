@@ -1,30 +1,37 @@
 import { shuffleArray, AddKeyToObj } from '../utils'
-import { useState } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { DropResult } from 'react-beautiful-dnd'
 import { getRamdonArrayColors } from '../constants/colors'
 
-import { DataInterface } from '../types/DragAndDropImages'
-import { getCoorValues } from '../utils/CartesianCoordinate'
-import { typeCartesian } from '../types/CartesianCoordinate'
-import { DragAndDropChooseText_ } from '../types/game'
+import { DataInterface } from '../types/dragAndDropImages'
+import { getCoorValues } from '../utils/cartesianCoordinate'
+import { typeCartesian } from '../types/cartesianCoordinate'
+import { DragAndDropChooseText_, question } from '../types/game'
+import GeneralContext from '../contexts/context'
 
 const useDragAndDropObject = ({
   options,
-  typeCartesian
+  typeCartesian,
+  question
 }: {
   options: DragAndDropChooseText_[]
   typeCartesian: typeCartesian
+  question: question
 }) => {
+  const { setQuestion, gameState, updatedQuestion } = useContext(GeneralContext)
   const colors = getRamdonArrayColors(options.length)
-  const newOptions = options.map((option, index) => {
-    return {
-      ...option,
-      color: colors[index]
-    }
-  })
-  const [options_, setOptions] = useState<DataInterface[]>(
-    AddKeyToObj(shuffleArray(newOptions))
-  )
+  const newOptions = AddKeyToObj(
+    shuffleArray(
+      options.map((option, index) => {
+        return {
+          ...option,
+          color: colors[index]
+        }
+      })
+    )
+  ) as DataInterface[]
+  const [options_, setOptions] = useState<DataInterface[]>(newOptions)
+  const [response, setResponse] = useState<DataInterface[]>([])
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source } = result
@@ -48,7 +55,8 @@ const useDragAndDropObject = ({
       removed.responseX = valueX
       removed.responseY = valueY
 
-      setOptions([...options_, removed])
+      setResponse([...response, removed])
+      setOptions([...options_])
       return
     }
 
@@ -60,23 +68,74 @@ const useDragAndDropObject = ({
     }
   }
 
+  const verifyFinal = (array: DataInterface[]) => {
+    return array.reduce(
+      (acc, current, _, array) => {
+        if (
+          current.responseX === current.x &&
+          current.responseY === current.y
+        ) {
+          acc.correct++
+        }
+        return {
+          ...acc,
+          note: Number((acc.correct / array.length).toFixed(2))
+        }
+      },
+      {
+        note: 0,
+        correct: 0
+      }
+    )
+  }
+
   const removeAnswer = (key: string) => {
-    const newOpciones = [...options_]
+    const newOpciones = [...response]
 
     const index = newOpciones.findIndex(item => item.key === key)
 
     if (index !== -1) {
-      const [removed] = newOpciones.splice(index, 1)
+      const [removed] = response.splice(index, 1)
       removed.responseX = undefined
       removed.responseY = undefined
-      setOptions([...newOpciones, removed])
+      setOptions([...options_, removed])
     }
   }
+
+  useEffect(() => {
+    if (!options_.length) {
+      const correct = verifyFinal(response)
+      const newQuestion = {
+        _id: question._id,
+        nota: correct.note,
+        isDone: true,
+        responseUser: JSON.stringify({ response })
+      }
+
+      const find = gameState.questions.find(
+        question => question._id === newQuestion._id
+      )
+
+      if (find) {
+        updatedQuestion(newQuestion)
+      } else {
+        setQuestion(newQuestion)
+      }
+    } else {
+      updatedQuestion({
+        _id: question._id,
+        nota: 0,
+        isDone: false,
+        responseUser: undefined
+      })
+    }
+  }, [response])
 
   return {
     options_,
     onDragEnd,
-    removeAnswer
+    removeAnswer,
+    response
   }
 }
 

@@ -5,8 +5,11 @@ import { stripquotes } from '../../utils'
 
 const PositionalTable = (props: question) => {
   const options_ = stripquotes(props.options) as positionalTable_[]
-  const { handleChange, newTable, values, lengthOfValues, colors } =
-    usePositionalTable(options_)
+  const { handleChange, newTable, lengthOfValues, colors, tableValues } =
+    usePositionalTable({
+      question: props,
+      options_
+    })
 
   return (
     <>
@@ -39,9 +42,9 @@ const PositionalTable = (props: question) => {
             </tr>
           </thead>
           <tbody>
-            {values.map((option, index) => (
+            {tableValues.map((option, index) => (
               <tr key={index} className="flex items-center">
-                {newTable.map((row, r) => (
+                {option.map((row, r) => (
                   <td
                     className="border border-3 border-gray-300 w-full"
                     key={r}>

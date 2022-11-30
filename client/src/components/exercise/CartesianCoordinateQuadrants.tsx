@@ -1,16 +1,17 @@
-import QuadrantPoints from '../CartesianPlane/QuadrantPoints'
+import QuadrantPoints from '../CartesianPlane/quadrantPoints'
 import useCartesianCoordinate from '../../hooks/useCartesianCoordinate'
-import { getCoorValues, getQuadrant } from '../../utils/CartesianCoordinate'
+import { getCoorValues, getQuadrant } from '../../utils/cartesianCoordinate'
 import QuestionTitle from '../title/questionTitle'
 import { stripquotes } from '../../utils'
 import { question, cartesianCoordinateFull_ } from '../../types/game'
-import { namePoints } from '../../constants/CartesianConstants'
+import { namePoints } from '../../constants/cartesianConstants'
 
 const CartesianCoordinateQuadrant = (props: question) => {
   const options_ = stripquotes(props.options) as cartesianCoordinateFull_[]
   const { cartesian, updateCartesian } = useCartesianCoordinate(
     options_.length,
-    options_
+    options_,
+    props
   )
   const type = getQuadrant(options_)
 

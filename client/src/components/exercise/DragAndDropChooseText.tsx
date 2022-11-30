@@ -6,11 +6,21 @@ import QuestionTitle from '../title/questionTitle'
 import useDragAndDropChooseText from '../../hooks/useDragAndDropChooseText'
 import { dragAndDropChooseText_, question } from '../../types/game'
 import { stripquotes } from '../../utils'
+import shortid from 'shortid'
 
 const DragAndDropChooseText = (props: question) => {
-  const options_ = stripquotes(props.options) as dragAndDropChooseText_[]
-  const { onDragEnd, options, removeAnswer, respuestas } =
-    useDragAndDropChooseText({ options: options_ })
+  const opt = stripquotes(props.options) as dragAndDropChooseText_[]
+
+  const options_ = opt.map(item => {
+    return {
+      ...item,
+      key: shortid.generate()
+    }
+  })
+
+  const { onDragEnd, options, removeAnswer, anwers } = useDragAndDropChooseText(
+    { question: props, defaultData: options_ }
+  )
 
   return (
     <>
@@ -31,7 +41,7 @@ const DragAndDropChooseText = (props: question) => {
             />
           ))}
         </ContentDroppable>
-        <div className="flex flex-col mt-2">
+        <div className="flex flex-col mt-2 mb-20">
           {options_.map((item, index) => (
             <ResponseTextDroppable
               key={item.value}
@@ -40,8 +50,8 @@ const DragAndDropChooseText = (props: question) => {
               index={index}
               item={item}
               removeAnswer={removeAnswer}
-              response={respuestas}
-              isDropDisabled={!!respuestas[index]}
+              response={anwers}
+              isDropDisabled={!!anwers[index]}
             />
           ))}
         </div>

@@ -1,28 +1,70 @@
 import { shuffleArray, stripquotes } from '../../utils'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import QuestionTitle from '../title/questionTitle'
 import { question, writeValueFromText_ } from '../../types/game'
 import { getRamdonArrayColors } from '../../constants/colors'
+import GeneralContext from '../../contexts/context'
 
 const WriteValueFromText = (props: question) => {
-  const [data, setData] = useState<writeValueFromText_[]>([])
-  const [colors, setColors] = useState<string[]>([])
+  const { setQuestion, gameState, updatedQuestion } = useContext(GeneralContext)
+  const options_ = shuffleArray(
+    stripquotes(props.options)
+  ) as writeValueFromText_[]
+  const [data] = useState<writeValueFromText_[]>(options_)
+  const [response, setResponse] = useState<string[]>(
+    Array(options_.length).fill(undefined)
+  )
+  const [colors] = useState<string[]>(getRamdonArrayColors(options_.length))
   const handleChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>,
     index: number
   ) => {
-    const newData = [...data]
-    newData[index].response = e.target.value
-    setData(newData)
+    const newData = [...response]
+    newData[index] = e.target.value.toLowerCase()
+    setResponse(newData)
   }
 
   useEffect(() => {
-    const options_ = shuffleArray(
-      stripquotes(props.options)
-    ) as writeValueFromText_[]
-    setData(options_)
-    setColors(getRamdonArrayColors(options_.length))
-  }, [])
+    const isCompleted = response.every(option => option)
+
+    if (isCompleted) {
+      const correct = data.reduce(
+        (acc, option, index) => {
+          if (response[index] === (option?.value).toLocaleLowerCase()) {
+            acc.correct++
+          }
+          return {
+            ...acc,
+            note: Number((acc.correct / data.length).toFixed(2))
+          }
+        },
+        { note: 0, correct: 0 }
+      )
+      const newQuestion = {
+        _id: props._id,
+        nota: correct.note,
+        isDone: true,
+        responseUser: JSON.stringify({ response })
+      }
+
+      const find = gameState.questions.find(
+        question => question._id === newQuestion._id
+      )
+
+      if (find) {
+        updatedQuestion(newQuestion)
+      } else {
+        setQuestion(newQuestion)
+      }
+    } else {
+      updatedQuestion({
+        _id: props._id,
+        nota: 0,
+        isDone: false,
+        responseUser: undefined
+      })
+    }
+  }, [response])
 
   return (
     <>

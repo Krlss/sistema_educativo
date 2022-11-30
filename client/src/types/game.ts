@@ -91,11 +91,9 @@ export interface ListenAndWrite_ {
 }
 
 export interface PlaceSing_ {
-  operators: string[]
-  values: {
-    value: number
-    text: string
-  }[][]
+  value: string
+  text1: string
+  text2: string
 }
 
 export interface positionalSum_ {
@@ -181,6 +179,6 @@ export interface writeNumberPositional_ {
 
 export interface writeValueFromText_ {
   text: string
-  value: number
+  value: string
   response?: string
 }

@@ -1,7 +1,7 @@
 import { typeQuestion } from '../types/game'
 // prettier-ignore
 export const data = [
-  {
+  /* {
     type: 'true_or_false',
     _id: '637370e6fd325626f8d337ca',
     options: "'{\"correct\":true}'",
@@ -70,7 +70,7 @@ export const data = [
     options: "'{\"correct\":false,\"points\":[{\"x\":4,\"y\":-1}]}'",
     subtitle: '',
     title: '¿La siguiente coordenada en el plano es la correcta: A(4, -3)?'
-  }/*  {
+  }, {
     type: 'write_coor_cp',
     _id: '637371f4fd325626f8d337d4',
     options: "'[{\"x\":1,\"y\":1},{\"x\":1,\"y\":-3},{\"x\":2,\"y\":-5}]'",
@@ -97,7 +97,7 @@ export const data = [
     options: "'{\"correct\":true,\"points\":[{\"x\":4,\"y\":-1},{\"x\":4,\"y\":-2},{\"x\":1,\"y\":-3}]}'",
     subtitle: '',
     title: '¿Las siguientes coordenadas en el plano son correcta: A(4, -1) B(4, -2) C(1, -3)?'
-  },
+  } ,
   {
     type: 'true_or_false_cp_objects',
     _id: '63737216fd325626f8d337d8',
@@ -185,14 +185,14 @@ export const data = [
   {
     type: 'choose_an_option_textnumber',
     _id: '6373730ffd325626f8d337e5',
-    options: "'[{\"value\":false,\"text\":\"Cuatrocientos cincuenta y tres mil quinientos sesenta y tres\",\"number\":\"453 563\"},{\"option\":true,\"text\":\"Seiscientos treinta y nueve mil ochocientos cuarenta y dos\",\"number\":\"639 842\"},{\"option\":false,\"text\":\"Novecientos treinta y cinco mil cuatrocientos sesenta y ocho\",\"number\":\"935 468\"}]'",
+    options: "'[{\"value\":false,\"text\":\"Cuatrocientos cincuenta y tres mil quinientos sesenta y tres\",\"number\":\"453 563\"},{\"value\":true,\"text\":\"Seiscientos treinta y nueve mil ochocientos cuarenta y dos\",\"number\":\"639 842\"},{\"value\":false,\"text\":\"Novecientos treinta y cinco mil cuatrocientos sesenta y ocho\",\"number\":\"935 468\"}]'",
     subtitle: null,
     title: '¿Qué cifras en números está escrita incorrectamente según su lectura?'
   },
   {
     type: 'choose_an_option_textnumber',
     _id: '63737316fd325626f8d337e6',
-    options: "'[{\"value\":false,\"text\":\"Cuatrocientos cincuenta y tres mil quinientos sesenta y tres\",\"number\":\"453 563\"},{\"option\":false,\"text\":\"Seiscientos treinta y nueve mil ochocientos cuarenta y dos\",\"number\":\"639 482\"},{\"option\":true,\"text\":\"Novecientos treinta y cinco mil cuatrocientos setenta y ocho\",\"number\":\"935 478\"}]'",
+    options: "'[{\"value\":false,\"text\":\"Cuatrocientos cincuenta y tres mil quinientos sesenta y tres\",\"number\":\"453 563\"},{\"value\":false,\"text\":\"Seiscientos treinta y nueve mil ochocientos cuarenta y dos\",\"number\":\"639 482\"},{\"value\":true,\"text\":\"Novecientos treinta y cinco mil cuatrocientos setenta y ocho\",\"number\":\"935 478\"}]'",
     subtitle: null,
     title: '¿Qué cifra en letras está escrita incorrectamente?'
   },
@@ -227,7 +227,7 @@ export const data = [
   {
     type: 'order',
     _id: '63737367fd325626f8d337eb',
-    options: "'[\"4\", \"9\", \"8\", \"6\"]'",
+    options: "'{\"value\":\"4689\"}'",
     subtitle: null,
     title: 'Arregla los dígitos 4, 9,8 y 6 para crear el número de cuatros dígitos más pequeño posible.'
   },
@@ -274,9 +274,9 @@ export const data = [
     title: '¿Cuál es el valor posicional del 7 en 4,591?'
   },
   {
-    type: 'order_max',
+    type: 'order',
     _id: '6373739cfd325626f8d337f2',
-    options: "'[\"4\", \"9\", \"8\", \"6\"]'",
+    options: "'{\"value\":\"9652\"}'",
     subtitle: null,
     title: 'Arregla los dígitos 6, 2, 9 y 5 para crear el número de cuatro dígitos más alto posible'
   },
@@ -475,11 +475,11 @@ export const data = [
     options: "'{\"sets\":[{\"title\":\"Números mayores a 700 000\",\"options\":[{\"text\":\"700 001\",\"value\":\"700001\"},{\"text\":\"800 020\",\"value\":\"800020\"},{\"text\":\"900 030\",\"value\":\"900030\"}]},{\"title\":\"Números menores a 500 000\",\"options\":[{\"text\":\"499 600\",\"value\":\"499600\"},{\"text\":\"499 000\",\"value\":\"499000\"},{\"text\":\"400 999\",\"value\":\"400999\"}]}]}'",
     subtitle: null,
     title: 'Lleva los números a cada conjunto'
-  },
+  }, */
   {
     type: 'place_sign',
     _id: '637374dffd325626f8d3380f',
-    options: "'{\"operators\":[\">\",\"<\",\"=\"],\"values\":[[{\"value\":524260,\"text\":\"524 260\"},{\"value\":854125,\"text\":\"854 125\"}],[{\"value\":658014,\"text\":\"658 014\"},{\"value\":658010,\"text\":\"658 010\"}],[{\"value\":417520,\"text\":\"417 520\"},{\"value\":417250,\"text\":\"417 250\"}]]}'",
+    options: "'[{\"value\":\"<\",\"text1\":\"524 260\",\"text2\":\"854 125\"},{\"value\":\">\",\"text1\":\"658 014\",\"text2\":\"658 010\"},{\"value\":\">\",\"text1\":\"417 520\",\"text2\":\"417 250\"}]'",
     subtitle: null,
     title: 'Coloca los signos > ; < o = en cada caja'
   },
@@ -537,7 +537,7 @@ export const data = [
     options: "'{\"options\":[{\"value\":false,\"text\":\"Cacao - 24 752 230\"},{\"value\":false,\"text\":\"Banano - 41 252 320\"},{\"value\":true,\"text\":\"Café - 62 262 457\"}]}'",
     subtitle: null,
     title: 'Cúal es el producto con más producción'
-  } */
+  }
 ] as {
   _id: string
   options: string

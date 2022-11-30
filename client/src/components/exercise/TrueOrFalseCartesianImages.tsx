@@ -1,29 +1,12 @@
-import { useState } from 'react'
-import {
-  changePoints,
-  getCoorValues,
-  getQuadrant
-} from '../../utils/CartesianCoordinate'
-import CartesianQuadrant from '../CartesianPlane/QuadrantPoints'
+import { getCoorValues } from '../../utils/cartesianCoordinate'
+import CartesianQuadrant from '../CartesianPlane/quadrantPoints'
 import QuestionTitle from '../title/questionTitle'
-import { question, trueOrFalseCartesianCoordObjects_ } from '../../types/game'
-import { stripquotes } from '../../utils'
+import { question } from '../../types/game'
+import useTrueOrFalseImagesCP from '../../hooks/useTrueOrFalseImagesCP'
+import Radio from '../inputs/radio'
 
 const TrueOrFalseCartesianImages = (props: question) => {
-  const options_ = stripquotes(
-    props.options
-  ) as trueOrFalseCartesianCoordObjects_
-
-  const type = getQuadrant(options_.points)
-
-  const [newData] = useState(
-    changePoints({
-      correct: options_.correct,
-      points: options_.points,
-      type,
-      length: 10
-    })
-  )
+  const { newData, options_, type, setAnswer } = useTrueOrFalseImagesCP(props)
 
   return (
     <>
@@ -98,20 +81,18 @@ const TrueOrFalseCartesianImages = (props: question) => {
       <form>
         <div className="flex items-start justify-start flex-col mt-5">
           <div className="flex flex-row items-center justify-center">
-            <input
-              type="radio"
-              name="answer"
+            <Radio
+              name="asnwer"
               value="true"
-              className="appearance-none w-4 h-4 rounded-full checked:bg-yellow-page border-2 checked:border-0 cursor-pointer bg-white"
+              onChange={e => setAnswer(e.target.value)}
             />
             <label className="ml-2">Verdadero</label>
           </div>
           <div className="flex flex-row items-center justify-center">
-            <input
-              type="radio"
-              name="answer"
+            <Radio
+              name="asnwer"
               value="false"
-              className="appearance-none w-4 h-4 rounded-full checked:bg-yellow-page border-2 checked:border-0 cursor-pointer bg-white"
+              onChange={e => setAnswer(e.target.value)}
             />
             <label className="ml-2">Falso</label>
           </div>

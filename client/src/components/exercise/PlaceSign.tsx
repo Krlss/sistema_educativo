@@ -1,11 +1,36 @@
-import usePlaceSign from '../../hooks/usePlaceSign'
-import QuestionTitle from '../title/questionTitle'
 import { question, PlaceSing_ } from '../../types/game'
 import { stripquotes } from '../../utils'
+import { DragDropContext } from 'react-beautiful-dnd'
+import ContentDroppable from '../dragAndDrop/contentDroppable'
+
+import TextDraggable from '../dragAndDrop/textDraggable'
+import shortid from 'shortid'
+
+import ResponseTextDroppable from '../dragAndDrop/responseTextDroppable'
+import QuestionTitle from '../title/questionTitle'
+import useDragAndDropChooseText from '../../hooks/useDragAndDropChooseText'
 
 const PlaceSign = (props: question) => {
-  const options_ = stripquotes(props.options) as PlaceSing_
-  const { handleChange, option } = usePlaceSign(options_.values)
+  const opt = stripquotes(props.options) as PlaceSing_[]
+
+  const opt_ = opt.map(item => {
+    return {
+      ...item,
+      key: shortid.generate()
+    }
+  })
+
+  const options_ = opt_.map(item => {
+    return {
+      value: item.value,
+      key: item.key,
+      text: `${item.text1} ${item.value} ${item.text2}`
+    }
+  })
+
+  const { onDragEnd, options, removeAnswer, anwers } = useDragAndDropChooseText(
+    { question: props, defaultData: options_ }
+  )
 
   return (
     <>
@@ -14,41 +39,33 @@ const PlaceSign = (props: question) => {
         subtitle={props.subtitle}
         index={props.index}
       />
-      <form className="flex flex-col self-start">
-        {option.map((op, index) => (
-          <div
-            className="flex flex-row items-center justify-center gap-2 mb-2"
-            key={index}>
-            {op.map((item, i) => (
-              <div key={i} className="flex items-center justify-center gap-2">
-                <span className="text-center">{item.text}</span>
-                {i !== op.length - 1 && (
-                  <select
-                    className="h-14 border-2 border-gray-300 rounded-lg appearance-none p-2"
-                    onChange={e =>
-                      handleChange(
-                        index,
-                        e.target.value,
-                        op[0].value,
-                        op[1].value
-                      )
-                    }>
-                    <option className="p-2">Seleccione</option>
-                    {options_.operators.map((operator, index) => (
-                      <option
-                        key={index}
-                        className="text-center p-2"
-                        value={operator}>
-                        {operator}
-                      </option>
-                    ))}
-                  </select>
-                )}
-              </div>
-            ))}
-          </div>
-        ))}
-      </form>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <ContentDroppable droppableId="items" direction="horizontal">
+          {options.map((item, index) => (
+            <TextDraggable
+              key={item.key}
+              draggableId={item.key}
+              index={index}
+              value={item.value}
+              color={item.color}
+            />
+          ))}
+        </ContentDroppable>
+        <div className="flex flex-col mt-2 mb-20">
+          {opt_.map((item, index) => (
+            <ResponseTextDroppable
+              key={item.key}
+              droppableId={`respuesta-${index}`}
+              direction="horizontal"
+              index={index}
+              item={item}
+              removeAnswer={removeAnswer}
+              response={anwers}
+              isDropDisabled={!!anwers[index]}
+            />
+          ))}
+        </div>
+      </DragDropContext>
     </>
   )
 }

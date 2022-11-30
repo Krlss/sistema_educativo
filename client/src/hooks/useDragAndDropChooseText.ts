@@ -1,29 +1,44 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import GeneralContext from '../contexts/context'
+
 import {
   ReturnVerifyDragAndDropChooseTextProps,
   VerifyDragAndDropChooseTextProps,
-  DataInterfaceOriginal
-} from '../types/DragAndDropChooseText'
+  DataInterface
+} from '../types/dragAndDropChooseText'
 import { DropResult } from 'react-beautiful-dnd'
 import { shuffleArray } from '../utils'
 import { getRamdonArrayColors } from '../constants/colors'
+import { question } from '../types/game'
 
-const useDragAndDropChooseText = (defaultData: DataInterfaceOriginal) => {
-  const colors = getRamdonArrayColors(defaultData.options.length)
+const useDragAndDropChooseText = ({
+  defaultData,
+  question
+}: {
+  defaultData: DataInterface[]
+  question: question
+}) => {
+  const { setQuestion, gameState, updatedQuestion } = useContext(GeneralContext)
+  const colors = getRamdonArrayColors(defaultData.length)
 
-  const newOptions = defaultData.options.map((option, index) => {
+  const newOptions = defaultData.map((option, index) => {
     return {
       ...option,
       color: colors[index]
     }
   })
 
-  const [options, setOptions] = useState<
-    { value: string; text: string; color?: string }[]
-  >(shuffleArray(newOptions))
-  const [respuestas, setRespuestas] = useState<
-    VerifyDragAndDropChooseTextProps[]
-  >(Array(options.length).fill(undefined))
+  interface IOptions {
+    value: string
+    text: string
+    color?: string
+    key: string
+  }
+
+  const [options, setOptions] = useState<IOptions[]>(shuffleArray(newOptions))
+  const [anwers, setAnswers] = useState<VerifyDragAndDropChooseTextProps[]>(
+    Array(options.length).fill(undefined)
+  )
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source } = result
@@ -37,20 +52,40 @@ const useDragAndDropChooseText = (defaultData: DataInterfaceOriginal) => {
         value: string
         text: string
         color?: string
+        key: string
       }[]
       const index = destination.droppableId.split('-')[1]
-      const newAnswers = [...respuestas]
+      const newAnswers = [...anwers]
       newAnswers[parseInt(index)] = {
-        response_user: defaultData.options[parseInt(index)].value,
+        response: removed.value,
         text: removed.text,
-        original: removed.value,
-        color: removed.color
+        color: removed.color,
+        original: defaultData[parseInt(index)].value,
+        key: removed.key
       }
-      setRespuestas(newAnswers)
+      setAnswers(newAnswers)
 
-      /* if (!options.length) {
+      if (!options.length) {
         const response = verifyDragAndDropChooseText(newAnswers)
-      } */
+        if (response) {
+          const newQuestion = {
+            _id: question._id,
+            nota: response.note,
+            isDone: true,
+            responseUser: JSON.stringify({ anwers })
+          }
+
+          const find = gameState.questions.find(
+            question => question._id === newQuestion._id
+          )
+
+          if (find) {
+            updatedQuestion(newQuestion)
+          } else {
+            setQuestion(newQuestion)
+          }
+        }
+      }
       return
     }
 
@@ -65,16 +100,17 @@ const useDragAndDropChooseText = (defaultData: DataInterfaceOriginal) => {
   const removeAnswer = (index: number) => {
     const newOpciones = [...options]
     const oldRespuesta = {
-      value: respuestas[index]?.original,
-      text: respuestas[index]?.text,
-      color: respuestas[index]?.color
+      value: anwers[index]?.response,
+      text: anwers[index]?.text,
+      color: anwers[index]?.color,
+      key: anwers[index]?.key
     }
     newOpciones.push(oldRespuesta)
     setOptions(newOpciones)
 
-    const newAnswers = [...respuestas]
+    const newAnswers = [...anwers]
     newAnswers[index] = undefined as any
-    setRespuestas(newAnswers)
+    setAnswers(newAnswers)
   }
 
   const verifyDragAndDropChooseText = (
@@ -82,19 +118,19 @@ const useDragAndDropChooseText = (defaultData: DataInterfaceOriginal) => {
   ) => {
     return array.reduce(
       (acc, current, _, array) => {
-        if (current.response_user === current.original) acc.correct++
+        if (current.response === current.original) acc.correct++
         return {
           ...acc,
-          qualification: acc.correct / array.length,
+          note: Number((acc.correct / array.length).toFixed(2)),
           new_array_options: [
             ...acc.new_array_options,
-            { ...current, correct: current.response_user === current.original }
+            { ...current, correct: current.response === current.original }
           ]
         }
       },
       {
         new_array_options: [],
-        qualification: 0,
+        note: 0,
         correct: 0
       } as ReturnVerifyDragAndDropChooseTextProps
     )
@@ -102,7 +138,7 @@ const useDragAndDropChooseText = (defaultData: DataInterfaceOriginal) => {
 
   return {
     options,
-    respuestas,
+    anwers,
     onDragEnd,
     removeAnswer
   }

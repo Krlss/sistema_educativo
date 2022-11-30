@@ -1,5 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { onlyNumber } from '../constants/regex'
+import GeneralContext from '../contexts/context'
+import { question, writeNumberPositional_ } from '../types/game'
+import { stripquotes } from '../utils'
 
 const convert = (number: number) => {
   const value = []
@@ -15,8 +18,10 @@ const convert = (number: number) => {
   return value
 }
 
-const useNumberPositional = (number: number) => {
-  const [value, setValue] = useState(convert(number))
+const useNumberPositional = (props: question) => {
+  const options_ = stripquotes(props.options) as writeNumberPositional_
+  const { setQuestion, gameState, updatedQuestion } = useContext(GeneralContext)
+  const [value, setValue] = useState(convert(options_.value))
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
@@ -44,7 +49,38 @@ const useNumberPositional = (number: number) => {
       })
     )
   }
-  console.log(value)
+
+  useEffect(() => {
+    const ifFilled = value.every(item => !!item.response)
+    if (ifFilled) {
+      const realValue = value.map(item => item.value).join('')
+      const response = value.map(item => item.response).join('')
+      const newQuestion = {
+        _id: props._id,
+        nota: realValue === response ? 1 : 0,
+        isDone: true,
+        responseUser: JSON.stringify({ response })
+      }
+
+      const find = gameState.questions.find(
+        question => question._id === newQuestion._id
+      )
+
+      if (find) {
+        updatedQuestion(newQuestion)
+      } else {
+        setQuestion(newQuestion)
+      }
+    } else {
+      updatedQuestion({
+        _id: props._id,
+        nota: 0,
+        isDone: false,
+        responseUser: undefined
+      })
+    }
+  }, [value])
+
   return { value, handleChange, setValue }
 }
 

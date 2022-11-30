@@ -2,9 +2,15 @@ import CartesianPlane from '../CartesianPlane'
 import QuestionTitle from '../title/questionTitle'
 import { question, trueOrFalseCartesianCoord_ } from '../../types/game'
 import { stripquotes } from '../../utils'
+import useTrueOrFalse from '../../hooks/useTrueOrFalse'
+import Radio from '../inputs/radio'
 
 const TrueOrFalseCartesianCoord = (props: question) => {
   const options_ = stripquotes(props.options) as trueOrFalseCartesianCoord_
+  const { setAnswer } = useTrueOrFalse({
+    question: props,
+    options_
+  })
   return (
     <>
       <QuestionTitle
@@ -17,20 +23,18 @@ const TrueOrFalseCartesianCoord = (props: question) => {
           <div className="flex flex-col items-start">
             <CartesianPlane points={options_.points} />
             <div className="flex flex-row items-center justify-center">
-              <input
-                type="radio"
+              <Radio
                 name="answer"
                 value="true"
-                className="appearance-none w-4 h-4 rounded-full checked:bg-yellow-page border-2 checked:border-0 cursor-pointer bg-white"
+                onChange={e => setAnswer(e.target.value)}
               />
               <label className="ml-2">Verdadero</label>
             </div>
             <div className="flex flex-row items-center justify-center">
-              <input
-                type="radio"
+              <Radio
                 name="answer"
                 value="false"
-                className="appearance-none w-4 h-4 rounded-full checked:bg-yellow-page border-2 checked:border-0 cursor-pointer bg-white"
+                onChange={e => setAnswer(e.target.value)}
               />
               <label className="ml-2">Falso</label>
             </div>

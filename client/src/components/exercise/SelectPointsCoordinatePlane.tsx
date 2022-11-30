@@ -1,26 +1,19 @@
-import { useState } from 'react'
 import CartesianPlane from '../CartesianPlane'
-import { changePoints } from '../../utils/CartesianCoordinate'
 import QuestionTitle from '../title/questionTitle'
 import { question, selectPointsCoordinatePlane_ } from '../../types/game'
 import { stripquotes } from '../../utils'
+import useSelectPointCP from '../../hooks/useSelectPointCP'
 
 const SelectPointsCoordinatePlane = (props: question) => {
   const options_ = stripquotes(props.options) as selectPointsCoordinatePlane_
-  const [newCoordinates, setNewCoordinates] = useState(changePoints(options_))
 
-  const selectedCoordinates = (x: number, y: number) => {
-    const selected = newCoordinates.find(
-      point => point.x === x && point.y === y
-    )
-    if (selected) {
-      selected.selected = !selected.selected
-    }
-    setNewCoordinates([...newCoordinates])
-  }
+  const { newCoordinates, selectedCoordinates } = useSelectPointCP({
+    options_,
+    question: props
+  })
 
   return (
-    <>
+    <div>
       <QuestionTitle
         title={props.title}
         subtitle={props.subtitle}
@@ -30,16 +23,16 @@ const SelectPointsCoordinatePlane = (props: question) => {
         {options_.points.map((coordinate, index) => (
           <div
             key={index}
-            className="border border-black p-1 basis-24 flex items-center justify-center">
+            className="border border-black p-1 basis-24 flex items-center justify-start">
             ({coordinate.x}; {coordinate.y})
           </div>
         ))}
       </div>
       <div className="relative flex items-center justify-start mt-5">
-        <div>
+        <div className="ml-[47.5px]">
           {[...Array(21)].map((_, y) => {
             return (
-              <div key={y} className="flex items-center justify-center">
+              <div key={y} className="flex items-center justify-start">
                 {[...Array(21)].map((_, x) => {
                   const isExist = !!newCoordinates.find(
                     point => point.x === x - 10 && point.y === 10 - y
@@ -75,7 +68,7 @@ const SelectPointsCoordinatePlane = (props: question) => {
         </div>
         <CartesianPlane />
       </div>
-    </>
+    </div>
   )
 }
 

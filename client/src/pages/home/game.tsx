@@ -3,7 +3,8 @@ import useGame from '../../hooks/useGame'
 import { secondsToTime } from '../../utils'
 
 const Game = () => {
-  const { dataGame, dataGameIndex, timer, nextExercise } = useGame(data)
+  const { dataGame, gameState, timer, nextExercise, nextDisabled } =
+    useGame(data)
   const { h, m, s } = secondsToTime(timer)
 
   return (
@@ -11,7 +12,7 @@ const Game = () => {
       <div className="md:col-span-2">
         <div className="mx-auto">
           <div className="flex flex-col items-start justify-center">
-            {dataGame[dataGameIndex]}
+            {dataGame[gameState.index]}
           </div>
         </div>
       </div>
@@ -22,9 +23,9 @@ const Game = () => {
               <div
                 key={index}
                 className={`flex items-center justify-center rounded-md h-11 shadow-md ${
-                  index < dataGameIndex ? 'bg-yellow-page' : 'bg-gray-300'
+                  index < gameState.index ? 'bg-yellow-page' : 'bg-gray-300'
                 } ${
-                  index === dataGameIndex
+                  index === gameState.index
                     ? 'bg-red-logo-stronger text-white'
                     : ''
                 }`}>
@@ -41,12 +42,12 @@ const Game = () => {
             </div>
             <div className="flex w-full justify-end">
               <button
-                disabled={timer === 0}
+                disabled={!nextDisabled}
                 className={`px-4 py-2 bg-red-logo-stronger text-white rounded-md shadow font-semibold ${
-                  timer === 0 ? 'cursor-not-allowed opacity-40' : ''
+                  !nextDisabled ? 'cursor-not-allowed opacity-40' : ''
                 }`}
                 onClick={nextExercise}>
-                {dataGameIndex === dataGame.length - 1
+                {gameState.index === dataGame.length - 1
                   ? 'Finalizar'
                   : 'Siguiente'}
               </button>

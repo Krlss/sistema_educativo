@@ -5,7 +5,10 @@ import Radio from '../inputs/radio'
 import useTrueOrFalse from '../../hooks/useTrueOrFalse'
 const TrueOrFalse = (props: question) => {
   const options_ = stripquotes(props.options) as trueOrFalse_
-  const { setAnswer } = useTrueOrFalse(options_)
+  const { setAnswer } = useTrueOrFalse({
+    question: props,
+    options_
+  })
   return (
     <form>
       <QuestionTitle

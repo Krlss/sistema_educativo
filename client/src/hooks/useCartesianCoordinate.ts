@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react'
-import { cartesianCoordinateFull_ } from '../types/game'
+import { useState, useEffect, useContext } from 'react'
+import { cartesianCoordinateFull_, question } from '../types/game'
+import GeneralContext from '../contexts/context'
 
 interface CartesianCoordinate {
   x: number
@@ -7,8 +8,10 @@ interface CartesianCoordinate {
 }
 const useCartesianCoordinate = (
   numbersCoordinate: number,
-  points: cartesianCoordinateFull_[]
+  points: cartesianCoordinateFull_[],
+  question: question
 ) => {
+  const { setQuestion, gameState, updatedQuestion } = useContext(GeneralContext)
   const [cartesian, setCartesian] = useState<CartesianCoordinate[]>([])
 
   useEffect(() => {
@@ -31,8 +34,29 @@ const useCartesianCoordinate = (
           correct: 0
         }
       )
+      const newQuestion = {
+        _id: question._id,
+        nota: correct.note,
+        isDone: true,
+        responseUser: JSON.stringify({ cartesian })
+      }
 
-      console.log(correct)
+      const find = gameState.questions.find(
+        question => question._id === newQuestion._id
+      )
+
+      if (find) {
+        updatedQuestion(newQuestion)
+      } else {
+        setQuestion(newQuestion)
+      }
+    } else {
+      updatedQuestion({
+        _id: question._id,
+        nota: 0,
+        isDone: false,
+        responseUser: undefined
+      })
     }
   }, [cartesian])
 

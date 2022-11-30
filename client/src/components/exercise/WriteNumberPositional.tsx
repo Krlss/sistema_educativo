@@ -1,12 +1,10 @@
 import QuestionTitle from '../title/questionTitle'
 import useNumberPositional from '../../hooks/useNumberPositional'
-import { NamePositional } from '../../constants/PositionalTable'
-import { question, writeNumberPositional_ } from '../../types/game'
-import { stripquotes } from '../../utils'
+import { NamePositional } from '../../constants/positionalTable'
+import { question } from '../../types/game'
 
 const WriteNumberPositional = (props: question) => {
-  const options_ = stripquotes(props.options) as writeNumberPositional_
-  const { handleChange, value } = useNumberPositional(options_.value)
+  const { handleChange, value } = useNumberPositional(props)
   return (
     <>
       <QuestionTitle

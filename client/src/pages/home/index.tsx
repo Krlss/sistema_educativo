@@ -17,7 +17,7 @@ const Home = () => {
         Estos son tus progresos en los cursos
       </h2>
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mb-20">
         <div className="flex flex-wrap mt-4 gap-8">
           {config.asignatures.map((asignature, index) => (
             <HomeCard

@@ -1,14 +1,18 @@
-import QuadrantPoints from '../CartesianPlane/QuadrantPoints'
-import { getCoorValues } from '../../utils/CartesianCoordinate'
+import QuadrantPoints from '../CartesianPlane/quadrantPoints'
+import { getCoorValues } from '../../utils/cartesianCoordinate'
 import QuestionTitle from '../title/questionTitle'
 
 import { stripquotes } from '../../utils'
 import { question, writePointsCoordinatePlane_ } from '../../types/game'
 import useWriteCoorCP from '../../hooks/useWriteCoorCP'
+import { onlyNumberWithNegative } from '../../constants/regex'
 
 const CartesianCoordinateObjects = (props: question) => {
   const options_ = stripquotes(props.options) as writePointsCoordinatePlane_[]
-  const { response, setResponse, options, type } = useWriteCoorCP(options_)
+  const { response, setResponse, options, type } = useWriteCoorCP({
+    array: options_,
+    question: props
+  })
 
   return (
     <>
@@ -30,6 +34,9 @@ const CartesianCoordinateObjects = (props: question) => {
                   className="w-[75px] h-8 border border-gray-300 text-center"
                   placeholder="x"
                   onChange={e => {
+                    if (!onlyNumberWithNegative.test(e.target.value)) {
+                      e.target.value = e.target.value.replace(/[^0-9-]/g, '')
+                    }
                     const newPointsIndex = {
                       ...response[index],
                       key: point.key,
@@ -45,6 +52,9 @@ const CartesianCoordinateObjects = (props: question) => {
                   className="w-[75px] h-8 border border-gray-300 text-center"
                   placeholder="y"
                   onChange={e => {
+                    if (!onlyNumberWithNegative.test(e.target.value)) {
+                      e.target.value = e.target.value.replace(/[^0-9-]/g, '')
+                    }
                     const newPointsIndex = {
                       ...response[index],
                       key: point.key,

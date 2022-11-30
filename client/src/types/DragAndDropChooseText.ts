@@ -8,15 +8,16 @@ export interface DataInterfaceOriginal {
 }
 
 export interface VerifyDragAndDropChooseTextProps {
-  response_user: string
+  response: string
   text: string
   original: string
   correct?: boolean
   color?: string
+  key: string
 }
 
 export interface ReturnVerifyDragAndDropChooseTextProps {
   new_array_options: VerifyDragAndDropChooseTextProps[]
   correct: number
-  qualification: number
+  note: number
 }

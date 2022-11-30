@@ -3,7 +3,7 @@ import useCartesianCoordinate from '../../hooks/useCartesianCoordinate'
 import QuestionTitle from '../title/questionTitle'
 import { question, cartesianCoordinateFull_ } from '../../types/game'
 import { stripquotes } from '../../utils'
-import { namePoints } from '../../constants/CartesianConstants'
+import { namePoints } from '../../constants/cartesianConstants'
 const CartesianCoordinateFull = (props: question) => {
   const options_ = stripquotes(props.options) as cartesianCoordinateFull_[]
 
@@ -15,7 +15,8 @@ const CartesianCoordinateFull = (props: question) => {
 
   const { cartesian, updateCartesian } = useCartesianCoordinate(
     options_.length,
-    options_
+    options_,
+    props
   )
 
   return (

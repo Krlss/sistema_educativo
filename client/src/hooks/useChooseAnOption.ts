@@ -1,22 +1,22 @@
 import { useState, useEffect, useContext } from 'react'
-import { trueOrFalse_, question } from '../types/game'
+import { chooseAnOptionType, question } from '../types/game'
 import GeneralContext from '../contexts/context'
 
 interface Props {
   question: question
-  options_: trueOrFalse_
+  options_: chooseAnOptionType[]
 }
 
-const useTrueOrFalse = ({ question, options_ }: Props) => {
+const useChooseAnOption = ({ question, options_ }: Props) => {
   const { setQuestion, gameState, updatedQuestion } = useContext(GeneralContext)
-  const [answer, setAnswer] = useState<string>()
+  const [answer, setAnswer] = useState<string>('')
 
   useEffect(() => {
     if (answer) {
-      const { correct } = options_
+      const isCorrect = options_.find(option => option.text === answer)?.value
       const newQuestion = {
         _id: question._id,
-        nota: String(correct) === answer ? 1 : 0,
+        nota: isCorrect ? 1 : 0,
         isDone: true,
         responseUser: JSON.stringify({ answer })
       }
@@ -33,7 +33,10 @@ const useTrueOrFalse = ({ question, options_ }: Props) => {
     }
   }, [answer])
 
-  return { answer, setAnswer }
+  return {
+    answer,
+    setAnswer
+  }
 }
 
-export default useTrueOrFalse
+export default useChooseAnOption

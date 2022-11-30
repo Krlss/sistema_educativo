@@ -1,5 +1,5 @@
 import Cookie from 'universal-cookie'
-import { USER } from '../types/ContextUser'
+import { USER } from '../types/contextUser'
 
 export const setDataSession = (key: string, value: USER) => {
   const cookie = new Cookie()

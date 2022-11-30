@@ -1,17 +1,19 @@
 import { useState } from 'react'
 import CartesianPlane from '../CartesianPlane'
 import QuestionTitle from '../title/questionTitle'
-import { namePoints } from '../../constants/CartesianConstants'
+import { namePoints } from '../../constants/cartesianConstants'
 import { question, writePointsCoordinatePlane_ } from '../../types/game'
 import { stripquotes } from '../../utils'
+import { onlyNumberWithNegative } from '../../constants/regex'
+import useWriteCoorCP from '../../hooks/useWriteCoorCP'
 
 const WritePointsCartesianPlane = (props: question) => {
   const options_ = stripquotes(props.options) as writePointsCoordinatePlane_[]
-  const [pointsState, setPointsState] = useState(options_)
 
-  const [response, setResponse] = useState<{ x: number; y: number }[]>(
-    Array(options_.length).fill(undefined)
-  )
+  const { response, setResponse, options } = useWriteCoorCP({
+    array: options_,
+    question: props
+  })
 
   return (
     <>
@@ -21,7 +23,7 @@ const WritePointsCartesianPlane = (props: question) => {
         index={props.index}
       />
       <div className="flex gap-2 mt-2 flex-wrap items-center justify-start">
-        {pointsState.map((point, index) => {
+        {options.map((point, index) => {
           return (
             <div
               key={index}
@@ -35,7 +37,11 @@ const WritePointsCartesianPlane = (props: question) => {
                 <input
                   type="text"
                   className="w-[75px] h-8 border border-gray-300 text-center"
+                  placeholder="x"
                   onChange={e => {
+                    if (!onlyNumberWithNegative.test(e.target.value)) {
+                      e.target.value = e.target.value.replace(/[^0-9-]/g, '')
+                    }
                     const newPointsIndex = {
                       ...response[index],
                       x: Number(e.target.value)
@@ -48,7 +54,11 @@ const WritePointsCartesianPlane = (props: question) => {
                 <input
                   type="text"
                   className="w-[75px] h-8 border border-gray-300 text-center"
+                  placeholder="y"
                   onChange={e => {
+                    if (!onlyNumberWithNegative.test(e.target.value)) {
+                      e.target.value = e.target.value.replace(/[^0-9-]/g, '')
+                    }
                     const newPointsIndex = {
                       ...response[index],
                       y: Number(e.target.value)
@@ -64,7 +74,7 @@ const WritePointsCartesianPlane = (props: question) => {
         })}
       </div>
       <div className="relative flex items-center justify-center mt-2">
-        <CartesianPlane points={pointsState} />
+        <CartesianPlane points={options} />
       </div>
     </>
   )

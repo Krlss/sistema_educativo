@@ -5,17 +5,10 @@ import SetDroppable from '../dragAndDrop/setDroppable'
 import useDragAndDropSets from '../../hooks/useDragAndDropSets'
 import ResponseTextSetDraggable from '../dragAndDrop/responseTextSetDraggable'
 import QuestionTitle from '../title/questionTitle'
-import { question, dragAndDropSets_ } from '../../types/game'
-
-import { stripquotes, getFlatArraySets } from '../../utils'
+import { question } from '../../types/game'
 
 const DragAndDropSet = (props: question) => {
-  const { sets } = stripquotes(props.options) as dragAndDropSets_
-  const options = getFlatArraySets({ sets })
-  const { onDragEnd, options_, respuestas } = useDragAndDropSets({
-    options,
-    sets
-  })
+  const { onDragEnd, options_, answer, sets } = useDragAndDropSets(props)
   return (
     <>
       <QuestionTitle
@@ -36,13 +29,13 @@ const DragAndDropSet = (props: question) => {
           ))}
         </ContentDroppable>
 
-        <div className="flex gap-4">
+        <div className="flex gap-4 mb-40">
           {sets.map((item, set) => (
             <SetDroppable
               droppableId={`respuesta-${set}`}
               key={set}
               title={item.title}>
-              {respuestas[set]?.map((item: any, index: number) => (
+              {answer[set]?.map((item: any, index: number) => (
                 <ResponseTextSetDraggable
                   key={item.value}
                   draggableId={item.value}

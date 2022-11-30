@@ -5,7 +5,7 @@ import { getRamdonArrayColors } from '../../constants/colors'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState, useContext } from 'react'
 import GeneralContext from '../../contexts/context'
-import { USER } from '../../types/ContextUser'
+import { USER } from '../../types/contextUser'
 import { getDataSession } from '../../utils/dataSession'
 
 interface IGetTopics {

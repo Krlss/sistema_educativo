@@ -1,11 +1,9 @@
 import QuestionTitle from '../title/questionTitle'
 import useBase10Descomposition from '../../hooks/useBase10Descomposition'
-import { question, valueBase10Descomposition } from '../../types/game'
-import { stripquotes } from '../../utils'
+import { question } from '../../types/game'
 
 const Base10Descomposition = (props: question) => {
-  const { value } = stripquotes(props.options) as valueBase10Descomposition
-  const { handleChange, value_ } = useBase10Descomposition(value)
+  const { handleChange, value_, value } = useBase10Descomposition(props)
   return (
     <>
       <QuestionTitle
@@ -13,7 +11,7 @@ const Base10Descomposition = (props: question) => {
         subtitle={value.toString()}
         index={props.index}
       />
-      <div className="flex md:flex-row flex-col gap-2 mt-2">
+      <div className="flex md:flex-row flex-col gap-2 mt-2 mb-10">
         {value_.map((item, index) => (
           <input
             className="border border-gray-400 rounded px-2 py-1 w-full"

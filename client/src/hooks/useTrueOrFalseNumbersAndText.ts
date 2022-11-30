@@ -1,14 +1,11 @@
+import { question, trueOrFalseNumbersAndText_ } from '../types/game'
+import { stripquotes } from '../utils'
 import { useState, useEffect, useContext } from 'react'
-import { trueOrFalse_, question } from '../types/game'
 import GeneralContext from '../contexts/context'
 
-interface Props {
-  question: question
-  options_: trueOrFalse_
-}
-
-const useTrueOrFalse = ({ question, options_ }: Props) => {
+const useTrueOrFalseNumbersAndText = ({ question }: { question: question }) => {
   const { setQuestion, gameState, updatedQuestion } = useContext(GeneralContext)
+  const options_ = stripquotes(question.options) as trueOrFalseNumbersAndText_
   const [answer, setAnswer] = useState<string>()
 
   useEffect(() => {
@@ -33,7 +30,11 @@ const useTrueOrFalse = ({ question, options_ }: Props) => {
     }
   }, [answer])
 
-  return { answer, setAnswer }
+  return {
+    options_,
+    setAnswer,
+    answer
+  }
 }
 
-export default useTrueOrFalse
+export default useTrueOrFalseNumbersAndText
