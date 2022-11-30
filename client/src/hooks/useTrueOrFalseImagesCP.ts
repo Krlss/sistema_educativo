@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from 'react'
 import { question, trueOrFalseCartesianCoordObjects_ } from '../types/game'
-import { changePoints, getQuadrant } from '../utils/cartesianCoordinate'
+import { changePoints, getQuadrant } from '../utils/CartesianCoordinate'
 import { stripquotes } from '../utils'
-import { typeCartesian, ReturnChangePoint } from '../types/cartesianCoordinate'
+import { typeCartesian, ReturnChangePoint } from '../types/CartesianCoordinate'
 import GeneralContext from '../contexts/context'
 
 const useTrueOrFalseImagesCP = (props: question) => {
