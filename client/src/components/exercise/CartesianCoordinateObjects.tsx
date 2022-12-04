@@ -1,5 +1,5 @@
-import QuadrantPoints from '../CartesianPlane/quadrantPoints'
-import { getCoorValues } from '../../utils/cartesianCoordinate'
+import QuadrantPoints from '../CartesianPlane/QuadrantPoints'
+import { getCoorValues } from '../../utils/CartesianCoordinate'
 import QuestionTitle from '../title/questionTitle'
 
 import { stripquotes } from '../../utils'

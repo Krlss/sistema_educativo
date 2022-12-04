@@ -5,7 +5,7 @@ import {
   ReturnVerifyDragAndDropChooseTextProps,
   VerifyDragAndDropChooseTextProps,
   DataInterface
-} from '../types/dragAndDropChooseText'
+} from '../types/DragAndDropChooseText'
 import { DropResult } from 'react-beautiful-dnd'
 import { shuffleArray } from '../utils'
 import { getRamdonArrayColors } from '../constants/colors'

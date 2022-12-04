@@ -1,5 +1,5 @@
-import { getCoorValues } from '../../utils/cartesianCoordinate'
-import CartesianQuadrant from '../CartesianPlane/quadrantPoints'
+import { getCoorValues } from '../../utils/CartesianCoordinate'
+import CartesianQuadrant from '../CartesianPlane/QuadrantPoints'
 import QuestionTitle from '../title/questionTitle'
 import { question } from '../../types/game'
 import useTrueOrFalseImagesCP from '../../hooks/useTrueOrFalseImagesCP'

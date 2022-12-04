@@ -1,6 +1,6 @@
 import { createContext } from 'react'
 import { USER } from '../types/contextUser'
-import { ASIGNATURE } from '../types/contextAsignature'
+import { ASIGNATURE } from '../types/ContextAsignature'
 import { QuestionsExtends, QUESTION } from '../types/contextGame'
 
 export type GeneralContextProps = {

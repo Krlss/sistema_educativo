@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from 'react'
 import { DropResult } from 'react-beautiful-dnd'
 import GeneralContext from '../contexts/context'
 
-import { DataInterface } from '../types/dragAndDropSet'
+import { DataInterface } from '../types/DragAndDropSet'
 import { question, dragAndDropSets_ } from '../types/game'
 
 interface iVerify {

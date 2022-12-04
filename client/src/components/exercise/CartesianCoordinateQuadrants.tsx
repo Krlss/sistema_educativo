@@ -1,6 +1,6 @@
-import QuadrantPoints from '../CartesianPlane/quadrantPoints'
+import QuadrantPoints from '../CartesianPlane/QuadrantPoints'
 import useCartesianCoordinate from '../../hooks/useCartesianCoordinate'
-import { getCoorValues, getQuadrant } from '../../utils/cartesianCoordinate'
+import { getCoorValues, getQuadrant } from '../../utils/CartesianCoordinate'
 import QuestionTitle from '../title/questionTitle'
 import { stripquotes } from '../../utils'
 import { question, cartesianCoordinateFull_ } from '../../types/game'

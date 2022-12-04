@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import CartesianPlane from '../CartesianPlane'
 import QuestionTitle from '../title/questionTitle'
 import { namePoints } from '../../constants/cartesianConstants'

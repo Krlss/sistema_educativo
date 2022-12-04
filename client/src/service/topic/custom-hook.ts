@@ -103,6 +103,8 @@ export const useGetTopics = () => {
     })
   }
 
+  console.log({ user })
+
   useEffect(() => {
     getTopicsHandler({
       asignatureId,

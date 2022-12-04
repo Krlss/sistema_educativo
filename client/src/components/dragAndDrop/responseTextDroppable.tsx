@@ -2,7 +2,7 @@ import { Droppable } from 'react-beautiful-dnd'
 
 import Icon from '../icons'
 import CrossIcon from '../icons/cross'
-import { VerifyDragAndDropChooseTextProps } from '../../types/dragAndDropChooseText'
+import { VerifyDragAndDropChooseTextProps } from '../../types/DragAndDropChooseText'
 
 interface Props {
   droppableId: string

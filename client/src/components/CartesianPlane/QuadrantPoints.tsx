@@ -4,8 +4,8 @@ import {
   getPosSmallLine,
   getPosText,
   getPosTextLine
-} from '../../utils/cartesianCoordinate'
-import { typeCartesian } from '../../types/cartesianCoordinate'
+} from '../../utils/CartesianCoordinate'
+import { typeCartesian } from '../../types/CartesianCoordinate'
 
 import { smallPadding, smallSize } from '../../constants/cartesianConstants'
 

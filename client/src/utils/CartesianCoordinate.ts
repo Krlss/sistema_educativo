@@ -1,4 +1,4 @@
-import { typeCartesian, ReturnChangePoint } from '../types/cartesianCoordinate'
+import { typeCartesian, ReturnChangePoint } from '../types/CartesianCoordinate'
 
 export const getNumbers = ({
   isX,
