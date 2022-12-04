@@ -27,7 +27,7 @@
             "never"
         ],
         "indent": [
-            "error",
+            "never",
             2,
             {
                 "SwitchCase": 1
