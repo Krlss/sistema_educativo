@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { question, writePointsCoordinatePlane_ } from '../types/game'
 import GeneralContext from '../contexts/context'
 
-import { getQuadrant } from '../utils/cartesianCoordinate'
+import { getQuadrant } from '../utils/CartesianCoordinate'
 import { AddKeyToObj } from '../utils'
 
 const useWriteCoorCP = ({

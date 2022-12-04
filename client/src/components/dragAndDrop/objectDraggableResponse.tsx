@@ -1,7 +1,7 @@
 import { Draggable } from 'react-beautiful-dnd'
 import Icon from '../icons'
 import CrossIcon from '../icons/cross'
-import { DataInterface } from '../../types/dragAndDropImages'
+import { DataInterface } from '../../types/DragAndDropImages'
 
 const ObjectDraggableResponse = ({
   draggableId,

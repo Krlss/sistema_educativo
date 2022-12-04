@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useLazyQuery } from '@apollo/client'
-import { ASIGNATURE } from '../../types/contextAsignature'
+import { ASIGNATURE } from '../../types/ContextAsignature'
 import { GETASIGNATURES, GETASIGNATURE } from './graphql-queries'
 import { getRamdonArrayColors, pastelColors } from '../../constants/colors'
 

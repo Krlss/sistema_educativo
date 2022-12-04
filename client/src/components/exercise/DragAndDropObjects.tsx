@@ -1,6 +1,6 @@
 import { DragDropContext } from 'react-beautiful-dnd'
-import { getCoorValues, getQuadrant } from '../../utils/cartesianCoordinate'
-import QuadrantDragAndDrop from '../CartesianPlane/quadrantDragAndDrop'
+import { getCoorValues, getQuadrant } from '../../utils/CartesianCoordinate'
+import QuadrantDragAndDrop from '../CartesianPlane/QuadrantDragAndDrop'
 
 import ObjectDraggable from '../dragAndDrop/objectDraggable'
 import ContentDroppable from '../dragAndDrop/contentDroppable'

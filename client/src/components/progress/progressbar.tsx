@@ -4,7 +4,7 @@ interface ProgressBarProps {
 
 const ProgressBar = ({ progress }: ProgressBarProps) => {
   return (
-    <div className="w-full bg-gray-200 rounded-full mt-2 flex text-xs font-semibold text-center h-3.5 relative">
+    <div className="w-full bg-gray-200 rounded-full mt-2 flex text-xs font-semibold text-center h-4 relative">
       <div
         className={`rounded-full ${
           (progress < 20 && 'bg-red-logo') ||

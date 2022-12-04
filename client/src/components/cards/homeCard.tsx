@@ -7,6 +7,7 @@ interface Props {
   nameCourse: string
   numberCourse: number
   to: string
+  canGiveExam: boolean
 }
 
 const HomeCard = ({
@@ -14,7 +15,8 @@ const HomeCard = ({
   nameCourse,
   numberCourse,
   progress,
-  to
+  to,
+  canGiveExam
 }: Props) => {
   return (
     <div className="w-full lg:max-w-3xl">
@@ -36,9 +38,11 @@ const HomeCard = ({
                   </h3>
                   <p className="text-gray-500 text-sm">Curso {numberCourse}</p>
                 </div>
-                <div className="bg-yellow-page p-2 px-4 rounded-md font-medium">
-                  Dar Prueba
-                </div>
+                {canGiveExam && (
+                  <div className="bg-yellow-page p-2 px-4 rounded-md font-medium">
+                    Dar Prueba
+                  </div>
+                )}
               </div>
             </div>
           </div>

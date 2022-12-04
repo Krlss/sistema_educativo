@@ -24,7 +24,7 @@ import {
   WritePointsCartesianPlane,
   WriteValueFromText
 } from '../components/exercise'
-import { getQuadrant } from '../utils/cartesianCoordinate'
+import { getQuadrant } from '../utils/CartesianCoordinate'
 import { writePointsCoordinatePlane_, typeQuestion } from '../types/game'
 import { stripquotes } from '../utils'
 import {

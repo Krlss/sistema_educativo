@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import { changePoints } from '../utils/cartesianCoordinate'
+import { changePoints } from '../utils/CartesianCoordinate'
 import { question, selectPointsCoordinatePlane_ } from '../types/game'
 import GeneralContext from '../contexts/context'
 

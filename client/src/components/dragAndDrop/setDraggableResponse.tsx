@@ -2,7 +2,7 @@ import { Key } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import DragIcon from '../icons/drag'
 import Icon from '../icons'
-import { DataInterface } from '../../types/dragAndDropSet'
+import { DataInterface } from '../../types/DragAndDropSet'
 
 const SetDraggableResponse = ({
   Key,

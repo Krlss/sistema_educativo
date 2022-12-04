@@ -3,9 +3,9 @@ import { useState, useEffect, useContext } from 'react'
 import { DropResult } from 'react-beautiful-dnd'
 import { getRamdonArrayColors } from '../constants/colors'
 
-import { DataInterface } from '../types/dragAndDropImages'
-import { getCoorValues } from '../utils/cartesianCoordinate'
-import { typeCartesian } from '../types/cartesianCoordinate'
+import { DataInterface } from '../types/DragAndDropImages'
+import { getCoorValues } from '../utils/CartesianCoordinate'
+import { typeCartesian } from '../types/CartesianCoordinate'
 import { DragAndDropChooseText_, question } from '../types/game'
 import GeneralContext from '../contexts/context'
 

@@ -1,4 +1,4 @@
-import { ASIGNATURE } from '../../types/contextAsignature'
+import { ASIGNATURE } from '../../types/ContextAsignature'
 
 export const InitialStateConfig: {
   asignatures: ASIGNATURE[]

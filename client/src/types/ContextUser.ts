@@ -14,6 +14,7 @@ export interface UNIT {
   _id: string
   nota: number
   id_unit: string
+  finished: boolean
   topic: TOPIC[]
 }
 
