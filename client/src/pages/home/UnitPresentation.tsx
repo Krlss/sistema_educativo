@@ -42,7 +42,7 @@ const UnitPresentation = () => {
                     <div className="flex md:flex-col flex-row gap-2 mr-5">
                       <NavLink
                         to={`/asignatura/${asignatureId}/unidad/${unitId}/tema/${top._id}`}>
-                        <li className="bg-yellow-page text-black font-bold text-sm px-4 py-2 rounded text-center list-none min-w-[115px]">
+                        <li className="bg-yellow-page text-black font-bold text-sm px-4 py-2 rounded text-center list-none min-w-[115px] shadow hover:bg-yellow2-page">
                           Ver clase
                         </li>
                       </NavLink>

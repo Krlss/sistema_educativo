@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLazyQuery } from '@apollo/client'
 import { GET_USER_PROGRESS } from './graphql-queries'
-import { PROGRESS } from '../../types/contextUser'
+import { PROGRESS } from '../../types/ContextUser'
 import { UserReducerProps } from '../../contexts/user/reducer'
 
 interface getUserProgress {

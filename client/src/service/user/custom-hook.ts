@@ -4,7 +4,7 @@ import { REGISTER } from './graphql-mutations'
 import { useLazyQuery, useMutation } from '@apollo/client'
 import { getDataSession } from '../../utils/dataSession'
 import GeneralContext from '../../contexts/context'
-import { USER } from '../../types/contextUser'
+import { USER } from '../../types/ContextUser'
 import { useNavigate } from 'react-router-dom'
 export interface PropsLogin {
   username: string

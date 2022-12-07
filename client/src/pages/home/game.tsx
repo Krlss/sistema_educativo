@@ -3,9 +3,8 @@ import useGame from '../../hooks/useGame'
 import { secondsToTime } from '../../utils'
 
 const Game = () => {
-  const { dataGame, gameState, timer, nextExercise, nextDisabled } =
-    useGame(data)
-  const { h, m, s } = secondsToTime(timer)
+  const { dataGame, gameState, nextExercise, nextDisabled } = useGame(data)
+  const { h, m, s } = secondsToTime(gameState.timeLeft)
 
   return (
     <div className="md:grid md:grid-cols-3 flex flex-col gap-4">

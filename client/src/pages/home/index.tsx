@@ -1,11 +1,9 @@
-import { useContext } from 'react'
-import GeneralContext from '../../contexts/context'
 import HomeCard from '../../components/cards/homeCard'
 import CenterLogo from '../../components/logo/centerLogo'
-import { PROGRESS } from '../../types/contextUser'
+import { PROGRESS } from '../../types/ContextUser'
+import useHomePage from '../../hooks/useHomePage'
 const Home = () => {
-  const { user, config } = useContext(GeneralContext)
-
+  const { config, percentage, user } = useHomePage()
   return (
     <>
       <CenterLogo />
@@ -25,22 +23,6 @@ const Home = () => {
               course => course.id_asignature === asignature._id
             ) as PROGRESS
 
-            const sumAllTopicsWithUnit = findCourse?.unit?.reduce((acc, u) => {
-              u.topic?.forEach(t => {
-                acc++
-              })
-              acc++
-              return acc
-            }, 0) as number
-
-            const progress = findCourse.unit?.reduce((acc, u) => {
-              if (u.finished) acc++
-              u.topic?.forEach(t => {
-                if (t.finished) acc++
-              })
-              return acc
-            }, 0) as number
-
             const canGiveExam = findCourse.unit?.reduce(
               (acc, u, _, array) => {
                 if (u.finished) acc.unit++
@@ -55,7 +37,7 @@ const Home = () => {
                 key={index}
                 numberCourse={index + 1}
                 nameCourse={asignature.name}
-                progress={progress / sumAllTopicsWithUnit ?? 0}
+                progress={percentage[index]}
                 to={asignature._id}
                 StringImage={asignature.image}
                 canGiveExam={!!canGiveExam.can}

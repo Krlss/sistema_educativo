@@ -63,8 +63,8 @@ export const data = [
     options: "'[{\"x\":2,\"y\":3,\"url\":\"https://cdn-icons-png.flaticon.com/512/1960/1960021.png\",\"name\":\"León\"},{\"x\":1,\"y\":3,\"url\":\"https://cdn-icons-png.flaticon.com/512/547/547612.png\",\"name\":\"Familia\"},{\"x\":1,\"y\":5,\"url\":\"https://cdn-icons-png.flaticon.com/512/1046/1046283.png\",\"name\":\"Calculadora\"},{\"x\":3,\"y\":1,\"url\":\"https://cdn-icons-png.flaticon.com/512/864/864970.png\",\"name\":\"Escribir\"},{\"x\":3,\"y\":4,\"url\":\"https://cdn-icons-png.flaticon.com/512/2997/2997985.png\",\"name\":\"Reloj\"},{\"x\":5,\"y\":3,\"url\":\"https://cdn-icons-png.flaticon.com/512/6521/6521546.png\",\"name\":\"Mickey\"}]'",
     subtitle: '',
     title: 'Escriba las coordenadas de estos objetos'
-  },
-  {
+  }
+  /* {
     type: 'true_or_false_cp',
     _id: '637371ecfd325626f8d337d3',
     options: "'{\"correct\":false,\"points\":[{\"x\":4,\"y\":-1}]}'",
@@ -537,7 +537,7 @@ export const data = [
     options: "'{\"options\":[{\"value\":false,\"text\":\"Cacao - 24 752 230\"},{\"value\":false,\"text\":\"Banano - 41 252 320\"},{\"value\":true,\"text\":\"Café - 62 262 457\"}]}'",
     subtitle: null,
     title: 'Cúal es el producto con más producción'
-  }
+  } */
 ] as {
   _id: string
   options: string

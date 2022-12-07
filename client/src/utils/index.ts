@@ -127,3 +127,9 @@ export const secondsToTime = (secs: number) => {
   }
   return obj
 }
+
+export const diffMinutes = (inititalDate: Date) => {
+  const finalTimeStamp = new Date(inititalDate)
+  finalTimeStamp.setMinutes(finalTimeStamp.getMinutes() + 59)
+  return new Date() < finalTimeStamp
+}

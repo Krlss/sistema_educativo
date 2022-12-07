@@ -1,10 +1,11 @@
-import { USER, PROGRESS } from '../../types/contextUser'
+import { USER, PROGRESS, IUpdateFinishedTopic } from '../../types/ContextUser'
 import { setDataSession, removeDataSession } from '../../utils/dataSession'
 
 export type UserReducerProps =
   | { type: 'setUser'; payload: USER }
   | { type: 'resetUser'; payload: undefined }
   | { type: 'setUserProgress'; payload: PROGRESS[] }
+  | { type: 'updateFinishedTopic'; payload: IUpdateFinishedTopic }
 
 export default (state: USER, action: UserReducerProps) => {
   const { type, payload } = action
@@ -35,6 +36,39 @@ export default (state: USER, action: UserReducerProps) => {
       return {
         ...state,
         progress: payload
+      }
+    case 'updateFinishedTopic':
+      const { asignatureId, unitId, topicId } = payload
+      const progress = state.progress.map(asignature => {
+        if (asignature.id_asignature === asignatureId) {
+          const unit = asignature.unit?.map(unit => {
+            if (unit.id_unit === unitId) {
+              const topic = unit.topic.map(topic => {
+                if (topic.id_topic === topicId) {
+                  return {
+                    ...topic,
+                    finished: true
+                  }
+                }
+                return topic
+              })
+              return {
+                ...unit,
+                topic
+              }
+            }
+            return unit
+          })
+          return {
+            ...asignature,
+            unit
+          }
+        }
+        return asignature
+      })
+      return {
+        ...state,
+        progress
       }
     default:
       return state

@@ -1,4 +1,4 @@
-import { USER } from '../../types/contextUser'
+import { USER } from '../../types/ContextUser'
 
 export const InitialStateUser: USER = {
   _id: '',

@@ -2,12 +2,10 @@ import { NavLink } from 'react-router-dom'
 import { useGetAsignature } from '../../service/asignatures/custom-hook'
 import { useContext } from 'react'
 import GeneralContext from '../../contexts/context'
-import { PROGRESS } from '../../types/contextUser'
+import { PROGRESS } from '../../types/ContextUser'
 const CoursePresentation = () => {
   const { asignature, asignatureId, colors } = useGetAsignature()
-  const { user } = useContext(GeneralContext)
-
-  console.log({ user })
+  const { user, gameState } = useContext(GeneralContext)
 
   return (
     <div className="px-2">
@@ -66,11 +64,12 @@ const CoursePresentation = () => {
                     </div>
                   </div>
                 </NavLink>
-                {asignature.unit.length === isCompleted && (
-                  <div className="px-3 py-2 bg-yellow-page text-black font-bold text-sm rounded mr-4 max-w-[110px] w-full text-center shadow-md">
-                    <a>Dar prueba</a>
-                  </div>
-                )}
+                {asignature.unit[index].topic.length === isCompleted &&
+                  !gameState.timeLeft && (
+                    <div className="px-3 py-2 bg-yellow-page text-black font-bold text-sm rounded mr-4 max-w-[110px] w-full text-center shadow-md hover:bg-yellow2-page">
+                      <a>Dar prueba</a>
+                    </div>
+                  )}
               </div>
             )
           })}

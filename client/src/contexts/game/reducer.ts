@@ -1,4 +1,8 @@
-import { QuestionsExtends, QUESTION } from '../../types/contextGame'
+import {
+  QuestionsExtends,
+  QUESTION,
+  IInitialGame
+} from '../../types/contextGame'
 
 export type GameReducerProps =
   | { type: 'setQuestions'; payload: QuestionsExtends[] }
@@ -6,6 +10,12 @@ export type GameReducerProps =
   | { type: 'removeQuestion'; payload: string }
   | { type: 'updatedQuestion'; payload: QuestionsExtends }
   | { type: 'setIndex'; payload: number }
+  | {
+      type: 'setInitialGame'
+      payload: IInitialGame
+    }
+  | { type: 'setTimeLeft'; payload: number }
+  | { type: 'resetGame'; payload: undefined }
 
 export default (state: QUESTION, action: GameReducerProps) => {
   const { type, payload } = action
@@ -37,6 +47,27 @@ export default (state: QUESTION, action: GameReducerProps) => {
       return {
         ...state,
         index: payload
+      }
+    case 'setInitialGame':
+      return {
+        ...state,
+        initialTimeStamp: payload.initialTimeStamp,
+        finalTimeStamp: payload.finalTimeStamp,
+        timeLeft: payload.timeLeft
+      }
+    case 'setTimeLeft':
+      return {
+        ...state,
+        timeLeft: payload
+      }
+    case 'resetGame':
+      return {
+        ...state,
+        questions: [],
+        index: 0,
+        initialTimeStamp: undefined,
+        finalTimeStamp: undefined,
+        timeLeft: 0
       }
     default:
       return state

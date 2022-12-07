@@ -35,3 +35,9 @@ export interface USER {
   rememberMe: boolean
   progress: PROGRESS[]
 }
+
+export interface IUpdateFinishedTopic {
+  asignatureId: string
+  unitId: string
+  topicId: string
+}

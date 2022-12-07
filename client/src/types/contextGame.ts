@@ -8,4 +8,13 @@ export interface QuestionsExtends {
 export interface QUESTION {
   questions: QuestionsExtends[]
   index: number
+  initialTimeStamp?: Date
+  finalTimeStamp?: Date
+  timeLeft: number
+}
+
+export interface IInitialGame {
+  initialTimeStamp?: Date
+  finalTimeStamp?: Date
+  timeLeft: number
 }

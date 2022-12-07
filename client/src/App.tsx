@@ -6,7 +6,6 @@ import DefaultAplicacion from './pages/aplication'
 import CoursePresentation from './pages/home/CoursePresentation'
 import UnitPresentation from './pages/home/UnitPresentation'
 import ClassPresentation from './pages/home/ClassPresentation'
-import Courses from './pages/home/courses'
 import { Routes, Route } from 'react-router-dom'
 import { useContext } from 'react'
 import GeneralContext from './contexts/context'
@@ -22,7 +21,6 @@ const App = () => {
         <Route path="/registrarse" element={<Register />} />
         <Route path="/" element={<DefaultAplicacion />}>
           <Route path="/" element={<Home />} />
-          <Route path="/cursos" element={<Courses />} />
           <Route
             path="/asignatura/:asignatureId"
             element={<CoursePresentation />}
@@ -36,6 +34,10 @@ const App = () => {
             element={<ClassPresentation />}
           />
           <Route path="/prueba" element={<Game />} />
+          <Route
+            path="/asignatura/:asignatureId/unidad/:unitId/prueba"
+            element={<Game />}
+          />
         </Route>
         <Route path="*" element={<Page404 />} />
       </Routes>

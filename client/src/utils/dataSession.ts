@@ -1,5 +1,5 @@
 import Cookie from 'universal-cookie'
-import { USER } from '../types/contextUser'
+import { USER } from '../types/ContextUser'
 
 export const setDataSession = (key: string, value: USER) => {
   const cookie = new Cookie()
@@ -28,4 +28,13 @@ export const setDataTest = (key: string, value: any) => {
   cookie.set(key, value, {
     path: '/'
   })
+}
+
+export const setDataQuestionLocalStore = (key: string, value: any) => {
+  localStorage.setItem(key, JSON.stringify(value))
+}
+
+export const getDataQuestionLocalStore = (key: string) => {
+  const data = localStorage.getItem(key)
+  return data ? JSON.parse(data) : null
 }

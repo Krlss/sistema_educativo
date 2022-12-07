@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import { USER } from '../types/contextUser'
+import { USER } from '../types/ContextUser'
 import { ASIGNATURE } from '../types/ContextAsignature'
 import { QuestionsExtends, QUESTION } from '../types/contextGame'
 
@@ -19,6 +19,13 @@ export type GeneralContextProps = {
   updatedQuestion: (question: QuestionsExtends) => void
   setIndex: (index: number) => void
   gameState: QUESTION
+  updateFinishedTopic: (
+    asignatureId: string,
+    unitId: string,
+    topicId: string
+  ) => void
+  setInitialGame: () => void
+  resetGame: () => void
 }
 
 const GeneralContext = createContext<GeneralContextProps>(

@@ -27,12 +27,14 @@ import {
 import { getQuadrant } from '../utils/CartesianCoordinate'
 import { writePointsCoordinatePlane_, typeQuestion } from '../types/game'
 import { stripquotes } from '../utils'
+import GeneralContext from '../contexts/context'
 import {
   setDataTest,
-  getDataSession,
-  removeDataSession
+  setDataQuestionLocalStore,
+  getDataQuestionLocalStore
 } from '../utils/dataSession'
-import GeneralContext from '../contexts/context'
+import { QuestionsExtends } from '../types/contextGame'
+import Swal from 'sweetalert2'
 
 const useGame = (
   data: {
@@ -43,9 +45,9 @@ const useGame = (
     subtitle: string | null
   }[]
 ) => {
-  const { gameState, setIndex, setQuestions } = useContext(GeneralContext)
+  const { gameState, setIndex, setQuestions, setInitialGame, resetGame } =
+    useContext(GeneralContext)
   const [dataGame, setDataGame] = useState<any[]>([])
-  const [timer, setTimer] = useState(getDataSession('test')?.timer ?? 3599)
 
   const [nextDisabled, setNextDisabled] = useState(false)
 
@@ -186,56 +188,47 @@ const useGame = (
 
     setDataGame(array)
 
-    const questions = data.map(item => ({
-      _id: item._id,
-      nota: 0,
-      isDone: false
-    })) as {
-      _id: string
-      nota: number
-      isDone: boolean
-    }[]
+    const existQuestions = getDataQuestionLocalStore('questions')
+    var questions: QuestionsExtends[] = []
+    if (!existQuestions) {
+      questions = data.map(item => ({
+        _id: item._id,
+        nota: 0,
+        isDone: false
+      })) as {
+        _id: string
+        nota: number
+        isDone: boolean
+      }[]
+    } else {
+      questions = existQuestions
+    }
     setQuestions(questions)
   }
 
   const nextExercise = () => {
-    if (timer > 0) {
+    if (gameState.timeLeft > 0) {
       if (gameState.index === dataGame.length - 1) {
-        alert('Terminaste el juego')
-        setIndex(0)
+        Swal.fire({
+          title: 'Terminaste la prueba',
+          text: 'Tus respuestas serán guardadas',
+          icon: 'success'
+        }).then(() => {
+          resetGame()
+          window.location.reload()
+        })
       }
       if (gameState.index < dataGame.length - 1) {
+        setDataTest('indexQuestion', gameState.index + 1)
+        setDataQuestionLocalStore('questions', gameState.questions)
         setIndex(gameState.index + 1)
       }
     }
   }
 
-  /* useEffect(() => {
-    if (timer === 0) {
-      removeDataSession('test')
-      alert('Se acabo el tiempo')
-    } else {
-      setTimeout(() => {
-        setTimer(timer - 1)
-      }, 1000)
-    }
-    setDataTest('test', { dataGameIndex, timer })
-  }, [timer]) */
-
   useEffect(() => {
-    const data = getDataSession('test')
-    if (data?.timer === 0) {
-      removeDataSession('test')
-      setTimer(3599)
-    }
-
     loadExercise()
-    const handleTabClose = (event: any) => {
-      event.preventDefault()
-      return (event.returnValue = '')
-    }
-
-    window.addEventListener('beforeunload', handleTabClose)
+    setInitialGame()
   }, [])
 
   useEffect(() => {
@@ -255,7 +248,6 @@ const useGame = (
   return {
     dataGame,
     gameState,
-    timer,
     nextExercise,
     nextDisabled
   }

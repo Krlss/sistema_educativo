@@ -1,11 +1,11 @@
 import { useLazyQuery, useMutation } from '@apollo/client'
 import { GETTOPICS } from './graphql-queries'
-import { CREATEUSERUNIT } from './graphql-mutations'
+import { CREATEUSERUNIT, updatedFinishedTopic } from './graphql-mutations'
 import { getRamdonArrayColors } from '../../constants/colors'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState, useContext } from 'react'
 import GeneralContext from '../../contexts/context'
-import { USER } from '../../types/contextUser'
+import { USER } from '../../types/ContextUser'
 import { getDataSession } from '../../utils/dataSession'
 
 interface IGetTopics {
@@ -103,8 +103,6 @@ export const useGetTopics = () => {
     })
   }
 
-  console.log({ user })
-
   useEffect(() => {
     getTopicsHandler({
       asignatureId,
@@ -125,5 +123,20 @@ export const useGetTopics = () => {
     colors,
     asignatureId,
     unitId
+  }
+}
+
+export const useUpdatedFinishedTopic = () => {
+  const [updatedFinishedTopicMutation] = useMutation(updatedFinishedTopic, {
+    onError(error) {
+      console.error('Error updating finished topic', error)
+    },
+    onCompleted() {
+      console.log('topic updated')
+    }
+  })
+
+  return {
+    updatedFinishedTopicMutation
   }
 }

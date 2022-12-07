@@ -4,7 +4,7 @@ import { InitialStateConfig } from './config/initialState'
 import UserReducer from './user/reducer'
 import GeneralContext from './context'
 import ConfigReducer from './config/reducer'
-import { USER } from '../types/contextUser'
+import { USER } from '../types/ContextUser'
 import { ASIGNATURE } from '../types/ContextAsignature'
 import GameReducer from './game/reducer'
 import { InitialStateGame } from './game/initialState'
@@ -15,7 +15,13 @@ import {
   getAsignaturesProps
 } from '../service/asignatures/custom-hook'
 import { useGetUserProgress } from '../service/progress/custom-hook'
-import { getDataSession } from '../utils/dataSession'
+import {
+  getDataSession,
+  removeDataSession,
+  setDataTest
+} from '../utils/dataSession'
+import { diffMinutes } from '../utils'
+import Swal from 'sweetalert2'
 
 const GeneralProvider = (props: any) => {
   const [user, dispatchUser] = useReducer(UserReducer, InitialStateUser)
@@ -94,6 +100,96 @@ const GeneralProvider = (props: any) => {
     })
   }
 
+  useEffect(() => {
+    const initialTimeStamp = getDataSession('initialTimeStamp') as Date | null
+    if (initialTimeStamp) {
+      setInitialGame()
+      const diff = diffMinutes(initialTimeStamp)
+      if (diff) {
+        setTimeout(() => {
+          dispatchGame({
+            type: 'setTimeLeft',
+            payload: gameState.timeLeft - 1
+          })
+        }, 1000)
+      } else {
+        if (!diff) {
+          Swal.fire({
+            title: 'Se acabo el tiempo',
+            text: 'Tus respuestas serán guardadas',
+            icon: 'warning'
+          }).then(() => {
+            window.location.reload()
+            resetGame()
+          })
+        }
+      }
+    }
+  }, [gameState.timeLeft])
+
+  const resetGame = () => {
+    removeDataSession('initialTimeStamp')
+    removeDataSession('indexQuestion')
+    localStorage.removeItem('questions')
+    dispatchGame({
+      type: 'resetGame',
+      payload: undefined
+    })
+  }
+
+  const setInitialGame = () => {
+    const initialTimeStamp = getDataSession('initialTimeStamp') as Date | null
+    const indexQuestion = getDataSession('indexQuestion') as number | null
+    setIndex(Number(indexQuestion) || 0)
+    if (initialTimeStamp) {
+      const diff = diffMinutes(initialTimeStamp)
+      const finalTimeStamp = new Date(initialTimeStamp)
+      finalTimeStamp.setMinutes(finalTimeStamp.getMinutes() + 59)
+      if (diff) {
+        const timeLeft = Math.floor(
+          (finalTimeStamp.getTime() - new Date().getTime()) / 1000
+        )
+        dispatchGame({
+          type: 'setInitialGame',
+          payload: {
+            initialTimeStamp,
+            finalTimeStamp,
+            timeLeft
+          }
+        })
+      }
+      // aaqui va un else alert('Se acabo el tiempo')
+    } else {
+      setDataTest('initialTimeStamp', new Date())
+      const initialTimeStamp = new Date()
+      const finalTimeStamp = new Date(initialTimeStamp)
+      finalTimeStamp.setMinutes(finalTimeStamp.getMinutes() + 59)
+      dispatchGame({
+        type: 'setInitialGame',
+        payload: {
+          initialTimeStamp,
+          finalTimeStamp,
+          timeLeft: 3599
+        }
+      })
+    }
+  }
+
+  const updateFinishedTopic = (
+    asignatureId: string,
+    unitId: string,
+    topicId: string
+  ) => {
+    dispatchUser({
+      type: 'updateFinishedTopic',
+      payload: {
+        asignatureId,
+        unitId,
+        topicId
+      }
+    })
+  }
+
   return (
     <GeneralContext.Provider
       value={{
@@ -108,7 +204,10 @@ const GeneralProvider = (props: any) => {
         removeQuestion,
         updatedQuestion,
         setIndex,
-        gameState
+        gameState,
+        updateFinishedTopic,
+        setInitialGame,
+        resetGame
       }}>
       {props.children}
     </GeneralContext.Provider>
