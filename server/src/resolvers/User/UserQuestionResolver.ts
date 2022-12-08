@@ -220,7 +220,7 @@ export class UserQuestionResolver {
         if (userunit) {
           if (!userunit.questions) {
             const questionResolver = new QuestionResolver();
-            const questions = await questionResolver.getRandomQuestions(
+            const questions = await questionResolver.getRandomUnitQuestions(
               asignatureId,
               unitId
             );
