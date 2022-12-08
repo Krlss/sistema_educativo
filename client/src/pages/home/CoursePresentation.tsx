@@ -1,11 +1,14 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import { useGetAsignature } from '../../service/asignatures/custom-hook'
 import { useContext } from 'react'
 import GeneralContext from '../../contexts/context'
 import { PROGRESS } from '../../types/ContextUser'
+import { getDataSession } from '../../utils/dataSession'
+
 const CoursePresentation = () => {
   const { asignature, asignatureId, colors } = useGetAsignature()
   const { user, gameState } = useContext(GeneralContext)
+  const questionsId = getDataSession('questionsId')
 
   return (
     <div className="px-2">
@@ -64,11 +67,25 @@ const CoursePresentation = () => {
                     </div>
                   </div>
                 </NavLink>
+
+                {asignature.unit[index].topic.length === isCompleted &&
+                  questionsId?.asignatureId === asignature._id &&
+                  questionsId?.unitId === asignature.unit[index]._id &&
+                  gameState.timeLeft && (
+                    <DarPruebaDiv
+                      asignature={asignature._id}
+                      unit={asignature.unit[index]._id}
+                      title="Continuar"
+                    />
+                  )}
+
                 {asignature.unit[index].topic.length === isCompleted &&
                   !gameState.timeLeft && (
-                    <div className="px-3 py-2 bg-yellow-page text-black font-bold text-sm rounded mr-4 max-w-[110px] w-full text-center shadow-md hover:bg-yellow2-page">
-                      <a>Dar prueba</a>
-                    </div>
+                    <DarPruebaDiv
+                      asignature={asignature._id}
+                      unit={asignature.unit[index]._id}
+                      title="Dar prueba"
+                    />
                   )}
               </div>
             )
@@ -80,3 +97,21 @@ const CoursePresentation = () => {
 }
 
 export default CoursePresentation
+
+const DarPruebaDiv = ({
+  asignature,
+  unit,
+  title
+}: {
+  asignature: string
+  unit: string
+  title: string
+}) => {
+  return (
+    <div className="px-3 py-2 bg-yellow-page text-black font-bold text-sm rounded mr-4 max-w-[110px] w-full text-center shadow-md hover:bg-yellow2-page">
+      <Link to={`/asignatura/${asignature}/unidad/${unit}/prueba`}>
+        {title}
+      </Link>
+    </div>
+  )
+}

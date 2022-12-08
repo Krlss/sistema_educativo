@@ -1,15 +1,14 @@
 import QuestionTitle from '../title/questionTitle'
 import { question, chooseAnOption_ } from '../../types/game'
 import { stripquotes } from '../../utils'
-import Radio from '../inputs/radio'
-import useChooseAnOption from '../../hooks/useChooseAnOption'
+import useChooseAnyOption from '../../hooks/useChooseAnyOption'
 
 const ChooseAnOption = (props: question) => {
   const { options, columns, urlDescription } = stripquotes(
     props.options
   ) as chooseAnOption_
 
-  const { setAnswer } = useChooseAnOption({
+  const { handleAnswer } = useChooseAnyOption({
     options_: options,
     question: props
   })
@@ -48,10 +47,12 @@ const ChooseAnOption = (props: question) => {
             <div
               key={index}
               className="flex flex-row items-center justify-start">
-              <Radio
+              <input
+                type="checkbox"
                 name="answer"
                 value={option.text}
-                onChange={e => setAnswer(e.target.value)}
+                className="appearance-none w-4 h-4 rounded checked:bg-yellow-page border-2 checked:border-0 cursor-pointer bg-white"
+                onChange={e => handleAnswer(option)}
               />
               {option?.image && (
                 <img

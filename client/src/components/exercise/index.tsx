@@ -21,3 +21,4 @@ export { default as TrueOrFalseNumbersAndText } from './TrueOrFalseNumbersAndTex
 export { default as WriteNumberPositional } from './WriteNumberPositional'
 export { default as WritePointsCartesianPlane } from './WritePointsCartesianPlane'
 export { default as WriteValueFromText } from './WriteValueFromText'
+export { default as ChooseAnyOption } from './ChooseAnyOption'

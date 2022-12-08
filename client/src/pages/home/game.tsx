@@ -3,7 +3,7 @@ import useGame from '../../hooks/useGame'
 import { secondsToTime } from '../../utils'
 
 const Game = () => {
-  const { dataGame, gameState, nextExercise, nextDisabled } = useGame(data)
+  const { dataGame, gameState, nextExercise, nextDisabled } = useGame()
   const { h, m, s } = secondsToTime(gameState.timeLeft)
 
   return (

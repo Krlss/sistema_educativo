@@ -5,6 +5,7 @@ export type typeQuestion =
   | 'true_or_false_numbers_and_text'
   | 'put_points_in_cp'
   | 'choose_an_option'
+  | 'choose_any_option'
   | 'choose_an_option_textnumber'
   | 'write_coor_cp'
   | 'write_value_from_text'
@@ -25,6 +26,7 @@ export type typeQuestion =
 export type chooseAnOptionType = {
   text: string
   value: boolean
+  image?: string
 }
 
 export interface chooseAnOption_ {
@@ -180,4 +182,12 @@ export interface writeValueFromText_ {
   text: string
   value: string
   response?: string
+}
+
+export interface getRandomQuestionsProps {
+  getRandomQuestions: question[]
+}
+
+export interface getRandomQuestionsByAsignatures {
+  getRandomQuestionsByAsignatures: question[]
 }

@@ -10,7 +10,17 @@ import ResponseTextDroppable from '../dragAndDrop/responseTextDroppable'
 import QuestionTitle from '../title/questionTitle'
 import useDragAndDropChooseText from '../../hooks/useDragAndDropChooseText'
 
-const PlaceSign = (props: question) => {
+const props = {
+  type: 'place_sign',
+  _id: '637374dffd325626f8d3380f',
+  options:
+    '\'[{"value":"<","text1":"524 260","text2":"854 125"},{"value":">","text1":"658 014","text2":"658 010"},{"value":">","text1":"417 520","text2":"417 250"}]\'',
+  subtitle: null,
+  title: 'Coloca los signos > ; < o = en cada caja',
+  index: 1
+} as question
+
+const PlaceSign = () => {
   const opt = stripquotes(props.options) as PlaceSing_[]
 
   const opt_ = opt.map(item => {
