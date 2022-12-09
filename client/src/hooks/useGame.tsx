@@ -229,7 +229,8 @@ const useGame = () => {
       questions_ = existQuestions
     }
     setQuestions(questions_)
-    localStorage.setItem('array', JSON.stringify(array))
+    const arrayExist = getDataQuestionLocalStore('array')
+    setDataQuestionLocalStore('array', arrayExist || questions)
   }
 
   const nextExercise = () => {
@@ -277,11 +278,10 @@ const useGame = () => {
       setLoading(false)
       return
     } */
-    const localStorageQuestion = localStorage.getItem('array')
-    const questions_ = localStorageQuestion
-      ? JSON.parse(localStorageQuestion)
-      : []
-    setDataGame(questions_)
+
+    const localStorageQuestion = getDataQuestionLocalStore('array')
+    const questions_ = localStorageQuestion || []
+    setQuestions_(questions_)
     setLoading(false)
   }, [])
 

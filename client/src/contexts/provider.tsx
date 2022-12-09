@@ -18,7 +18,8 @@ import { useGetUserProgress } from '../service/progress/custom-hook'
 import {
   getDataSession,
   removeDataSession,
-  setDataTest
+  setDataTest,
+  removeQuestionLocalStore
 } from '../utils/dataSession'
 import { diffMinutes } from '../utils'
 import Swal from 'sweetalert2'
@@ -119,6 +120,10 @@ const GeneralProvider = (props: any) => {
             text: 'Tus respuestas serán guardadas',
             icon: 'warning'
           }).then(() => {
+            removeDataSession('initialTimeStamp')
+            removeDataSession('questionsId')
+            removeQuestionLocalStore('array')
+            removeQuestionLocalStore('questions')
             window.location.reload()
             resetGame()
           })
@@ -130,7 +135,9 @@ const GeneralProvider = (props: any) => {
   const resetGame = () => {
     removeDataSession('initialTimeStamp')
     removeDataSession('indexQuestion')
-    localStorage.removeItem('questions')
+    removeDataSession('questionsId')
+    removeQuestionLocalStore('array')
+    removeQuestionLocalStore('questions')
     dispatchGame({
       type: 'resetGame',
       payload: undefined

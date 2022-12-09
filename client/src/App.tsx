@@ -11,7 +11,7 @@ import { useContext } from 'react'
 import GeneralContext from './contexts/context'
 import Game from './pages/home/game'
 import LoadingAllScreen from './components/loader/all-screen'
-import PlaceSign from './components/exercise/PlaceSign'
+
 const App = () => {
   const { config } = useContext(GeneralContext)
   return (
@@ -38,7 +38,6 @@ const App = () => {
             path="/asignatura/:asignatureId/unidad/:unitId/prueba"
             element={<Game />}
           />
-          <Route path="poner-signo" element={<PlaceSign />} />
         </Route>
         <Route path="*" element={<Page404 />} />
       </Routes>

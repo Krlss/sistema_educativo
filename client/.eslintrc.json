@@ -32,7 +32,6 @@
             {
                 "SwitchCase": 1
             }
-        ],
-        "no-case-declarations": "off"
+        ]
     }
 }
