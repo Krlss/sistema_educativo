@@ -26,12 +26,8 @@
             "error",
             "never"
         ],
-        "indent": [
-            "never",
-            2,
-            {
-                "SwitchCase": 1
-            }
-        ]
+        "indent": "off",
+        "multiline-ternary": "off",
+        "no-case-declarations": "off"
     }
 }

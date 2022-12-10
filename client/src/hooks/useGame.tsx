@@ -23,7 +23,9 @@ import {
   WriteNumberPositional,
   WritePointsCartesianPlane,
   WriteValueFromText,
-  ChooseAnyOption
+  ChooseAnyOption,
+  PositionalRest,
+  DragAndDropComplete
 } from '../components/exercise'
 import { getQuadrant } from '../utils/CartesianCoordinate'
 import {
@@ -87,7 +89,7 @@ const useGame = () => {
           )
         case 'choose_any_option':
           return array.push(
-            <ChooseAnOption key={index} {...item} index={index} />
+            <ChooseAnyOption key={index} {...item} index={index} />
           )
         case 'choose_an_option_textnumber':
           return array.push(
@@ -106,6 +108,10 @@ const useGame = () => {
         case 'drag_and_drop_text':
           return array.push(
             <DragAndDropChooseText key={index} {...item} index={index} />
+          )
+        case 'drag_and_drop_complete':
+          return array.push(
+            <DragAndDropComplete key={index} {...item} index={index} />
           )
 
         case 'listen_numbers':
@@ -129,6 +135,10 @@ const useGame = () => {
         case 'positional_sum':
           return array.push(
             <PositionalSum key={index} {...item} index={index} />
+          )
+        case 'positional_rest':
+          return array.push(
+            <PositionalRest key={index} {...item} index={index} />
           )
 
         case 'positional_table':
@@ -214,7 +224,7 @@ const useGame = () => {
 
     setDataGame(array)
     const existQuestions = getDataQuestionLocalStore('questions')
-    var questions_: QuestionsExtends[] = []
+    let questions_: QuestionsExtends[] = []
     if (!existQuestions) {
       questions_ = questions.map(item => ({
         _id: item._id,

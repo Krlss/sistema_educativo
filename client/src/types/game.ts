@@ -22,6 +22,8 @@ export type typeQuestion =
   | 'base10_descomposition'
   | 'positional_sum'
   | 'place_sign'
+  | 'positional_rest'
+  | 'drag_and_drop_complete'
 
 export type chooseAnOptionType = {
   text: string
@@ -83,6 +85,15 @@ export interface dragAndDropSets_ {
 
 export interface dragAndDropChooseText_ {
   value: string
+  text: string
+}
+
+export interface dragAndDropComplete_ {
+  options: {
+    value: string
+    text: string
+  }[]
+  correct: string[]
   text: string
 }
 

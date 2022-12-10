@@ -11,7 +11,7 @@ import { useContext } from 'react'
 import GeneralContext from './contexts/context'
 import Game from './pages/home/game'
 import LoadingAllScreen from './components/loader/all-screen'
-
+import DragAndDropComplete from './components/exercise/DragAndDropComplete'
 const App = () => {
   const { config } = useContext(GeneralContext)
   return (

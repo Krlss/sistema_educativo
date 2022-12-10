@@ -133,3 +133,36 @@ export const diffMinutes = (inititalDate: Date) => {
   finalTimeStamp.setMinutes(finalTimeStamp.getMinutes() + 59)
   return new Date() < finalTimeStamp
 }
+
+export const createArrayComplete = (text: string) => {
+  const array = text.split(' ')
+  const newArray: {
+    text: string
+    index?: number
+  }[] = []
+
+  let text_: string = ''
+  let cont = 0
+  for (let i = 0; i < array.length; i++) {
+    if (!array[i].includes('__')) {
+      text_ = text_ + ' ' + array[i]
+      if (i === array.length - 1) {
+        newArray.push({
+          text: text_.trim()
+        })
+      }
+    } else if (array[i].includes('__')) {
+      if (text_) {
+        newArray.push({
+          text: text_.trim()
+        })
+      }
+      text_ = ''
+      newArray.push({
+        text: array[i],
+        index: cont++
+      })
+    }
+  }
+  return newArray
+}
