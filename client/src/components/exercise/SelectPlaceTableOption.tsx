@@ -80,16 +80,16 @@ const SelectPlaceTableOption = (props: question) => {
         {selected.map((option, index) => (
           <div
             key={index}
-            className="flex items-center justify-around py-2 gap-4">
+            className="flex items-start justify-around py-2 gap-4 w-full">
             <div
-              className="flex items-center justify-center px-4 py-2 w-44 rounded shadow"
+              className="flex items-center justify-start px-4 py-2 rounded shadow w-full"
               style={{
                 backgroundColor: colors[index]
               }}>
               <h1 className="font-medium text-left">{option.text}</h1>
             </div>
             <select
-              className="shadow p-2 w-full rounded"
+              className="shadow p-2 rounded"
               placeholder="Selecciona una opción"
               onChange={e => handleChange(e, index)}>
               <option value={undefined}>Selecciona una opción</option>

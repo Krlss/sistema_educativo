@@ -21,10 +21,10 @@ const PositionalSum = (props: question) => {
 
   useEffect(() => {
     if (answer) {
-      const sum = value.reduce((a, b) => a + b, 0)
+      const mult = value.reduce((a, b) => a * b, 0)
       const newQuestion = {
         _id: props._id,
-        nota: sum === parseInt(answer) ? 1 : 0,
+        nota: mult === parseInt(answer) ? 1 : 0,
         isDone: true,
         responseUser: JSON.stringify({ answer })
       }
@@ -53,7 +53,7 @@ const PositionalSum = (props: question) => {
           return (
             <div key={index} className="text-lg flex items-center justify-end">
               {index === value.length - 1 && (
-                <span className="text-2xl font-bold">+ </span>
+                <span className="text-2xl font-bold">× </span>
               )}
               <span>{v} </span>
             </div>

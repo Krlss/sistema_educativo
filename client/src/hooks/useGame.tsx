@@ -25,7 +25,10 @@ import {
   WriteValueFromText,
   ChooseAnyOption,
   PositionalRest,
-  DragAndDropComplete
+  DragAndDropComplete,
+  PositionalMult,
+  OperationBaseN,
+  SimpleMulti
 } from '../components/exercise'
 import { getQuadrant } from '../utils/CartesianCoordinate'
 import {
@@ -113,6 +116,12 @@ const useGame = () => {
           return array.push(
             <DragAndDropComplete key={index} {...item} index={index} />
           )
+        case 'table_multiplication':
+          return array.push(
+            <OperationBaseN key={index} {...item} index={index} />
+          )
+        case 'simple_multi':
+          return array.push(<SimpleMulti key={index} {...item} index={index} />)
 
         case 'listen_numbers':
           return array.push(
@@ -140,7 +149,10 @@ const useGame = () => {
           return array.push(
             <PositionalRest key={index} {...item} index={index} />
           )
-
+        case 'positional_mult':
+          return array.push(
+            <PositionalMult key={index} {...item} index={index} />
+          )
         case 'positional_table':
           return array.push(
             <PositionalTable key={index} {...item} index={index} />

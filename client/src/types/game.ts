@@ -21,9 +21,12 @@ export type typeQuestion =
   | 'order'
   | 'base10_descomposition'
   | 'positional_sum'
+  | 'positional_mult'
+  | 'table_multiplication'
   | 'place_sign'
   | 'positional_rest'
   | 'drag_and_drop_complete'
+  | 'simple_multi'
 
 export type chooseAnOptionType = {
   text: string
@@ -201,4 +204,14 @@ export interface getRandomQuestionsProps {
 
 export interface getRandomQuestionsByAsignatures {
   getRandomQuestionsByAsignatures: question[]
+}
+
+export interface operationBaseN_ {
+  base: number[]
+  digits: number[]
+}
+
+export interface simpleMulti_ {
+  value: number
+  text: string
 }

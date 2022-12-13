@@ -49,8 +49,15 @@ const PositionalSum = (props: question) => {
         index={props.index}
       />
       <div className="flex flex-col mt-2 text-right">
-        {value.map((value, index) => {
-          return <span key={index}>{value}</span>
+        {value.map((v, index) => {
+          return (
+            <div key={index} className="text-lg flex items-center justify-end">
+              {index === value.length - 1 && (
+                <span className="text-2xl font-bold">- </span>
+              )}
+              <span> {v} </span>
+            </div>
+          )
         })}
         <input
           type="text"
