@@ -28,6 +28,8 @@ const useDragAndDropChooseText = ({
     }
   })
 
+  const lengthText = defaultData.filter(option => option.text).length
+
   interface IOptions {
     value: string
     text: string
@@ -37,7 +39,7 @@ const useDragAndDropChooseText = ({
 
   const [options, setOptions] = useState<IOptions[]>(shuffleArray(newOptions))
   const [anwers, setAnswers] = useState<VerifyDragAndDropChooseTextProps[]>(
-    Array(options.length).fill(undefined)
+    Array(lengthText).fill(undefined)
   )
 
   const onDragEnd = (result: DropResult) => {
@@ -65,14 +67,15 @@ const useDragAndDropChooseText = ({
       }
       setAnswers(newAnswers)
 
-      if (!options.length) {
+      const isDone = newAnswers.every(answer => answer !== undefined)
+      if (isDone) {
         const response = verifyDragAndDropChooseText(newAnswers)
         if (response) {
           const newQuestion = {
             _id: question._id,
             nota: response.note,
             isDone: true,
-            responseUser: JSON.stringify({ anwers })
+            responseUser: JSON.stringify({ anwers: newAnswers })
           }
 
           const find = gameState.questions.find(

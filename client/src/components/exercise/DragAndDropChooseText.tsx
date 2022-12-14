@@ -42,18 +42,21 @@ const DragAndDropChooseText = (props: question) => {
           ))}
         </ContentDroppable>
         <div className="flex flex-col mt-2 mb-20">
-          {options_.map((item, index) => (
-            <ResponseTextDroppable
-              key={item.value}
-              droppableId={`respuesta-${index}`}
-              direction="horizontal"
-              index={index}
-              item={item}
-              removeAnswer={removeAnswer}
-              response={anwers}
-              isDropDisabled={!!anwers[index]}
-            />
-          ))}
+          {options_.map(
+            (item, index) =>
+              item?.text && (
+                <ResponseTextDroppable
+                  key={item.value}
+                  droppableId={`respuesta-${index}`}
+                  direction="horizontal"
+                  index={index}
+                  item={item}
+                  removeAnswer={removeAnswer}
+                  response={anwers}
+                  isDropDisabled={!!anwers[index]}
+                />
+              )
+          )}
         </div>
       </DragDropContext>
     </>

@@ -1,6 +1,6 @@
 export interface DataInterface {
   value: string
-  text: string
+  text?: string
 }
 
 export interface DataInterfaceOriginal {

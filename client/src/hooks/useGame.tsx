@@ -28,7 +28,8 @@ import {
   DragAndDropComplete,
   PositionalMult,
   OperationBaseN,
-  SimpleMulti
+  SimpleMulti,
+  OperationSimple
 } from '../components/exercise'
 import { getQuadrant } from '../utils/CartesianCoordinate'
 import {
@@ -89,6 +90,10 @@ const useGame = () => {
         case 'choose_an_option':
           return array.push(
             <ChooseAnOption key={index} {...item} index={index} />
+          )
+        case 'operation_simple':
+          return array.push(
+            <OperationSimple key={index} {...item} index={index} />
           )
         case 'choose_any_option':
           return array.push(

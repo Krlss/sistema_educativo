@@ -27,6 +27,7 @@ export type typeQuestion =
   | 'positional_rest'
   | 'drag_and_drop_complete'
   | 'simple_multi'
+  | 'operation_simple'
 
 export type chooseAnOptionType = {
   text: string
@@ -88,7 +89,7 @@ export interface dragAndDropSets_ {
 
 export interface dragAndDropChooseText_ {
   value: string
-  text: string
+  text?: string
 }
 
 export interface dragAndDropComplete_ {
@@ -214,4 +215,10 @@ export interface operationBaseN_ {
 export interface simpleMulti_ {
   value: number
   text: string
+}
+
+export interface operationSimple_ {
+  operation: string
+  correct: number
+  residuo?: number
 }
