@@ -11,6 +11,12 @@ interface IPositionalTable {
   response: string[]
 }
 
+interface TableValues {
+  original: string
+  response?: string
+  isCorrect: boolean
+}
+
 const usePositionalTable = ({
   options_,
   question
@@ -28,8 +34,16 @@ const usePositionalTable = ({
 
   const [values] = useState(options_)
   const [colors, setColors] = useState<string[]>([])
-  const [tableValues, setTableValues] = useState<Array<Array<string>>>(
-    Array(values.length).fill(Array(lengthOfValues).fill(undefined))
+  const [tableValues, setTableValues] = useState<TableValues[][]>(
+    values.map((row, i) => {
+      return Array.from(row.value).map((_, j) => {
+        return {
+          original: values[i].value[j],
+          response: undefined,
+          isCorrect: false
+        }
+      })
+    })
   )
 
   useEffect(() => {
@@ -62,7 +76,11 @@ const usePositionalTable = ({
       if (i === index) {
         return item.map((value, j) => {
           if (j === row) {
-            return e.target.value
+            return {
+              ...value,
+              response: e.target.value,
+              isCorrect: e.target.value === value.original
+            }
           }
           return value
         })
@@ -75,18 +93,15 @@ const usePositionalTable = ({
 
   useEffect(() => {
     const isAllFilled = tableValues.every(item => {
-      return item.every(value => !!value)
+      return item.every(value => value.response !== undefined)
     })
     if (isAllFilled) {
-      const joinedValues = tableValues.map(item => item.join(''))
-      const correct = joinedValues.reduce(
+      const correct = tableValues.reduce(
         (acc, value, i) => {
-          if (value === values[i].value) {
-            acc.correct++
-          }
+          if (value.every(value => value.isCorrect)) acc.correct++
           return {
             ...acc,
-            note: Number((acc.correct / joinedValues.length).toFixed(2))
+            note: Number((acc.correct / tableValues.length).toFixed(2))
           }
         },
         {
@@ -99,7 +114,7 @@ const usePositionalTable = ({
         _id: question._id,
         nota: correct.note,
         isDone: true,
-        responseUser: JSON.stringify({ joinedValues })
+        responseUser: JSON.stringify({ tableValues })
       }
 
       const find = gameState.questions.find(
@@ -127,7 +142,8 @@ const usePositionalTable = ({
     handleChange,
     lengthOfValues,
     colors,
-    tableValues
+    tableValues,
+    gameState
   }
 }
 
