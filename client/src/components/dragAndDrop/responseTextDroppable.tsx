@@ -1,4 +1,6 @@
 import { Droppable } from 'react-beautiful-dnd'
+import GeneralContext from '../../contexts/context'
+import { useContext } from 'react'
 
 import Icon from '../icons'
 import CrossIcon from '../icons/cross'
@@ -29,6 +31,8 @@ const ResponseTextDroppable = ({
   item,
   removeAnswer
 }: Props) => {
+  const { gameState } = useContext(GeneralContext)
+
   return (
     <div className="flex items-center gap-2 m-1">
       {item.text1 && <h2 className="text-sm">{item.text1}</h2>}
@@ -46,15 +50,25 @@ const ResponseTextDroppable = ({
             {response[index] && (
               <div
                 key={response[index].response}
-                className="shadow rounded px-3 py-2 text-black flex items-center justify-around gap-2 font-medium"
-                style={{ backgroundColor: response[index].color }}>
-                <button
-                  className="hover:text-red-800"
-                  onClick={() => removeAnswer(index)}>
-                  <Icon viewBox="16 16">
-                    <CrossIcon />
-                  </Icon>
-                </button>
+                className={`shadow rounded px-3 py-2 flex items-center justify-around gap-2 font-medium ${
+                  gameState.next && 'text-white'
+                }`}
+                style={{
+                  backgroundColor: gameState.next
+                    ? response[index].isCorrect
+                      ? '#2563EB'
+                      : '#CC2525'
+                    : response[index].color
+                }}>
+                {!gameState.next && (
+                  <button
+                    className="hover:text-red-800"
+                    onClick={() => removeAnswer(index)}>
+                    <Icon viewBox="16 16">
+                      <CrossIcon />
+                    </Icon>
+                  </button>
+                )}
                 {response[index].response}
               </div>
             )}

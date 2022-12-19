@@ -5,7 +5,7 @@ import Radio from '../inputs/radio'
 import useTrueOrFalse from '../../hooks/useTrueOrFalse'
 const TrueOrFalse = (props: question) => {
   const options_ = stripquotes(props.options) as trueOrFalse_
-  const { setAnswer } = useTrueOrFalse({
+  const { setAnswer, answer } = useTrueOrFalse({
     question: props,
     options_
   })
@@ -39,22 +39,20 @@ const TrueOrFalse = (props: question) => {
         </div>
       )}
       <div className="flex flex-col items-start mt-2 mb-6">
-        <div className="flex flex-row items-center justify-center">
-          <Radio
-            name="answer"
-            value="true"
-            onChange={e => setAnswer(e.target.value)}
-          />
-          <label className="ml-2">Verdadero</label>
-        </div>
-        <div className="flex flex-row items-center justify-center">
-          <Radio
-            name="answer"
-            value="false"
-            onChange={e => setAnswer(e.target.value)}
-          />
-          <label className="ml-2">Falso</label>
-        </div>
+        <Radio
+          name="answer"
+          value="true"
+          onChange={e => setAnswer(e.target.value)}
+          label="Verdadero"
+          correct={answer === String(options_.correct)}
+        />
+        <Radio
+          name="answer"
+          value="false"
+          onChange={e => setAnswer(e.target.value)}
+          label="Falso"
+          correct={answer === String(options_.correct)}
+        />
       </div>
     </form>
   )

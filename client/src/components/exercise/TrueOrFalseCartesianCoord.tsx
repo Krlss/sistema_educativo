@@ -7,7 +7,7 @@ import Radio from '../inputs/radio'
 
 const TrueOrFalseCartesianCoord = (props: question) => {
   const options_ = stripquotes(props.options) as trueOrFalseCartesianCoord_
-  const { setAnswer } = useTrueOrFalse({
+  const { setAnswer, answer } = useTrueOrFalse({
     question: props,
     options_
   })
@@ -19,25 +19,23 @@ const TrueOrFalseCartesianCoord = (props: question) => {
         index={props.index}
       />
       <form>
-        <div className="flex items-center justify-start mb-10">
+        <div className="flex items-center justify-start -mb-10">
           <div className="flex flex-col items-start">
             <CartesianPlane points={options_.points} />
-            <div className="flex flex-row items-center justify-center">
-              <Radio
-                name="answer"
-                value="true"
-                onChange={e => setAnswer(e.target.value)}
-              />
-              <label className="ml-2">Verdadero</label>
-            </div>
-            <div className="flex flex-row items-center justify-center">
-              <Radio
-                name="answer"
-                value="false"
-                onChange={e => setAnswer(e.target.value)}
-              />
-              <label className="ml-2">Falso</label>
-            </div>
+            <Radio
+              name="answer"
+              value="true"
+              onChange={e => setAnswer(e.target.value)}
+              correct={answer === String(options_.correct)}
+              label="Verdadero"
+            />
+            <Radio
+              name="answer"
+              value="false"
+              onChange={e => setAnswer(e.target.value)}
+              correct={answer === String(options_.correct)}
+              label="Falso"
+            />
           </div>
         </div>
       </form>

@@ -1,6 +1,8 @@
 import { Draggable } from 'react-beautiful-dnd'
 import DragIcon from '../icons/drag'
 import Icon from '../icons'
+import GeneralContext from '../../contexts/context'
+import { useContext } from 'react'
 
 interface Props {
   draggableId: string
@@ -10,8 +12,13 @@ interface Props {
 }
 
 const TextDraggable = ({ draggableId, index, value, color }: Props) => {
+  const { gameState } = useContext(GeneralContext)
+
   return (
-    <Draggable draggableId={draggableId} index={index}>
+    <Draggable
+      draggableId={draggableId}
+      index={index}
+      isDragDisabled={gameState.next}>
       {({ draggableProps, innerRef, dragHandleProps }) => {
         return (
           <div
@@ -23,9 +30,11 @@ const TextDraggable = ({ draggableId, index, value, color }: Props) => {
               ...draggableProps.style,
               backgroundColor: color
             }}>
-            <Icon viewBox="24 24" fill="white">
-              <DragIcon />
-            </Icon>
+            {!gameState.next && (
+              <Icon viewBox="24 24" fill="white">
+                <DragIcon />
+              </Icon>
+            )}
             {value}
           </div>
         )

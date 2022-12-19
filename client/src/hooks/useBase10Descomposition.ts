@@ -28,7 +28,6 @@ const useBase10Descomposition = (props: question) => {
       const value = value_.map(item => String(item.value))
       const response = value_.map(item => item.response)
       const isCorrect = value.every((item, index) => item === response[index])
-
       const newQuestion = {
         _id: props._id,
         nota: isCorrect ? 1 : 0,
@@ -55,7 +54,7 @@ const useBase10Descomposition = (props: question) => {
     }
   }, [value_])
 
-  return { value_, handleChange, setValue, value }
+  return { value_, handleChange, setValue, value, next: gameState.next }
 }
 
 export default useBase10Descomposition

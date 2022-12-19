@@ -14,6 +14,7 @@ export interface VerifyDragAndDropChooseTextProps {
   correct?: boolean
   color?: string
   key: string
+  isCorrect?: boolean
 }
 
 export interface ReturnVerifyDragAndDropChooseTextProps {

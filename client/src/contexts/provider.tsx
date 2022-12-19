@@ -53,6 +53,10 @@ const GeneralProvider = (props: any) => {
     }
   }, [user.isLogged])
 
+  const setNext = (next: boolean) => {
+    dispatchGame({ type: 'setNext', payload: next })
+  }
+
   const setQuestion = (question: QuestionsExtends) => {
     dispatchGame({ type: 'addQuestion', payload: question })
   }
@@ -182,6 +186,18 @@ const GeneralProvider = (props: any) => {
     }
   }
 
+  const calculateQualification = () => {
+    const qualification = gameState.questions.reduce(
+      (acc, item) => acc + item.nota,
+      0
+    )
+
+    dispatchGame({
+      type: 'setQualification',
+      payload: qualification
+    })
+  }
+
   const updateFinishedTopic = (
     asignatureId: string,
     unitId: string,
@@ -214,7 +230,9 @@ const GeneralProvider = (props: any) => {
         gameState,
         updateFinishedTopic,
         setInitialGame,
-        resetGame
+        resetGame,
+        setNext,
+        calculateQualification
       }}>
       {props.children}
     </GeneralContext.Provider>

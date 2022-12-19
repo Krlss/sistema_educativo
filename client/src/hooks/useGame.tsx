@@ -64,7 +64,9 @@ const useGame = () => {
     setQuestions,
     setInitialGame,
     resetGame,
-    setLoading
+    setLoading,
+    setNext,
+    calculateQualification
   } = useContext(GeneralContext)
 
   const { asignatureId, unitId } = useParams<{
@@ -75,7 +77,7 @@ const useGame = () => {
   const navigate = useNavigate()
 
   const [dataGame, setDataGame] = useState<any[]>([])
-  const [questions, setQuestions_] = useState<question[]>([])
+  const [questions, setQuestions_] = useState<question[]>(data)
 
   const [nextDisabled, setNextDisabled] = useState(false)
 
@@ -262,7 +264,45 @@ const useGame = () => {
 
   const nextExercise = () => {
     if (gameState.timeLeft > 0) {
-      if (gameState.index === dataGame.length - 1) {
+      if (gameState.next && gameState.index <= dataGame.length - 1) {
+        setDataTest('indexQuestion', gameState.index + 1)
+        setDataQuestionLocalStore('questions', gameState.questions)
+        setIndex(gameState.index + 1)
+        setNext(false)
+      }
+
+      if (gameState.index <= dataGame.length - 1 && !gameState.next) {
+        calculateQualification()
+        setNext(true)
+        if (
+          gameState.questions[gameState.index].isDone &&
+          gameState.questions[gameState.index].nota > 0 &&
+          gameState.questions[gameState.index].nota < 1
+        ) {
+          Swal.fire({
+            title: 'Felcidades',
+            text: 'Tuviste algunos aciertos',
+            icon: 'success'
+          })
+        } else if (
+          gameState.questions[gameState.index].isDone &&
+          gameState.questions[gameState.index].nota > 0
+        ) {
+          Swal.fire({
+            title: 'Felicidades',
+            text: 'Respondiste correctamente',
+            icon: 'success'
+          })
+        } else {
+          Swal.fire({
+            title: 'Lo sentimos',
+            text: 'No respondiste correctamente',
+            icon: 'error'
+          })
+        }
+      }
+
+      if (gameState.index === dataGame.length - 1 && gameState.next) {
         Swal.fire({
           title: 'Terminaste la prueba',
           text: 'Tus respuestas serán guardadas',
@@ -271,11 +311,6 @@ const useGame = () => {
           resetGame()
           window.location.reload()
         })
-      }
-      if (gameState.index < dataGame.length - 1) {
-        setDataTest('indexQuestion', gameState.index + 1)
-        setDataQuestionLocalStore('questions', gameState.questions)
-        setIndex(gameState.index + 1)
       }
     }
   }
@@ -299,12 +334,6 @@ const useGame = () => {
       setLoading(false)
       return
     }
-    /* if (!asignatureId && !unitId) {
-      const data_ = data as question[]
-      setQuestions_(data_)
-      setLoading(false)
-      return
-    } */
 
     const localStorageQuestion = getDataQuestionLocalStore('array')
     const questions_ = localStorageQuestion || []
@@ -369,7 +398,7 @@ const useGame = () => {
       top: 0,
       behavior: 'smooth'
     })
-  }, [gameState.index])
+  }, [gameState.index, gameState.next])
 
   console.log(gameState.questions)
 

@@ -26,6 +26,8 @@ export type GeneralContextProps = {
   ) => void
   setInitialGame: () => void
   resetGame: () => void
+  setNext: (boolean: boolean) => void
+  calculateQualification: () => void
 }
 
 const GeneralContext = createContext<GeneralContextProps>(

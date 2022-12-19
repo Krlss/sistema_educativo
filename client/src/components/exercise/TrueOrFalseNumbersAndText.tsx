@@ -3,7 +3,7 @@ import { question } from '../../types/game'
 import useTrueOrFalseNumbersAndText from '../../hooks/useTrueOrFalseNumbersAndText'
 import Radio from '../inputs/radio'
 const TrueOrFalseNumbersAndText = (props: question) => {
-  const { options_, setAnswer } = useTrueOrFalseNumbersAndText({
+  const { options_, setAnswer, answer } = useTrueOrFalseNumbersAndText({
     question: props
   })
   return (
@@ -34,22 +34,20 @@ const TrueOrFalseNumbersAndText = (props: question) => {
               )
             })}
           </div>
-          <div className="flex flex-row items-center justify-center">
-            <Radio
-              name="answer"
-              value="true"
-              onChange={e => setAnswer(e.target.value)}
-            />
-            <label className="ml-2">Verdadero</label>
-          </div>
-          <div className="flex flex-row items-center justify-center">
-            <Radio
-              name="answer"
-              value="false"
-              onChange={e => setAnswer(e.target.value)}
-            />
-            <label className="ml-2">Falso</label>
-          </div>
+          <Radio
+            name="answer"
+            value="true"
+            onChange={e => setAnswer(e.target.value)}
+            label="Verdadero"
+            correct={answer === String(options_.correct)}
+          />
+          <Radio
+            name="answer"
+            value="false"
+            onChange={e => setAnswer(e.target.value)}
+            label="Falso"
+            correct={answer === String(options_.correct)}
+          />
         </div>
       </form>
     </>

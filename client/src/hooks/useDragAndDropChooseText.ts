@@ -63,7 +63,8 @@ const useDragAndDropChooseText = ({
         text: removed.text,
         color: removed.color,
         original: defaultData[parseInt(index)].value,
-        key: removed.key
+        key: removed.key,
+        isCorrect: removed.value === defaultData[parseInt(index)].value
       }
       setAnswers(newAnswers)
 
@@ -106,7 +107,8 @@ const useDragAndDropChooseText = ({
       value: anwers[index]?.response,
       text: anwers[index]?.text,
       color: anwers[index]?.color,
-      key: anwers[index]?.key
+      key: anwers[index]?.key,
+      isCorrect: false
     }
     newOpciones.push(oldRespuesta)
     setOptions(newOpciones)
@@ -121,13 +123,13 @@ const useDragAndDropChooseText = ({
   ) => {
     return array.reduce(
       (acc, current, _, array) => {
-        if (current.response === current.original) acc.correct++
+        if (current.isCorrect) acc.correct++
         return {
           ...acc,
           note: Number((acc.correct / array.length).toFixed(2)),
           new_array_options: [
             ...acc.new_array_options,
-            { ...current, correct: current.response === current.original }
+            { ...current, correct: current.isCorrect }
           ]
         }
       },

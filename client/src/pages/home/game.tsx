@@ -39,14 +39,26 @@ const Game = () => {
                 m < 10 ? `0${m}` : m
               }:${s < 10 ? `0${s}` : s}`}</span>
             </div>
+            <div className="flex gap-2">
+              <span>
+                Calificación: {gameState.qualification}/
+                {gameState.questions.length}
+              </span>
+            </div>
             <div className="flex w-full justify-end">
               <button
                 disabled={!nextDisabled}
-                className={`px-4 py-2 bg-red-logo-stronger text-white rounded-md shadow font-semibold ${
+                className={`px-4 py-2 rounded-md shadow font-semibold ${
                   !nextDisabled ? 'cursor-not-allowed opacity-40' : ''
+                }  ${
+                  !gameState.next
+                    ? 'bg-red-logo-stronger text-white'
+                    : 'bg-yellow-page text-black font-bold'
                 }`}
                 onClick={nextExercise}>
-                {gameState.index === dataGame.length - 1
+                {!gameState.next
+                  ? 'Calificar'
+                  : gameState.index === data.length - 1
                   ? 'Finalizar'
                   : 'Siguiente'}
               </button>

@@ -112,8 +112,8 @@ const DrawPoints = ({ points }: { points?: { x: number; y: number }[] }) => {
             <circle
               cx="0"
               cy="0"
-              r="5"
-              fill="rgba(204, 37, 37, 0.6 )"
+              r="6"
+              fill="rgba(24, 17, 222, 0.8)"
               strokeWidth="1"
             />
             <text x="4" y="-3" textAnchor="start" fontSize="11" fill="black">

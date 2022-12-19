@@ -9,7 +9,7 @@ import useWriteCoorCP from '../../hooks/useWriteCoorCP'
 const WritePointsCartesianPlane = (props: question) => {
   const options_ = stripquotes(props.options) as writePointsCoordinatePlane_[]
 
-  const { response, setResponse, options } = useWriteCoorCP({
+  const { options, gameState, handleChange, type } = useWriteCoorCP({
     array: options_,
     question: props
   })
@@ -23,6 +23,8 @@ const WritePointsCartesianPlane = (props: question) => {
       />
       <div className="flex gap-2 mt-2 flex-wrap items-center justify-start">
         {options.map((point, index) => {
+          const isCorrect = point.isCorrect
+
           return (
             <div
               key={index}
@@ -34,38 +36,26 @@ const WritePointsCartesianPlane = (props: question) => {
 
               <div className="flex items-center justify-center">
                 <input
-                  type="text"
-                  className="w-[75px] h-8 border border-gray-300 text-center"
+                  type="number"
+                  className={`w-[75px] h-8 border border-gray-300 text-center ${
+                    gameState.next && isCorrect
+                      ? 'bg-green-200'
+                      : gameState.next && 'bg-red-300'
+                  }`}
                   placeholder="x"
-                  onChange={e => {
-                    if (!onlyNumberWithNegative.test(e.target.value)) {
-                      e.target.value = e.target.value.replace(/[^0-9-]/g, '')
-                    }
-                    const newPointsIndex = {
-                      ...response[index],
-                      x: Number(e.target.value)
-                    }
-                    const newPoints = [...response]
-                    newPoints[index] = newPointsIndex
-                    setResponse(newPoints)
-                  }}
+                  disabled={gameState.next}
+                  onChange={e => handleChange(e.target.value, index, true)}
                 />
                 <input
-                  type="text"
-                  className="w-[75px] h-8 border border-gray-300 text-center"
+                  type="number"
+                  className={`w-[75px] h-8 border border-gray-300 text-center ${
+                    gameState.next && isCorrect
+                      ? 'bg-green-200'
+                      : gameState.next && 'bg-red-300'
+                  }`}
                   placeholder="y"
-                  onChange={e => {
-                    if (!onlyNumberWithNegative.test(e.target.value)) {
-                      e.target.value = e.target.value.replace(/[^0-9-]/g, '')
-                    }
-                    const newPointsIndex = {
-                      ...response[index],
-                      y: Number(e.target.value)
-                    }
-                    const newPoints = [...response]
-                    newPoints[index] = newPointsIndex
-                    setResponse(newPoints)
-                  }}
+                  disabled={gameState.next}
+                  onChange={e => handleChange(e.target.value, index, false)}
                 />
               </div>
             </div>

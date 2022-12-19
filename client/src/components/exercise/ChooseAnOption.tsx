@@ -9,7 +9,7 @@ const ChooseAnOption = (props: question) => {
     props.options
   ) as chooseAnOption_
 
-  const { setAnswer } = useChooseAnOption({
+  const { setAnswer, answer } = useChooseAnOption({
     options_: options,
     question: props
   })
@@ -52,6 +52,8 @@ const ChooseAnOption = (props: question) => {
                 name="answer"
                 value={option.text}
                 onChange={e => setAnswer(e.target.value)}
+                correct={option.value}
+                label={option.text}
               />
               {option?.image && (
                 <img
@@ -61,7 +63,6 @@ const ChooseAnOption = (props: question) => {
                   className="ml-2 my-4"
                 />
               )}
-              {!option?.image && <label className="ml-2">{option.text}</label>}
             </div>
           ))}
         </div>

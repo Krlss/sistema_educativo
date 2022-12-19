@@ -49,12 +49,14 @@ const useTrueOrFalseImagesCP = (props: question) => {
     newData,
     type,
     options_,
-    setAnswer
+    setAnswer,
+    answer
   } as {
     newData: ReturnChangePoint[]
     type: typeCartesian
     options_: trueOrFalseCartesianCoordObjects_
     setAnswer: (answer: string) => void
+    answer?: string
   }
 }
 export default useTrueOrFalseImagesCP

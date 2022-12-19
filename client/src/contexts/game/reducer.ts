@@ -3,6 +3,7 @@ import {
   QUESTION,
   IInitialGame
 } from '../../types/contextGame'
+import { setDataQuestionLocalStore, setDataTest } from '../../utils/dataSession'
 
 export type GameReducerProps =
   | { type: 'setQuestions'; payload: QuestionsExtends[] }
@@ -16,6 +17,8 @@ export type GameReducerProps =
     }
   | { type: 'setTimeLeft'; payload: number }
   | { type: 'resetGame'; payload: undefined }
+  | { type: 'setNext'; payload: boolean }
+  | { type: 'setQualification'; payload: number }
 
 export default (state: QUESTION, action: GameReducerProps) => {
   const { type, payload } = action
@@ -43,6 +46,8 @@ export default (state: QUESTION, action: GameReducerProps) => {
           question._id === payload._id ? payload : question
         )
       }
+    case 'setNext':
+      return { ...state, next: payload }
     case 'setIndex':
       return {
         ...state,
@@ -54,6 +59,11 @@ export default (state: QUESTION, action: GameReducerProps) => {
         initialTimeStamp: payload.initialTimeStamp,
         finalTimeStamp: payload.finalTimeStamp,
         timeLeft: payload.timeLeft
+      }
+    case 'setQualification':
+      return {
+        ...state,
+        qualification: payload
       }
     case 'setTimeLeft':
       return {
@@ -67,7 +77,8 @@ export default (state: QUESTION, action: GameReducerProps) => {
         index: 0,
         initialTimeStamp: undefined,
         finalTimeStamp: undefined,
-        timeLeft: 0
+        timeLeft: 0,
+        qualification: 0
       }
     default:
       return state

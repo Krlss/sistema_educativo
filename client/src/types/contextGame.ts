@@ -8,6 +8,8 @@ export interface QuestionsExtends {
 export interface QUESTION {
   questions: QuestionsExtends[]
   index: number
+  next: boolean
+  qualification: number
   initialTimeStamp?: Date
   finalTimeStamp?: Date
   timeLeft: number

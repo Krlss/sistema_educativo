@@ -1,7 +1,7 @@
 import { typeQuestion } from '../types/game'
 // prettier-ignore
 export const data = [
-  {
+ /* {
     type: 'true_or_false',
     _id: '637370e6fd325626f8d337ca',
     options: "'{\"correct\":true}'",
@@ -15,7 +15,7 @@ export const data = [
     subtitle: '¿Qué nombre recibe el eje horizontal (recta horizontal)?',
     title: 'Elija la opción correcta según corresponda:'
   },
-  {
+   {
     type: 'put_points_in_cp',
     _id: '63737174fd325626f8d337cc',
     options: "'[{\"x\":2,\"y\":3}]'",
@@ -63,14 +63,14 @@ export const data = [
     options: "'[{\"x\":2,\"y\":3,\"url\":\"https://cdn-icons-png.flaticon.com/512/1960/1960021.png\",\"name\":\"León\"},{\"x\":1,\"y\":3,\"url\":\"https://cdn-icons-png.flaticon.com/512/547/547612.png\",\"name\":\"Familia\"},{\"x\":1,\"y\":5,\"url\":\"https://cdn-icons-png.flaticon.com/512/1046/1046283.png\",\"name\":\"Calculadora\"},{\"x\":3,\"y\":1,\"url\":\"https://cdn-icons-png.flaticon.com/512/864/864970.png\",\"name\":\"Escribir\"},{\"x\":3,\"y\":4,\"url\":\"https://cdn-icons-png.flaticon.com/512/2997/2997985.png\",\"name\":\"Reloj\"},{\"x\":5,\"y\":3,\"url\":\"https://cdn-icons-png.flaticon.com/512/6521/6521546.png\",\"name\":\"Mickey\"}]'",
     subtitle: '',
     title: 'Escriba las coordenadas de estos objetos'
-  }
-  /* {
+  },
+  {
     type: 'true_or_false_cp',
     _id: '637371ecfd325626f8d337d3',
     options: "'{\"correct\":false,\"points\":[{\"x\":4,\"y\":-1}]}'",
     subtitle: '',
     title: '¿La siguiente coordenada en el plano es la correcta: A(4, -3)?'
-  }, {
+  },  {
     type: 'write_coor_cp',
     _id: '637371f4fd325626f8d337d4',
     options: "'[{\"x\":1,\"y\":1},{\"x\":1,\"y\":-3},{\"x\":2,\"y\":-5}]'",
@@ -118,7 +118,7 @@ export const data = [
     options: "'{\"correct\":true,\"options\":[{\"name\":\"En números:\",\"text\":\"toneladas de basura al día.\",\"value\":\"4 700\"},{\"name\":\"En letras:\",\"text\":\"toneladas de basura reciclada al día.\",\"value\":\"Ciento cuarenta y un\"}]}'",
     subtitle: 'Según el diario La Prensa de La Paz, Bolivia produce aproximadamente cuatro mil setecientas toneladas de basura al día y, de esta cantidad, recicla 141 toneladas.',
     title: 'Analizo la información y con base en la información anterior, verifico si están escritas correctamente las cifras.'
-  },
+  }, */
   {
     type: 'positional_table',
     _id: '637372c5fd325626f8d337dc',
@@ -181,7 +181,7 @@ export const data = [
     options: "'{\"options\":[{\"value\":false,\"text\":\"Cuatrocientos sesenta y tres mil ochocientos cuarenta y seis\"},{\"value\":true,\"text\":\"Ochocientos cuarenta y dos mil quinientos setenta y nueve\"}]}'",
     subtitle: 'Los Números naturales de hasta seis cifras se escribe separando de derecha a izquierda, de 3 en 3 cifras.',
     title: 'Escoja la opción correcta'
-  },
+  } /*
   {
     type: 'choose_an_option_textnumber',
     _id: '6373730ffd325626f8d337e5',

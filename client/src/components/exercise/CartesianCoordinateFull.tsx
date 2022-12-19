@@ -13,8 +13,7 @@ const CartesianCoordinateFull = (props: question) => {
     })
     .join(' - ')
 
-  const { cartesian, updateCartesian } = useCartesianCoordinate(
-    options_.length,
+  const { cartesian, updateCartesian, gameState } = useCartesianCoordinate(
     options_,
     props
   )
@@ -33,16 +32,37 @@ const CartesianCoordinateFull = (props: question) => {
               <div key={y} className="flex items-center justify-center">
                 {[...Array(21)].map((_, x) => {
                   const isClicked = !!cartesian.find(
-                    point => point.x === x - 10 && point.y === 10 - y
+                    point =>
+                      point.responseX === x - 10 && point.responseY === 10 - y
                   )
+
+                  const isCorrect = cartesian.find(
+                    point =>
+                      point.responseX === x - 10 && point.responseY === 10 - y
+                  )?.isCorrect
+
                   return (
                     <div
                       key={x}
-                      className="w-[14.5px] h-[14.5px] flex items-center justify-center cursor-pointer group"
-                      onClick={() => updateCartesian(x - 10, 10 - y)}>
+                      className={`w-[14.5px] h-[14.5px] flex items-center justify-center ${
+                        !gameState.next && 'cursor-pointer group'
+                      }`}
+                      onClick={() => {
+                        if (!gameState.next) {
+                          updateCartesian(x - 10, 10 - y)
+                        }
+                      }}>
                       <div className="w-3 h-3 rounded-full border-2 border-dashed border-transparent group-hover:border-gray-500 flex items-center justify-center">
-                        {isClicked && (
-                          <div className="w-2 h-2 rounded-full bg-red-logo-stronger"></div>
+                        {!gameState.next ? (
+                          isClicked && (
+                            <div className="w-2 h-2 rounded-full bg-green-500" />
+                          )
+                        ) : isCorrect && isClicked ? (
+                          <div className="w-2 h-2 rounded-full bg-blue-500" />
+                        ) : (
+                          isClicked && (
+                            <div className="w-2 h-2 rounded-full bg-red-500" />
+                          )
                         )}
                       </div>
                     </div>

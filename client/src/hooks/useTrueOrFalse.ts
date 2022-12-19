@@ -33,7 +33,7 @@ const useTrueOrFalse = ({ question, options_ }: Props) => {
     }
   }, [answer])
 
-  return { answer, setAnswer }
+  return { answer, setAnswer, options_ }
 }
 
 export default useTrueOrFalse

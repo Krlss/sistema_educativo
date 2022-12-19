@@ -6,8 +6,8 @@ import useTrueOrFalseImagesCP from '../../hooks/useTrueOrFalseImagesCP'
 import Radio from '../inputs/radio'
 
 const TrueOrFalseCartesianImages = (props: question) => {
-  const { newData, options_, type, setAnswer } = useTrueOrFalseImagesCP(props)
-
+  const { newData, options_, type, setAnswer, answer } =
+    useTrueOrFalseImagesCP(props)
   return (
     <>
       <QuestionTitle
@@ -53,13 +53,16 @@ const TrueOrFalseCartesianImages = (props: question) => {
                         className="w-[27px] h-[27px] flex items-center justify-center">
                         <div className="w-6 h-6 rounded-full flex items-center justify-center">
                           {newData.find(point => {
-                            return point.x === valueX && point.y === valueY
+                            return (
+                              point.newX === valueX && point.newY === valueY
+                            )
                           })?.url && (
                             <img
                               src={
                                 newData.find(point => {
                                   return (
-                                    point.x === valueX && point.y === valueY
+                                    point.newX === valueX &&
+                                    point.newY === valueY
                                   )
                                 })?.url
                               }
@@ -80,22 +83,20 @@ const TrueOrFalseCartesianImages = (props: question) => {
       </div>
       <form>
         <div className="flex items-start justify-start flex-col mt-5 mb-20">
-          <div className="flex flex-row items-center justify-center">
-            <Radio
-              name="asnwer"
-              value="true"
-              onChange={e => setAnswer(e.target.value)}
-            />
-            <label className="ml-2">Verdadero</label>
-          </div>
-          <div className="flex flex-row items-center justify-center">
-            <Radio
-              name="asnwer"
-              value="false"
-              onChange={e => setAnswer(e.target.value)}
-            />
-            <label className="ml-2">Falso</label>
-          </div>
+          <Radio
+            name="asnwer"
+            value="true"
+            onChange={e => setAnswer(e.target.value)}
+            correct={String(options_.correct) === answer}
+            label="Verdadero"
+          />
+          <Radio
+            name="asnwer"
+            value="false"
+            onChange={e => setAnswer(e.target.value)}
+            correct={String(options_.correct) === answer}
+            label="Falso"
+          />
         </div>
       </form>
     </>

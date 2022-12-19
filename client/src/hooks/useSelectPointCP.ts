@@ -11,17 +11,16 @@ const useSelectPointCP = ({
   question: question
 }) => {
   const { setQuestion, gameState, updatedQuestion } = useContext(GeneralContext)
+
   const [newCoordinates, setNewCoordinates] = useState(changePoints(options_))
-  const [lenght] = useState(
-    newCoordinates.filter(item => item.value === options_.correct).length
-  )
 
   const selectedCoordinates = (x: number, y: number) => {
-    const selected = newCoordinates.find(
-      point => point.x === x && point.y === y
+    const find = newCoordinates.find(
+      point => point.newX === x && point.newY === y
     )
-    if (selected) {
-      selected.selected = !selected.selected
+    if (find) {
+      find.selected = !find.selected
+      find.isCorrect = !find.selected ? false : find.value === options_.correct
     }
     setNewCoordinates([...newCoordinates])
   }
@@ -29,17 +28,18 @@ const useSelectPointCP = ({
   useEffect(() => {
     const lenghtResponse = newCoordinates.filter(item => item.selected)
     if (lenghtResponse.length) {
+      const lenghtCorrect = newCoordinates.filter(
+        item => item.value === options_.correct
+      ).length
       const veryfied = newCoordinates.reduce(
         (acc, point) => {
-          if (point.selected && point.value === options_.correct) {
-            acc.correct++
-          }
+          if (point.selected && point.isCorrect) acc.correct++
           return {
             ...acc,
             note:
-              lenghtResponse.length > lenght
+              lenghtResponse.length > lenghtCorrect
                 ? 0
-                : Number((acc.correct / lenght).toFixed(2))
+                : Number((acc.correct / lenghtCorrect).toFixed(2))
           }
         },
         {
@@ -52,7 +52,7 @@ const useSelectPointCP = ({
         _id: question._id,
         nota: veryfied.note,
         isDone: true,
-        responseUser: JSON.stringify({ asnwer: lenghtResponse })
+        responseUser: JSON.stringify({ asnwer: newCoordinates })
       }
 
       const find = gameState.questions.find(
@@ -76,7 +76,8 @@ const useSelectPointCP = ({
 
   return {
     newCoordinates,
-    selectedCoordinates
+    selectedCoordinates,
+    gameState
   }
 }
 

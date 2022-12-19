@@ -11,7 +11,6 @@ import { useContext } from 'react'
 import GeneralContext from './contexts/context'
 import Game from './pages/home/game'
 import LoadingAllScreen from './components/loader/all-screen'
-import Fraction from './components/exercise/Fraction'
 const App = () => {
   const { config } = useContext(GeneralContext)
   return (
@@ -38,7 +37,7 @@ const App = () => {
             path="/asignatura/:asignatureId/unidad/:unitId/prueba"
             element={<Game />}
           />
-          <Route path="/Fraction" element={<Fraction />} />
+          <Route path="/prueba" element={<Game />} />
         </Route>
         <Route path="*" element={<Page404 />} />
       </Routes>

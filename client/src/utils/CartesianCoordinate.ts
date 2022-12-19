@@ -1,5 +1,5 @@
 import { typeCartesian, ReturnChangePoint } from '../types/CartesianCoordinate'
-
+import shortid from 'shortid'
 export const getNumbers = ({
   isX,
   i,
@@ -225,22 +225,37 @@ export const changePoints = ({
           newY = randomY
         }
         const exist =
-          newPoints.find(point => point.x === newX && point.y === newY) ||
-          points.find(point => point.x === newX && point.y === newY)
+          newPoints.find(
+            point => point.originalX === newX && point.originalY === newY
+          ) || points.find(point => point.x === newX && point.y === newY)
 
         if (!exist) {
           selected = false
         }
       }
       newPoints.push({
-        x: newX,
-        y: newY,
+        originalX: x,
+        originalY: y,
+        newX,
+        newY,
         value: correct,
         selected: false,
-        url
+        url,
+        key: shortid.generate(),
+        isCorrect: false
       })
     } else {
-      newPoints.push({ x, y, value, selected: false, url })
+      newPoints.push({
+        originalX: x,
+        originalY: y,
+        newX: x,
+        newY: y,
+        value,
+        selected: false,
+        url,
+        key: shortid.generate(),
+        isCorrect: false
+      })
     }
   })
 

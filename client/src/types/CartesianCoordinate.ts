@@ -19,9 +19,13 @@ export type selectPointsCoordinatePlane = {
 }
 
 export interface ReturnChangePoint {
-  x: number
-  y: number
+  originalX: number
+  originalY: number
+  newX: number
+  newY: number
   value: boolean
   selected: boolean
   url?: string
+  key: string
+  isCorrect: boolean
 }

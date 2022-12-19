@@ -187,6 +187,10 @@ export interface writePointsCoordinatePlane_ {
   y: number
   url?: string
   key?: string
+  responseX?: number
+  responseY?: number
+  isCorrect?: boolean
+  isResponse?: boolean
 }
 
 export interface writeNumberPositional_ {
