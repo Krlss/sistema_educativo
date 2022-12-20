@@ -133,6 +133,7 @@ export interface selectPlaceTableOption_ {
     correct: boolean
   }[]
   response?: string
+  isCorrect?: boolean
 }
 
 export interface selectPointsCoordinatePlane_ {

@@ -18,6 +18,9 @@ const SelectPlaceTableOption = (props: question) => {
     const newSelected = [...selected]
     newSelected[index].response =
       e.target.value === 'Selecciona una opción' ? undefined : e.target.value
+    newSelected[index].isCorrect =
+      newSelected[index].selects.find(select => select.correct)?.text ===
+      e.target.value
     setSelected(newSelected)
   }
 
@@ -67,8 +70,6 @@ const SelectPlaceTableOption = (props: question) => {
     }
   }, [selected])
 
-  console.log(selected)
-
   return (
     <>
       <QuestionTitle
@@ -89,9 +90,18 @@ const SelectPlaceTableOption = (props: question) => {
               <h1 className="font-medium text-left">{option.text}</h1>
             </div>
             <select
-              className="shadow p-2 rounded"
+              disabled={gameState.next}
+              className={`shadow p-2 rounded ${
+                gameState.next && option.isCorrect
+                  ? 'text-blue-500 appearance-none'
+                  : gameState.next && !option.isCorrect
+                  ? 'text-red-500 appearance-none'
+                  : ''
+              }`}
               placeholder="Selecciona una opción"
-              onChange={e => handleChange(e, index)}>
+              onChange={e => {
+                if (!gameState.next) handleChange(e, index)
+              }}>
               <option value={undefined}>Selecciona una opción</option>
               {option.selects.map((select, index) => (
                 <option key={index} value={select.text}>

@@ -132,7 +132,7 @@ export const data = [
     options: "'[{\"value\":\"910 608\",\"text\":\"NOVECIENTOS DIEZ MIL SEISCIENTOS OCHO\"},{\"value\":\"200 457\",\"text\":\"DOSCIENTOS MIL CUATROCIENTOS CINCUENTA Y SIETE\"},{\"value\":\"305 034\",\"text\":\"TRESCIENTOS CINCO MIL TREINTA Y CUATRO\"}]'",
     subtitle: null,
     title: 'Relaciona el valor con su escritura'
-  }, */
+  },
   {
     type: 'write_value_from_text',
     _id: '637372d2fd325626f8d337de',
@@ -153,7 +153,7 @@ export const data = [
     options: "'{\"correct\":true}'",
     subtitle: '¿La escritura de la siguiente cifra es correcta?: 873220 - Ochocientos setenta y tres mil doscientos veinte',
     title: 'Elija la opción correcta: Verdadero o falso'
-  },
+  }, */
   {
     type: 'select_place_table_option',
     _id: '637372edfd325626f8d337e1',
