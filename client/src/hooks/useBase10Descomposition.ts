@@ -12,27 +12,30 @@ const useBase10Descomposition = (props: question) => {
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
-    const newValue = [...value_]
+    if (!gameState.next) {
+      const newValue = [...value_]
 
-    const value = e.target.value.replace(onlyNumber, '0')
-    e.target.value = value
+      const value = e.target.value.replace(onlyNumber, '0')
+      e.target.value = value
 
-    newValue[index].response = e.target.value
-    setValue(newValue)
+      newValue[index].response = e.target.value
+      newValue[index].isCorrect =
+        e.target.value === String(newValue[index].value)
+      setValue(newValue)
+    }
   }
 
   useEffect(() => {
     const ifFilled = value_.every(item => !!item.response)
 
     if (ifFilled) {
-      const value = value_.map(item => String(item.value))
-      const response = value_.map(item => item.response)
-      const isCorrect = value.every((item, index) => item === response[index])
+      const response = value_.filter(item => item.isCorrect).length
+
       const newQuestion = {
         _id: props._id,
-        nota: isCorrect ? 1 : 0,
+        nota: Number((response / value_.length).toFixed(2)),
         isDone: true,
-        responseUser: JSON.stringify({ response })
+        responseUser: JSON.stringify({ response: value_ })
       }
 
       const find = gameState.questions.find(
@@ -54,7 +57,7 @@ const useBase10Descomposition = (props: question) => {
     }
   }, [value_])
 
-  return { value_, handleChange, setValue, value, next: gameState.next }
+  return { value_, handleChange, setValue, value, gameState }
 }
 
 export default useBase10Descomposition

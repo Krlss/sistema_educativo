@@ -11,7 +11,8 @@ const convert = (number: number) => {
     if (numberString[i] !== '0') {
       value.push({
         response: '',
-        value: numberString[i]
+        value: numberString[i],
+        isCorrect: false
       })
     }
   }
@@ -26,28 +27,31 @@ const useNumberPositional = (props: question) => {
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
-    const value_ = e.target.value.replace(onlyNumber, '0')
-    e.target.value = value_
-    if (e.target.value.length > 1) {
-      e.target.value = e.target.value[e.target.value.length - 1]
-    }
-    const prevInput = document.querySelector(
-      `input[name="${index - 1}"]`
-    ) as HTMLInputElement
-    if (prevInput) {
-      prevInput.focus()
-    }
-    setValue(
-      value.map((item, i) => {
-        if (i === index) {
-          return {
-            ...item,
-            response: e.target.value
+    if (!gameState.next) {
+      const value_ = e.target.value.replace(onlyNumber, '0')
+      e.target.value = value_
+      if (e.target.value.length > 1) {
+        e.target.value = e.target.value[e.target.value.length - 1]
+      }
+      const prevInput = document.querySelector(
+        `input[name="${index - 1}"]`
+      ) as HTMLInputElement
+      if (prevInput) {
+        prevInput.focus()
+      }
+      setValue(
+        value.map((item, i) => {
+          if (i === index) {
+            return {
+              ...item,
+              response: e.target.value,
+              isCorrect: e.target.value === item.value
+            }
           }
-        }
-        return item
-      })
-    )
+          return item
+        })
+      )
+    }
   }
 
   useEffect(() => {
@@ -81,7 +85,7 @@ const useNumberPositional = (props: question) => {
     }
   }, [value])
 
-  return { value, handleChange, setValue }
+  return { value, handleChange, setValue, gameState }
 }
 
 export default useNumberPositional

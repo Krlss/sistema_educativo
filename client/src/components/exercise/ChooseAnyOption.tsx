@@ -8,7 +8,7 @@ const ChooseAnOption = (props: question) => {
     props.options
   ) as chooseAnOption_
 
-  const { handleAnswer } = useChooseAnyOption({
+  const { handleAnswer, gameState, answer } = useChooseAnyOption({
     options_: options,
     question: props
   })
@@ -43,28 +43,42 @@ const ChooseAnOption = (props: question) => {
       )}
       <form>
         <div className="flex flex-col items-start mb-6">
-          {options.map((option, index) => (
-            <div
-              key={index}
-              className="flex flex-row items-center justify-start">
-              <input
-                type="checkbox"
-                name="answer"
-                value={option.text}
-                className="appearance-none w-4 h-4 rounded checked:bg-yellow-page border-2 checked:border-0 cursor-pointer bg-white"
-                onChange={e => handleAnswer(option)}
-              />
-              {option?.image && (
-                <img
-                  src={option.image}
-                  alt="option"
-                  width={50}
-                  className="ml-2 my-4"
+          {options.map((option, index) => {
+            const isCorrect = answer.find(
+              answer => answer.text === option.text
+            )?.isCorrect
+            return (
+              <div
+                key={index}
+                className="flex flex-row items-center justify-start">
+                <input
+                  type="checkbox"
+                  name="answer"
+                  value={option.text}
+                  disabled={gameState.next}
+                  className={`appearance-none w-4 h-4 rounded checked:bg-yellow-page border-2 checked:border-0 bg-white ${
+                    gameState.next && isCorrect
+                      ? 'checked:bg-blue-500'
+                      : gameState.next && !isCorrect
+                      ? 'checked:bg-red-500'
+                      : 'cursor-pointer'
+                  }`}
+                  onChange={e => handleAnswer(option)}
                 />
-              )}
-              {!option?.image && <label className="ml-2">{option.text}</label>}
-            </div>
-          ))}
+                {option?.image && (
+                  <img
+                    src={option.image}
+                    alt="option"
+                    width={50}
+                    className="ml-2 my-4"
+                  />
+                )}
+                {!option?.image && (
+                  <label className="ml-2">{option.text}</label>
+                )}
+              </div>
+            )
+          })}
         </div>
       </form>
     </>

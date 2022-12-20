@@ -80,6 +80,7 @@ export const convertNumberToBase10 = (number: number) => {
   return result as {
     value: number
     response?: string
+    isCorrect?: boolean
   }[]
 }
 

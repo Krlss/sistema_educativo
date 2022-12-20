@@ -4,7 +4,7 @@ import { NamePositional } from '../../constants/positionalTable'
 import { question } from '../../types/game'
 
 const WriteNumberPositional = (props: question) => {
-  const { handleChange, value } = useNumberPositional(props)
+  const { handleChange, value, gameState } = useNumberPositional(props)
   return (
     <>
       <QuestionTitle
@@ -17,7 +17,14 @@ const WriteNumberPositional = (props: question) => {
           <div key={index}>
             <span>{NamePositional[value.length - (index + 1)]}</span>
             <input
-              className="border border-gray-400 rounded px-2 py-1 w-14 text-center ml-2"
+              className={`border border-gray-400 rounded px-2 py-1 w-14 text-center ml-2 ${
+                gameState.next && item.isCorrect
+                  ? 'bg-blue-500 text-white'
+                  : gameState.next && !item.isCorrect
+                  ? 'bg-red-500'
+                  : ''
+              }`}
+              disabled={gameState.next}
               name={`${index}`}
               autoFocus={index === value.length - 1}
               onChange={e => handleChange(e, index)}

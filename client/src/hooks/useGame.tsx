@@ -77,7 +77,7 @@ const useGame = () => {
   const navigate = useNavigate()
 
   const [dataGame, setDataGame] = useState<any[]>([])
-  const [questions, setQuestions_] = useState<question[]>(data)
+  const [questions, setQuestions_] = useState<question[]>([])
 
   const [nextDisabled, setNextDisabled] = useState(false)
 
@@ -273,6 +273,7 @@ const useGame = () => {
 
       if (gameState.index <= dataGame.length - 1 && !gameState.next) {
         calculateQualification()
+        setDataQuestionLocalStore('questions', gameState.questions)
         setNext(true)
         if (
           gameState.questions[gameState.index].isDone &&
@@ -385,6 +386,7 @@ const useGame = () => {
     if (questions.length > 0) {
       loadExercise()
       setInitialGame()
+      calculateQualification()
     }
   }, [questions])
 
@@ -399,8 +401,6 @@ const useGame = () => {
       behavior: 'smooth'
     })
   }, [gameState.index, gameState.next])
-
-  console.log(gameState.questions)
 
   return {
     dataGame,

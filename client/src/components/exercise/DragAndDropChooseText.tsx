@@ -41,7 +41,7 @@ const DragAndDropChooseText = (props: question) => {
             />
           ))}
         </ContentDroppable>
-        <div className="flex flex-col mt-2 mb-20">
+        <div className="flex flex-col mt-2 mb-20 justify-start">
           {options_.map(
             (item, index) =>
               item?.text && (

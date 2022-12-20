@@ -33,6 +33,7 @@ export type chooseAnOptionType = {
   text: string
   value: boolean
   image?: string
+  isCorrect?: boolean
 }
 
 export interface chooseAnOption_ {

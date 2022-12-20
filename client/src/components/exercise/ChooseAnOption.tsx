@@ -9,7 +9,7 @@ const ChooseAnOption = (props: question) => {
     props.options
   ) as chooseAnOption_
 
-  const { setAnswer, answer } = useChooseAnOption({
+  const { setAnswer } = useChooseAnOption({
     options_: options,
     question: props
   })

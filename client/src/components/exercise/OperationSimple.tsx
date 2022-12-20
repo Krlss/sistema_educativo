@@ -33,11 +33,13 @@ const OperationSimple = (props: question) => {
   })
 
   const handleAnswer = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
+    if (!gameState.next) {
+      const { name, value } = e.target
 
-    const v = value ? parseInt(value) : undefined
+      const v = value ? parseInt(value) : undefined
 
-    setState({ ...state, [name]: v })
+      setState({ ...state, [name]: v })
+    }
   }
 
   useEffect(() => {
@@ -96,7 +98,14 @@ const OperationSimple = (props: question) => {
         <input
           type="number"
           name="correct"
-          className="bg-white w-full max-w-[224px] p-2 text-center font-normal"
+          disabled={gameState.next}
+          className={`bg-white w-full max-w-[224px] p-2 text-center font-normal ${
+            gameState.next && state.correct === props_.correct
+              ? 'bg-blue-500 text-white'
+              : gameState.next && state.correct !== props_.correct
+              ? 'bg-red-500'
+              : ''
+          }`}
           onChange={handleAnswer}
         />
         {props_.residuo ? (
@@ -105,7 +114,14 @@ const OperationSimple = (props: question) => {
             <input
               type="number"
               name="residuo"
-              className="bg-white w-full max-w-[100px] p-2 text-center font-normal"
+              disabled={gameState.next}
+              className={`bg-white w-full max-w-[100px] p-2 text-center font-normal ${
+                gameState.next && state.correct === props_.correct
+                  ? 'bg-blue-500 text-white'
+                  : gameState.next && state.correct !== props_.correct
+                  ? 'bg-red-500'
+                  : ''
+              }`}
               onChange={handleAnswer}
             />
           </>

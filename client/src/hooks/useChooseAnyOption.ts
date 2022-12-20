@@ -46,20 +46,26 @@ const useChooseAnyOption = ({ question, options_ }: Props) => {
   }, [answer])
 
   const handleAnswer = (option: chooseAnOptionType) => {
-    const find = answer.find(item => item.text === option.text)
+    if (!gameState.next) {
+      const find = answer.find(item => item.text === option.text)
 
-    if (find) {
-      const newAnswer = answer.filter(item => item.text !== option.text)
-      setAnswer(newAnswer)
-    } else {
-      setAnswer([...answer, option])
+      if (find) {
+        const newAnswer = answer.filter(item => item.text !== option.text)
+        setAnswer(newAnswer)
+      } else {
+        option.isCorrect = options_.find(
+          item => item.text === option.text
+        )?.value
+        setAnswer([...answer, option])
+      }
     }
   }
 
   return {
     answer,
     setAnswer,
-    handleAnswer
+    handleAnswer,
+    gameState
   }
 }
 

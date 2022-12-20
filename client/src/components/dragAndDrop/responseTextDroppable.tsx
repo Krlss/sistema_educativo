@@ -34,8 +34,12 @@ const ResponseTextDroppable = ({
   const { gameState } = useContext(GeneralContext)
 
   return (
-    <div className="flex items-center gap-2 m-1">
-      {item.text1 && <h2 className="text-sm">{item.text1}</h2>}
+    <div className="flex items-center gap-2 m-1 w-full">
+      {item.text1 && (
+        <div className="w-full">
+          <h2 className="text-sm">{item.text1}</h2>
+        </div>
+      )}
       <Droppable
         droppableId={droppableId}
         direction={direction}
@@ -76,9 +80,16 @@ const ResponseTextDroppable = ({
           </div>
         )}
       </Droppable>
-      {item.text && <h2 className="text-sm">{item.text}</h2>}
-
-      {item.text2 && <h2 className="text-sm">{item.text2}</h2>}
+      {item.text && (
+        <div className="w-full">
+          <h2 className="text-sm">{item.text}</h2>
+        </div>
+      )}
+      {item.text2 && (
+        <div className="w-full">
+          <h2 className="text-sm">{item.text2}</h2>
+        </div>
+      )}
     </div>
   )
 }

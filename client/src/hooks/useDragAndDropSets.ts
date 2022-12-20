@@ -40,6 +40,9 @@ const useDragAndDropSets = (props: question) => {
         source.index,
         1
       )
+      removed.isCorrect = sets[Number(destid[0].split('-')[1])].options.some(
+        (item: iRespuesta) => item.value === removed.value
+      )
       answer[destination.droppableId.split('-')[1]].splice(
         destination.index,
         0,
@@ -58,7 +61,10 @@ const useDragAndDropSets = (props: question) => {
       const newAnswers = [...answer[Number(index)]]
 
       newAnswers.push({
-        ...removed
+        ...removed,
+        isCorrect: sets[Number(index)].options.some(
+          (item: iRespuesta) => item.value === removed.value
+        )
       })
 
       answer[index] = newAnswers
@@ -73,6 +79,7 @@ const useDragAndDropSets = (props: question) => {
         source.index,
         1
       )
+      removed.isCorrect = false
       options_.splice(destination.index, 0, removed)
       setOptions([...options_])
       return
@@ -82,6 +89,7 @@ const useDragAndDropSets = (props: question) => {
     if (source.droppableId === 'items' && destination.droppableId === 'items') {
       const items = [...options_]
       const [reorderedItem] = items.splice(source.index, 1)
+      reorderedItem.isCorrect = false
       items.splice(destination.index, 0, reorderedItem)
       setOptions(items)
     }
@@ -91,13 +99,7 @@ const useDragAndDropSets = (props: question) => {
     if (!options_.length) {
       const correct = answer.reduce(
         (acc: iVerify, current: [], set: number) => {
-          const arr = current.map((item: iRespuesta) => item)
-          const correct = arr.filter((item: iRespuesta) => {
-            return sets[set].options.some(
-              (i: iRespuesta) => item.value === i.value
-            )
-          }).length
-
+          const correct = current.filter((item: any) => item.isCorrect).length
           if (correct) {
             acc.correct = acc.correct + correct
           }

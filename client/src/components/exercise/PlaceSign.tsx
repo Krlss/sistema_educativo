@@ -20,16 +20,8 @@ const PlaceSign = (props: question) => {
     }
   })
 
-  const options_ = opt_.map(item => {
-    return {
-      value: item.value,
-      key: item.key,
-      text: `${item.text1} ${item.value} ${item.text2}`
-    }
-  })
-
   const { onDragEnd, options, removeAnswer, anwers } = useDragAndDropChooseText(
-    { question: props, defaultData: options_ }
+    { question: props, defaultData: opt_ }
   )
 
   return (
@@ -43,8 +35,8 @@ const PlaceSign = (props: question) => {
         <ContentDroppable droppableId="items" direction="horizontal">
           {options.map((item, index) => (
             <TextDraggable
-              key={item.key}
-              draggableId={item.key}
+              key={index}
+              draggableId={index.toString()}
               index={index}
               value={item.value}
               color={item.color}
@@ -52,16 +44,16 @@ const PlaceSign = (props: question) => {
           ))}
         </ContentDroppable>
         <div className="flex flex-col mt-2 mb-20">
-          {opt_.map((item, index) => (
+          {opt_.map((item, i) => (
             <ResponseTextDroppable
-              key={item.key}
-              droppableId={`respuesta-${index}`}
+              key={i}
+              droppableId={`respuesta-${i}`}
               direction="horizontal"
-              index={index}
+              index={i}
               item={item}
               removeAnswer={removeAnswer}
               response={anwers}
-              isDropDisabled={!!anwers[index]}
+              isDropDisabled={!!anwers[i]}
             />
           ))}
         </div>

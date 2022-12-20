@@ -10,18 +10,21 @@ const PositionalSum = (props: question) => {
   const options_ = stripquotes(props.options) as positionalSum_
 
   const [value] = useState(sortData(options_.value))
+  const sum = value.reduce((a, b) => a + b, 0)
+
   const [answer, setAnswer] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!onlyNumberWithNegative.test(e.target.value)) {
-      e.target.value = e.target.value.replace(/[^0-9-]/g, '')
+    if (!gameState.next) {
+      if (!onlyNumberWithNegative.test(e.target.value)) {
+        e.target.value = e.target.value.replace(/[^0-9-]/g, '')
+      }
+      setAnswer(e.target.value)
     }
-    setAnswer(e.target.value)
   }
 
   useEffect(() => {
     if (answer) {
-      const sum = value.reduce((a, b) => a + b, 0)
       const newQuestion = {
         _id: props._id,
         nota: sum === parseInt(answer) ? 1 : 0,
@@ -53,7 +56,7 @@ const PositionalSum = (props: question) => {
           return (
             <div key={index} className="text-lg flex items-center justify-end">
               {index === value.length - 1 && (
-                <span className="text-2xl font-bold">+ </span>
+                <span className="text-2xl font-bold mr-5 text-red-500">+ </span>
               )}
               <span>{v} </span>
             </div>
@@ -61,7 +64,14 @@ const PositionalSum = (props: question) => {
         })}
         <input
           type="text"
-          className="text-right border border-gray-400 rounded px-2 py-1 mt-2"
+          disabled={gameState.next}
+          className={`text-right border border-gray-400 rounded px-2 py-1 mt-2 ${
+            gameState.next && sum === parseInt(answer)
+              ? 'bg-blue-500 text-white'
+              : gameState.next && sum !== parseInt(answer)
+              ? 'bg-red-500'
+              : ''
+          }`}
           value={answer}
           onChange={handleChange}
         />

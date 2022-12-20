@@ -9,6 +9,7 @@ import { question } from '../../types/game'
 
 const DragAndDropSet = (props: question) => {
   const { onDragEnd, options_, answer, sets } = useDragAndDropSets(props)
+
   return (
     <>
       <QuestionTitle
@@ -41,6 +42,7 @@ const DragAndDropSet = (props: question) => {
                   draggableId={item.value}
                   index={index}
                   value={item.value}
+                  isCorrect={item.isCorrect}
                   color={item.color}
                 />
               ))}

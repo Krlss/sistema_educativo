@@ -52,6 +52,7 @@ const ChooseAnOptionNumToText = (props: question) => {
                 name="answer"
                 value={option.text}
                 onChange={e => setAnswer(e.target.value)}
+                correct={option.value}
               />
               <div className="flex items-center">
                 <span className="ml-2 text-red-500">{option.number}</span>

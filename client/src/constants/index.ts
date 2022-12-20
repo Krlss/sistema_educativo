@@ -1,7 +1,7 @@
 import { typeQuestion } from '../types/game'
 // prettier-ignore
 export const data = [
- /* {
+ {
     type: 'true_or_false',
     _id: '637370e6fd325626f8d337ca',
     options: "'{\"correct\":true}'",
@@ -181,7 +181,7 @@ export const data = [
     options: "'{\"options\":[{\"value\":false,\"text\":\"Cuatrocientos sesenta y tres mil ochocientos cuarenta y seis\"},{\"value\":true,\"text\":\"Ochocientos cuarenta y dos mil quinientos setenta y nueve\"}]}'",
     subtitle: 'Los Números naturales de hasta seis cifras se escribe separando de derecha a izquierda, de 3 en 3 cifras.',
     title: 'Escoja la opción correcta'
-  }
+  },
   {
     type: 'choose_an_option_textnumber',
     _id: '6373730ffd325626f8d337e5',
@@ -209,7 +209,7 @@ export const data = [
     options: "'[{\"text\":\"521489\"},{\"text\":\"254897\"},{\"text\":\"126504\"},{\"text\":\"625301\"}]'",
     subtitle: null,
     title: 'Escucha y escribe los siguientes números'
-  }
+  },
   {
     type: 'choose_an_option',
     _id: '63737358fd325626f8d337e9',
@@ -223,14 +223,14 @@ export const data = [
     options: "'{\"options\":[{\"text\":\"Unidades\",\"value\":false},{\"text\":\"Decenas\",\"value\":true},{\"text\":\"Centenas\",\"value\":false},{\"text\":\"Millares\",\"value\":false}]}'",
     subtitle: null,
     title: '¿Cuál es el valor posicional del 5 en 3,654?'
-  }, */
+  },
   {
     type: 'order',
     _id: '63737367fd325626f8d337eb',
     options: "'{\"value\":\"4689\"}'",
     subtitle: null,
     title: 'Arregla los dígitos 4, 9,8 y 6 para crear el número de cuatros dígitos más pequeño posible.'
-  } /*
+  },
   {
     type: 'true_or_false',
     _id: '6373736ffd325626f8d337ec',
@@ -300,6 +300,13 @@ export const data = [
     options: "'{\"value\":26003743}'",
     subtitle: 'Valor posicional de 26 003 743:',
     title: 'Observo la siguiente cifra y realizo su valor posicional según su lectura en la tabla posicional.'
+  },
+  {
+    type: 'operation_simple',
+    _id: '637373b3fd325626f8d337f5',
+     subtitle: 'Valor posicional de 26 003 743:',
+    title: 'Observo la siguiente cifra y realizo su valor posicional según su lectura en la tabla posicional.',
+    options: '{"operation":"7 x 20 ÷ 5 – 8  + 6","correct":26}'
   },
   {
     type: 'base10_descomposition',
@@ -537,7 +544,7 @@ export const data = [
     options: "'{\"options\":[{\"value\":false,\"text\":\"Cacao - 24 752 230\"},{\"value\":false,\"text\":\"Banano - 41 252 320\"},{\"value\":true,\"text\":\"Café - 62 262 457\"}]}'",
     subtitle: null,
     title: 'Cúal es el producto con más producción'
-  } */
+  }
 ] as {
   _id: string
   options: string

@@ -30,27 +30,29 @@ const OperationBaseN = (props: question) => {
   )
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    const [base, digit] = name.split(',').map(item => {
-      return item.split('-')[1]
-    })
-    setState(prevState => {
-      return prevState.map(baseItem => {
-        return baseItem.map(digitItem => {
-          if (
-            digitItem.base === parseInt(base) &&
-            digitItem.digit === parseInt(digit)
-          ) {
-            return {
-              ...digitItem,
-              isCorrect: digitItem.value === parseInt(value),
-              response: value ? parseInt(value) : undefined
+    if (!gameState.next) {
+      const { name, value } = e.target
+      const [base, digit] = name.split(',').map(item => {
+        return item.split('-')[1]
+      })
+      setState(prevState => {
+        return prevState.map(baseItem => {
+          return baseItem.map(digitItem => {
+            if (
+              digitItem.base === parseInt(base) &&
+              digitItem.digit === parseInt(digit)
+            ) {
+              return {
+                ...digitItem,
+                isCorrect: digitItem.value === parseInt(value),
+                response: value ? parseInt(value) : undefined
+              }
             }
-          }
-          return digitItem
+            return digitItem
+          })
         })
       })
-    })
+    }
   }
 
   useEffect(() => {
@@ -123,6 +125,7 @@ const OperationBaseN = (props: question) => {
                     type="number"
                     name={`base-${base},digit-${digit}`}
                     onChange={handleChange}
+                    disabled={gameState.next}
                     className="bg-gray-100 w-full max-w-[224px] p-2 text-center font-normal"
                   />
                 )
