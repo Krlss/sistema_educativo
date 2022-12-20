@@ -201,6 +201,7 @@ export interface writeValueFromText_ {
   text: string
   value: string
   response?: string
+  isCorrect?: boolean
 }
 
 export interface getRandomQuestionsProps {

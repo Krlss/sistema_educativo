@@ -118,7 +118,7 @@ export const data = [
     options: "'{\"correct\":true,\"options\":[{\"name\":\"En números:\",\"text\":\"toneladas de basura al día.\",\"value\":\"4 700\"},{\"name\":\"En letras:\",\"text\":\"toneladas de basura reciclada al día.\",\"value\":\"Ciento cuarenta y un\"}]}'",
     subtitle: 'Según el diario La Prensa de La Paz, Bolivia produce aproximadamente cuatro mil setecientas toneladas de basura al día y, de esta cantidad, recicla 141 toneladas.',
     title: 'Analizo la información y con base en la información anterior, verifico si están escritas correctamente las cifras.'
-  }, */
+  },
   {
     type: 'positional_table',
     _id: '637372c5fd325626f8d337dc',
@@ -132,7 +132,7 @@ export const data = [
     options: "'[{\"value\":\"910 608\",\"text\":\"NOVECIENTOS DIEZ MIL SEISCIENTOS OCHO\"},{\"value\":\"200 457\",\"text\":\"DOSCIENTOS MIL CUATROCIENTOS CINCUENTA Y SIETE\"},{\"value\":\"305 034\",\"text\":\"TRESCIENTOS CINCO MIL TREINTA Y CUATRO\"}]'",
     subtitle: null,
     title: 'Relaciona el valor con su escritura'
-  },
+  }, */
   {
     type: 'write_value_from_text',
     _id: '637372d2fd325626f8d337de',

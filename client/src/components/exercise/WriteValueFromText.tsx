@@ -10,9 +10,13 @@ const WriteValueFromText = (props: question) => {
   const options_ = shuffleArray(
     stripquotes(props.options)
   ) as writeValueFromText_[]
-  const [data] = useState<writeValueFromText_[]>(options_)
-  const [response, setResponse] = useState<string[]>(
-    Array(options_.length).fill(undefined)
+  const [response, setResponse] = useState<writeValueFromText_[]>(
+    options_.map(option => ({
+      text: option.text,
+      value: option.value.toLowerCase(),
+      isCorrect: false,
+      response: undefined
+    }))
   )
   const [colors] = useState<string[]>(getRamdonArrayColors(options_.length))
   const handleChange = (
@@ -20,22 +24,24 @@ const WriteValueFromText = (props: question) => {
     index: number
   ) => {
     const newData = [...response]
-    newData[index] = e.target.value.toLowerCase()
+    newData[index] = {
+      ...response[index],
+      response: e.target.value.toLowerCase(),
+      isCorrect: response[index].value === e.target.value.toLowerCase()
+    }
     setResponse(newData)
   }
 
   useEffect(() => {
-    const isCompleted = response.every(option => option)
+    const isCompleted = response.every(option => option.response !== undefined)
 
     if (isCompleted) {
-      const correct = data.reduce(
+      const correct = response.reduce(
         (acc, option, index) => {
-          if (response[index] === (option?.value).toLocaleLowerCase()) {
-            acc.correct++
-          }
+          if (option.isCorrect) acc.correct++
           return {
             ...acc,
-            note: Number((acc.correct / data.length).toFixed(2))
+            note: Number((acc.correct / response.length).toFixed(2))
           }
         },
         { note: 0, correct: 0 }
@@ -74,14 +80,14 @@ const WriteValueFromText = (props: question) => {
         index={props.index}
       />
       <div className="w-full mt-2">
-        {data.map((item, index) => {
+        {response.map((item, index) => {
           const isNumber = !isNaN(Number(item.value))
           return (
             <div
               key={index}
-              className="flex border border-gray-300 lg:flex-row flex-col">
+              className="flex border border-gray-400 lg:flex-row flex-col">
               <div
-                className={`p-2 text-left lg:border-r border-gray-300 flex items-center ${
+                className={`p-2 text-left lg:border-r border-gray-400 flex items-center ${
                   !isNumber ? 'lg:w-4/12' : 'w-full'
                 }`}
                 style={{
@@ -93,8 +99,17 @@ const WriteValueFromText = (props: question) => {
               </div>
               <div className="w-8/12">
                 <textarea
-                  className="p-2 w-full outline-none focus:border-0 bg-transparent h-full resize-none bg-white"
-                  onChange={e => handleChange(e, index)}
+                  disabled={gameState.next}
+                  className={`p-2 w-full outline-none focus:border-0 bg-transparent h-full resize-none font-semibold bg-white ${
+                    gameState.next && item.isCorrect
+                      ? 'text-blue-500'
+                      : gameState.next && !item.isCorrect
+                      ? 'text-red-500'
+                      : ''
+                  }`}
+                  onChange={e => {
+                    if (!gameState.next) handleChange(e, index)
+                  }}
                 />
               </div>
             </div>
