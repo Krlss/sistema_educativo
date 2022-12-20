@@ -54,6 +54,7 @@ const useDragAndDropObject = ({
 
       removed.responseX = valueX
       removed.responseY = valueY
+      removed.isCorrect = removed.x === valueX && removed.y === valueY
 
       setResponse([...response, removed])
       setOptions([...options_])
@@ -71,12 +72,7 @@ const useDragAndDropObject = ({
   const verifyFinal = (array: DataInterface[]) => {
     return array.reduce(
       (acc, current, _, array) => {
-        if (
-          current.responseX === current.x &&
-          current.responseY === current.y
-        ) {
-          acc.correct++
-        }
+        if (current.isCorrect) acc.correct++
         return {
           ...acc,
           note: Number((acc.correct / array.length).toFixed(2))
@@ -98,6 +94,7 @@ const useDragAndDropObject = ({
       const [removed] = response.splice(index, 1)
       removed.responseX = undefined
       removed.responseY = undefined
+      removed.isCorrect = false
       setOptions([...options_, removed])
     }
   }

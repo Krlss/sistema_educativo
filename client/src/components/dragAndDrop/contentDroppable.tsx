@@ -1,5 +1,6 @@
-import { ReactNode } from 'react'
+import { ReactNode, useContext } from 'react'
 import { Droppable } from 'react-beautiful-dnd'
+import GeneralContext from '../../contexts/context'
 
 interface Props {
   droppableId: string
@@ -14,11 +15,13 @@ const ContentDroppable = ({
   isDropDisabled,
   children
 }: Props) => {
+  const { gameState } = useContext(GeneralContext)
+
   return (
     <Droppable
       droppableId={droppableId}
       direction={direction}
-      isDropDisabled={isDropDisabled}>
+      isDropDisabled={isDropDisabled || gameState.next}>
       {(provided, snapshot) => (
         <div
           className={`flex flex-wrap justify-start ${

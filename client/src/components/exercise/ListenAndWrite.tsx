@@ -7,39 +7,50 @@ import { ListenAndWrite_, question } from '../../types/game'
 import { stripquotes } from '../../utils'
 import GeneralContext from '../../contexts/context'
 
+interface Ioptions {
+  text: string
+  value?: string | number
+  isCorrect: boolean
+  response?: string
+}
+
 const ListenAndWrite = (props: question) => {
   const { setQuestion, gameState, updatedQuestion } = useContext(GeneralContext)
   const options_ = stripquotes(props.options) as ListenAndWrite_[]
-  const [options] = useState(
+  const [options, setOptions] = useState<Ioptions[]>(
     props.type === 'listen_numbers'
       ? NumberToText({ array: options_ })
-      : options_
+      : options_.map(item => {
+          return {
+            text: item.text,
+            value: item.text,
+            isCorrect: false,
+            response: undefined
+          }
+        })
   )
 
-  const [response, setResponse] = useState(
-    Array(options.length).fill(undefined)
-  )
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
     const { value } = e.target
-    const newOptions = [...response]
-    newOptions[index] = value.toLowerCase()
-    setResponse(newOptions)
+    const newOptions = [...options]
+    newOptions[index].response = value.toLowerCase()
+    newOptions[index].isCorrect =
+      value.toLowerCase() === options[index].text.toLowerCase()
+    setOptions(newOptions)
   }
 
   useEffect(() => {
-    const isFillAll = response.every(item => !!item)
+    const isFillAll = options.every(item => item.response !== undefined)
     if (isFillAll) {
       const correct = options.reduce(
         (acc, item, index) => {
-          if (item.text.toLowerCase() === response[index]) {
-            acc.correct++
-          }
+          if (item.isCorrect) acc.correct++
           return {
             ...acc,
-            note: Number((acc.correct / response.length).toFixed(2))
+            note: Number((acc.correct / options.length).toFixed(2))
           }
         },
         {
@@ -51,7 +62,7 @@ const ListenAndWrite = (props: question) => {
         _id: props._id,
         nota: correct.note,
         isDone: true,
-        responseUser: JSON.stringify({ response })
+        responseUser: JSON.stringify({ options })
       }
 
       const find = gameState.questions.find(
@@ -71,7 +82,7 @@ const ListenAndWrite = (props: question) => {
         responseUser: undefined
       })
     }
-  }, [response])
+  }, [options])
 
   return (
     <>
@@ -85,11 +96,21 @@ const ListenAndWrite = (props: question) => {
           key={index}
           className="flex items-center justify-center gap-2 my-2  w-full">
           <input
-            className="border border-yellow-page p-2 rounded outline-none w-full"
-            onChange={e => handleChange(e, index)}
+            disabled={gameState.next}
+            className={`p-2 rounded outline-none w-full ${
+              gameState.next && option.isCorrect
+                ? 'bg-blue-500 text-white'
+                : gameState.next && !option.isCorrect
+                ? 'bg-red-500'
+                : ''
+            }`}
+            onChange={e => {
+              if (!gameState.next) handleChange(e, index)
+            }}
           />
           <button
             className="flex items-center justify-center"
+            disabled={gameState.next}
             onClick={() => {
               const msg = new SpeechSynthesisUtterance(option.text)
               window.speechSynthesis.speak(msg)

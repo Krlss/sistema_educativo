@@ -1,5 +1,7 @@
-import { ReactNode } from 'react'
+import { ReactNode, useContext } from 'react'
 import { Droppable } from 'react-beautiful-dnd'
+
+import GeneralContext from '../../contexts/context'
 
 const ObjectContectDroppable = ({
   droppableId,
@@ -12,12 +14,14 @@ const ObjectContectDroppable = ({
   isDropDisabled?: boolean
   children: ReactNode
 }) => {
+  const { gameState } = useContext(GeneralContext)
+
   return (
     <div className="w-16 h-16 flex items-center justify-center bg-transparent">
       <Droppable
         droppableId={droppableId}
         direction={direction}
-        isDropDisabled={isDropDisabled}>
+        isDropDisabled={isDropDisabled || gameState.next}>
         {(provided, snapshot) => (
           <div
             className={`w-full h-full flex items-center justify-center ${

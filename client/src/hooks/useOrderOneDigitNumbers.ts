@@ -57,7 +57,9 @@ const useOrderOneDigitNumbers = (props: question) => {
 
   return {
     options,
-    onDragEnd
+    value: options_.value,
+    onDragEnd,
+    gameState
   }
 }
 

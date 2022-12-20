@@ -6,4 +6,5 @@ export interface DataInterface {
   responseX?: number
   responseY?: number
   key: string
+  isCorrect?: boolean
 }

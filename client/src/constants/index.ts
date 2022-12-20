@@ -70,7 +70,7 @@ export const data = [
     options: "'{\"correct\":false,\"points\":[{\"x\":4,\"y\":-1}]}'",
     subtitle: '',
     title: '¿La siguiente coordenada en el plano es la correcta: A(4, -3)?'
-  },  {
+  }, {
     type: 'write_coor_cp',
     _id: '637371f4fd325626f8d337d4',
     options: "'[{\"x\":1,\"y\":1},{\"x\":1,\"y\":-3},{\"x\":2,\"y\":-5}]'",
@@ -153,7 +153,7 @@ export const data = [
     options: "'{\"correct\":true}'",
     subtitle: '¿La escritura de la siguiente cifra es correcta?: 873220 - Ochocientos setenta y tres mil doscientos veinte',
     title: 'Elija la opción correcta: Verdadero o falso'
-  }, */
+  },
   {
     type: 'select_place_table_option',
     _id: '637372edfd325626f8d337e1',
@@ -181,7 +181,7 @@ export const data = [
     options: "'{\"options\":[{\"value\":false,\"text\":\"Cuatrocientos sesenta y tres mil ochocientos cuarenta y seis\"},{\"value\":true,\"text\":\"Ochocientos cuarenta y dos mil quinientos setenta y nueve\"}]}'",
     subtitle: 'Los Números naturales de hasta seis cifras se escribe separando de derecha a izquierda, de 3 en 3 cifras.',
     title: 'Escoja la opción correcta'
-  } /*
+  }
   {
     type: 'choose_an_option_textnumber',
     _id: '6373730ffd325626f8d337e5',
@@ -209,7 +209,7 @@ export const data = [
     options: "'[{\"text\":\"521489\"},{\"text\":\"254897\"},{\"text\":\"126504\"},{\"text\":\"625301\"}]'",
     subtitle: null,
     title: 'Escucha y escribe los siguientes números'
-  },
+  }
   {
     type: 'choose_an_option',
     _id: '63737358fd325626f8d337e9',
@@ -223,14 +223,14 @@ export const data = [
     options: "'{\"options\":[{\"text\":\"Unidades\",\"value\":false},{\"text\":\"Decenas\",\"value\":true},{\"text\":\"Centenas\",\"value\":false},{\"text\":\"Millares\",\"value\":false}]}'",
     subtitle: null,
     title: '¿Cuál es el valor posicional del 5 en 3,654?'
-  },
+  }, */
   {
     type: 'order',
     _id: '63737367fd325626f8d337eb',
     options: "'{\"value\":\"4689\"}'",
     subtitle: null,
     title: 'Arregla los dígitos 4, 9,8 y 6 para crear el número de cuatros dígitos más pequeño posible.'
-  },
+  } /*
   {
     type: 'true_or_false',
     _id: '6373736ffd325626f8d337ec',
