@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { getLengthOfValues } from '../utils/positionalTable'
-import { table } from '../constants/positionalTable'
+import { getLengthOfValues } from '../utils/PositionalTable'
+import { table } from '../constants/PositionalTable'
 import { onlyNumber } from '../constants/regex'
 import { getRamdonArrayColors } from '../constants/colors'
 import GeneralContext from '../contexts/context'

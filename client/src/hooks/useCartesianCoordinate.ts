@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 import { cartesianCoordinateFull_, question } from '../types/game'
 import GeneralContext from '../contexts/context'
 import { AddKeyToObj } from '../utils'
-import { namePoints } from '../constants/cartesianConstants'
+import { namePoints } from '../constants/CartesianConstants'
 
 interface CartesianCoordinate {
   x: number

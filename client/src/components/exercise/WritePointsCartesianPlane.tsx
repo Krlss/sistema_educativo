@@ -1,6 +1,6 @@
 import CartesianPlane from '../CartesianPlane'
 import QuestionTitle from '../title/questionTitle'
-import { namePoints } from '../../constants/cartesianConstants'
+import { namePoints } from '../../constants/CartesianConstants'
 import { question, writePointsCoordinatePlane_ } from '../../types/game'
 import { stripquotes } from '../../utils'
 import { onlyNumberWithNegative } from '../../constants/regex'

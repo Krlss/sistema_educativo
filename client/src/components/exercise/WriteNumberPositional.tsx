@@ -1,6 +1,6 @@
 import QuestionTitle from '../title/questionTitle'
 import useNumberPositional from '../../hooks/useNumberPositional'
-import { NamePositional } from '../../constants/positionalTable'
+import { NamePositional } from '../../constants/PositionalTable'
 import { question } from '../../types/game'
 
 const WriteNumberPositional = (props: question) => {
