@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { NumberToText } from '../../utils/listenAndWrite'
+import { NumberToText } from '../../utils/ListenAndWrite'
 import Icon from '../icons'
 import SpeakerIcon from '../icons/speaker'
 import QuestionTitle from '../title/questionTitle'
