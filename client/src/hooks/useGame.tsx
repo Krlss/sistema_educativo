@@ -308,10 +308,8 @@ const useGame = () => {
           title: 'Terminaste la prueba',
           text: 'Tus respuestas serán guardadas',
           icon: 'success'
-        }).then(() => {
-          resetGame()
-          window.location.reload()
         })
+        resetGame()
       }
     }
   }
@@ -386,21 +384,46 @@ const useGame = () => {
     if (questions.length > 0) {
       loadExercise()
       setInitialGame()
-      calculateQualification()
     }
   }, [questions])
 
   useEffect(() => {
     if (gameState.questions[gameState.index]?.isDone) setNextDisabled(true)
     else setNextDisabled(false)
-  }, [gameState])
+  }, [gameState.questions])
+
+  useEffect(() => {
+    const handleUnload = () => {
+      setDataQuestionLocalStore('array', questions)
+      setDataQuestionLocalStore('questions', gameState.questions)
+
+      if (gameState.index === dataGame.length - 1 && gameState.next) {
+        Swal.fire({
+          title: 'Terminaste la prueba',
+          text: 'Tus respuestas serán guardadas',
+          icon: 'success'
+        }).then(() => {
+          resetGame()
+          window.location.reload()
+        })
+      }
+
+      if (gameState.next && gameState.questions[gameState.index]?.isDone) {
+        setDataTest('indexQuestion', gameState.index + 1)
+      }
+    }
+    window.addEventListener('beforeunload', handleUnload)
+    return () => {
+      window.removeEventListener('beforeunload', handleUnload)
+    }
+  }, [gameState.next])
 
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     })
-  }, [gameState.index, gameState.next])
+  }, [gameState.index])
 
   return {
     dataGame,

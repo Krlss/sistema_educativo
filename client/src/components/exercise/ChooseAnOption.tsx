@@ -53,7 +53,7 @@ const ChooseAnOption = (props: question) => {
                 value={option.text}
                 onChange={e => setAnswer(e.target.value)}
                 correct={option.value}
-                label={option.text}
+                label={!option.image ? option.text : undefined}
               />
               {option?.image && (
                 <img

@@ -72,13 +72,13 @@ export default (state: QUESTION, action: GameReducerProps) => {
       }
     case 'resetGame':
       return {
-        ...state,
         questions: [],
         index: 0,
+        next: false,
+        qualification: 0,
         initialTimeStamp: undefined,
         finalTimeStamp: undefined,
-        timeLeft: 0,
-        qualification: 0
+        timeLeft: 0
       }
     default:
       return state

@@ -9,9 +9,16 @@ interface Props {
   index: number
   value: string
   color?: string
+  textColor?: string
 }
 
-const TextDraggable = ({ draggableId, index, value, color }: Props) => {
+const TextDraggable = ({
+  draggableId,
+  index,
+  value,
+  color,
+  textColor
+}: Props) => {
   const { gameState } = useContext(GeneralContext)
 
   return (
@@ -28,7 +35,8 @@ const TextDraggable = ({ draggableId, index, value, color }: Props) => {
             ref={innerRef}
             style={{
               ...draggableProps.style,
-              backgroundColor: color
+              backgroundColor: color,
+              color: textColor || 'black'
             }}>
             {!gameState.next && (
               <Icon viewBox="24 24" fill="white">

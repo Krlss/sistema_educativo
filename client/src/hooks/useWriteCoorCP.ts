@@ -60,8 +60,6 @@ const useWriteCoorCP = ({
       } else {
         setQuestion(newQuestion)
       }
-
-      console.log(correct)
     } else {
       updatedQuestion({
         _id: question._id,

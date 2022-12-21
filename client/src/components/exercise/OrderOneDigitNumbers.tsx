@@ -33,6 +33,13 @@ const OrderOneDigitNumbers = (props: question) => {
                     ? '#CC2525'
                     : item.color
                 }
+                textColor={
+                  gameState.next && arrayValue[index] === item.value
+                    ? 'white'
+                    : gameState.next && arrayValue[index] !== item.value
+                    ? 'black'
+                    : 'black'
+                }
               />
             )
           })}

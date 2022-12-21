@@ -106,6 +106,12 @@ const GeneralProvider = (props: any) => {
   }
 
   useEffect(() => {
+    if (gameState.next) calculateQualification()
+  }, [gameState.questions])
+
+  console.log(gameState.questions)
+
+  useEffect(() => {
     const initialTimeStamp = getDataSession('initialTimeStamp') as Date | null
     if (initialTimeStamp) {
       setInitialGame()
@@ -124,11 +130,6 @@ const GeneralProvider = (props: any) => {
             text: 'Tus respuestas serán guardadas',
             icon: 'warning'
           }).then(() => {
-            removeDataSession('initialTimeStamp')
-            removeDataSession('questionsId')
-            removeQuestionLocalStore('array')
-            removeQuestionLocalStore('questions')
-            window.location.reload()
             resetGame()
           })
         }
