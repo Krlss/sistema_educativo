@@ -209,7 +209,7 @@ export class QuestionResolver {
 
   /* Consulta 10 preguntas de un tema */
   @Query(() => [Question])
-  async getRandomQuestions(
+  async getRandomUnitQuestions(
     @Arg("asignatureId") asignatureId: string,
     @Arg("unitId") unitId: string
   ) {
@@ -226,6 +226,29 @@ export class QuestionResolver {
     const unitquestions = unit.topic.map((topic) => topic.question).flat();
 
     const questions = unitquestions
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 10);
+
+    return questions;
+  }
+
+  @Query(() => [Question])
+  async getRandomAsignatureQuestions(
+    @Arg("asignatureId") asignatureId: string
+  ) {
+    const asignature = await AppDataSource.manager.findOneBy(Asignature, {
+      _id: new ObjectId(asignatureId),
+    });
+    if (!asignature) {
+      return [];
+    }
+    const asignatureunit = asignature.unit
+      .map((unit) => unit.topic.map((topic) => topic.question).flat())
+      .flat();
+
+    // const unitquestions = unit.topic.map((topic) => topic.question).flat();
+
+    const questions = asignatureunit
       .sort(() => Math.random() - 0.5)
       .slice(0, 10);
 
