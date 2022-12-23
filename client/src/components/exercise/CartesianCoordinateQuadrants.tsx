@@ -17,8 +17,6 @@ const CartesianCoordinateQuadrant = (props: question) => {
     .map(point => `${point.letter} (${point.x}, ${point.y})`)
     .join(', ')
 
-  console.log(cartesian)
-
   return (
     <>
       <QuestionTitle

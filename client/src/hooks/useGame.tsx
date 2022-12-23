@@ -310,6 +310,7 @@ const useGame = () => {
           icon: 'success'
         })
         resetGame()
+        navigate('/')
       }
     }
   }
@@ -351,8 +352,8 @@ const useGame = () => {
         unitId
       },
       onCompleted(data) {
-        if (data.getRandomQuestions) {
-          setQuestions_(data.getRandomQuestions)
+        if (data.getRandomUnitQuestions) {
+          setQuestions_(data.getRandomUnitQuestions)
         }
       },
       onError() {
@@ -390,25 +391,18 @@ const useGame = () => {
   useEffect(() => {
     if (gameState.questions[gameState.index]?.isDone) setNextDisabled(true)
     else setNextDisabled(false)
-  }, [gameState.questions])
+  }, [gameState.questions[gameState.index]])
 
   useEffect(() => {
     const handleUnload = () => {
       setDataQuestionLocalStore('array', questions)
       setDataQuestionLocalStore('questions', gameState.questions)
 
-      if (gameState.index === dataGame.length - 1 && gameState.next) {
-        Swal.fire({
-          title: 'Terminaste la prueba',
-          text: 'Tus respuestas serán guardadas',
-          icon: 'success'
-        }).then(() => {
-          resetGame()
-          window.location.reload()
-        })
-      }
-
-      if (gameState.next && gameState.questions[gameState.index]?.isDone) {
+      if (
+        gameState.next &&
+        gameState.questions[gameState.index]?.isDone &&
+        gameState.index !== dataGame.length - 1
+      ) {
         setDataTest('indexQuestion', gameState.index + 1)
       }
     }

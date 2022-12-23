@@ -9,7 +9,7 @@ interface Props {
 
 const useChooseAnOption = ({ question, options_ }: Props) => {
   const { setQuestion, gameState, updatedQuestion } = useContext(GeneralContext)
-  const [answer, setAnswer] = useState<string>('')
+  const [answer, setAnswer] = useState<string>()
 
   useEffect(() => {
     if (answer) {

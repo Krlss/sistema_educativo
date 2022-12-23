@@ -7,13 +7,9 @@ const Game = () => {
   const { h, m, s } = secondsToTime(gameState.timeLeft)
 
   return (
-    <div className="md:grid md:grid-cols-3 flex flex-col gap-4">
-      <div className="md:col-span-2">
-        <div className="mx-auto">
-          <div className="flex flex-col items-start justify-center">
-            {dataGame[gameState.index]}
-          </div>
-        </div>
+    <div className="md:grid md:grid-cols-3 flex flex-col gap-4 mx-auto h-screen">
+      <div className="flex flex-col items-start justify-start md:col-span-2">
+        {dataGame[gameState.index]}
       </div>
       <div className="md:order-last order-first mb-5">
         <div className="bg-white p-4 rounded-lg shadow">

@@ -109,8 +109,6 @@ const GeneralProvider = (props: any) => {
     if (gameState.next) calculateQualification()
   }, [gameState.questions])
 
-  console.log(gameState.questions)
-
   useEffect(() => {
     const initialTimeStamp = getDataSession('initialTimeStamp') as Date | null
     if (initialTimeStamp) {

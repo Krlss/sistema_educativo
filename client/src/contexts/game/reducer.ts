@@ -3,7 +3,6 @@ import {
   QUESTION,
   IInitialGame
 } from '../../types/contextGame'
-import { setDataQuestionLocalStore, setDataTest } from '../../utils/dataSession'
 
 export type GameReducerProps =
   | { type: 'setQuestions'; payload: QuestionsExtends[] }
@@ -72,6 +71,7 @@ export default (state: QUESTION, action: GameReducerProps) => {
       }
     case 'resetGame':
       return {
+        ...state,
         questions: [],
         index: 0,
         next: false,

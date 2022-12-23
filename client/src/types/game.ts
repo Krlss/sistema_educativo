@@ -207,7 +207,7 @@ export interface writeValueFromText_ {
 }
 
 export interface getRandomQuestionsProps {
-  getRandomQuestions: question[]
+  getRandomUnitQuestions: question[]
 }
 
 export interface getRandomQuestionsByAsignatures {
