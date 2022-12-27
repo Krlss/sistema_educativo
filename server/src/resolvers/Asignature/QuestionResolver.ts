@@ -227,7 +227,7 @@ export class QuestionResolver {
 
     const questions = unitquestions
       .sort(() => Math.random() - 0.5)
-      .slice(0, 10);
+      .slice(0, 30);
 
     return questions;
   }
