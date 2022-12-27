@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import {
   Base10Descomposition,
   CartesianCoordinateFull,
@@ -76,14 +76,13 @@ const useGame = () => {
 
   const navigate = useNavigate()
 
-  const [dataGame, setDataGame] = useState<any[]>([])
-  const [questions, setQuestions_] = useState<question[]>([])
-
   const [nextDisabled, setNextDisabled] = useState(false)
+  const [dataGame, setDataGame] = useState<question[]>([])
+  const [renderDataGame, setRenderDataGame] = useState<React.ReactNode[]>([])
 
   const loadExercise = () => {
     const array: any[] = []
-    questions.forEach((item, index) => {
+    dataGame.forEach((item, index) => {
       switch (item.type) {
         case 'base10_descomposition':
           return array.push(
@@ -241,11 +240,11 @@ const useGame = () => {
       }
     })
 
-    setDataGame(array)
-    const existQuestions = getDataQuestionLocalStore('questions')
+    setRenderDataGame(array)
+    const existQuestions = getDataQuestionLocalStore('questionsAswers')
     let questions_: QuestionsExtends[] = []
     if (!existQuestions) {
-      questions_ = questions.map(item => ({
+      questions_ = dataGame.map(item => ({
         _id: item._id,
         nota: 0,
         isDone: false
@@ -254,26 +253,26 @@ const useGame = () => {
         nota: number
         isDone: boolean
       }[]
+      setDataQuestionLocalStore('questionsAswers', questions_)
     } else {
       questions_ = existQuestions
     }
     setQuestions(questions_)
-    const arrayExist = getDataQuestionLocalStore('array')
-    setDataQuestionLocalStore('array', arrayExist || questions)
+    const localStorageDataGame = getDataQuestionLocalStore('dataGame')
+    setDataQuestionLocalStore('dataGame', localStorageDataGame || array)
   }
 
   const nextExercise = () => {
+    setDataQuestionLocalStore('questionsAswers', gameState.questions)
+    setDataQuestionLocalStore('dataGame', dataGame)
     if (gameState.timeLeft > 0) {
       if (gameState.next && gameState.index <= dataGame.length - 1) {
-        setDataTest('indexQuestion', gameState.index + 1)
-        setDataQuestionLocalStore('questions', gameState.questions)
         setIndex(gameState.index + 1)
         setNext(false)
       }
 
       if (gameState.index <= dataGame.length - 1 && !gameState.next) {
         calculateQualification()
-        setDataQuestionLocalStore('questions', gameState.questions)
         setNext(true)
         if (
           gameState.questions[gameState.index].isDone &&
@@ -335,9 +334,34 @@ const useGame = () => {
       return
     }
 
-    const localStorageQuestion = getDataQuestionLocalStore('array')
-    const questions_ = localStorageQuestion || []
-    setQuestions_(questions_)
+    const questiongame_ = getDataQuestionLocalStore('questionsAswers') as
+      | QuestionsExtends[]
+      | null
+
+    if (questiongame_) {
+      const questionDoneLength = questiongame_.filter(
+        item => item.isDone
+      ).length
+
+      if (questionDoneLength >= questiongame_.length) {
+        Swal.fire({
+          title: 'Terminaste la prueba',
+          text: 'Tus respuestas serán guardadas',
+          icon: 'success'
+        })
+        resetGame()
+        navigate('/')
+        return
+      }
+
+      setIndex(questionDoneLength)
+      setNext(false)
+    }
+
+    const localStorageDataGame = getDataQuestionLocalStore('dataGame')
+    const localStorageDataGame_ = localStorageDataGame || []
+    setDataGame(localStorageDataGame_)
+    setDataQuestionLocalStore('dataGame', localStorageDataGame_)
     setLoading(false)
   }, [])
 
@@ -353,7 +377,8 @@ const useGame = () => {
       },
       onCompleted(data) {
         if (data.getRandomUnitQuestions) {
-          setQuestions_(data.getRandomUnitQuestions)
+          setDataQuestionLocalStore('dataGame', data.getRandomUnitQuestions)
+          setDataGame(data.getRandomUnitQuestions)
         }
       },
       onError() {
@@ -372,7 +397,11 @@ const useGame = () => {
       },
       onCompleted(data) {
         if (data.getRandomQuestionsByAsignatures) {
-          setQuestions_(data.getRandomQuestionsByAsignatures)
+          setDataQuestionLocalStore(
+            'dataGame',
+            data.getRandomQuestionsByAsignatures
+          )
+          setDataGame(data.getRandomQuestionsByAsignatures)
         }
       },
       onError() {
@@ -382,35 +411,26 @@ const useGame = () => {
   }
 
   useEffect(() => {
-    if (questions.length > 0) {
+    if (dataGame.length > 0) {
       loadExercise()
       setInitialGame()
     }
-  }, [questions])
+  }, [dataGame])
+
+  useEffect(() => {
+    if (gameState.questions.length > 0) {
+      const isCalificate = gameState.questions.some(
+        (question: QuestionsExtends) => question.isDone
+      )
+
+      if (isCalificate) calculateQualification()
+    }
+  }, [gameState.questions])
 
   useEffect(() => {
     if (gameState.questions[gameState.index]?.isDone) setNextDisabled(true)
     else setNextDisabled(false)
   }, [gameState.questions[gameState.index]])
-
-  useEffect(() => {
-    const handleUnload = () => {
-      setDataQuestionLocalStore('array', questions)
-      setDataQuestionLocalStore('questions', gameState.questions)
-
-      if (
-        gameState.next &&
-        gameState.questions[gameState.index]?.isDone &&
-        gameState.index !== dataGame.length - 1
-      ) {
-        setDataTest('indexQuestion', gameState.index + 1)
-      }
-    }
-    window.addEventListener('beforeunload', handleUnload)
-    return () => {
-      window.removeEventListener('beforeunload', handleUnload)
-    }
-  }, [gameState.next])
 
   useEffect(() => {
     window.scrollTo({
@@ -420,10 +440,10 @@ const useGame = () => {
   }, [gameState.index])
 
   return {
-    dataGame,
     gameState,
     nextExercise,
-    nextDisabled
+    nextDisabled,
+    renderDataGame
   }
 }
 

@@ -3,18 +3,18 @@ import useGame from '../../hooks/useGame'
 import { secondsToTime } from '../../utils'
 
 const Game = () => {
-  const { dataGame, gameState, nextExercise, nextDisabled } = useGame()
+  const { gameState, nextExercise, nextDisabled, renderDataGame } = useGame()
   const { h, m, s } = secondsToTime(gameState.timeLeft)
 
   return (
     <div className="md:grid md:grid-cols-3 flex flex-col gap-4 mx-auto h-screen">
       <div className="flex flex-col items-start justify-start md:col-span-2">
-        {dataGame[gameState.index]}
+        {renderDataGame[gameState.index]}
       </div>
       <div className="md:order-last order-first mb-5">
         <div className="bg-white p-4 rounded-lg shadow">
           <div className="grid gap-1.5 grid-cols-auto-index">
-            {dataGame.map((_, index) => (
+            {renderDataGame.map((_, index) => (
               <div
                 key={index}
                 className={`flex items-center justify-center rounded-md h-11 shadow-md ${

@@ -19,10 +19,13 @@ import {
   getDataSession,
   removeDataSession,
   setDataTest,
+  setDataQuestionLocalStore,
+  getDataQuestionLocalStore,
   removeQuestionLocalStore
 } from '../utils/dataSession'
 import { diffMinutes } from '../utils'
 import Swal from 'sweetalert2'
+import { question } from '../types/game'
 
 const GeneralProvider = (props: any) => {
   const [user, dispatchUser] = useReducer(UserReducer, InitialStateUser)
@@ -105,42 +108,38 @@ const GeneralProvider = (props: any) => {
     })
   }
 
-  useEffect(() => {
-    if (gameState.next) calculateQualification()
-  }, [gameState.questions])
-
-  useEffect(() => {
+  const lessTime = () => {
     const initialTimeStamp = getDataSession('initialTimeStamp') as Date | null
     if (initialTimeStamp) {
-      setInitialGame()
       const diff = diffMinutes(initialTimeStamp)
       if (diff) {
         setTimeout(() => {
           dispatchGame({
-            type: 'setTimeLeft',
-            payload: gameState.timeLeft - 1
+            type: 'restTime',
+            payload: undefined
           })
         }, 1000)
       } else {
-        if (!diff) {
-          Swal.fire({
-            title: 'Se acabo el tiempo',
-            text: 'Tus respuestas serán guardadas',
-            icon: 'warning'
-          }).then(() => {
-            resetGame()
-          })
-        }
+        Swal.fire({
+          title: 'Se acabo el tiempo',
+          text: 'Tus respuestas serán guardadas',
+          icon: 'warning'
+        }).then(() => {
+          resetGame()
+        })
       }
     }
+  }
+
+  useEffect(() => {
+    lessTime()
   }, [gameState.timeLeft])
 
   const resetGame = () => {
     removeDataSession('initialTimeStamp')
-    removeDataSession('indexQuestion')
     removeDataSession('questionsId')
-    removeQuestionLocalStore('array')
-    removeQuestionLocalStore('questions')
+    removeQuestionLocalStore('dataGame')
+    removeQuestionLocalStore('questionsAswers')
     dispatchGame({
       type: 'resetGame',
       payload: undefined
@@ -149,8 +148,7 @@ const GeneralProvider = (props: any) => {
 
   const setInitialGame = () => {
     const initialTimeStamp = getDataSession('initialTimeStamp') as Date | null
-    const indexQuestion = getDataSession('indexQuestion') as number | null
-    setIndex(Number(indexQuestion) || 0)
+
     if (initialTimeStamp) {
       const diff = diffMinutes(initialTimeStamp)
       const finalTimeStamp = new Date(initialTimeStamp)

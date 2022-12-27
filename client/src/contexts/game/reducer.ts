@@ -18,6 +18,7 @@ export type GameReducerProps =
   | { type: 'resetGame'; payload: undefined }
   | { type: 'setNext'; payload: boolean }
   | { type: 'setQualification'; payload: number }
+  | { type: 'restTime'; payload: undefined }
 
 export default (state: QUESTION, action: GameReducerProps) => {
   const { type, payload } = action
@@ -79,6 +80,11 @@ export default (state: QUESTION, action: GameReducerProps) => {
         initialTimeStamp: undefined,
         finalTimeStamp: undefined,
         timeLeft: 0
+      }
+    case 'restTime':
+      return {
+        ...state,
+        timeLeft: state.timeLeft ? state.timeLeft - 1 : 0
       }
     default:
       return state
