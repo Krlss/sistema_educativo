@@ -27,12 +27,25 @@ const CoursePresentation = () => {
               p.unit?.find(u => u.id_unit === unt._id)
             ) as PROGRESS
 
+            /**
+             * Número de temas completados
+             */
             const isCompleted = unitFined?.unit
               ?.find(u => u.id_unit === unt._id)
-              ?.topic?.reduce((acc, t) => {
-                if (t.finished) acc++
-                return acc
-              }, 0)
+              ?.topic?.filter(t => t.finished).length
+
+            /**
+             * Si el número de temas completados es igual al número de temas
+             * de la unidad, entonces la unidad está completada
+             * */
+            const equalsCompleted =
+              asignature.unit[index].topic.length === isCompleted
+
+            const isAsignature = user.progress.find(
+              p => p.id_asignature === asignatureId
+            )
+
+            const isUnit = isAsignature?.unit?.find(u => u.id_unit === unt._id)
 
             return (
               <div
@@ -68,7 +81,18 @@ const CoursePresentation = () => {
                   </div>
                 </NavLink>
 
-                {asignature.unit[index].topic.length === isCompleted &&
+                {isUnit?.finished ? (
+                  <div className="px-3 py-2 text-black font-bold text-sm rounded mr-4 max-w-[110px] w-full text-center shadow-md bg-yellow2-page cursor-default">
+                    Tu nota: {isUnit.nota}
+                  </div>
+                ) : equalsCompleted && !gameState.timeLeft ? (
+                  <DarPruebaDiv
+                    asignature={asignature._id}
+                    unit={asignature.unit[index]._id}
+                    title="Dar prueba"
+                  />
+                ) : (
+                  equalsCompleted &&
                   questionsId?.asignatureId === asignature._id &&
                   questionsId?.unitId === asignature.unit[index]._id &&
                   gameState.timeLeft && (
@@ -77,16 +101,8 @@ const CoursePresentation = () => {
                       unit={asignature.unit[index]._id}
                       title="Continuar"
                     />
-                  )}
-
-                {asignature.unit[index].topic.length === isCompleted &&
-                  !gameState.timeLeft && (
-                    <DarPruebaDiv
-                      asignature={asignature._id}
-                      unit={asignature.unit[index]._id}
-                      title="Dar prueba"
-                    />
-                  )}
+                  )
+                )}
               </div>
             )
           })}

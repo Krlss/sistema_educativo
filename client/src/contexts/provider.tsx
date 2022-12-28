@@ -41,6 +41,10 @@ const GeneralProvider = (props: any) => {
         userId: token._id
       })
     }
+    const initialTimeStamp = getDataSession('initialTimeStamp')
+    if (initialTimeStamp) {
+      setInitialGame()
+    }
   }, [])
 
   useEffect(() => {
