@@ -37,8 +37,7 @@ const Game = () => {
             </div>
             <div className="flex gap-2">
               <span>
-                Calificación: {gameState.qualification.toFixed(2)}/
-                {gameState.questions.length}
+                Calificación: {gameState.qualification.toFixed(2)} / 10
               </span>
             </div>
             <div className="flex w-full justify-end">

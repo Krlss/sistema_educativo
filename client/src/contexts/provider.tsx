@@ -136,7 +136,7 @@ const GeneralProvider = (props: any) => {
   }
 
   useEffect(() => {
-    lessTime()
+    if (gameState.timeLeft) lessTime()
   }, [gameState.timeLeft])
 
   const resetGame = () => {
@@ -193,9 +193,12 @@ const GeneralProvider = (props: any) => {
       0
     )
 
+    // qualification max is 10, qualification / 30 * 10
+    const qualificationFinal = (qualification * 10) / gameState.questions.length
+
     dispatchGame({
       type: 'setQualification',
-      payload: qualification
+      payload: qualificationFinal
     })
   }
 
