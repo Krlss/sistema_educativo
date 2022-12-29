@@ -141,7 +141,7 @@ export class UserQuestionResolver {
 
   /* Guardar pregunta calificada */
   @Mutation(() => Boolean)
-  async qualifyUserQuestion(
+  async qualifyUnitUserQuestion(
     @Arg("userId") userId: string,
     @Arg("progressId") progressId: string,
     @Arg("unitId") unitId: string,
@@ -189,7 +189,57 @@ export class UserQuestionResolver {
       nota += item.nota;
     });
 
-    unit.nota = nota / 10;
+    unit.nota = (nota * 10) / unit.questions.length;
+
+    await AppDataSource.manager.update(User, user._id, user);
+    return true;
+  }
+
+  /* Guardar pregunta calificada */
+  @Mutation(() => Boolean)
+  async qualifyAsignatureUserQuestion(
+    @Arg("userId") userId: string,
+    @Arg("progressId") progressId: string,
+    @Arg("data", { nullable: true }) data: string
+  ) {
+    const user = await AppDataSource.manager.findOneBy(User, {
+      _id: new ObjectId(userId),
+    });
+    if (!user) {
+      return false;
+    }
+    const progress = user.progress.find(
+      (progress) => progress._id.toString() === progressId
+    );
+    if (!progress) {
+      return false;
+    }
+
+    interface userData {
+      nota: number;
+      _id: string;
+      isDone: boolean;
+    }
+
+    const _data: userData[] = JSON.parse(data);
+
+    if (!_data) {
+      return false;
+    }
+
+    let nota = 0;
+
+    _data.map((item: userData) => {
+      const question = progress.questions.find(
+        (question) => question.id_question.toString() === item._id
+      );
+      if (!question) return false;
+      question.nota = item.nota;
+      question.isDone = item.isDone;
+      nota += item.nota;
+    });
+
+    progress.nota = (nota * 10) / progress.questions.length;
 
     await AppDataSource.manager.update(User, user._id, user);
     return true;
