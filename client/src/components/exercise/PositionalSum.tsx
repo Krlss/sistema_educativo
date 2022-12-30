@@ -10,7 +10,7 @@ const PositionalSum = (props: question) => {
   const options_ = stripquotes(props.options) as positionalSum_
 
   const [value] = useState(sortData(options_.value))
-  const sum = value.reduce((a, b) => a + b, 0)
+  const sum = value.reduce((a, b) => a + b)
 
   const [answer, setAnswer] = useState('')
 

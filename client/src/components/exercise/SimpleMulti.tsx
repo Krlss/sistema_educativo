@@ -46,8 +46,15 @@ const SimpleMulti = (props: question) => {
       <div className="flex items-center gap-2">
         <span className="font-bold text-lg">{props_.text} =</span>
         <input
+          disabled={gameState.next}
           type="number"
-          className="p-2"
+          className={`text-right border border-gray-400 rounded px-2 py-1 mt-2 ${
+            gameState.next && answer === props_.value
+              ? 'bg-blue-500 text-white'
+              : gameState.next && answer !== props_.value
+              ? 'bg-red-500'
+              : ''
+          }`}
           name="answer"
           onChange={e => handleAnswer(e.target.value)}
         />

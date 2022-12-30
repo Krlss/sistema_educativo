@@ -32,30 +32,22 @@ import {
   OperationSimple
 } from '../components/exercise'
 import { getQuadrant } from '../utils/CartesianCoordinate'
-import {
-  writePointsCoordinatePlane_,
-  typeQuestion,
-  getRandomQuestionsByAsignatures,
-  question,
-  getRandomQuestionsProps
-} from '../types/game'
+import { writePointsCoordinatePlane_, question } from '../types/game'
 import { stripquotes } from '../utils'
 import GeneralContext from '../contexts/context'
 import {
-  setDataTest,
   setDataQuestionLocalStore,
   getDataQuestionLocalStore,
   getDataSession
 } from '../utils/dataSession'
 import { QuestionsExtends } from '../types/contextGame'
 import Swal from 'sweetalert2'
-import { useLazyQuery } from '@apollo/client'
-import {
-  QUESTIONS_BY_UNIT,
-  QUESTIONS_BY_ASIGNATURE
-} from '../service/game/graphql-queries'
 import { useParams, useNavigate } from 'react-router-dom'
-import { data } from '../constants'
+import {
+  useQualifyForUnit,
+  useQuestionsByUnit,
+  useQuestionByAsignature
+} from '../service/game/custom-hook'
 
 const useGame = () => {
   const {
@@ -66,7 +58,8 @@ const useGame = () => {
     resetGame,
     setLoading,
     setNext,
-    calculateQualification
+    calculateQualification,
+    user
   } = useContext(GeneralContext)
 
   const { asignatureId, unitId } = useParams<{
@@ -75,6 +68,9 @@ const useGame = () => {
   }>()
 
   const navigate = useNavigate()
+  const { handlerQualifyForUnit } = useQualifyForUnit()
+  const { handleGetRandomQuestionsByUnit } = useQuestionsByUnit()
+  const { handleGetRandomQuestionsByAsignature } = useQuestionByAsignature()
 
   const [nextDisabled, setNextDisabled] = useState(false)
   const [dataGame, setDataGame] = useState<question[]>([])
@@ -309,26 +305,41 @@ const useGame = () => {
           icon: 'success'
         })
         resetGame()
+
+        if (asignatureId && unitId) {
+          const progressId_ = user.progress.find(
+            item => item.id_asignature === asignatureId
+          )?._id
+
+          handlerQualifyForUnit({
+            data: JSON.stringify(gameState.questions),
+            unitId,
+            progressId: progressId_,
+            userId: user._id
+          })
+        }
+
         navigate('/')
       }
     }
   }
-
-  const [getRandomQuestions] =
-    useLazyQuery<getRandomQuestionsProps>(QUESTIONS_BY_UNIT)
-
-  const [getRandomQuestionsByAsignatures] =
-    useLazyQuery<getRandomQuestionsByAsignatures>(QUESTIONS_BY_ASIGNATURE)
 
   useEffect(() => {
     setLoading(true)
     const initialTimeStamp = getDataSession('initialTimeStamp') as Date | null
     if (!initialTimeStamp) {
       if (asignatureId && unitId) {
-        handleGetRandomQuestionsByUnit()
+        handleGetRandomQuestionsByUnit({
+          asignatureId,
+          unitId,
+          setDataGame
+        })
       }
       if (asignatureId && !unitId) {
-        handleGetRandomQuestionsByAsignature()
+        handleGetRandomQuestionsByAsignature({
+          asignatureId,
+          setDataGame
+        })
       }
       setLoading(false)
       return
@@ -365,51 +376,6 @@ const useGame = () => {
     setLoading(false)
   }, [])
 
-  const handleGetRandomQuestionsByUnit = () => {
-    setDataTest('questionsId', {
-      asignatureId,
-      unitId
-    })
-    getRandomQuestions({
-      variables: {
-        asignatureId,
-        unitId
-      },
-      onCompleted(data) {
-        if (data.getRandomUnitQuestions) {
-          setDataQuestionLocalStore('dataGame', data.getRandomUnitQuestions)
-          setDataGame(data.getRandomUnitQuestions)
-        }
-      },
-      onError() {
-        navigate('/')
-      }
-    })
-  }
-
-  const handleGetRandomQuestionsByAsignature = () => {
-    setDataTest('questionsId', {
-      asignatureId
-    })
-    getRandomQuestionsByAsignatures({
-      variables: {
-        asignatureId
-      },
-      onCompleted(data) {
-        if (data.getRandomQuestionsByAsignatures) {
-          setDataQuestionLocalStore(
-            'dataGame',
-            data.getRandomQuestionsByAsignatures
-          )
-          setDataGame(data.getRandomQuestionsByAsignatures)
-        }
-      },
-      onError() {
-        navigate('/')
-      }
-    })
-  }
-
   useEffect(() => {
     if (dataGame.length > 0) {
       loadExercise()
@@ -425,7 +391,7 @@ const useGame = () => {
 
       if (isCalificate) calculateQualification()
     }
-  }, [gameState.questions])
+  }, [gameState.questions.length])
 
   useEffect(() => {
     if (gameState.questions[gameState.index]?.isDone) setNextDisabled(true)

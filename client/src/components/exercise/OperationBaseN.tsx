@@ -32,33 +32,23 @@ const OperationBaseN = (props: question) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!gameState.next) {
       const { name, value } = e.target
-      const [base, digit] = name.split(',').map(item => {
+      const [col, row] = name.split(',').map(item => {
         return item.split('-')[1]
       })
-      setState(prevState => {
-        return prevState.map(baseItem => {
-          return baseItem.map(digitItem => {
-            if (
-              digitItem.base === parseInt(base) &&
-              digitItem.digit === parseInt(digit)
-            ) {
-              return {
-                ...digitItem,
-                isCorrect: digitItem.value === parseInt(value),
-                response: value ? parseInt(value) : undefined
-              }
-            }
-            return digitItem
-          })
-        })
-      })
+
+      const newState = [...state]
+
+      newState[Number(col)][Number(row)].response = parseInt(value)
+      newState[Number(col)][Number(row)].isCorrect =
+        newState[Number(col)][Number(row)].value === parseInt(value)
+      setState(newState)
     }
   }
 
   useEffect(() => {
     const allDefined = state.every(baseItem => {
       return baseItem.every(digitItem => {
-        return digitItem.response !== undefined
+        return digitItem.response
       })
     })
 
@@ -89,6 +79,13 @@ const OperationBaseN = (props: question) => {
       } else {
         setQuestion(newQuestion)
       }
+    } else {
+      updatedQuestion({
+        _id: props._id,
+        nota: 0,
+        isDone: false,
+        responseUser: undefined
+      })
     }
   }, [state])
 
@@ -123,10 +120,24 @@ const OperationBaseN = (props: question) => {
                   <input
                     key={di}
                     type="number"
-                    name={`base-${base},digit-${digit}`}
+                    name={`col-${bi},row-${di}`}
                     onChange={handleChange}
                     disabled={gameState.next}
                     className="bg-gray-100 w-full max-w-[224px] p-2 text-center font-normal"
+                    style={{
+                      backgroundColor:
+                        gameState.next && state[bi][di].isCorrect
+                          ? '#2563EB'
+                          : gameState.next && !state[bi][di].isCorrect
+                          ? '#CC2525'
+                          : '',
+                      color:
+                        gameState.next && state[bi][di].isCorrect
+                          ? 'white'
+                          : gameState.next && !state[bi][di].isCorrect
+                          ? 'white'
+                          : 'black'
+                    }}
                   />
                 )
               })}

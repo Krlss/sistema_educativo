@@ -19,20 +19,17 @@ import QuestionTitle from '../title/questionTitle'
 const DragAndDropComplete = (props: question) => {
   const { setQuestion, gameState, updatedQuestion } = useContext(GeneralContext)
   const opt = stripquotes(props.options) as dragAndDropComplete_
-  const [state] = useState(opt)
-  const [answers, setAnswers] = useState<VerifyDragAndDropChooseTextProps[]>(
-    Array(state.correct.length).fill(undefined)
-  )
+  const [answers, setAnswers] = useState<VerifyDragAndDropChooseTextProps[]>([])
   const [complete] = useState<
     {
       text: string
       index?: number
     }[]
-  >(createArrayComplete(state.text))
+  >(createArrayComplete(opt.text))
   const colors = getRamdonArrayColors(opt.options.length)
   const [options_, setOptions_] = useState(
     shuffleArray(
-      state.options.map((item, index) => {
+      opt.options.map((item, index) => {
         return {
           ...item,
           key: shortid.generate(),
@@ -48,10 +45,6 @@ const DragAndDropComplete = (props: question) => {
       return
     }
 
-    if (destination.droppableId === source.droppableId) {
-      return
-    }
-
     const regex = /respuesta-\d+/g
     const isRespuesta = destination.droppableId.match(regex)
 
@@ -62,7 +55,8 @@ const DragAndDropComplete = (props: question) => {
       itemCopy[index] = {
         ...options_[source.index],
         response: options_[source.index].value,
-        original: state.correct[index]
+        original: opt.correct[index],
+        isCorrect: options_[source.index].value === opt.correct[index]
       }
       setAnswers(itemCopy)
       const newOptions = [...options_]
@@ -79,7 +73,8 @@ const DragAndDropComplete = (props: question) => {
   }
 
   useEffect(() => {
-    if (!options_.length) {
+    const isAllFill = answers.every(item => item !== undefined)
+    if (answers.length === opt.correct.length && isAllFill) {
       const response = verifyDragAndDropChooseText(answers)
       if (response) {
         const newQuestion = {
@@ -99,23 +94,32 @@ const DragAndDropComplete = (props: question) => {
           setQuestion(newQuestion)
         }
       }
+    } else {
+      updatedQuestion({
+        _id: props._id,
+        nota: 0,
+        isDone: false,
+        responseUser: undefined
+      })
     }
-  }, [options_])
+  }, [answers])
 
   const removeAnswer = (index: number) => {
-    const newOpciones = [...options_]
-    const oldRespuesta = {
-      value: answers[index]?.response,
-      text: answers[index]?.text,
-      color: answers[index]?.color,
-      key: answers[index]?.key
-    }
-    newOpciones.push(oldRespuesta)
-    setOptions_(newOpciones)
+    if (!gameState.next) {
+      const newOpciones = [...options_]
+      const oldRespuesta = {
+        value: answers[index]?.response,
+        text: answers[index]?.text,
+        color: answers[index]?.color,
+        key: answers[index]?.key
+      }
+      newOpciones.push(oldRespuesta)
+      setOptions_(newOpciones)
 
-    const newAnswers = [...answers]
-    newAnswers[index] = undefined as any
-    setAnswers(newAnswers)
+      const newAnswers = [...answers]
+      newAnswers[index] = undefined as any
+      setAnswers(newAnswers)
+    }
   }
 
   const verifyDragAndDropChooseText = (
@@ -123,13 +127,13 @@ const DragAndDropComplete = (props: question) => {
   ) => {
     return array.reduce(
       (acc, current, _, array) => {
-        if (current.response === current.original) acc.correct++
+        if (current.isCorrect) acc.correct++
         return {
           ...acc,
           note: Number((acc.correct / array.length).toFixed(2)),
           new_array_options: [
             ...acc.new_array_options,
-            { ...current, correct: current.response === current.original }
+            { ...current, correct: current.isCorrect }
           ]
         }
       },
@@ -171,7 +175,7 @@ const DragAndDropComplete = (props: question) => {
                 key={index}
                 droppableId={`respuesta-${item.index}`}
                 direction="horizontal"
-                isDropDisabled={!!answers[item.index ?? 0]}>
+                isDropDisabled={!!answers[item.index ?? 0] && !gameState.next}>
                 {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
@@ -188,15 +192,30 @@ const DragAndDropComplete = (props: question) => {
                         key={answers[item.index ?? 0].key}
                         className="shadow rounded px-3 text-black flex items-center justify-around gap-2 font-medium w-full"
                         style={{
-                          backgroundColor: answers[item.index ?? 0].color
+                          backgroundColor:
+                            gameState.next && answers[item.index ?? 0].isCorrect
+                              ? '#2563EB'
+                              : gameState.next &&
+                                !answers[item.index ?? 0].isCorrect
+                              ? '#CC2525'
+                              : answers[item.index ?? 0].color,
+                          color:
+                            gameState.next && answers[item.index ?? 0].isCorrect
+                              ? 'white'
+                              : gameState.next &&
+                                !answers[item.index ?? 0].isCorrect
+                              ? 'white'
+                              : 'black'
                         }}>
-                        <button
-                          className="hover:text-red-800"
-                          onClick={() => removeAnswer(item.index ?? 0)}>
-                          <Icon viewBox="16 16">
-                            <CrossIcon />
-                          </Icon>
-                        </button>
+                        {!gameState.next && (
+                          <button
+                            className="hover:text-red-800"
+                            onClick={() => removeAnswer(item.index ?? 0)}>
+                            <Icon viewBox="16 16">
+                              <CrossIcon />
+                            </Icon>
+                          </button>
+                        )}
                         {answers[item.index ?? 0].response}
                       </div>
                     )}
