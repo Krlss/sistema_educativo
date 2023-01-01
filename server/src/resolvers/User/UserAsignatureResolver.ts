@@ -24,7 +24,7 @@ export class UserAsignatureResolver {
     asignature.unit = [];
     asignature.nota = 0;
     asignature.id_asignature = asignatureId;
-    asignature.questions = [];
+    asignature.questions = "";
     user.progress.push(asignature);
 
     // await AppDataSource.manager.save(user);

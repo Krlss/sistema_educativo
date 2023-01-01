@@ -21,7 +21,7 @@ export class UserAsignature {
   @Column("string")
   id_asignature!: string;
 
-  @Field(() => [UserQuestion], { nullable: true })
-  @Column(() => UserQuestion)
-  questions!: UserQuestion[];
+  @Field({ nullable: true })
+  @Column("string")
+  questions!: string;
 }

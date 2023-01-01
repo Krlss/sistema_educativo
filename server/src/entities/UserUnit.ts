@@ -21,9 +21,9 @@ export class UserUnit {
   @Column("string")
   id_unit!: string;
 
-  @Field(() => [UserQuestion], { nullable: true })
-  @Column(() => UserQuestion)
-  questions!: UserQuestion[];
+  @Field({ nullable: true })
+  @Column("string")
+  questions!: string;
 
   @Field({ nullable: true })
   @Column("boolean", { nullable: true })

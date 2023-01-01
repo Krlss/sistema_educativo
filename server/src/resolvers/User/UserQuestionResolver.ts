@@ -145,7 +145,8 @@ export class UserQuestionResolver {
     @Arg("userId") userId: string,
     @Arg("progressId") progressId: string,
     @Arg("unitId") unitId: string,
-    @Arg("data", { nullable: true }) data: string
+    @Arg("data", { nullable: true }) data: string,
+    @Arg("nota") nota: number
   ) {
     const user = await AppDataSource.manager.findOneBy(User, {
       _id: new ObjectId(userId),
@@ -160,7 +161,9 @@ export class UserQuestionResolver {
       return false;
     }
 
-    const unit = progress.unit.find((unit) => unit._id.toString() === unitId);
+    const unit = progress.unit.find(
+      (unit) => unit.id_unit.toString() === unitId
+    );
     if (!unit) {
       return false;
     }
@@ -177,9 +180,9 @@ export class UserQuestionResolver {
       return false;
     }
 
-    let nota = 0;
+    unit.questions = data;
 
-    _data.map((item: userData) => {
+    /* _data.map((item: userData) => {
       const question = unit.questions.find(
         (question) => question.id_question.toString() === item._id
       );
@@ -187,9 +190,9 @@ export class UserQuestionResolver {
       question.nota = item.nota;
       question.isDone = item.isDone;
       nota += item.nota;
-    });
+    }); */
 
-    unit.nota = (nota * 10) / unit.questions.length;
+    unit.nota = nota;
 
     await AppDataSource.manager.update(User, user._id, user);
     return true;
@@ -200,7 +203,8 @@ export class UserQuestionResolver {
   async qualifyAsignatureUserQuestion(
     @Arg("userId") userId: string,
     @Arg("progressId") progressId: string,
-    @Arg("data", { nullable: true }) data: string
+    @Arg("data", { nullable: true }) data: string,
+    @Arg("nota") nota: number
   ) {
     const user = await AppDataSource.manager.findOneBy(User, {
       _id: new ObjectId(userId),
@@ -227,9 +231,9 @@ export class UserQuestionResolver {
       return false;
     }
 
-    let nota = 0;
+    progress.questions = data;
 
-    _data.map((item: userData) => {
+    /* _data.map((item: userData) => {
       const question = progress.questions.find(
         (question) => question.id_question.toString() === item._id
       );
@@ -237,15 +241,15 @@ export class UserQuestionResolver {
       question.nota = item.nota;
       question.isDone = item.isDone;
       nota += item.nota;
-    });
+    }); */
 
-    progress.nota = (nota * 10) / progress.questions.length;
+    progress.nota = nota;
 
     await AppDataSource.manager.update(User, user._id, user);
     return true;
   }
 
-  @Mutation(() => [Question])
+  /* @Mutation(() => [Question])
   async asignRandomUnitQuestions(
     @Arg("asignatureId") asignatureId: string,
     @Arg("unitId") unitId: string,
@@ -293,5 +297,5 @@ export class UserQuestionResolver {
       }
     }
     return [];
-  }
+  } */
 }
