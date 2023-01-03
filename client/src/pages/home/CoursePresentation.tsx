@@ -50,7 +50,7 @@ const CoursePresentation = () => {
             return (
               <div
                 key={index}
-                className="rounded-md flex items-center justify-start my-3 shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white h-[150px] md:h-[120px]">
+                className="rounded-md flex items-start justify-between md:flex-row flex-col md:items-center my-3 shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white h-[225px] md:h-[120px] ">
                 <NavLink
                   className="rounded-md flex items-center justify-start h-full"
                   to={`/asignatura/${asignatureId}/unidad/${unt._id}`}>
@@ -82,8 +82,8 @@ const CoursePresentation = () => {
                 </NavLink>
 
                 {isUnit?.finished ? (
-                  <div className="px-3 py-2 text-black font-bold text-sm rounded mr-4 max-w-[110px] w-full text-center shadow-md bg-yellow2-page cursor-default">
-                    Tu nota: {isUnit.nota}
+                  <div className="px-3 py-2 font-bold text-sm rounded md:mr-4 ml-4 mb-4 max-w-[110px] w-full text-center shadow-md bg-green-page cursor-default text-white">
+                    Tu nota: {isUnit.nota.toFixed(2)}
                   </div>
                 ) : equalsCompleted && !gameState.timeLeft ? (
                   <DarPruebaDiv

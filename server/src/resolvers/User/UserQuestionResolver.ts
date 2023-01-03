@@ -191,7 +191,7 @@ export class UserQuestionResolver {
       question.isDone = item.isDone;
       nota += item.nota;
     }); */
-
+    unit.finished = true;
     unit.nota = nota;
 
     await AppDataSource.manager.update(User, user._id, user);

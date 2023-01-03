@@ -97,7 +97,7 @@ const WriteValueFromText = (props: question) => {
                   {item.text}
                 </p>
               </div>
-              <div className="w-8/12">
+              <div className="lg:w-8/12 w-full">
                 <textarea
                   disabled={gameState.next}
                   className={`p-2 w-full outline-none focus:border-0 bg-transparent h-full resize-none font-semibold bg-white ${
