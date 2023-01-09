@@ -122,7 +122,8 @@ export const useGetTopics = () => {
     asignature,
     colors,
     asignatureId,
-    unitId
+    unitId,
+    user
   }
 }
 

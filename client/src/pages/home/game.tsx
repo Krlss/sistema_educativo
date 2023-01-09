@@ -1,9 +1,9 @@
-import { data } from '../../constants'
 import useGame from '../../hooks/useGame'
 import { secondsToTime } from '../../utils'
 
 const Game = () => {
-  const { gameState, nextExercise, nextDisabled, renderDataGame } = useGame()
+  const { gameState, nextExercise, nextDisabled, renderDataGame, dataGame } =
+    useGame()
   const { h, m, s } = secondsToTime(gameState.timeLeft)
 
   return (
@@ -53,7 +53,7 @@ const Game = () => {
                 onClick={nextExercise}>
                 {!gameState.next
                   ? 'Calificar'
-                  : gameState.index === data.length - 1
+                  : gameState.index === dataGame.length - 1
                   ? 'Finalizar'
                   : 'Siguiente'}
               </button>

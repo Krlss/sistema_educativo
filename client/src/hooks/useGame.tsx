@@ -76,6 +76,27 @@ const useGame = () => {
   const [dataGame, setDataGame] = useState<question[]>([])
   const [renderDataGame, setRenderDataGame] = useState<React.ReactNode[]>([])
 
+  const unitFind = user?.progress
+    .find(item => item.id_asignature === asignatureId)
+    ?.unit?.find(item => item.id_unit === unitId)
+
+  if (unitFind?.finished) {
+    navigate(`/asignatura/${asignatureId}`)
+    Swal.fire({
+      title: 'Unidad terminada',
+      text: 'Ya has terminado esta unidad, puedes continuar con otra unidad',
+      icon: 'info'
+    })
+  }
+  if (!unitFind) {
+    navigate('/')
+    Swal.fire({
+      title: 'Unidad no encontrada',
+      text: 'No se ha encontrado la unidad, por favor selecciona otra unidad',
+      icon: 'error'
+    })
+  }
+
   const loadExercise = () => {
     const array: any[] = []
     dataGame.forEach((item, index) => {
@@ -410,7 +431,8 @@ const useGame = () => {
     gameState,
     nextExercise,
     nextDisabled,
-    renderDataGame
+    renderDataGame,
+    dataGame
   }
 }
 

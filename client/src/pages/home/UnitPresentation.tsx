@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 import { useGetTopics } from '../../service/topic/custom-hook'
 
 const UnitPresentation = () => {
-  const { asignature, colors, asignatureId, unitId } = useGetTopics()
+  const { asignature, colors, asignatureId, unitId, user } = useGetTopics()
 
   return (
     <div>
@@ -18,6 +18,10 @@ const UnitPresentation = () => {
         <div className="mx-auto max-w-5xl pb-20 w-full">
           {asignature?.topic?.map((top, index) => {
             const haveClass = top.description || top.video
+            const isFinished = user?.progress
+              ?.find(p => p.id_asignature === asignatureId)
+              ?.unit?.find(u => u.id_unit === unitId)
+              ?.topic?.find(t => t.id_topic === top._id)?.finished
             return (
               <div
                 className="rounded-md flex items-center my-3 justify-start shadow bg-slate-50 h-[150px] md:h-[120px]"
@@ -42,7 +46,12 @@ const UnitPresentation = () => {
                     <div className="flex md:flex-col flex-row gap-2 mr-5">
                       <NavLink
                         to={`/asignatura/${asignatureId}/unidad/${unitId}/tema/${top._id}`}>
-                        <li className="bg-yellow-page text-black font-bold text-sm px-4 py-2 rounded text-center list-none min-w-[115px] shadow hover:bg-yellow2-page">
+                        <li
+                          className={` text-black font-bold text-sm px-4 py-2 rounded text-center list-none min-w-[115px] shadow ${
+                            isFinished
+                              ? 'bg-green-page hover:bg-green-500'
+                              : 'bg-yellow-page hover:bg-yellow2-page'
+                          }`}>
                           Ver clase
                         </li>
                       </NavLink>
