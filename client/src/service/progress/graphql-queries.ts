@@ -12,22 +12,10 @@ export const GET_USER_PROGRESS = gql`
           _id
           nota
           id_topic
-          questions {
-            _id
-            nota
-            id_question
-            isDone
-          }
           finished
         }
         nota
         id_unit
-        questions {
-          _id
-          nota
-          id_question
-          isDone
-        }
         finished
       }
     }

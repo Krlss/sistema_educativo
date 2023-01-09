@@ -19,6 +19,7 @@ export const useQualifyForUnit = () => {
     unitId: string
     progressId?: string
     userId: string
+    nota: number
   }) => {
     QualifyForUnit({
       variables: { ...props },

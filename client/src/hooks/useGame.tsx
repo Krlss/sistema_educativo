@@ -315,7 +315,8 @@ const useGame = () => {
             data: JSON.stringify(gameState.questions),
             unitId,
             progressId: progressId_,
-            userId: user._id
+            userId: user._id,
+            nota: gameState.qualification
           })
         }
 
