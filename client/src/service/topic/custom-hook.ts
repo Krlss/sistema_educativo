@@ -7,6 +7,7 @@ import { useEffect, useState, useContext } from 'react'
 import GeneralContext from '../../contexts/context'
 import { USER } from '../../types/ContextUser'
 import { getDataSession } from '../../utils/dataSession'
+import { GET_USER_PROGRESS } from '../progress/graphql-queries'
 
 interface IGetTopics {
   _id: string
@@ -134,7 +135,8 @@ export const useUpdatedFinishedTopic = () => {
     },
     onCompleted() {
       console.log('topic updated')
-    }
+    },
+    refetchQueries: [GET_USER_PROGRESS]
   })
 
   return {

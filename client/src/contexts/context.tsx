@@ -19,11 +19,11 @@ export type GeneralContextProps = {
   updatedQuestion: (question: QuestionsExtends) => void
   setIndex: (index: number) => void
   gameState: QUESTION
-  updateFinishedTopic: (
+  /*  updateFinishedTopic: (
     asignatureId: string,
     unitId: string,
     topicId: string
-  ) => void
+  ) => void */
   setInitialGame: () => void
   resetGame: () => void
   setNext: (boolean: boolean) => void

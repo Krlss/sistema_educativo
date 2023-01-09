@@ -178,4 +178,40 @@ export class UserUnitResolver {
     await AppDataSource.manager.update(User, user._id, user);
     return true;
   }
+
+  @Mutation(() => Boolean)
+  async finishedUserTopic(
+    @Arg("userId") userId: string,
+    @Arg("asignatureId") asignatureId: string,
+    @Arg("unitId") unitId: string,
+    @Arg("topicId") topicId: string
+  ) {
+    const user = await AppDataSource.manager.findOneBy(User, {
+      _id: new ObjectId(userId),
+    });
+    if (!user) {
+      return false;
+    }
+    const progress = user.progress.find(
+      (progress) => progress.id_asignature.toString() === asignatureId
+    );
+    if (!progress) {
+      return false;
+    }
+    const unit = progress.unit.find(
+      (unit) => unit.id_unit.toString() === unitId
+    );
+    if (!unit) {
+      return false;
+    }
+    const topic = unit.topic.find(
+      (topic) => topic.id_topic.toString() === topicId
+    );
+    if (!topic) {
+      return false;
+    }
+    topic.finished = !topic.finished;
+    await AppDataSource.manager.update(User, user._id, user);
+    return true;
+  }
 }

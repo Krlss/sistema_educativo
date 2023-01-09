@@ -232,7 +232,6 @@ const GeneralProvider = (props: any) => {
         updatedQuestion,
         setIndex,
         gameState,
-        updateFinishedTopic,
         setInitialGame,
         resetGame,
         setNext,

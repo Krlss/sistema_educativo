@@ -37,7 +37,7 @@ export default (state: USER, action: UserReducerProps) => {
         ...state,
         progress: payload
       }
-    case 'updateFinishedTopic':
+    /* case 'updateFinishedTopic':
       const { asignatureId, unitId, topicId } = payload
       const progress = state.progress.map(asignature => {
         if (asignature.id_asignature === asignatureId) {
@@ -69,7 +69,7 @@ export default (state: USER, action: UserReducerProps) => {
       return {
         ...state,
         progress
-      }
+      } */
     default:
       return state
   }

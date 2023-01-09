@@ -5,7 +5,7 @@ import { useUpdatedFinishedTopic } from '../service/topic/custom-hook'
 
 const useClassPresentation = () => {
   const { asignatureId, unitId, topicId } = useParams() as any
-  const { config, user, updateFinishedTopic } = useContext(GeneralContext)
+  const { config, user } = useContext(GeneralContext)
   const { updatedFinishedTopicMutation } = useUpdatedFinishedTopic()
   const navigate = useNavigate()
 
@@ -36,11 +36,6 @@ const useClassPresentation = () => {
           unitId,
           topicId,
           userId: user._id
-        },
-        onCompleted(data) {
-          if (data.finishedUserTopic) {
-            updateFinishedTopic(asignatureId, unitId, topicId)
-          }
         }
       })
     }
