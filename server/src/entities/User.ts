@@ -2,6 +2,7 @@ import "reflect-metadata";
 import { Entity, Column, ObjectID, ObjectIdColumn } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 import { UserAsignature } from "./UserAsignature";
+import { UserTopic } from "./UserTopic";
 export enum UserRol {
   "Student",
   "Teacher",
@@ -41,6 +42,10 @@ export class User {
   @Field(() => [UserAsignature], { nullable: true })
   @Column(() => UserAsignature)
   progress!: UserAsignature[];
+
+  @Field(() => [UserTopic])
+  @Column((type) => UserTopic)
+  topic!: UserTopic[];
 
   @Field()
   @Column("boolean")

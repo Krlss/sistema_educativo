@@ -1,8 +1,10 @@
 import "reflect-metadata";
-import { Column, ObjectIdColumn, ObjectID } from "typeorm";
+import { Entity, Column, ObjectIdColumn, ObjectID } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
+import { UserTopic } from "./UserTopic";
 
 @ObjectType()
+@Entity()
 export class UserUnit {
   @Field(() => String)
   @ObjectIdColumn()
@@ -23,4 +25,8 @@ export class UserUnit {
   @Field({ nullable: true })
   @Column("boolean", { nullable: true })
   finished!: boolean;
+
+  @Field(() => [UserTopic])
+  @Column((type) => UserTopic)
+  topic!: UserTopic[];
 }

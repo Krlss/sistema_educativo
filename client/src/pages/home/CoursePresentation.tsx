@@ -82,7 +82,7 @@ const CoursePresentation = () => {
                 </NavLink>
 
                 {isUnit?.finished ? (
-                  <div className="px-3 py-2 font-bold text-sm rounded md:mr-4 ml-4 mb-4 max-w-[110px] w-full text-center shadow-md bg-green-page cursor-default text-black">
+                  <div className="px-3 py-2 font-bold text-sm rounded md:mr-4 ml-4 mb-4 max-w-[110px] w-full text-center shadow-md bg-green-page cursor-default text-white">
                     Calificación: {isUnit.nota.toFixed(2)}
                   </div>
                 ) : equalsCompleted && !gameState.timeLeft ? (

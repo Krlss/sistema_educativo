@@ -14,21 +14,18 @@ export const LOGIN = gql`
         _id
         nota
         id_asignature
+        questions
         unit {
           _id
           nota
           id_unit
+          questions
+          finished
           topic {
             _id
             nota
             id_topic
             finished
-            questions {
-              _id
-              nota
-              id_question
-              isDone
-            }
           }
         }
       }

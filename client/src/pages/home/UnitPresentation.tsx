@@ -47,10 +47,10 @@ const UnitPresentation = () => {
                       <NavLink
                         to={`/asignatura/${asignatureId}/unidad/${unitId}/tema/${top._id}`}>
                         <li
-                          className={` text-black font-bold text-sm px-4 py-2 rounded text-center list-none min-w-[115px] shadow ${
+                          className={`first-line:font-bold text-sm px-4 py-2 rounded text-center list-none min-w-[115px] shadow ${
                             isFinished
-                              ? 'bg-green-page hover:bg-green-500'
-                              : 'bg-yellow-page hover:bg-yellow2-page'
+                              ? 'bg-green-page hover:bg-green-500 text-white'
+                              : 'bg-yellow-page hover:bg-yellow2-page text-black'
                           }`}>
                           Ver clase
                         </li>
