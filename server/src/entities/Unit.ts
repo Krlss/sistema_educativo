@@ -1,12 +1,6 @@
 import "reflect-metadata";
 import { Field, ObjectType } from "type-graphql";
-import {
-  Column,
-  PrimaryColumn,
-  PrimaryGeneratedColumn,
-  ObjectIdColumn,
-  ObjectID,
-} from "typeorm";
+import { Column, ObjectIdColumn, ObjectID } from "typeorm";
 import { Topic } from "./Topic";
 
 @ObjectType()

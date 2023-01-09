@@ -1,8 +1,7 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
 import { AppDataSource } from "../../config/typeorm";
 const { ObjectId } = require("mongodb");
-import { User, Question, UserAsignature, UserQuestion } from "../../entities/";
-import { QuestionResolver } from "../Asignature/";
+import { User, UserAsignature } from "../../entities/";
 
 @Resolver()
 export class UserAsignatureResolver {
@@ -100,56 +99,4 @@ export class UserAsignatureResolver {
     await AppDataSource.manager.update(User, user._id, user);
     return true;
   }
-
-  // @Mutation(() => [Question])
-  // async asignRandomAsignatureQuestions(
-  //   @Arg("asignatureId") asignatureId: string,
-  //   @Arg("userId") userId: string
-  // ) {
-  //   const user = await AppDataSource.manager.findOneBy(User, {
-  //     _id: new ObjectId(userId),
-  //   });
-
-  //   if (!user) {
-  //     return [];
-  //   }
-
-  //   if (user.progress) {
-  //     const userprogress = user.progress.find(
-  //       (progress) => progress.id_asignature.toString() === asignatureId
-  //     );
-  //     if (userprogress) {
-  //       if (!userprogress.questions) {
-  //         const questionResolver = new QuestionResolver();
-  //         const questions = [];
-  //         questions.push(
-  //           userprogress.unit
-  //             .map(async (unit) => {
-  //               const aux = await questionResolver
-  //                 .getRandomQuestions(asignatureId, unit.id_unit)
-  //                 .flat();
-  //               return aux;
-  //             })
-  //             .flat()
-  //             .sort(() => Math.random() - 0.5)
-  //             .slice(0, 10)
-  //         );
-
-  //         userprogress.questions = questions.map((question) => {
-  //           const userQuestion = new UserQuestion();
-  //           userQuestion._id = new ObjectId();
-  //           // userQuestion.id_question = question._id.toString();
-  //           userQuestion.nota = 0;
-  //           userQuestion.isDone = false;
-  //           return userQuestion;
-  //         });
-  //         await AppDataSource.manager.update(User, user._id, user);
-  //         return questions;
-  //       }
-  //       return [];
-  //     }
-  //     // return userprogress.questions;
-  //   }
-  //   return [];
-  // }
 }
