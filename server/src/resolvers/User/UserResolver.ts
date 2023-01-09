@@ -1,16 +1,10 @@
-import { Request, Response } from "express";
-import { Resolver, Query, Mutation, Arg, Ctx } from "type-graphql";
+import { Resolver, Query, Mutation, Arg } from "type-graphql";
 import { AppDataSource } from "../../config/typeorm";
 const { ObjectId } = require("mongodb");
 
 import { User, UserAsignature, Asignature } from "../../entities/";
 import { AsignatureResolver } from "../Asignature";
 import { comparePassword, hashPassword } from "../../helpers/bcrypt";
-
-interface Context {
-  req: Request;
-  res: Response;
-}
 
 @Resolver()
 export class UserResolver {

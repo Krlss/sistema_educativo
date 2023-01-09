@@ -1,9 +1,7 @@
 import "reflect-metadata";
-import { Entity, Column, ObjectID, ObjectIdColumn, BaseEntity } from "typeorm";
+import { Entity, Column, ObjectID, ObjectIdColumn } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 import { UserAsignature } from "./UserAsignature";
-import { type } from "os";
-import { isEmail } from "class-validator";
 export enum UserRol {
   "Student",
   "Teacher",

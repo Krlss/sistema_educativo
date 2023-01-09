@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { Entity, Column, ObjectIdColumn, ObjectID } from "typeorm";
+import { Column, ObjectIdColumn, ObjectID } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 import { UserQuestion } from "./UserQuestion";
 
