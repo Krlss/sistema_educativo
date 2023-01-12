@@ -49,6 +49,12 @@ const MenuUser = ({ isMenuOpen, setIsMenuOpen }: MenuUserProps) => {
               </li>
             </NavLink>
 
+            <NavLink to="/dashboard">
+              <li className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">
+                Dashboard
+              </li>
+            </NavLink>
+
             <NavLink onClick={() => logout()} to="/iniciar-sesion">
               <li className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">
                 Cerrar sesión

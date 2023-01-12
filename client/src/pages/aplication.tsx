@@ -12,7 +12,7 @@ const Aplication = () => {
   return (
     <div className="flex flex-col justify-between h-screen">
       <Navbar />
-      <div className="container max-w-[1366px] mx-auto px-5 mb-auto">
+      <div className="w-full mx-auto mb-auto">
         <Outlet />
       </div>
       <Footer />

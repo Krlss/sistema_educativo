@@ -3,6 +3,7 @@ import Register from './pages/auth/register'
 import Home from './pages/home'
 import Page404 from './pages/_404'
 import DefaultAplicacion from './pages/aplication'
+import DashboardCursos from './pages/dashboard/cursos'
 import CoursePresentation from './pages/home/CoursePresentation'
 import UnitPresentation from './pages/home/UnitPresentation'
 import ClassPresentation from './pages/home/ClassPresentation'
@@ -11,6 +12,7 @@ import { useContext } from 'react'
 import GeneralContext from './contexts/context'
 import Game from './pages/home/game'
 import LoadingAllScreen from './components/loader/all-screen'
+import DefaultAplication from './pages/dashboardAplication'
 const App = () => {
   const { config } = useContext(GeneralContext)
   return (
@@ -38,6 +40,9 @@ const App = () => {
             element={<Game />}
           />
           <Route path="/prueba" element={<Game />} />
+          <Route path="/dashboard" element={<DefaultAplication />}>
+            <Route path="cursos" element={<DashboardCursos />} />
+          </Route>
         </Route>
         <Route path="*" element={<Page404 />} />
       </Routes>
