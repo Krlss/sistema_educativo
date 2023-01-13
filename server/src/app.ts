@@ -3,46 +3,18 @@ import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import cookieParser from "cookie-parser";
 
-import {
-  AsignatureResolver,
-  QuestionResolver,
-  TopicResolver,
-  UnitResolver,
-} from "./resolvers/Asignature";
-
-import {
-  UserAsignatureResolver,
-  UserResolver,
-  UserUnitResolver,
-  UserQuestionResolver,
-} from "./resolvers/User";
-
-import { RolResolver } from "./resolvers/Rol";
-
-//const morgan = require("morgan");
+import { resolvers } from "./resolvers";
+import { formatError } from "./utils/formatError";
 
 export async function start() {
   const app = express();
   const server = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [
-        /* Resolver Asignature */
-        // AsignatureResolver,
-        // UnitResolver,
-        // QuestionResolver,
-        // TopicResolver,
-        // /* Resolvers User */
-        // UserAsignatureResolver,
-        RolResolver,
-        UserResolver,
-        // UserUnitResolver,
-        // UserQuestionResolver,
-      ],
+      resolvers: resolvers,
     }),
     context: ({ req, res }) => ({ req, res }),
+    formatError: (error) => formatError(error),
   });
-
-  //app.use(morgan("dev"));
   app.use(cookieParser());
   server.applyMiddleware({ app, path: "/" });
   return app;

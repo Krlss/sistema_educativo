@@ -18,7 +18,7 @@ export const AppDataSource = new DataSource({
   username: USER,
   password: PASSWORD,
   database: DATABASE,
-  // synchronize: true,
+  //synchronize: true,
   logging: true,
   entities: [path.join(__dirname, "../entities/**.ts")],
   subscribers: [],

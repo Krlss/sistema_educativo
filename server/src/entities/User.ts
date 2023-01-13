@@ -36,10 +36,12 @@ export class User extends BaseEntity {
   @Column()
   password!: string;
 
-  @ManyToMany(() => Rol, { nullable: true })
-  @JoinTable()
-  userRols?: Rol[];
+  @Field(() => [Rol], { nullable: true })
+  @ManyToMany(() => Rol, (rol) => rol.users)
+  @JoinTable({ name: "user_user_rols_rol" })
+  roles!: Rol[];
 
+  @Field(() => [CourseAsignature], { nullable: true })
   @OneToMany(
     () => CourseAsignature,
     (courseasignature) => courseasignature.user
@@ -47,6 +49,7 @@ export class User extends BaseEntity {
   @JoinTable()
   userCourseAsignatures!: CourseAsignature[];
 
+  @Field(() => [Progress], { nullable: true })
   @OneToMany(() => Progress, (progress) => progress.user)
   @JoinTable()
   progress!: Progress[];
@@ -55,11 +58,7 @@ export class User extends BaseEntity {
   @Column({ default: () => "NOW()" })
   createdAt?: Date;
 
-  @Field()
-  @Column({ nullable: true })
+  @Field({ nullable: true })
+  @Column({ default: () => "NOW()" })
   updatedAt?: Date;
-
-  @Field()
-  @Column({ nullable: true })
-  deletedAt?: Date;
 }
