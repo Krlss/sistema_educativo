@@ -6,43 +6,25 @@ import { AsignatureResolver } from "../Asignature";
 import { comparePassword, hashPassword } from "../../helpers/bcrypt";
 import { Rol, User } from "../../entities";
 import { In } from "typeorm";
-
-type Role = [number];
+import { CreateUserInputs } from "../../validations/CreateUserInputs";
 
 @Resolver()
 export class UserResolver {
   @Mutation(() => Boolean)
   async createUser(
-    @Arg("name") name: string,
-    @Arg("lastname") lastname: string,
-    @Arg("email") email: string,
-    @Arg("password") password: string,
-    @Arg("rol", () => [Int], { nullable: true }) rol: Role
+    @Arg("data") { name, email, lastname, password, rol }: CreateUserInputs
   ) {
     try {
-      if (!name || !lastname || !email || !password) {
-        throw new Error("No puede ingresar datos vacíos");
-      }
-      const _mail = email.toLowerCase();
-      const mailexist = await AppDataSource.manager.findOneBy(User, {
-        email: _mail,
-      });
-      if (mailexist) {
-        throw new Error("El correo ya existe");
-      }
-      if (!rol) throw new Error("No puede ingresar datos vacíos");
       const _rol = await AppDataSource.manager.find(Rol, {
         where: {
           id: In(rol),
         },
       });
-      if (!_rol.length) {
-        throw new Error("El rol no existe");
-      }
+
       const user = new User();
       user.name = name;
       user.lastName = lastname;
-      user.email = _mail;
+      user.email = email;
       user.userRols = _rol;
       user.password = hashPassword(password);
       await AppDataSource.manager.save(user);
@@ -52,6 +34,40 @@ export class UserResolver {
       console.log(error);
       return error;
     }
+  }
+
+  @Query(() => [User])
+  async getUsers() {
+    const users = await AppDataSource.manager.find(User);
+    if (!users) {
+      throw new Error("No hay usuarios");
+    }
+    return users;
+  }
+
+  @Query(() => User)
+  async getUser(@Arg("id") id: number) {
+    const user = await AppDataSource.manager.findOne(User, {
+      where: {
+        id,
+      },
+    });
+    if (!user) {
+      throw new Error("El usuario no existe");
+    }
+    return user;
+  }
+
+  @Query(() => [User])
+  async getUserByRol(@Arg("rol") rol: string) {
+    const users = await AppDataSource.manager.find(User, {
+      where: {
+        userRols: {
+          name: rol,
+        },
+      },
+    });
+    return users;
   }
 
   /* @Mutation(() => Boolean)

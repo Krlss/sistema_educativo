@@ -19,7 +19,7 @@ import {
 
 import { RolResolver } from "./resolvers/Rol";
 
-const morgan = require("morgan");
+//const morgan = require("morgan");
 
 export async function start() {
   const app = express();
@@ -42,7 +42,7 @@ export async function start() {
     context: ({ req, res }) => ({ req, res }),
   });
 
-  app.use(morgan("dev"));
+  //app.use(morgan("dev"));
   app.use(cookieParser());
   server.applyMiddleware({ app, path: "/" });
   return app;

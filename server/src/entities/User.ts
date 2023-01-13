@@ -14,19 +14,25 @@ import { CourseAsignature } from "./CourseAsignature";
 import { Progress } from "./Progress";
 
 @Entity()
+@ObjectType()
 export class User extends BaseEntity {
+  @Field()
   @PrimaryGeneratedColumn()
   id!: number;
 
+  @Field()
   @Column()
   name!: string;
 
+  @Field()
   @Column()
   lastName!: string;
 
+  @Field()
   @Column()
   email!: string;
 
+  @Field()
   @Column()
   password!: string;
 
@@ -48,4 +54,12 @@ export class User extends BaseEntity {
   @Field()
   @Column({ default: () => "NOW()" })
   createdAt?: Date;
+
+  @Field()
+  @Column({ nullable: true })
+  updatedAt?: Date;
+
+  @Field()
+  @Column({ nullable: true })
+  deletedAt?: Date;
 }
