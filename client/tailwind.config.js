@@ -40,7 +40,8 @@ module.exports = {
         'screen-calculator': 'calc(100vh - 10rem)'
       },
       gridTemplateColumns: {
-        'auto-index': 'repeat(auto-fill, minmax(4rem, 1fr))'
+        'auto-index': 'repeat(auto-fill, minmax(4rem, 1fr))',
+        'auto-index-pruebas': 'repeat(auto-fill, minmax(18rem, 1fr))'
       }
     }
   },

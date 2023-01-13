@@ -4,6 +4,7 @@ import Home from './pages/home'
 import Page404 from './pages/_404'
 import DefaultAplicacion from './pages/aplication'
 import DashboardCursos from './pages/dashboard/cursos'
+import Pruebas from './pages/dashboard/pruebas'
 import CoursePresentation from './pages/home/CoursePresentation'
 import UnitPresentation from './pages/home/UnitPresentation'
 import ClassPresentation from './pages/home/ClassPresentation'
@@ -42,6 +43,7 @@ const App = () => {
           <Route path="/prueba" element={<Game />} />
           <Route path="/dashboard" element={<DefaultAplication />}>
             <Route path="cursos" element={<DashboardCursos />} />
+            <Route path="pruebas" element={<Pruebas />} />
           </Route>
         </Route>
         <Route path="*" element={<Page404 />} />

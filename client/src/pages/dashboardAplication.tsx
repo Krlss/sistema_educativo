@@ -11,7 +11,7 @@ const DefaultAplication = () => {
     <>
       <div className="w-full justify-start py-4 gap-4 flex bg-white shadow px-10 md:flex-row flex-col">
         <MyNavLink icon={<Curso />} text="Cursos" to="cursos" />
-        <MyNavLink icon={<Unidad />} text="Unidades" to="reportes" />
+        <MyNavLink icon={<Unidad />} text="Pruebas" to="pruebas" />
         <MyNavLink icon={<Estudiantes />} text="Estudiantes" to="reportes" />
         <MyNavLink icon={<Reports />} text="Reportes" to="reportes" />
       </div>
