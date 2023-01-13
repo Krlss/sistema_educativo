@@ -8,21 +8,22 @@ const HOST = process.env.DB_HOST;
 const PORT = process.env.DB_PORT || "27017";
 const DATABASE = process.env.DB_DATABASE;
 
-const MONGO_URL = process.env.DATABASE_URL;
+const URL = process.env.DATABASE_URL;
 export const AppDataSource = new DataSource({
-  type: "mongodb",
-  url: MONGO_URL,
-  useNewUrlParser: true,
-  /* host: HOST,
-    port: parseInt(PORT),
-    username: USER,
-    password: PASSWORD, */
+  type: "mysql",
+  // url: URL,
+  // useNewUrlParser: true,
+  host: HOST,
+  port: parseInt(PORT),
+  username: USER,
+  password: PASSWORD,
   database: DATABASE,
-  synchronize: true,
+  // synchronize: true,
   logging: true,
   entities: [path.join(__dirname, "../entities/**.ts")],
   subscribers: [],
   migrations: [],
+  ssl: false,
 });
 
 AppDataSource.initialize()

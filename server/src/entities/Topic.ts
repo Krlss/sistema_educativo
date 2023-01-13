@@ -1,27 +1,38 @@
 import "reflect-metadata";
 import { Field, ObjectType } from "type-graphql";
-import { Column, ObjectIdColumn, ObjectID } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { Question } from "./Question";
+import { Unit } from "./Unit";
 
-@ObjectType()
-export class Topic {
-  @Field(() => String)
-  @ObjectIdColumn()
-  _id!: ObjectID;
+@Entity()
+export class Topic extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id!: number;
 
-  @Field()
-  @Column("string")
+  @Column()
   name!: string;
 
-  @Field({ nullable: true })
-  @Column("string", { nullable: true })
-  description?: string;
+  @Column()
+  image!: string;
 
-  @Field({ nullable: true })
-  @Column("string")
+  @Column()
   video!: string;
 
-  @Field(() => [Question], { nullable: true })
-  @Column((type) => Question)
-  question!: Question[];
+  @ManyToOne(() => Unit, (unit) => unit.topics)
+  units!: Unit;
+
+  @OneToMany(() => Question, (question) => question.topic)
+  questions!: Question[];
+
+  @Field()
+  @Column({ default: () => "NOW()" })
+  createdAt?: Date;
 }

@@ -1,28 +1,41 @@
-import "reflect-metadata";
-import { Entity, Column, ObjectID, ObjectIdColumn } from "typeorm";
-import { Unit } from "./Unit";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  BaseEntity,
+  ManyToMany,
+  JoinTable,
+  OneToMany,
+} from "typeorm";
 import { Field, ObjectType } from "type-graphql";
+import { CourseAsignature } from "./CourseAsignature";
+import { Unit } from "./Unit";
 
-@ObjectType()
 @Entity()
-export class Asignature {
-  @Field(() => String)
-  @ObjectIdColumn()
-  _id!: ObjectID;
+export class Asignature extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id!: number;
 
-  @Field()
-  @Column("string")
+  @Column()
   name!: string;
 
-  @Field()
-  @Column("string")
-  image!: string;
-
-  @Field()
-  @Column("string")
+  @Column()
   description!: string;
 
-  @Field(() => [Unit], { nullable: true })
-  @Column((type) => Unit)
-  unit!: Unit[];
+  @Column()
+  image!: string;
+
+  @OneToMany(
+    () => CourseAsignature,
+    (courseasignature) => courseasignature.asignature
+  )
+  courseAsignatures!: CourseAsignature[];
+
+  @ManyToMany(() => Unit, (unit) => unit.asignatures)
+  @JoinTable()
+  units!: Unit[];
+
+  @Field()
+  @Column({ default: () => "NOW()" })
+  createdAt?: Date;
 }

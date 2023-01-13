@@ -3,10 +3,10 @@ import { User } from "./User";
 import { Question } from "./Question";
 import { Topic } from "./Topic";
 import { Unit } from "./Unit";
-import { UserAsignature } from "./UserAsignature";
-import { UserQuestion } from "./UserQuestion";
-import { UserTopic } from "./UserTopic";
-import { UserUnit } from "./UserUnit";
+import { Rol } from "./Rol";
+import { CourseAsignature } from "./CourseAsignature";
+import { Course } from "./Course";
+import { Progress } from "./Progress";
 
 export {
   Asignature,
@@ -14,8 +14,8 @@ export {
   Question,
   Topic,
   Unit,
-  UserAsignature,
-  UserQuestion,
-  UserTopic,
-  UserUnit,
+  Rol,
+  CourseAsignature,
+  Course,
+  Progress,
 };

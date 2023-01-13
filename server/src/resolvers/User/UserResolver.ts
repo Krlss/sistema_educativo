@@ -1,244 +1,316 @@
-import { Resolver, Query, Mutation, Arg } from "type-graphql";
+import { Resolver, Query, Mutation, Arg, Int } from "type-graphql";
 import { AppDataSource } from "../../config/typeorm";
 const { ObjectId } = require("mongodb");
 
-import { User, UserAsignature, Asignature } from "../../entities/";
 import { AsignatureResolver } from "../Asignature";
 import { comparePassword, hashPassword } from "../../helpers/bcrypt";
+import { Rol, User } from "../../entities";
+import { In } from "typeorm";
+
+type Role = [number];
 
 @Resolver()
 export class UserResolver {
-  /* Crea un nuevo usuario con progreso 0*/
-  @Mutation(() => String)
+  @Mutation(() => Boolean)
   async createUser(
     @Arg("name") name: string,
     @Arg("lastname") lastname: string,
-    @Arg("mail") mail: string,
-    @Arg("username") username: string,
+    @Arg("email") email: string,
     @Arg("password") password: string,
-    @Arg("rol", () => [String], { nullable: true }) rol: Array<String>
+    @Arg("rol", () => [Int], { nullable: true }) rol: Role
   ) {
     try {
-      if (!name || !lastname || !mail || !username || !password) {
+      if (!name || !lastname || !email || !password) {
         throw new Error("No puede ingresar datos vacíos");
       }
-      const _mail = mail.toLowerCase();
+      const _mail = email.toLowerCase();
       const mailexist = await AppDataSource.manager.findOneBy(User, {
-        mail: _mail,
+        email: _mail,
       });
       if (mailexist) {
         throw new Error("El correo ya existe");
       }
-      const userexist = await AppDataSource.manager.findOneBy(User, {
-        username,
+      if (!rol) throw new Error("No puede ingresar datos vacíos");
+      const _rol = await AppDataSource.manager.find(Rol, {
+        where: {
+          id: In(rol),
+        },
       });
-      if (userexist) {
-        throw new Error("El usuario ya existe");
+      if (!_rol.length) {
+        throw new Error("El rol no existe");
       }
       const user = new User();
       user.name = name;
-      user.lastname = lastname;
-      user.mail = _mail;
-      user.username = username;
+      user.lastName = lastname;
+      user.email = _mail;
+      user.userRols = _rol;
       user.password = hashPassword(password);
-      if (!rol || !rol.length) {
-        user.rol = ["Student"];
-      } else {
-        user.rol = rol;
-      }
-      user.progress = [];
-
-      const asignature = new AsignatureResolver();
-
-      const asignatures = await asignature.getAsignatures();
-
-      asignatures.forEach(async (asignature: any) => {
-        const asig = new UserAsignature();
-        asig._id = new ObjectId();
-        asig.unit = [];
-        asig.nota = 0;
-        asig.id_asignature = asignature._id;
-        user.progress.push(asig);
-      });
       await AppDataSource.manager.save(user);
-      return user._id.toString();
-    } catch (e: any) {
-      console.log(e);
-      return e;
+
+      return true;
+    } catch (error) {
+      console.log(error);
+      return error;
     }
   }
 
-  /* Elimina un usuario */
-  @Mutation(() => String)
-  async DeleteUser(@Arg("userId") userId: string) {
-    try {
-      const user = await AppDataSource.manager.findOneBy(User, {
-        _id: new ObjectId(userId),
-      });
-      if (!user) {
-        throw new Error("El usuario no existe");
-      }
-      await AppDataSource.manager.delete(User, user._id);
-      return "Usuario eliminado";
-    } catch (e: any) {
-      console.log(e);
-      return e;
-    }
-  }
-
-  /* Consulta un usuario por medio del _id */
-  @Query(() => User)
-  async getUser(@Arg("userId") userId: string) {
-    try {
-      const user = await AppDataSource.manager.findOneBy(User, {
-        _id: new ObjectId(userId),
-      });
-      if (!user) {
-        throw new Error("El usuario no existe");
-      }
-      return user;
-    } catch (e: any) {
-      console.log(e);
-      return e;
-    }
-  }
-
-  /* Consultar login de usuario */
-  @Query(() => User)
-  async login(
-    @Arg("username", { nullable: true }) username: string,
-    @Arg("mail", { nullable: true }) mail: string,
-    @Arg("password") password: string,
-    @Arg("rememberMe") rememberMe: boolean
-  ) {
-    try {
-      let user: any;
-      if (username) {
-        user = await AppDataSource.manager.findOneBy(User, {
-          username: username,
-        });
-      }
-      if (mail) {
-        user = await AppDataSource.manager.findOneBy(User, {
-          mail: mail.toLowerCase(),
-        });
-      }
-      if (!user) {
-        throw new Error("El usuario no existe");
-      }
-      if (!comparePassword(password, user.password)) {
-        throw new Error("Contraseña incorrecta");
-      }
-
-      const asignature = new AsignatureResolver();
-      const asignatures = await asignature.getAsignatures();
-
-      if (asignatures) {
-        asignatures.forEach((asig: Asignature) => {
-          const aux = user.progress.filter((item: UserAsignature) => {
-            return item.id_asignature === asig._id.toString();
-          });
-          if (!aux) {
-            const auxasig = new UserAsignature();
-            auxasig._id = user.progress.length + 1;
-            auxasig.unit = [];
-            auxasig.nota = 0;
-            auxasig.id_asignature = asig._id.toString();
-            user.progress.push(auxasig);
-          }
-        });
-        const auxprogress = user.progress.filter((item: UserAsignature) =>
-          asignatures.some(
-            (asig: Asignature) => asig._id.toString() == item.id_asignature
-          )
-        );
-        if (auxprogress.length) {
-          user.progress = auxprogress;
-        }
-        if (!user.progress.length) {
-          asignatures.forEach((asig: Asignature) => {
-            const auxasig = new UserAsignature();
-            auxasig._id = new ObjectId();
-            auxasig.unit = [];
-            auxasig.nota = 0;
-            auxasig.id_asignature = asig._id.toString();
-            user.progress.push(auxasig);
-          });
-          await AppDataSource.manager.update(User, user._id, user);
-        }
-      }
-
-      const data = {
-        _id: user._id,
-        username: user.username,
-        rol: user.rol,
-        name: user.name,
-        lastname: user.lastname,
-        mail: user.mail,
-        progress: user.progress,
-        rememberMe: rememberMe,
-      };
-
-      return data;
-    } catch (e: any) {
-      console.log(e);
-      return e;
-    }
-  }
-
-  /* Consulta todos los usuarios */
-  @Query(() => [User])
-  async getUsers() {
-    const users = await AppDataSource.manager.find(User);
-    return users;
-  }
-
-  /* Actualiza un usuario */
-  @Mutation(() => String)
+  /* @Mutation(() => Boolean)
   async updateUser(
-    @Arg("userId") userId: string,
-    @Arg("name", { nullable: true }) name: string,
-    @Arg("lastname", { nullable: true }) lastname: string,
-    @Arg("mail", { nullable: true }) mail: string,
-    @Arg("username", { nullable: true }) username: string,
-    @Arg("password", { nullable: true }) password: string,
-    @Arg("rol", () => [String], { nullable: true }) rol: Array<String>
+    @Arg("id") id: number,
+    @Arg("name") name: string,
+    @Arg("lastname") lastname: string,
+    @Arg("email") email: string,
+    @Arg("password") password: string,
+    @Arg("rol", { nullable: true }) rol: number
   ) {
     try {
-      let user = await AppDataSource.manager.findOneBy(User, {
-        _id: new ObjectId(userId),
+      if (!name || !lastname || !email || !password) {
+        throw new Error("No puede ingresar datos vacíos");
+      }
+      const _mail = email.toLowerCase();
+      const mailexist = await AppDataSource.manager.findOneBy(User, {
+        email: _mail,
+      });
+      if (mailexist) {
+        throw new Error("El correo ya existe");
+      }
+      const _rol = await AppDataSource.manager.findOneBy(Rol, {
+        id: rol || 3,
+      });
+      if (!_rol) {
+        throw new Error("El rol no existe");
+      }
+      const user = await AppDataSource.manager.findOneBy(User, {
+        id,
       });
       if (!user) {
         throw new Error("El usuario no existe");
       }
-      if (mail) {
-        const _mail = mail.toLowerCase();
-        const mailexist = await AppDataSource.manager.findOneBy(User, {
-          mail: _mail,
-        });
-        if (mailexist) {
-          throw new Error("El correo ya existe");
-        }
-      }
-      if (username) {
-        const userexist = await AppDataSource.manager.findOneBy(User, {
-          username,
-        });
-        if (userexist) {
-          throw new Error("El usuario ya existe");
-        }
-      }
-      if (name) user.name = name;
-      if (lastname) user.lastname = lastname;
-      if (mail) user.mail = mail.toLowerCase();
-      if (username) user.username = username;
-      if (password) user.password = hashPassword(password);
-      if (rol) user.rol = rol;
-      await AppDataSource.manager.update(User, user._id, user);
-      return "Usuario actualizado";
-    } catch (e: any) {
-      console.log(e);
-      return e;
+      user.name = name;
+      user.lastName = lastname;
+      user.email = _mail;
+      user.userRols = [_rol];
+      user.password = hashPassword(password);
+      await AppDataSource.manager.save(user);
+
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
     }
-  }
+  } */
+
+  /* Crea un nuevo usuario con progreso 0*/
+  // @Mutation(() => String)
+  // async createUser(
+  //   @Arg("name") name: string,
+  //   @Arg("lastname") lastname: string,
+  //   @Arg("mail") mail: string,
+  //   @Arg("username") username: string,
+  //   @Arg("password") password: string
+  // ) {
+  //   try {
+  //     if (!name || !lastname || !mail || !username || !password) {
+  //       throw new Error("No puede ingresar datos vacíos");
+  //     }
+  //     const _mail = mail.toLowerCase();
+  //     const mailexist = await AppDataSource.manager.findOneBy(User, {
+  //       mail: _mail,
+  //     });
+  //     if (mailexist) {
+  //       throw new Error("El correo ya existe");
+  //     }
+  //     const userexist = await AppDataSource.manager.findOneBy(User, {
+  //       username,
+  //     });
+  //     if (userexist) {
+  //       throw new Error("El usuario ya existe");
+  //     }
+  //     const user = new User();
+  //     user.name = name;
+  //     user.lastname = lastname;
+  //     user.mail = _mail;
+  //     user.username = username;
+  //     user.password = hashPassword(password);
+  //     user.progress = [];
+  //     const asignature = new AsignatureResolver();
+  //     // const asignatures = await asignature.getAsignatures();
+  //     // asignatures.forEach(async (asignature: any) => {
+  //     //   const asig = new UserAsignature();
+  //     //   asig.id = new ObjectId();
+  //     //   asig.unit = [];
+  //     //   asig.nota = 0;
+  //     //   asig.id_asignature = asignature.id;
+  //     //   user.progress.push(asig);
+  //     // });
+  //     await AppDataSource.manager.save(user);
+  //     return user.id.toString();
+  //   } catch (e: any) {
+  //     console.log(e);
+  //     return e;
+  //   }
+  // }
+  // /* Elimina un usuario */
+  // @Mutation(() => String)
+  // async DeleteUser(@Arg("userId") userId: string) {
+  //   try {
+  //     const user = await AppDataSource.manager.findOneBy(User, {
+  //       id: new ObjectId(userId),
+  //     });
+  //     if (!user) {
+  //       throw new Error("El usuario no existe");
+  //     }
+  //     await AppDataSource.manager.delete(User, user.id);
+  //     return "Usuario eliminado";
+  //   } catch (e: any) {
+  //     console.log(e);
+  //     return e;
+  //   }
+  // }
+  // /* Consulta un usuario por medio del id */
+  // @Query(() => User)
+  // async getUser(@Arg("userId") userId: string) {
+  //   try {
+  //     const user = await AppDataSource.manager.findOneBy(User, {
+  //       id: new ObjectId(userId),
+  //     });
+  //     if (!user) {
+  //       throw new Error("El usuario no existe");
+  //     }
+  //     return user;
+  //   } catch (e: any) {
+  //     console.log(e);
+  //     return e;
+  //   }
+  // }
+  // /* Consultar login de usuario */
+  // @Query(() => User)
+  // async login(
+  //   @Arg("username", { nullable: true }) username: string,
+  //   @Arg("mail", { nullable: true }) mail: string,
+  //   @Arg("password") password: string,
+  //   @Arg("rememberMe") rememberMe: boolean
+  // ) {
+  //   try {
+  //     let user: any;
+  //     if (username) {
+  //       user = await AppDataSource.manager.findOneBy(User, {
+  //         username: username,
+  //       });
+  //     }
+  //     if (mail) {
+  //       user = await AppDataSource.manager.findOneBy(User, {
+  //         mail: mail.toLowerCase(),
+  //       });
+  //     }
+  //     if (!user) {
+  //       throw new Error("El usuario no existe");
+  //     }
+  //     if (!comparePassword(password, user.password)) {
+  //       throw new Error("Contraseña incorrecta");
+  //     }
+  //     const asignature = new AsignatureResolver();
+  // const asignatures = await asignature.getAsignatures();
+  // if (asignatures) {
+  //   asignatures.forEach((asig: Asignature) => {
+  //     const aux = user.progress.filter((item: UserAsignature) => {
+  //       return item.id_asignature === asig.id.toString();
+  //     });
+  //     if (!aux) {
+  //       const auxasig = new UserAsignature();
+  //       auxasig.id = user.progress.length + 1;
+  //       auxasig.unit = [];
+  //       auxasig.nota = 0;
+  //       auxasig.id_asignature = asig.id.toString();
+  //       user.progress.push(auxasig);
+  //     }
+  //   });
+  //   const auxprogress = user.progress.filter((item: UserAsignature) =>
+  //     asignatures.some(
+  //       (asig: Asignature) => asig.id.toString() == item.id_asignature
+  //     )
+  //   );
+  //   if (auxprogress.length) {
+  //     user.progress = auxprogress;
+  //   }
+  //   if (!user.progress.length) {
+  //     asignatures.forEach((asig: Asignature) => {
+  //       const auxasig = new UserAsignature();
+  //       auxasig.id = new ObjectId();
+  //       auxasig.unit = [];
+  //       auxasig.nota = 0;
+  //       auxasig.id_asignature = asig.id.toString();
+  //       user.progress.push(auxasig);
+  //     });
+  //     await AppDataSource.manager.update(User, user.id, user);
+  //   }
+  // }
+  //     const data = {
+  //       id: user.id,
+  //       username: user.username,
+  //       rol: user.rol,
+  //       name: user.name,
+  //       lastname: user.lastname,
+  //       mail: user.mail,
+  //       progress: user.progress,
+  //       rememberMe: rememberMe,
+  //     };
+  //     return data;
+  //   } catch (e: any) {
+  //     console.log(e);
+  //     return e;
+  //   }
+  // }
+  // /* Consulta todos los usuarios */
+  // @Query(() => [User])
+  // async getUsers() {
+  //   const users = await AppDataSource.manager.find(User);
+  //   return users;
+  // }
+  // /* Actualiza un usuario */
+  // @Mutation(() => String)
+  // async updateUser(
+  //   @Arg("userId") userId: string,
+  //   @Arg("name", { nullable: true }) name: string,
+  //   @Arg("lastname", { nullable: true }) lastname: string,
+  //   @Arg("mail", { nullable: true }) mail: string,
+  //   @Arg("username", { nullable: true }) username: string,
+  //   @Arg("password", { nullable: true }) password: string
+  // ) {
+  //   try {
+  //     let user = await AppDataSource.manager.findOneBy(User, {
+  //       id: new ObjectId(userId),
+  //     });
+  //     if (!user) {
+  //       throw new Error("El usuario no existe");
+  //     }
+  //     if (mail) {
+  //       const _mail = mail.toLowerCase();
+  //       const mailexist = await AppDataSource.manager.findOneBy(User, {
+  //         mail: _mail,
+  //       });
+  //       if (mailexist) {
+  //         throw new Error("El correo ya existe");
+  //       }
+  //     }
+  //     if (username) {
+  //       const userexist = await AppDataSource.manager.findOneBy(User, {
+  //         username,
+  //       });
+  //       if (userexist) {
+  //         throw new Error("El usuario ya existe");
+  //       }
+  //     }
+  //     if (name) user.name = name;
+  //     if (lastname) user.lastname = lastname;
+  //     if (mail) user.mail = mail.toLowerCase();
+  //     if (username) user.username = username;
+  //     if (password) user.password = hashPassword(password);
+  //     await AppDataSource.manager.update(User, user.id, user);
+  //     return "Usuario actualizado";
+  //   } catch (e: any) {
+  //     console.log(e);
+  //     return e;
+  //   }
+  // }
 }

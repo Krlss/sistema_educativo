@@ -1,53 +1,51 @@
-import "reflect-metadata";
-import { Entity, Column, ObjectID, ObjectIdColumn } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  BaseEntity,
+  OneToMany,
+  ManyToMany,
+  JoinTable,
+} from "typeorm";
 import { Field, ObjectType } from "type-graphql";
-import { UserAsignature } from "./UserAsignature";
-import { UserTopic } from "./UserTopic";
-export enum UserRol {
-  "Student",
-  "Teacher",
-}
-export type Roles = "Student" | "Teacher";
-@ObjectType()
-@Entity()
-export class User {
-  @Field(() => String)
-  @ObjectIdColumn()
-  _id!: ObjectID;
+import { Rol } from "./Rol";
+import { Asignature } from "./Asignature";
+import { CourseAsignature } from "./CourseAsignature";
+import { Progress } from "./Progress";
 
-  @Field()
-  @Column("string")
+@Entity()
+export class User extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id!: number;
+
+  @Column()
   name!: string;
 
-  @Field()
-  @Column("string")
-  lastname!: string;
+  @Column()
+  lastName!: string;
 
-  @Field()
-  @Column("string")
-  mail!: string;
+  @Column()
+  email!: string;
 
-  @Field()
-  @Column("string")
-  username!: string;
-
-  @Field()
-  @Column("string")
+  @Column()
   password!: string;
 
-  @Field(() => [String])
-  @Column("string", { array: true })
-  rol!: Array<String>;
+  @ManyToMany(() => Rol, { nullable: true })
+  @JoinTable()
+  userRols?: Rol[];
 
-  @Field(() => [UserAsignature], { nullable: true })
-  @Column(() => UserAsignature)
-  progress!: UserAsignature[];
+  @OneToMany(
+    () => CourseAsignature,
+    (courseasignature) => courseasignature.user
+  )
+  @JoinTable()
+  userCourseAsignatures!: CourseAsignature[];
 
-  @Field(() => [UserTopic])
-  @Column((type) => UserTopic)
-  topic!: UserTopic[];
+  @OneToMany(() => Progress, (progress) => progress.user)
+  @JoinTable()
+  progress!: Progress[];
 
   @Field()
-  @Column("boolean")
-  rememberMe?: boolean;
+  @Column({ default: () => "NOW()" })
+  createdAt?: Date;
 }

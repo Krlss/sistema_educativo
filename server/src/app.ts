@@ -17,6 +17,8 @@ import {
   UserQuestionResolver,
 } from "./resolvers/User";
 
+import { RolResolver } from "./resolvers/Rol";
+
 const morgan = require("morgan");
 
 export async function start() {
@@ -25,15 +27,16 @@ export async function start() {
     schema: await buildSchema({
       resolvers: [
         /* Resolver Asignature */
-        AsignatureResolver,
-        UnitResolver,
-        QuestionResolver,
-        TopicResolver,
-        /* Resolvers User */
-        UserAsignatureResolver,
+        // AsignatureResolver,
+        // UnitResolver,
+        // QuestionResolver,
+        // TopicResolver,
+        // /* Resolvers User */
+        // UserAsignatureResolver,
+        RolResolver,
         UserResolver,
-        UserUnitResolver,
-        UserQuestionResolver,
+        // UserUnitResolver,
+        // UserQuestionResolver,
       ],
     }),
     context: ({ req, res }) => ({ req, res }),
