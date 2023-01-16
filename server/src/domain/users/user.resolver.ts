@@ -1,6 +1,6 @@
 import { Resolver, Arg, Query, Mutation } from "type-graphql";
 import { comparePassword } from "../../infraestructure/helpers/bcrypt";
-import { User } from "../../infraestructure/entities";
+import { User } from "./user.entity";
 import { userController } from "./user.controller";
 import {
   userCreateInput,

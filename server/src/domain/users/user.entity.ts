@@ -3,7 +3,6 @@ import {
   Column,
   PrimaryGeneratedColumn,
   BaseEntity,
-  OneToMany,
   ManyToMany,
   JoinTable,
 } from "typeorm";
@@ -38,21 +37,8 @@ export class User extends BaseEntity {
 
   @Field(() => [Rol], { nullable: true })
   @ManyToMany(() => Rol, (rol) => rol.users)
-  @JoinTable({ name: "user_user_rols_rol" })
+  @JoinTable({ name: "users_rols", joinColumn: { name: "userId" } })
   roles!: Rol[];
-
-  /* @Field(() => [CourseAsignature], { nullable: true })
-  @OneToMany(
-    () => CourseAsignature,
-    (courseasignature) => courseasignature.user
-  )
-  @JoinTable()
-  userCourseAsignatures!: CourseAsignature[];
-
-  @Field(() => [Progress], { nullable: true })
-  @OneToMany(() => Progress, (progress) => progress.user)
-  @JoinTable()
-  progress!: Progress[]; */
 
   @Field()
   @Column({ default: () => "NOW()" })

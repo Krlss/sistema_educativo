@@ -1,5 +1,5 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
-import { Rol } from "../../infraestructure/entities";
+import { Rol } from "./rol.entity";
 import {
   rolUpdateInput,
   rolCreateInput,

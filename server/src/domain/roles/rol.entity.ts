@@ -29,6 +29,6 @@ export class Rol extends BaseEntity {
 
   @Field(() => [User], { nullable: true })
   @ManyToMany(() => User, (user) => user.roles)
-  @JoinTable({ name: "user_user_rols_rol" })
+  @JoinTable({ name: "users_rols", joinColumn: { name: "rolId" } })
   users!: User[];
 }

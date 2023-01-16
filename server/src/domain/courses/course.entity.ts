@@ -7,7 +7,6 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { CourseAsignature } from "../courseasignatures/courseasignature.entity";
 
 @Entity()
 @ObjectType()
@@ -27,10 +26,4 @@ export class Course extends BaseEntity {
   @Field()
   @Column({ default: () => "NOW()" })
   updatedAt?: Date;
-
-  @OneToMany(
-    () => CourseAsignature,
-    (courseasignature) => courseasignature.course
-  )
-  courseAsignatures!: CourseAsignature[];
 }

@@ -5,7 +5,6 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 //import { Topic } from "./Topic";
@@ -24,12 +23,8 @@ export class Unit extends BaseEntity {
 
   @Field(() => [Asignature], { nullable: true })
   @ManyToMany(() => Asignature, (asignature) => asignature.units)
-  @JoinTable({ name: "asignature_units_unit" })
+  @JoinTable({ name: "asignatures_units" })
   asignatures!: Asignature[];
-
-  /*  @OneToMany(() => Topic, (topic) => topic.units)
-  @JoinTable()
-  topics!: Topic[]; */
 
   @Field()
   @Column({ default: () => "NOW()" })
