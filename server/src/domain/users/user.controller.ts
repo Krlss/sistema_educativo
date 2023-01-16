@@ -1,17 +1,16 @@
 import { hashPassword } from "../../infraestructure/helpers/bcrypt";
 import { User } from "./user.entity";
 import { usersService } from "./user.service";
-import { rolesService } from "../roles/rol.service";
+import { rolService } from "../roles/rol.service";
 import { userCreateInput } from "../../infraestructure/validations/users/user.create.inputs";
 import { UserUpdateProps } from "../../infraestructure/types/users";
-import { userControllerInterface } from "../../infraestructure/interfaces/user.interface";
 
-export class userController implements userControllerInterface {
+export class userController {
   private userService: usersService;
-  private rolesService: rolesService;
+  private rolService: rolService;
   constructor() {
     this.userService = new usersService();
-    this.rolesService = new rolesService();
+    this.rolService = new rolService();
   }
 
   async getUsers(): Promise<User[] | []> {
@@ -37,9 +36,9 @@ export class userController implements userControllerInterface {
       _user.lastName = user.lastName;
       _user.email = user.email;
       _user.password = hashPassword(user.password);
-      _user.roles = await this.rolesService.findAllByArray(user.roles);
-      await this.userService.create(_user);
-      return true;
+      _user.roles = await this.rolService.findAllByArray(user.roles);
+
+      return await this.userService.create(_user);
     } catch (error) {
       console.log(error);
       return error;
@@ -51,18 +50,17 @@ export class userController implements userControllerInterface {
     props: UserUpdateProps
   ): Promise<boolean | unknown> {
     try {
+      const { name, lastName, email, password, roles } = props;
       const user = await this.getUserById(id);
 
       if (!user) throw new Error("El usuario no existe");
-      const { name, lastName, email, password, roles } = props;
-      if (name) user.name = name;
-      if (lastName) user.lastName = lastName;
-      if (email) user.email = email;
+      user.name = name;
+      user.lastName = lastName;
+      user.email = email;
       if (password) user.password = hashPassword(password);
-      if (roles) {
-        user.roles = await this.rolesService.findAllByArray(roles);
-      }
+      if (roles) user.roles = await this.rolService.findAllByArray(roles);
       user.updatedAt = new Date();
+
       return await this.userService.update(user);
     } catch (error) {
       console.log(error);
@@ -73,8 +71,8 @@ export class userController implements userControllerInterface {
   async deleteUser(id: number): Promise<boolean | unknown> {
     try {
       const user = await this.getUserById(id);
-
       if (!user) throw new Error("El usuario no existe");
+
       return await this.userService.delete(id);
     } catch (error) {
       console.log(error);

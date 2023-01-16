@@ -1,7 +1,7 @@
 import { MinLength, IsNotEmpty, IsEmail, ArrayNotEmpty } from "class-validator";
 import { Field, InputType, Int } from "type-graphql";
-import { IsEmailAlreadyExist } from "../custom-validations/isEmailAlreadyExist";
-import { RolNotExist } from "../custom-validations/rolNotExist";
+import { IsEmailAlreadyExist } from "./isEmailAlreadyExist";
+import { RolNotExist } from "./rolNotExist";
 
 @InputType()
 export class userCreateInput {

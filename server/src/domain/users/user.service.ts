@@ -1,10 +1,9 @@
 import { User } from "./user.entity";
 import { AppDataSource } from "../../infraestructure/config/typeorm";
 import { UserSaveProps } from "../../infraestructure/types/users";
-import { userServiceInterface } from "../../infraestructure/interfaces/user.interface";
-export class usersService implements userServiceInterface {
+export class usersService {
   async findById(id: number) {
-    const user = await AppDataSource.manager.findOne(User, {
+    return await AppDataSource.manager.findOne(User, {
       where: {
         id,
       },
@@ -12,11 +11,10 @@ export class usersService implements userServiceInterface {
         roles: true,
       },
     });
-    return user;
   }
 
-  async findAllByRol(rol: string) {
-    const users = await AppDataSource.manager.find(User, {
+  async findAllByRol(rol: string): Promise<User[] | []> {
+    return await AppDataSource.manager.find(User, {
       where: {
         roles: {
           name: rol,
@@ -26,11 +24,10 @@ export class usersService implements userServiceInterface {
         roles: true,
       },
     });
-    return users;
   }
 
   async findByEmail(email: string) {
-    const user = await AppDataSource.manager.findOne(User, {
+    return await AppDataSource.manager.findOne(User, {
       where: {
         email,
       },
@@ -38,10 +35,9 @@ export class usersService implements userServiceInterface {
         roles: true,
       },
     });
-    return user;
   }
 
-  async findAll() {
+  async findAll(): Promise<User[] | []> {
     return await AppDataSource.manager.find(User, {
       relations: {
         roles: true,
