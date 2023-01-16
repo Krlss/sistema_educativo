@@ -5,7 +5,7 @@ import {
   ValidatorConstraintInterface,
 } from "class-validator";
 import { In } from "typeorm";
-import { Rol } from "../../infraestructure/entities";
+import { Rol } from "../../../domain/roles/rol.entity";
 
 @ValidatorConstraint({ async: true })
 export class RolNotExistConstraint implements ValidatorConstraintInterface {

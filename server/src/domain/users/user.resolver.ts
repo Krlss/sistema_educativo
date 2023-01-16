@@ -1,19 +1,18 @@
 import { Resolver, Arg, Query, Mutation } from "type-graphql";
 import { comparePassword } from "../../infraestructure/helpers/bcrypt";
 import { User } from "../../infraestructure/entities";
-import { LoginInputs } from "../../validations/LoginInputs";
 import { userController } from "./user.controller";
-import { UpdateUserInputs } from "../../validations/UpdateUserInputs";
-import { CreateUserInputs } from "../../validations/CreateUserInputs";
-import { rolesService } from "../roles/rol.service";
+import {
+  userCreateInput,
+  userLoginInputs,
+  userUpdateInput,
+} from "../../infraestructure/validations/users";
 
 @Resolver()
 class UserResolver {
   private userController: userController;
-  private rolesService: rolesService;
   constructor() {
     this.userController = new userController();
-    this.rolesService = new rolesService();
   }
 
   @Query(() => [User])
@@ -40,7 +39,7 @@ class UserResolver {
   }
 
   @Query(() => User)
-  async login(@Arg("data") { email, password, rememberMe }: LoginInputs) {
+  async login(@Arg("data") { email, password, rememberMe }: userLoginInputs) {
     const user = await this.userController.getUserByEmail(email);
     if (!user) {
       throw new Error("El usuario no existe");
@@ -52,12 +51,12 @@ class UserResolver {
   }
 
   @Mutation(() => Boolean)
-  async createUser(@Arg("data") args: CreateUserInputs) {
+  async createUser(@Arg("data") args: userCreateInput) {
     return await this.userController.createUser({ ...args });
   }
 
   @Mutation(() => Boolean)
-  async updateUser(@Arg("id") id: number, @Arg("data") args: UpdateUserInputs) {
+  async updateUser(@Arg("id") id: number, @Arg("data") args: userUpdateInput) {
     return await this.userController.updateUser(id, { ...args });
   }
 

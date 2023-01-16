@@ -9,13 +9,14 @@ import {
 } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 import { Rol } from "../roles/rol.entity";
+import { userEntityInterface } from "../../infraestructure/interfaces/user.interface";
 /* import { Asignature } from "./Asignature";
 import { CourseAsignature } from "./CourseAsignature";
 import { Progress } from "./Progress"; */
 
 @Entity()
 @ObjectType()
-export class User extends BaseEntity {
+export class User extends BaseEntity implements userEntityInterface {
   @Field()
   @PrimaryGeneratedColumn()
   id!: number;

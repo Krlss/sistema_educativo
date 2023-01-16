@@ -2,7 +2,7 @@ import { IsNotEmpty, IsEmail } from "class-validator";
 import { Field, InputType } from "type-graphql";
 
 @InputType()
-export class LoginInputs {
+export class userLoginInputs {
   @Field({ description: "Correo del usuario", nullable: true })
   @IsEmail({ message: "El correo no es válido" })
   @IsNotEmpty({ message: "El correo no puede estar vacío" })

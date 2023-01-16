@@ -2,7 +2,7 @@ import { GraphQLError } from "graphql";
 
 export const formatError = (error: GraphQLError) => {
   if (error.message === "Argument Validation Error") {
-    const errors = error.extensions?.exception?.validationErrors.map(
+    const errors = error?.extensions?.exception?.validationErrors?.map(
       (error: { property: string; constraints: { [key: string]: string } }) => {
         return {
           field: error.property,

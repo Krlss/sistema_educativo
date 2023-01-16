@@ -1,9 +1,12 @@
 import { hashPassword } from "../../infraestructure/helpers/bcrypt";
 import { User } from "./user.entity";
-import { usersService, UserCreateProps, UserUpdateProps } from "./user.service";
+import { usersService } from "./user.service";
 import { rolesService } from "../roles/rol.service";
+import { userCreateInput } from "../../infraestructure/validations/users/user.create.inputs";
+import { UserUpdateProps } from "../../infraestructure/types/users";
+import { userControllerInterface } from "../../infraestructure/interfaces/user.interface";
 
-export class userController {
+export class userController implements userControllerInterface {
   private userService: usersService;
   private rolesService: rolesService;
   constructor() {
@@ -27,7 +30,7 @@ export class userController {
     return await this.userService.findAllByRol(rol);
   }
 
-  async createUser(user: UserCreateProps): Promise<boolean | unknown> {
+  async createUser(user: userCreateInput): Promise<boolean | unknown> {
     try {
       const _user = new User();
       _user.name = user.name;

@@ -1,39 +1,15 @@
 import { User } from "./user.entity";
-import { Rol } from "../roles/rol.entity";
 import { AppDataSource } from "../../infraestructure/config/typeorm";
-import { hashPassword } from "../../infraestructure/helpers/bcrypt";
-import { rolesService } from "../roles/rol.service";
-
-export interface UserProps {
-  name: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
-
-export interface UserCreateProps extends UserProps {
-  roles: number[];
-}
-
-export interface UserSaveProps extends UserProps {
-  roles: Rol[];
-}
-
-export interface UserUpdateProps extends UserProps {
-  roles?: number[];
-}
-
-export class usersService {
-  private rolesService: rolesService;
-
-  constructor() {
-    this.rolesService = new rolesService();
-  }
-
+import { UserSaveProps } from "../../infraestructure/types/users";
+import { userServiceInterface } from "../../infraestructure/interfaces/user.interface";
+export class usersService implements userServiceInterface {
   async findById(id: number) {
     const user = await AppDataSource.manager.findOne(User, {
       where: {
         id,
+      },
+      relations: {
+        roles: true,
       },
     });
     return user;
@@ -45,6 +21,9 @@ export class usersService {
         roles: {
           name: rol,
         },
+      },
+      relations: {
+        roles: true,
       },
     });
     return users;
@@ -63,7 +42,11 @@ export class usersService {
   }
 
   async findAll() {
-    return await AppDataSource.manager.find(User);
+    return await AppDataSource.manager.find(User, {
+      relations: {
+        roles: true,
+      },
+    });
   }
 
   async create(user: UserSaveProps) {

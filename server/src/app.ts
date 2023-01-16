@@ -13,7 +13,7 @@ export async function start() {
       resolvers: resolvers,
     }),
     context: ({ req, res }) => ({ req, res }),
-    // formatError: (error) => formatError(error),
+    formatError: (error) => formatError(error),
   });
   app.use(cookieParser());
   server.applyMiddleware({ app, path: "/" });
