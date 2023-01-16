@@ -14,7 +14,9 @@ class RolResolver {
   }
 
   @Mutation(() => Boolean)
-  async createRol(@Arg("data") args: rolCreateInput) {
+  async createRol(
+    @Arg("data") args: rolCreateInput
+  ): Promise<boolean | unknown> {
     return await this.rolController.createRol(args);
   }
 
@@ -29,12 +31,15 @@ class RolResolver {
   }
 
   @Mutation(() => Boolean)
-  async updateRol(@Arg("id") id: number, @Arg("data") args: rolUpdateInput) {
+  async updateRol(
+    @Arg("id") id: number,
+    @Arg("data") args: rolUpdateInput
+  ): Promise<boolean | unknown> {
     return await this.rolController.updateRol(id, args);
   }
 
   @Mutation(() => Boolean)
-  async deleteRol(@Arg("id") id: number) {
+  async deleteRol(@Arg("id") id: number): Promise<boolean | unknown> {
     return await this.rolController.deleteRol(id);
   }
 }

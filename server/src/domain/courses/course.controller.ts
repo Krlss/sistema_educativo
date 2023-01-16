@@ -1,3 +1,7 @@
+import {
+  courseUpdateInput,
+  courseCreateInput,
+} from "../../infraestructure/validations/courses";
 import { Course } from "./course.entity";
 import { courseService } from "./course.service";
 export class courseController {
@@ -14,31 +18,40 @@ export class courseController {
   async getAllCourses() {
     return await this.courseService.getAllCourses();
   }
-  async createCourse(name: string) {
+
+  async createCourse(data: courseCreateInput): Promise<boolean | unknown> {
     try {
       const course = new Course();
-      course.name = name;
+      course.name = data.name;
+
       return await this.courseService.createCourse(course);
-    } catch (err) {
-      console.log(err);
-      return err;
+    } catch (error) {
+      console.log(error);
+      return error;
     }
   }
-  async updateCourse(id: number, name: string) {
+
+  async updateCourse(
+    id: number,
+    data: courseUpdateInput
+  ): Promise<boolean | unknown> {
     try {
       const course = await this.courseService.getCourseById(id);
-      if (!course) {
-        throw new Error("Course not found");
-      }
-      course.name = name;
+      if (!course) throw new Error("El curso no existe");
+
+      course.name = data.name;
       course.updatedAt = new Date();
+
       return await this.courseService.updateCourse(course);
     } catch (error) {
       console.log(error);
       return error;
     }
   }
-  async deleteCourse(id: number) {
+  async deleteCourse(id: number): Promise<boolean | unknown> {
+    const course = await this.courseService.getCourseById(id);
+    if (!course) throw new Error("El curso no existe");
+
     return await this.courseService.deleteCourse(id);
   }
 }
