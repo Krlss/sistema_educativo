@@ -4,9 +4,11 @@ import {
   Column,
   Entity,
   ManyToMany,
-  OneToMany,
+  JoinTable,
   PrimaryGeneratedColumn,
 } from "typeorm";
+
+import { Asignature } from "../asignatures/asignature.entity";
 
 @Entity()
 @ObjectType()
@@ -26,4 +28,9 @@ export class Course extends BaseEntity {
   @Field()
   @Column({ default: () => "NOW()" })
   updatedAt?: Date;
+
+  @Field(() => [Asignature], { nullable: true })
+  @ManyToMany(() => Asignature, (asignature) => asignature.courses)
+  @JoinTable({ name: "courses_asignatures" })
+  asignatures?: Asignature[];
 }

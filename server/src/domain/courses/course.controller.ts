@@ -2,12 +2,15 @@ import {
   courseUpdateInput,
   courseCreateInput,
 } from "../../infraestructure/validations/courses";
+import { asignatureService } from "../asignatures/asignature.service";
 import { Course } from "./course.entity";
 import { courseService } from "./course.service";
 export class courseController {
   private courseService: courseService;
+  private asignatureService: asignatureService;
   constructor() {
     this.courseService = new courseService();
+    this.asignatureService = new asignatureService();
   }
   async getCourseById(id: number) {
     return await this.courseService.getCourseById(id);
@@ -23,6 +26,13 @@ export class courseController {
     try {
       const course = new Course();
       course.name = data.name;
+
+      if (data?.asignatures?.length) {
+        course.asignatures =
+          await this.asignatureService.getAsignaturesByArrayId(
+            data.asignatures
+          );
+      }
 
       return await this.courseService.createCourse(course);
     } catch (error) {

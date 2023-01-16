@@ -1,5 +1,7 @@
 import { MinLength, IsNotEmpty } from "class-validator";
 import { Field, InputType, Int } from "type-graphql";
+import { CourseNotExist } from "../courses/courseNotExist";
+import { UnitNotExist } from "../units/unitNotExist";
 import { IsNameAlreadyExist } from "./isNameAlreadyExist";
 
 @InputType()
@@ -20,7 +22,16 @@ export class asignatureCreateInput {
   @MinLength(2, { message: "La imagen debe tener al menos 2 caracteres" })
   image!: string;
 
-  @Field(() => [Int], { description: "Unidades del curso" })
+  @Field(() => [Int], { description: "Unidades del curso", nullable: true })
   @IsNotEmpty({ message: "Las unidades del curso no pueden estar vacías" })
-  units!: number[];
+  @UnitNotExist({ message: "Algunas de las unidades no existen" })
+  units?: number[];
+
+  @Field(() => [Int], {
+    description: "Cursos de la asignatura",
+    nullable: true,
+  })
+  @IsNotEmpty({ message: "Los cursos de la asignatura no pueden estar vacías" })
+  @CourseNotExist({ message: "Algunos de los cursos no existen" })
+  courses?: number[];
 }

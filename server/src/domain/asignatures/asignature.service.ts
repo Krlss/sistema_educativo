@@ -1,5 +1,6 @@
 import { Asignature } from "./asignature.entity";
 import { AppDataSource } from "../../infraestructure/config/typeorm";
+import { In } from "typeorm";
 
 export class asignatureService {
   async findById(id: number) {
@@ -7,11 +8,20 @@ export class asignatureService {
       where: {
         id,
       },
+      relations: {
+        courses: true,
+        units: true,
+      },
     });
   }
 
   async findAll(): Promise<Asignature[] | []> {
-    return await AppDataSource.manager.find(Asignature);
+    return await AppDataSource.manager.find(Asignature, {
+      relations: {
+        courses: true,
+        units: true,
+      },
+    });
   }
 
   async create(asignature: Asignature) {
@@ -27,5 +37,17 @@ export class asignatureService {
   async delete(id: number) {
     await AppDataSource.manager.delete(Asignature, { id });
     return true;
+  }
+
+  async getAsignaturesByArrayId(ids: number[]): Promise<Asignature[] | []> {
+    return await AppDataSource.manager.find(Asignature, {
+      where: {
+        id: In(ids),
+      },
+      relations: {
+        courses: true,
+        units: true,
+      },
+    });
   }
 }

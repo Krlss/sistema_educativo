@@ -9,6 +9,7 @@ import {
 import { Field, ObjectType } from "type-graphql";
 //import { CourseAsignature } from "../courseasignatures/courseasignature.entity";
 import { Unit } from "../units/unit.entity";
+import { Course } from "../courses/course.entity";
 
 @Entity()
 @ObjectType()
@@ -29,11 +30,6 @@ export class Asignature extends BaseEntity {
   @Column()
   image!: string;
 
-  @Field(() => [Unit], { nullable: true })
-  @ManyToMany(() => Unit, (unit) => unit.asignatures)
-  @JoinTable({ name: "asignatures_units" })
-  units!: Unit[];
-
   @Field()
   @Column({ default: () => "NOW()" })
   createdAt?: Date;
@@ -41,4 +37,14 @@ export class Asignature extends BaseEntity {
   @Field()
   @Column({ default: () => "NOW()" })
   updatedAt?: Date;
+
+  @Field(() => [Unit], { nullable: true })
+  @ManyToMany(() => Unit, (unit) => unit.asignatures)
+  @JoinTable({ name: "asignatures_units" })
+  units?: Unit[];
+
+  @Field(() => [Course], { nullable: true })
+  @ManyToMany(() => Course, (course) => course.asignatures)
+  @JoinTable({ name: "courses_asignatures" })
+  courses?: Course[];
 }

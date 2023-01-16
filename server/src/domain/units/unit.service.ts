@@ -1,5 +1,6 @@
 import { Unit } from "./unit.entity";
 import { AppDataSource } from "../../infraestructure/config/typeorm";
+import { In } from "typeorm";
 
 export class unitService {
   async findById(id: number) {
@@ -23,5 +24,16 @@ export class unitService {
   async delete(id: number) {
     await AppDataSource.manager.delete(Unit, { id });
     return true;
+  }
+
+  async getUnitsByArrayId(ids: number[]): Promise<Unit[] | []> {
+    return await AppDataSource.manager.find(Unit, {
+      where: {
+        id: In(ids),
+      },
+      relations: {
+        asignatures: true,
+      },
+    });
   }
 }
