@@ -43,17 +43,22 @@ class UserResolver {
   }
 
   @Mutation(() => Boolean)
-  async createUser(@Arg("data") args: userCreateInput) {
+  async createUser(
+    @Arg("data") args: userCreateInput
+  ): Promise<boolean | unknown> {
     return await this.userController.createUser({ ...args });
   }
 
   @Mutation(() => Boolean)
-  async updateUser(@Arg("id") id: number, @Arg("data") args: userUpdateInput) {
+  async updateUser(
+    @Arg("id") id: number,
+    @Arg("data") args: userUpdateInput
+  ): Promise<boolean | unknown> {
     return await this.userController.updateUser(id, { ...args });
   }
 
   @Mutation(() => Boolean)
-  async deleteUser(@Arg("id") id: number) {
+  async deleteUser(@Arg("id") id: number): Promise<boolean | unknown> {
     return this.userController.deleteUser(id);
   }
 }

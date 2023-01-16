@@ -1,4 +1,4 @@
-import { Asignature } from "../../domain/asignatures/Asignature";
+import { Asignature } from "../../domain/asignatures/asignature.entity";
 import { User } from "../../domain/users/user.entity";
 import { Question } from "./Question";
 import { Topic } from "./Topic";

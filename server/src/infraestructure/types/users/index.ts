@@ -1,4 +1,4 @@
-import { Rol } from "../../entities";
+import { Rol } from "../../../domain/roles/rol.entity";
 
 export interface UserProps {
   name: string;

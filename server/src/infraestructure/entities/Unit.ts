@@ -9,7 +9,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Topic } from "./Topic";
-import { Asignature } from "../../domain/asignatures/Asignature";
+import { Asignature } from "../../domain/asignatures/asignature.entity";
 
 @Entity()
 export class Unit extends BaseEntity {

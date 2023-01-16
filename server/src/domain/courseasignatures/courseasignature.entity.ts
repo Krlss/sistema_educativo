@@ -7,7 +7,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Asignature } from "../asignatures/Asignature";
+import { Asignature } from "../asignatures/asignature.entity";
 import { Course } from "../courses/course.entity";
 import { User } from "../users/user.entity";
 import { Progress } from "../../infraestructure/entities/Progress";

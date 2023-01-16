@@ -12,16 +12,21 @@ import { CourseAsignature } from "../courseasignatures/courseasignature.entity";
 import { Unit } from "../../infraestructure/entities/Unit";
 
 @Entity()
+@ObjectType()
 export class Asignature extends BaseEntity {
+  @Field()
   @PrimaryGeneratedColumn()
   id!: number;
 
+  @Field()
   @Column()
   name!: string;
 
+  @Field()
   @Column()
   description!: string;
 
+  @Field()
   @Column()
   image!: string;
 
@@ -38,4 +43,8 @@ export class Asignature extends BaseEntity {
   @Field()
   @Column({ default: () => "NOW()" })
   createdAt?: Date;
+
+  @Field()
+  @Column({ default: () => "NOW()" })
+  updatedAt?: Date;
 }
