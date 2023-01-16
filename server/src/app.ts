@@ -3,8 +3,8 @@ import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import cookieParser from "cookie-parser";
 
-import { resolvers } from "./resolvers";
-import { formatError } from "./utils/formatError";
+import { resolvers } from "./domain";
+import { formatError } from "./infraestructure/utils/formatError";
 
 export async function start() {
   const app = express();
@@ -13,7 +13,7 @@ export async function start() {
       resolvers: resolvers,
     }),
     context: ({ req, res }) => ({ req, res }),
-    formatError: (error) => formatError(error),
+    // formatError: (error) => formatError(error),
   });
   app.use(cookieParser());
   server.applyMiddleware({ app, path: "/" });
