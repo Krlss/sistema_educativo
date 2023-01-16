@@ -17,24 +17,16 @@ class UserResolver {
 
   @Query(() => [User])
   async getUsers() {
-    const users = await this.userController.getUsers();
-    if (!users) {
-      throw new Error("No hay usuarios");
-    }
-    return users;
+    return await this.userController.getUsers();
   }
 
-  @Query(() => User)
+  @Query(() => User, { nullable: true })
   async getUser(@Arg("id") id: number) {
-    const user = await this.userController.getUserById(id);
-    if (!user) {
-      throw new Error("El usuario no existe");
-    }
-    return user;
+    return await this.userController.getUserById(id);
   }
 
   @Query(() => [User])
-  async getUserByRol(@Arg("rol") rol: string) {
+  async getUsersByRol(@Arg("rol") rol: string) {
     return await this.userController.getUsersByRol(rol);
   }
 

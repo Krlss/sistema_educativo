@@ -25,7 +25,7 @@ class RolResolver {
     return await this.rolController.getRoles();
   }
 
-  @Query(() => Rol)
+  @Query(() => Rol, { nullable: true })
   async getRol(@Arg("id") id: number) {
     return await this.rolController.getRolById(id);
   }

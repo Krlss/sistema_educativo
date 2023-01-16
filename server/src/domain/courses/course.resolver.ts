@@ -12,7 +12,7 @@ class CourseResolver {
   constructor() {
     this.courseController = new courseController();
   }
-  @Query(() => [Course])
+  @Query(() => Course, { nullable: true })
   async getCourseById(@Arg("id") id: number) {
     return await this.courseController.getCourseById(id);
   }
