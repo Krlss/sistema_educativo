@@ -9,7 +9,7 @@ import {
 } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 import { CourseAsignature } from "../courseasignatures/courseasignature.entity";
-import { Unit } from "../../infraestructure/entities/Unit";
+import { Unit } from "../units/unit.entity";
 
 @Entity()
 @ObjectType()
@@ -30,14 +30,15 @@ export class Asignature extends BaseEntity {
   @Column()
   image!: string;
 
-  @OneToMany(
+  /*  @OneToMany(
     () => CourseAsignature,
     (courseasignature) => courseasignature.asignature
   )
-  courseAsignatures!: CourseAsignature[];
+  courseAsignatures!: CourseAsignature[]; */
 
+  @Field(() => [Unit], { nullable: true })
   @ManyToMany(() => Unit, (unit) => unit.asignatures)
-  @JoinTable()
+  @JoinTable({ name: "asignature_units_unit" })
   units!: Unit[];
 
   @Field()

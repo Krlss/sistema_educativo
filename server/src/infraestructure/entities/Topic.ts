@@ -10,7 +10,6 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Question } from "./Question";
-import { Unit } from "./Unit";
 
 @Entity()
 export class Topic extends BaseEntity {
@@ -26,8 +25,8 @@ export class Topic extends BaseEntity {
   @Column()
   video!: string;
 
-  @ManyToOne(() => Unit, (unit) => unit.topics)
-  units!: Unit;
+  /* @ManyToOne(() => Unit, (unit) => unit.topics)
+  units!: Unit; */
 
   @OneToMany(() => Question, (question) => question.topic)
   questions!: Question[];

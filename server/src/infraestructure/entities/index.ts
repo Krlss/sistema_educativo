@@ -2,7 +2,6 @@ import { Asignature } from "../../domain/asignatures/asignature.entity";
 import { User } from "../../domain/users/user.entity";
 import { Question } from "./Question";
 import { Topic } from "./Topic";
-import { Unit } from "./Unit";
 import { Rol } from "../../domain/roles/rol.entity";
 import { CourseAsignature } from "../../domain/courseasignatures/courseasignature.entity";
 import { Course } from "../../domain/courses/course.entity";
@@ -13,7 +12,6 @@ export {
   User,
   Question,
   Topic,
-  Unit,
   Rol,
   CourseAsignature,
   Course,

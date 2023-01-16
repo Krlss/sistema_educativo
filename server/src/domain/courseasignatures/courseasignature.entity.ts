@@ -22,8 +22,8 @@ export class CourseAsignature extends BaseEntity {
   @ManyToOne(() => Course, (course) => course.courseAsignatures)
   course!: Course;
 
-  @ManyToOne(() => Asignature, (asignature) => asignature.courseAsignatures)
-  asignature!: Asignature;
+  /*   @ManyToOne(() => Asignature, (asignature) => asignature.courseAsignatures)
+  asignature!: Asignature; */
 
   /* @ManyToOne(() => User, (user) => user.userCourseAsignatures)
   user!: User; */
