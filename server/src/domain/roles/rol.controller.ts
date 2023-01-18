@@ -1,13 +1,16 @@
 import { rolCreateInput } from "../../infraestructure/validations/roles/rol.create.inputs";
 import { rolUpdateInput } from "../../infraestructure/validations/roles/rol.update.inputs";
+import { usersService } from "../users/user.service";
 import { Rol } from "./rol.entity";
 import { rolService } from "./rol.service";
 
 export class rolController {
   private rolService: rolService;
+  private usersService: usersService;
 
   constructor() {
     this.rolService = new rolService();
+    this.usersService = new usersService();
   }
 
   async getRoles() {
@@ -27,6 +30,9 @@ export class rolController {
       const rol = new Rol();
       rol.name = data.name;
 
+      if (data?.users?.length)
+        rol.users = await this.usersService.findByArrayId(data.users);
+
       return await this.rolService.create(rol);
     } catch (error) {
       console.log(error);
@@ -44,6 +50,8 @@ export class rolController {
 
       rol.name = data.name;
       rol.updatedAt = new Date();
+      if (data?.users?.length)
+        rol.users = await this.usersService.findByArrayId(data.users);
 
       return await this.rolService.update(rol);
     } catch (error) {

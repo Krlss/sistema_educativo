@@ -33,5 +33,5 @@ export class asignatureUpdateInput {
   })
   @IsNotEmpty({ message: "Los cursos de la asignatura no pueden estar vacías" })
   @CourseNotExist({ message: "Algunos de los cursos no existe" })
-  courses?: number[];
+  courses!: number[];
 }

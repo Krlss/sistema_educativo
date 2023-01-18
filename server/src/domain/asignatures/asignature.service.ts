@@ -39,7 +39,7 @@ export class asignatureService {
     return true;
   }
 
-  async getAsignaturesByArrayId(ids: number[]): Promise<Asignature[] | []> {
+  async findAllByArray(ids: number[]): Promise<Asignature[] | []> {
     return await AppDataSource.manager.find(Asignature, {
       where: {
         id: In(ids),

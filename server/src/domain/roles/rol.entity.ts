@@ -5,6 +5,7 @@ import {
   BaseEntity,
   ManyToMany,
   JoinTable,
+  JoinColumn,
 } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 import { User } from "../users/user.entity";
@@ -29,6 +30,5 @@ export class Rol extends BaseEntity {
 
   @Field(() => [User], { nullable: true })
   @ManyToMany(() => User, (user) => user.roles)
-  @JoinTable({ name: "users_rols", joinColumn: { name: "rolId" } })
   users!: User[];
 }

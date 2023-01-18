@@ -1,6 +1,7 @@
 import { Unit } from "./unit.entity";
 import { AppDataSource } from "../../infraestructure/config/typeorm";
 import { In } from "typeorm";
+import { UnitSaveProps } from "../../infraestructure/types/units";
 
 export class unitService {
   async findById(id: number) {
@@ -13,7 +14,7 @@ export class unitService {
   async findAll(): Promise<Unit[] | []> {
     return await AppDataSource.manager.find(Unit);
   }
-  async create(unit: Unit) {
+  async create(unit: UnitSaveProps) {
     await AppDataSource.manager.save(unit);
     return true;
   }

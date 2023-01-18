@@ -1,6 +1,7 @@
 import { User } from "./user.entity";
 import { AppDataSource } from "../../infraestructure/config/typeorm";
 import { UserSaveProps } from "../../infraestructure/types/users";
+import { In } from "typeorm";
 export class usersService {
   async findById(id: number) {
     return await AppDataSource.manager.findOne(User, {
@@ -58,5 +59,13 @@ export class usersService {
   async delete(id: number) {
     await AppDataSource.manager.delete(User, { id });
     return true;
+  }
+
+  async findByArrayId(ids: number[]) {
+    return await AppDataSource.manager.find(User, {
+      where: {
+        id: In(ids),
+      },
+    });
   }
 }

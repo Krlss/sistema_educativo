@@ -2,11 +2,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "chrome",
+            "type": "node-terminal",
+            "name": "Run Script: local",
             "request": "launch",
-            "name": "Launch chrome against localhost",
-            "url": "http://localhost:8000",
-            "webRoot": "${workspaceFolder}"
+            "command": "npm run local",
+            "cwd": "${workspaceFolder}\\server\\src"
         }
     ]
 }

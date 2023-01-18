@@ -4,11 +4,14 @@ import {
   unitCreateInput,
   unitUpdateInput,
 } from "../../infraestructure/validations/units";
+import { asignatureService } from "../asignatures/asignature.service";
 
 export class UnitController {
   private unitService: unitService;
+  private asignatureService: asignatureService;
   constructor() {
     this.unitService = new unitService();
+    this.asignatureService = new asignatureService();
   }
 
   async getUnits(): Promise<Unit[] | []> {
@@ -19,14 +22,16 @@ export class UnitController {
     return await this.unitService.findById(id);
   }
 
-  async createUnit(unit: unitCreateInput): Promise<boolean | unknown> {
+  async createUnit(data: unitCreateInput): Promise<boolean | unknown> {
     try {
-      const _unit = new Unit();
+      const unit = new Unit();
+      unit.name = data.name;
 
-      _unit.name = unit.name;
-      // falta las asignaturas
+      unit.asignatures = await this.asignatureService.findAllByArray(
+        data.asignatures
+      );
 
-      return await this.unitService.create(_unit);
+      return await this.unitService.create(unit);
     } catch (error) {
       console.log(error);
       return error;
@@ -35,14 +40,18 @@ export class UnitController {
 
   async updateUnit(
     id: number,
-    props: unitUpdateInput
+    data: unitUpdateInput
   ): Promise<boolean | unknown> {
     try {
       const unit = await this.getUnitById(id);
       if (!unit) throw new Error("La unidad no existe");
 
-      unit.name = props.name;
+      unit.name = data.name;
       unit.updatedAt = new Date();
+
+      unit.asignatures = await this.asignatureService.findAllByArray(
+        data.asignatures
+      );
 
       return await this.unitService.update(unit);
     } catch (error) {

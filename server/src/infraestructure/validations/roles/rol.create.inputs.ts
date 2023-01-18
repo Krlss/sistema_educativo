@@ -1,5 +1,5 @@
 import { MinLength, IsNotEmpty } from "class-validator";
-import { Field, InputType } from "type-graphql";
+import { Field, InputType, Int } from "type-graphql";
 import { IsNameAlreadyExist } from "./isNameAlreadyExist";
 
 @InputType()
@@ -9,4 +9,8 @@ export class rolCreateInput {
   @MinLength(2, { message: "El nombre debe tener al menos 2 caracteres" })
   @IsNameAlreadyExist({ message: "El rol ya existe" })
   name!: string;
+
+  @Field(() => [Int], { nullable: true })
+  @IsNotEmpty({ message: "Los usuarios del rol no pueden estar vacíos" })
+  users!: number[];
 }

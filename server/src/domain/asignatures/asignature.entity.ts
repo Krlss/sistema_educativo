@@ -40,11 +40,14 @@ export class Asignature extends BaseEntity {
 
   @Field(() => [Unit], { nullable: true })
   @ManyToMany(() => Unit, (unit) => unit.asignatures)
-  @JoinTable({ name: "asignatures_units" })
-  units?: Unit[];
+  @JoinTable({ joinColumn: { name: "asignatureId" } })
+  units!: Unit[];
 
   @Field(() => [Course], { nullable: true })
   @ManyToMany(() => Course, (course) => course.asignatures)
-  @JoinTable({ name: "courses_asignatures" })
-  courses?: Course[];
+  @JoinTable({
+    name: "courses_asignatures",
+    joinColumn: { name: "asignatureId" },
+  })
+  courses!: Course[];
 }

@@ -28,10 +28,9 @@ export class courseController {
       course.name = data.name;
 
       if (data?.asignatures?.length) {
-        course.asignatures =
-          await this.asignatureService.getAsignaturesByArrayId(
-            data.asignatures
-          );
+        course.asignatures = await this.asignatureService.findAllByArray(
+          data.asignatures
+        );
       }
 
       return await this.courseService.createCourse(course);
@@ -51,6 +50,12 @@ export class courseController {
 
       course.name = data.name;
       course.updatedAt = new Date();
+
+      if (data?.asignatures?.length) {
+        course.asignatures = await this.asignatureService.findAllByArray(
+          data.asignatures
+        );
+      }
 
       return await this.courseService.updateCourse(course);
     } catch (error) {

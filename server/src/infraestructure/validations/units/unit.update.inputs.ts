@@ -1,5 +1,6 @@
-import { MinLength, IsNotEmpty } from "class-validator";
+import { MinLength, IsNotEmpty, ArrayNotEmpty } from "class-validator";
 import { Field, InputType, Int } from "type-graphql";
+import { AsignatureNotExist } from "../asignatures/asignatureNotExist";
 import { IsNameAlreadyExist } from "./isNameAlreadyExist";
 
 @InputType()
@@ -14,8 +15,9 @@ export class unitUpdateInput {
     description: "Asignaturas de la unidad",
     nullable: true,
   })
-  @IsNotEmpty({
+  @ArrayNotEmpty({
     message: "Las asignaturas de la unidad no pueden estar vacías",
   })
+  @AsignatureNotExist({ message: "Alguna asignatura no existe" })
   asignatures!: number[];
 }

@@ -29,16 +29,16 @@ export class userController {
     return await this.userService.findAllByRol(rol);
   }
 
-  async createUser(user: userCreateInput): Promise<boolean | unknown> {
+  async createUser(data: userCreateInput): Promise<boolean | unknown> {
     try {
-      const _user = new User();
-      _user.name = user.name;
-      _user.lastName = user.lastName;
-      _user.email = user.email;
-      _user.password = hashPassword(user.password);
-      _user.roles = await this.rolService.findAllByArray(user.roles);
+      const user = new User();
+      user.name = data.name;
+      user.lastName = data.lastName;
+      user.email = data.email;
+      user.password = hashPassword(data.password);
+      user.roles = await this.rolService.findAllByArray(data.roles);
 
-      return await this.userService.create(_user);
+      return await this.userService.create(user);
     } catch (error) {
       console.log(error);
       return error;

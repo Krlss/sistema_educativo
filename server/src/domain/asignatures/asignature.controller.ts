@@ -64,6 +64,12 @@ export class AsignatureController {
       asignature.image = data.image;
       asignature.updatedAt = new Date();
 
+      if (data?.courses?.length) {
+        asignature.courses = await this.courseService.getCoursesByArrayId(
+          data.courses
+        );
+      }
+
       return await this.asignatureService.update(asignature);
     } catch (error) {
       console.log(error);

@@ -15,5 +15,6 @@ export interface AsignatureSaveProps extends AsignatureProps {
 }
 
 export interface AsignatureUpdateProps extends AsignatureProps {
+  courses?: number[];
   units?: number[];
 }
