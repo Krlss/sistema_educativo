@@ -23,10 +23,6 @@ export class Unit extends BaseEntity {
 
   @Field(() => [Asignature], { nullable: true })
   @ManyToMany(() => Asignature, (asignature) => asignature.units)
-  @JoinTable({
-    name: "units_asignatures",
-    joinColumn: { name: "unitId" },
-  })
   asignatures!: Asignature[];
 
   @Field()
