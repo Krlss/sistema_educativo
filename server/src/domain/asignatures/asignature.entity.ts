@@ -5,11 +5,13 @@ import {
   BaseEntity,
   ManyToMany,
   JoinTable,
+  OneToMany,
 } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 //import { CourseAsignature } from "../courseasignatures/courseasignature.entity";
 import { Unit } from "../units/unit.entity";
 import { Course } from "../courses/course.entity";
+import { Topic } from "../topics/topic.entity";
 
 @Entity()
 @ObjectType()
@@ -42,6 +44,10 @@ export class Asignature extends BaseEntity {
   @ManyToMany(() => Unit, (unit) => unit.asignatures)
   @JoinTable({ name: "asignatures_units" })
   units!: Unit[];
+
+  @Field(() => [Topic], { nullable: true })
+  @OneToMany(() => Topic, (topic) => topic.asignature)
+  topics!: Topic[];
 
   @Field(() => [Course], { nullable: true })
   @ManyToMany(() => Course, (course) => course.asignatures)

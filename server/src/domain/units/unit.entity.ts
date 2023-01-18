@@ -3,12 +3,13 @@ import {
   BaseEntity,
   Column,
   Entity,
-  JoinTable,
   ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 //import { Topic } from "./Topic";
 import { Asignature } from "../asignatures/asignature.entity";
+import { Topic } from "../topics/topic.entity";
 
 @Entity()
 @ObjectType()
@@ -24,6 +25,10 @@ export class Unit extends BaseEntity {
   @Field(() => [Asignature], { nullable: true })
   @ManyToMany(() => Asignature, (asignature) => asignature.units)
   asignatures!: Asignature[];
+
+  @Field(() => [Topic], { nullable: true })
+  @OneToMany(() => Topic, (topic) => topic.unit)
+  topics!: Topic[];
 
   @Field()
   @Column({ default: () => "NOW()" })
