@@ -4,6 +4,7 @@ import courseResolver from "./courses/course.resolver";
 import AsignatureResolver from "./asignatures/asignature.resolver";
 import UnitResolver from "./units/unit.resolver";
 import TopicResolver from "./topics/topic.resolver";
+import QuestionResolver from "./questions/question.resolver";
 
 export const resolvers = [
   userResolver,
@@ -12,4 +13,5 @@ export const resolvers = [
   AsignatureResolver,
   UnitResolver,
   TopicResolver,
+  QuestionResolver,
 ] as any;
