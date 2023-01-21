@@ -8,9 +8,6 @@ export class courseService {
       where: {
         id,
       },
-      relations: {
-        asignatures: true,
-      },
     });
   }
 
@@ -19,18 +16,11 @@ export class courseService {
       where: {
         name,
       },
-      relations: {
-        asignatures: true,
-      },
     });
   }
 
   async getAllCourses(): Promise<Course[] | []> {
-    return await AppDataSource.manager.find(Course, {
-      relations: {
-        asignatures: true,
-      },
-    });
+    return await AppDataSource.manager.find(Course);
   }
 
   async createCourse(course: Course) {
@@ -52,9 +42,6 @@ export class courseService {
     return await AppDataSource.manager.find(Course, {
       where: {
         id: In(ids),
-      },
-      relations: {
-        asignatures: true,
       },
     });
   }

@@ -8,10 +8,9 @@ import {
   OneToMany,
 } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
-//import { CourseAsignature } from "../courseasignatures/courseasignature.entity";
 import { Unit } from "../units/unit.entity";
-import { Course } from "../courses/course.entity";
 import { Topic } from "../topics/topic.entity";
+import { CoursePeriodAsignature } from "../coursePeriod_asignature/coursePeriod_asignature.entity";
 
 @Entity()
 @ObjectType()
@@ -49,10 +48,17 @@ export class Asignature extends BaseEntity {
   @OneToMany(() => Topic, (topic) => topic.asignature)
   topics!: Topic[];
 
-  @Field(() => [Course], { nullable: true })
+  /* @Field(() => [Course], { nullable: true })
   @ManyToMany(() => Course, (course) => course.asignatures)
   @JoinTable({
     name: "courses_asignatures",
   })
-  courses!: Course[];
+  courses!: Course[]; */
+
+  @Field(() => [CoursePeriodAsignature], { nullable: true })
+  @OneToMany(
+    () => CoursePeriodAsignature,
+    (courseperiodasignature) => courseperiodasignature.asignature
+  )
+  courseperiod_asignatures!: CoursePeriodAsignature[];
 }

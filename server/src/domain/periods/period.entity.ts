@@ -3,18 +3,16 @@ import {
   BaseEntity,
   Column,
   Entity,
-  ManyToMany,
   JoinTable,
-  PrimaryGeneratedColumn,
-  ManyToOne,
+  ManyToMany,
   OneToMany,
+  PrimaryGeneratedColumn,
 } from "typeorm";
-
 import { CoursePeriod } from "../course_period/course_period.entity";
 
 @Entity()
 @ObjectType()
-export class Course extends BaseEntity {
+export class Period extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn()
   id!: number;
@@ -30,13 +28,6 @@ export class Course extends BaseEntity {
   @Field()
   @Column({ default: () => "NOW()" })
   updatedAt?: Date;
-
-  /* @Field(() => [CourseAsignature], { nullable: true })
-  @OneToMany(
-    () => CourseAsignature,
-    (course_asignature) => course_asignature.courses
-  )
-  course_asignature!: CourseAsignature[]; */
 
   @Field(() => [CoursePeriod], { nullable: true })
   @OneToMany(() => CoursePeriod, (courseperiod) => courseperiod.periods)

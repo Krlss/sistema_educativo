@@ -35,9 +35,9 @@ export class AsignatureController {
       asignature.image = getGoogleDriveId(data.image);
 
       if (data?.courses?.length) {
-        asignature.courses = await this.courseService.getCoursesByArrayId(
+        /* asignature.courses = await this.courseService.getCoursesByArrayId(
           data.courses
-        );
+        ); */
       }
 
       if (data?.units?.length) {
@@ -65,9 +65,9 @@ export class AsignatureController {
       asignature.updatedAt = new Date();
 
       if (data?.courses?.length) {
-        asignature.courses = await this.courseService.getCoursesByArrayId(
+        /* asignature.courses = await this.courseService.getCoursesByArrayId(
           data.courses
-        );
+        ); */
       }
 
       return await this.asignatureService.update(asignature);

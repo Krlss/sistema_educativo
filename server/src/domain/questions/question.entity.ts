@@ -6,12 +6,14 @@ import {
   ManyToMany,
   JoinTable,
   JoinColumn,
+  OneToMany,
 } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 import {
   PriorityType,
   TypeQuestion,
 } from "../../infraestructure/types/questions";
+import { Content } from "../content/content.entity";
 
 @Entity()
 @ObjectType()
@@ -39,6 +41,10 @@ export class Question extends BaseEntity {
   @Field(() => PriorityType, { nullable: true, defaultValue: PriorityType.low })
   @Column({ type: "enum", enum: PriorityType })
   priority!: PriorityType;
+
+  @Field(() => [Content], { nullable: true })
+  @OneToMany(() => Content, (content) => content.question)
+  content_question!: Content[];
 
   @Field()
   @Column({ default: () => "NOW()" })

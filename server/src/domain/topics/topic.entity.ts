@@ -4,10 +4,12 @@ import {
   Column,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Unit } from "../units/unit.entity";
 import { Asignature } from "../asignatures/asignature.entity";
+import { Content } from "../content/content.entity";
 
 @Entity()
 @ObjectType()
@@ -37,6 +39,10 @@ export class Topic extends BaseEntity {
   })
   @ManyToOne(() => Asignature, (asignature) => asignature.topics)
   asignature?: Asignature;
+
+  @Field(() => [Content], { nullable: true })
+  @OneToMany(() => Content, (content) => content.topic)
+  content_topic!: Content[];
 
   @Field({ description: "Fecha de creación del tema" })
   @Column({ default: () => "NOW()" })

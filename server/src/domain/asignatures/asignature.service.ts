@@ -9,7 +9,7 @@ export class asignatureService {
         id,
       },
       relations: {
-        courses: true,
+        // courses: true,
         units: true,
       },
     });
@@ -18,7 +18,7 @@ export class asignatureService {
   async findAll(): Promise<Asignature[] | []> {
     return await AppDataSource.manager.find(Asignature, {
       relations: {
-        courses: true,
+        // courses: true,
         units: true,
       },
     });
@@ -45,7 +45,7 @@ export class asignatureService {
         id: In(ids),
       },
       relations: {
-        courses: true,
+        // courses: true,
         units: true,
       },
     });
