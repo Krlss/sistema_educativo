@@ -7,11 +7,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-//import { Topic } from "./Topic";
-import { Asignature } from "../asignatures/asignature.entity";
 import { Topic } from "../topics/topic.entity";
-import { CoursePeriodAsignature } from "../coursePeriod_asignature/coursePeriod_asignature.entity";
-import { Content } from "../content/content.entity";
 
 @Entity()
 @ObjectType()
@@ -24,17 +20,13 @@ export class Unit extends BaseEntity {
   @Column()
   name!: string;
 
-  @Field(() => [Asignature], { nullable: true })
-  @ManyToMany(() => Asignature, (asignature) => asignature.units)
-  asignatures!: Asignature[];
-
   @Field(() => [Topic], { nullable: true })
   @OneToMany(() => Topic, (topic) => topic.unit)
   topics!: Topic[];
 
-  @Field(() => [Content], { nullable: true })
+  /* @Field(() => [Content], { nullable: true })
   @OneToMany(() => Content, (content) => content.unit)
-  content_unit!: Content[];
+  content_unit!: Content[]; */
 
   @Field()
   @Column({ default: () => "NOW()" })

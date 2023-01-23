@@ -2,13 +2,15 @@ import { Field, ObjectType } from "type-graphql";
 import {
   BaseEntity,
   Entity,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { CoursePeriod } from "../course_period/course_period.entity";
 import { Asignature } from "../asignatures/asignature.entity";
-import { Content } from "../content/content.entity";
+import { User } from "../users/user.entity";
+import { Topic } from "../topics/topic.entity";
 
 @Entity()
 @ObjectType()
@@ -31,7 +33,15 @@ export class CoursePeriodAsignature extends BaseEntity {
   )
   asignature!: Asignature;
 
-  @Field(() => [Content], { nullable: true })
+  /* @Field(() => [Content], { nullable: true })
   @OneToMany(() => Content, (content) => content.courseperiod_asignature)
-  contents_courseperiodasignature!: Content[];
+  contents_courseperiodasignature!: Content[]; */
+
+  @Field(() => [User], { nullable: true })
+  @ManyToMany(() => User, (user) => user.coursePeriodAsignatures)
+  users!: User[];
+
+  @Field(() => [Topic], { nullable: true })
+  @OneToMany(() => Topic, (topic) => topic.coursePeriodAsignature)
+  topics!: Topic[];
 }

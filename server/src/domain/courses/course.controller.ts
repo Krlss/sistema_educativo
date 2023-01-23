@@ -7,15 +7,18 @@ import { Course } from "./course.entity";
 import { courseService } from "./course.service";
 import { coursePeriodService } from "../course_period/course_period.service";
 import { CoursePeriod } from "../course_period/course_period.entity";
+
 export class courseController {
   private courseService: courseService;
   private periodService: periodService;
   private coursePeriodService: coursePeriodService;
+
   constructor() {
     this.courseService = new courseService();
     this.periodService = new periodService();
     this.coursePeriodService = new coursePeriodService();
   }
+
   async getCourseById(id: number) {
     return await this.courseService.getCourseById(id);
   }
@@ -65,22 +68,36 @@ export class courseController {
       course.name = data.name;
       course.updatedAt = new Date();
 
-      if (data?.asignatures?.length) {
-        /* course.asignatures = await this.asignatureService.findAllByArray(
-          data.asignatures
-        ); */
+      if (data.periods) {
+        data.periods.forEach(async (period) => {
+          const _period = await this.periodService.getPeriodById(period);
+          if (_period) {
+            const course_period = new CoursePeriod();
+            course_period.courses = course;
+            course_period.periods = _period;
+            return await this.coursePeriodService.createCoursePeriod(
+              course_period
+            );
+          }
+        });
       }
-
-      return await this.courseService.updateCourse(course);
+      await this.courseService.updateCourse(course);
+      return true;
     } catch (error) {
       console.log(error);
       return error;
     }
   }
   async deleteCourse(id: number): Promise<boolean | unknown> {
-    const course = await this.courseService.getCourseById(id);
-    if (!course) throw new Error("El curso no existe");
+    try {
+      const course = await this.courseService.getCourseById(id);
+      if (!course) throw new Error("El curso no existe");
+      await this.courseService.deleteCourse(id);
 
-    return await this.courseService.deleteCourse(id);
+      return true;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
   }
 }

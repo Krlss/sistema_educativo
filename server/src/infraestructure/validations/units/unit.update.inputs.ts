@@ -7,7 +7,7 @@ import { IsNameAlreadyExist } from "./isNameAlreadyExist";
 export class unitUpdateInput {
   @Field({ description: "Nombre de la unidad", nullable: true })
   @IsNotEmpty({ message: "El nombre de la unidad no puede estar vacío" })
-  @MinLength(2, { message: "El nombre debe tener al menos 2 caracteres" })
+  @MinLength(1, { message: "El nombre debe tener al menos 2 caracteres" })
   @IsNameAlreadyExist({ message: "La unidad ya existe" })
   name!: string;
 

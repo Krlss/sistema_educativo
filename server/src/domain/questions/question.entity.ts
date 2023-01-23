@@ -7,13 +7,15 @@ import {
   JoinTable,
   JoinColumn,
   OneToMany,
+  ManyToOne,
 } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 import {
   PriorityType,
   TypeQuestion,
 } from "../../infraestructure/types/questions";
-import { Content } from "../content/content.entity";
+import { Topic } from "../topics/topic.entity";
+import { Progress } from "../progress/progress.entity";
 
 @Entity()
 @ObjectType()
@@ -42,9 +44,17 @@ export class Question extends BaseEntity {
   @Column({ type: "enum", enum: PriorityType })
   priority!: PriorityType;
 
-  @Field(() => [Content], { nullable: true })
+  /* @Field(() => [Content], { nullable: true })
   @OneToMany(() => Content, (content) => content.question)
-  content_question!: Content[];
+  content_question!: Content[]; */
+
+  @Field(() => [Progress], { nullable: true })
+  @OneToMany(() => Progress, (progress) => progress.questions)
+  progress!: Progress[];
+
+  @Field(() => Topic, { nullable: true })
+  @ManyToOne(() => Topic, (topic) => topic.questions)
+  topic!: Topic;
 
   @Field()
   @Column({ default: () => "NOW()" })

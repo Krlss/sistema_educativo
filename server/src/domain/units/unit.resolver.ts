@@ -6,6 +6,7 @@ import {
   unitCreateInput,
   unitUpdateInput,
 } from "../../infraestructure/validations/units";
+import { Topic } from "../topics/topic.entity";
 
 @Resolver()
 class UnitResolver {

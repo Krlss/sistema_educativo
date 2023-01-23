@@ -22,10 +22,10 @@ export class asignatureUpdateInput {
   @MinLength(2, { message: "La imagen debe tener al menos 2 caracteres" })
   image!: string;
 
-  @Field(() => [Int], { description: "Unidades del curso", nullable: true })
+  /* @Field(() => [Int], { description: "Unidades del curso", nullable: true })
   @IsNotEmpty({ message: "Las unidades del curso no pueden estar vacías" })
   @UnitNotExist({ message: "Algunas de las unidades no existen" })
-  units?: number[];
+  units?: number[]; */
 
   @Field(() => [Int], {
     description: "Cursos de la asignatura",

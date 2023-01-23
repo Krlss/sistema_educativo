@@ -6,6 +6,8 @@ import {
 } from "../../infraestructure/validations/asignatures";
 
 import { AsignatureController } from "./asignature.controller";
+import { CoursePeriod } from "../course_period/course_period.entity";
+import { CoursePeriodAsignature } from "../coursePeriod_asignature/coursePeriod_asignature.entity";
 
 @Resolver()
 class AsignatureResolver {
@@ -23,6 +25,22 @@ class AsignatureResolver {
   @Query(() => Asignature, { nullable: true })
   async getAsignature(@Arg("id") id: number) {
     return await this.asignatureController.getAsignatureById(id);
+  }
+
+  @Query(() => [CoursePeriodAsignature], { nullable: true })
+  async getAsignaturesByCourseAndPeriod(
+    @Arg("courseId") courseId: number,
+    @Arg("periodId") periodId: number
+  ) {
+    return await this.asignatureController.getAsignaturesByCourseAndPeriod(
+      courseId,
+      periodId
+    );
+  }
+
+  @Query(() => [CoursePeriodAsignature], { nullable: true })
+  async getAsignaturesByPeriod(@Arg("periodId") periodId: number) {
+    return await this.asignatureController.getAsignaturesByPeriod(periodId);
   }
 
   @Mutation(() => Boolean)

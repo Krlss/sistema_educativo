@@ -4,13 +4,24 @@ import { usersService } from "./user.service";
 import { rolService } from "../roles/rol.service";
 import { userCreateInput } from "../../infraestructure/validations/users/user.create.inputs";
 import { UserUpdateProps } from "../../infraestructure/types/users";
+import { coursePeriodAsignatureService } from "../coursePeriod_asignature/coursePeriod_asignature.service";
+import { asignatureService } from "../asignatures/asignature.service";
+import { questionService } from "../questions/question.service";
+import { Progress } from "../progress/progress.entity";
+import { Asignature } from "../asignatures/asignature.entity";
 
 export class userController {
   private userService: usersService;
   private rolService: rolService;
+  private coursePeriodAsignatureService: coursePeriodAsignatureService;
+  private questionService: questionService;
+  private asignatureService: asignatureService;
   constructor() {
     this.userService = new usersService();
     this.rolService = new rolService();
+    this.coursePeriodAsignatureService = new coursePeriodAsignatureService();
+    this.questionService = new questionService();
+    this.asignatureService = new asignatureService();
   }
 
   async getUsers(): Promise<User[] | []> {
@@ -29,6 +40,10 @@ export class userController {
     return await this.userService.findAllByRol(rol);
   }
 
+  async getAsignaturesByUser(id: number): Promise<Asignature[] | []> {
+    return await this.asignatureService.findAsignaturesByUser(id);
+  }
+
   async createUser(data: userCreateInput): Promise<boolean | unknown> {
     try {
       const user = new User();
@@ -38,7 +53,18 @@ export class userController {
       user.password = hashPassword(data.password);
       user.roles = await this.rolService.findAllByArray(data.roles);
 
-      return await this.userService.create(user);
+      if (data.asignatures) {
+        const asignatures =
+          await this.coursePeriodAsignatureService.getCoursePeriodAsignaturesByArrayId(
+            data.asignatures
+          );
+        if (asignatures.length > 0) {
+          user.coursePeriodAsignatures = asignatures;
+        }
+      }
+
+      await this.userService.create(user);
+      return true;
     } catch (error) {
       console.log(error);
       return error;
@@ -61,6 +87,27 @@ export class userController {
       if (roles) user.roles = await this.rolService.findAllByArray(roles);
       user.updatedAt = new Date();
 
+      if (props.asignatures) {
+        const asignatures =
+          await this.coursePeriodAsignatureService.getCoursePeriodAsignaturesByArrayId(
+            props.asignatures
+          );
+        if (asignatures.length > 0) {
+          user.coursePeriodAsignatures = asignatures;
+        }
+      }
+      if (props.questions) {
+        const questions = await this.questionService.findAllByArray(
+          props.questions
+        );
+        if (questions.length > 0) {
+          questions.forEach((question) => {
+            const progress = new Progress();
+            progress.users = user;
+            progress.questions = question;
+          });
+        }
+      }
       return await this.userService.update(user);
     } catch (error) {
       console.log(error);

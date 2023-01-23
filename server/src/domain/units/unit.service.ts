@@ -32,9 +32,6 @@ export class unitService {
       where: {
         id: In(ids),
       },
-      relations: {
-        asignatures: true,
-      },
     });
   }
 }

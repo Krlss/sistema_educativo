@@ -1,6 +1,8 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { periodController } from "./period.controller";
 import { Period } from "./period.entity";
+import { periodCreateInput } from "../../infraestructure/validations/periods/period.create.inputs";
+import periodUpdateInput from "../../infraestructure/validations/periods/period.update.inputs";
 
 @Resolver()
 class PeriodResolver {
@@ -21,18 +23,17 @@ class PeriodResolver {
 
   @Mutation(() => Boolean)
   async createPeriod(
-    @Arg("name") name: string,
-    @Arg("periods") periods: number[]
+    @Arg("data") data: periodCreateInput
   ): Promise<boolean | unknown> {
-    return await this.periodController.createPeriod(name, periods);
+    return await this.periodController.createPeriod(data);
   }
 
   @Mutation(() => Boolean)
   async updatePeriod(
     @Arg("id") id: number,
-    @Arg("data") args: string
+    @Arg("data") data: periodUpdateInput
   ): Promise<boolean | unknown> {
-    return await this.periodController.updatePeriod(id, args);
+    return await this.periodController.updatePeriod(id, data);
   }
 
   @Mutation(() => Boolean)

@@ -39,4 +39,7 @@ export class questionUpdateInput {
   @MinLength(3, { message: "La prioridad debe tener al menos 3 caracteres" })
   @IsNotEmpty({ message: "La prioridad no puede estar vacia" })
   priority!: PriorityType;
+
+  @Field(() => Number, { description: "Tema de la pregunta", nullable: true })
+  topic?: number;
 }

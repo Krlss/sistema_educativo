@@ -1,6 +1,8 @@
 import { In } from "typeorm";
 import { AppDataSource } from "../../infraestructure/config/typeorm";
 import { CoursePeriod } from "./course_period.entity";
+import { Course } from "../courses/course.entity";
+import { Period } from "../periods/period.entity";
 
 export class coursePeriodService {
   async getCoursePeriodById(id: number) {
@@ -8,11 +10,36 @@ export class coursePeriodService {
       where: {
         id,
       },
+      relations: { periods: true, courses: true },
+    });
+  }
+
+  async getCoursePeriodsByCourseAndPeriod(
+    course: Course,
+    period: Period
+  ): Promise<CoursePeriod[] | []> {
+    return await AppDataSource.manager.find(CoursePeriod, {
+      relations: { periods: true, courses: true },
+      where: {
+        courses: { id: course.id },
+        periods: { id: period.id },
+      },
     });
   }
 
   async getAllCoursePeriods(): Promise<CoursePeriod[] | []> {
-    return await AppDataSource.manager.find(CoursePeriod);
+    return await AppDataSource.manager.find(CoursePeriod, {
+      relations: { periods: true, courses: true },
+    });
+  }
+
+  async getCoursePeriodsByPeriod(period: Period): Promise<CoursePeriod[] | []> {
+    return await AppDataSource.manager.find(CoursePeriod, {
+      relations: { periods: true, courses: true },
+      where: {
+        periods: { id: period.id },
+      },
+    });
   }
 
   async createCoursePeriod(coursePeriod: CoursePeriod) {

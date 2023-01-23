@@ -1,10 +1,19 @@
+import periodCreateInput from "../../infraestructure/validations/periods/period.create.inputs";
+import periodUpdateInput from "../../infraestructure/validations/periods/period.update.inputs";
 import { Period } from "./period.entity";
 import { periodService } from "./period.service";
+import { courseService } from "../courses/course.service";
+import { CoursePeriod } from "../course_period/course_period.entity";
+import { coursePeriodService } from "../course_period/course_period.service";
 
 export class periodController {
   private periodService: periodService;
+  private courseService: courseService;
+  private coursePeriodService: coursePeriodService;
   constructor() {
     this.periodService = new periodService();
+    this.courseService = new courseService();
+    this.coursePeriodService = new coursePeriodService();
   }
   async getPeriodById(id: number) {
     return await this.periodService.getPeriodById(id);
@@ -13,22 +22,41 @@ export class periodController {
     return await this.periodService.getAllPeriods();
   }
 
-  async createPeriod(name: string, periods: number[]) {
-    const _periods = await this.getPeriodsByArrayId(periods);
-    if (_periods.length !== periods.length) throw new Error("Period not found");
-    /* _periods.forEach((period) => {
-      if (period.parentId) throw new Error("Period already has a parent");
-    }); */
+  async createPeriod(data: periodCreateInput) {
     const period = new Period();
-    period.name = name;
-    return await this.periodService.createPeriod(period);
+    period.name = data.name;
+    await this.periodService.createPeriod(period);
+    if (data.courses) {
+      data.courses.forEach(async (course) => {
+        const courseperiod = await this.courseService.getCourseById(course);
+        if (courseperiod) {
+          const newcourseperiod = new CoursePeriod();
+          newcourseperiod.courses = courseperiod;
+          newcourseperiod.periods = period;
+          await this.coursePeriodService.createCoursePeriod(newcourseperiod);
+        }
+      });
+    }
+    return true;
   }
 
-  async updatePeriod(id: number, name: string) {
+  async updatePeriod(id: number, data: periodUpdateInput) {
     const period = await this.getPeriodById(id);
     if (!period) throw new Error("Period not found");
-    period.name = name;
-    return await this.periodService.updatePeriod(period);
+    if (data.name) period.name = data.name;
+    await this.periodService.updatePeriod(period);
+    if (data.courses) {
+      data.courses.forEach(async (course) => {
+        const courseperiod = await this.courseService.getCourseById(course);
+        if (courseperiod) {
+          const newcourseperiod = new CoursePeriod();
+          newcourseperiod.courses = courseperiod;
+          newcourseperiod.periods = period;
+          await this.coursePeriodService.createCoursePeriod(newcourseperiod);
+        }
+      });
+    }
+    return true;
   }
 
   async deletePeriod(id: number) {

@@ -8,18 +8,28 @@ export class asignatureService {
       where: {
         id,
       },
-      relations: {
-        // courses: true,
-        units: true,
-      },
     });
   }
 
   async findAll(): Promise<Asignature[] | []> {
+    return await AppDataSource.manager.find(Asignature);
+  }
+
+  async findAsignaturesByUser(id: number): Promise<Asignature[] | []> {
     return await AppDataSource.manager.find(Asignature, {
+      where: {
+        courseperiod_asignatures: {
+          id,
+        },
+      },
       relations: {
-        // courses: true,
-        units: true,
+        courseperiod_asignatures: {
+          asignature: true,
+          courseperiod: {
+            courses: true,
+            periods: true,
+          },
+        },
       },
     });
   }
@@ -43,10 +53,6 @@ export class asignatureService {
     return await AppDataSource.manager.find(Asignature, {
       where: {
         id: In(ids),
-      },
-      relations: {
-        // courses: true,
-        units: true,
       },
     });
   }

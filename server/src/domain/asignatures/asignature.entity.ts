@@ -39,14 +39,9 @@ export class Asignature extends BaseEntity {
   @Column({ default: () => "NOW()" })
   updatedAt?: Date;
 
-  @Field(() => [Unit], { nullable: true })
-  @ManyToMany(() => Unit, (unit) => unit.asignatures)
-  @JoinTable({ name: "asignatures_units" })
-  units!: Unit[];
-
-  @Field(() => [Topic], { nullable: true })
+  /* @Field(() => [Topic], { nullable: true })
   @OneToMany(() => Topic, (topic) => topic.asignature)
-  topics!: Topic[];
+  topics!: Topic[]; */
 
   /* @Field(() => [Course], { nullable: true })
   @ManyToMany(() => Course, (course) => course.asignatures)

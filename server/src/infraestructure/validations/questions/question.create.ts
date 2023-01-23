@@ -5,6 +5,7 @@ import {
   PriorityType,
   TypeQuestion,
 } from "../../../infraestructure/types/questions";
+import { Topic } from "../../../domain/topics/topic.entity";
 
 @InputType()
 export class questionCreateInput {
@@ -35,4 +36,7 @@ export class questionCreateInput {
   @MinLength(3, { message: "La prioridad debe tener al menos 3 caracteres" })
   @IsNotEmpty({ message: "La prioridad no puede estar vacia" })
   priority!: PriorityType;
+
+  @Field(() => Number, { description: "Tema de la pregunta", nullable: true })
+  topic!: number;
 }

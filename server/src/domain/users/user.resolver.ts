@@ -7,6 +7,7 @@ import {
   userLoginInputs,
   userUpdateInput,
 } from "../../infraestructure/validations/users";
+import { coursePeriodAsignatureService } from "../coursePeriod_asignature/coursePeriod_asignature.service";
 
 @Resolver()
 class UserResolver {
@@ -28,6 +29,11 @@ class UserResolver {
   @Query(() => [User])
   async getUsersByRol(@Arg("rol") rol: string) {
     return await this.userController.getUsersByRol(rol);
+  }
+
+  @Query(() => User, { nullable: true })
+  async getAsignaturesByUser(@Arg("id") id: number) {
+    return await this.userController.getAsignaturesByUser(id);
   }
 
   @Query(() => User)

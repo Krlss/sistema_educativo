@@ -11,6 +11,7 @@ import {
 import { Field, ObjectType } from "type-graphql";
 import { Rol } from "../roles/rol.entity";
 import { Progress } from "../progress/progress.entity";
+import { CoursePeriodAsignature } from "../coursePeriod_asignature/coursePeriod_asignature.entity";
 /* import { Asignature } from "./Asignature";
 import { CourseAsignature } from "./CourseAsignature";
 import { Progress } from "./Progress"; */
@@ -44,8 +45,16 @@ export class User extends BaseEntity {
   roles!: Rol[];
 
   @Field(() => [Progress], { nullable: true })
-  @OneToMany(() => Progress, (progress) => progress.user)
+  @OneToMany(() => Progress, (progress) => progress.users)
   progress!: Progress[];
+
+  @Field(() => [CoursePeriodAsignature], { nullable: true })
+  @ManyToMany(
+    () => CoursePeriodAsignature,
+    (coursePeriodAsignature) => coursePeriodAsignature.users
+  )
+  @JoinTable()
+  coursePeriodAsignatures!: CoursePeriodAsignature[];
 
   @Field()
   @Column({ default: () => "NOW()" })

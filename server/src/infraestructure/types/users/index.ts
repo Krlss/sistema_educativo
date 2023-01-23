@@ -17,4 +17,6 @@ export interface UserSaveProps extends UserProps {
 
 export interface UserUpdateProps extends UserProps {
   roles?: number[];
+  asignatures?: number[];
+  questions?: number[];
 }

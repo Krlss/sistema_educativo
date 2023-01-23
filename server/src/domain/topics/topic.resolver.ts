@@ -26,6 +26,16 @@ class TopicResolver {
     return await this.TopicController.getTopicById(id);
   }
 
+  @Query(() => [Topic], { nullable: true })
+  async getTopicsByUnit(@Arg("unit") unit: number) {
+    return await this.TopicController.getTopicsByUnit(unit);
+  }
+
+  @Query(() => [Topic], { nullable: true })
+  async getTopicsByAsignature(@Arg("asignature") asignature: number) {
+    return await this.TopicController.getTopicsByAsignature(asignature);
+  }
+
   @Mutation(() => Boolean)
   async createTopic(
     @Arg("data") args: topicCreateInput

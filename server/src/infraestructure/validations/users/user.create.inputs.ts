@@ -30,4 +30,10 @@ export class userCreateInput {
   @ArrayNotEmpty({ message: "El rol no puede estar vacío" })
   @RolNotExist({ message: "El rol no existe" })
   roles!: number[];
+
+  @Field(() => [Int], {
+    description: "Materia que imparte o que recibe",
+    nullable: true,
+  })
+  asignatures?: number[];
 }

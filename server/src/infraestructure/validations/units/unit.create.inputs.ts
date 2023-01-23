@@ -1,12 +1,12 @@
 import { MinLength, IsNotEmpty, ArrayNotEmpty } from "class-validator";
 import { Field, InputType, Int } from "type-graphql";
 import { IsNameAlreadyExist } from "./isNameAlreadyExist";
-import { AsignatureNotExist } from "../asignatures/asignatureNotExist";
+import { TopicNotExist } from "../topics/topicNotExist";
 @InputType()
 export class unitCreateInput {
   @Field({ description: "Nombre de la unidad" })
   @IsNotEmpty({ message: "El nombre de la unidad no puede estar vacío" })
-  @MinLength(2, { message: "El nombre debe tener al menos 2 caracteres" })
+  @MinLength(1, { message: "El nombre debe tener al menos 2 caracteres" })
   @IsNameAlreadyExist({ message: "La unidad ya existe" })
   name!: string;
 
@@ -17,6 +17,6 @@ export class unitCreateInput {
   @ArrayNotEmpty({
     message: "Las asignaturas de la unidad no pueden estar vacías",
   })
-  @AsignatureNotExist({ message: "Alguna asignatura no existe" })
-  asignatures!: number[];
+  @TopicNotExist({ message: "Alguna asignatura no existe" })
+  topics?: number[];
 }

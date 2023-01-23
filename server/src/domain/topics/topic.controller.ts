@@ -8,15 +8,16 @@ import {
 
 import { unitService } from "../units/unit.service";
 import { asignatureService } from "../asignatures/asignature.service";
+import { coursePeriodAsignatureService } from "../coursePeriod_asignature/coursePeriod_asignature.service";
 
 export class TopicController {
   private topicService: topicService;
   private unitService: unitService;
-  private asignatureService: asignatureService;
+  private coursePeriodAsignatureService: coursePeriodAsignatureService;
   constructor() {
     this.topicService = new topicService();
     this.unitService = new unitService();
-    this.asignatureService = new asignatureService();
+    this.coursePeriodAsignatureService = new coursePeriodAsignatureService();
   }
 
   async getTopics(): Promise<Topic[] | []> {
@@ -27,6 +28,14 @@ export class TopicController {
     return await this.topicService.findById(id);
   }
 
+  async getTopicsByUnit(unit: number): Promise<Topic[] | []> {
+    return await this.topicService.getTopicsByUnit(unit);
+  }
+
+  async getTopicsByAsignature(asignature: number): Promise<Topic[] | []> {
+    return await this.topicService.getTopicsByAsignature(asignature);
+  }
+
   async createTopic(data: topicCreateInput): Promise<boolean | unknown> {
     try {
       const topic = new Topic();
@@ -35,10 +44,13 @@ export class TopicController {
       topic.video = data.video;
 
       topic.unit = (await this.unitService.findById(data.unit)) || undefined;
-      topic.asignature =
-        (await this.asignatureService.findById(data.asignature)) || undefined;
+      topic.coursePeriodAsignature =
+        (await this.coursePeriodAsignatureService.getCoursePeriodAsignatureById(
+          data.asignature
+        )) || undefined;
+      await this.topicService.create(topic);
 
-      return await this.topicService.create(topic);
+      return true;
     } catch (error) {
       console.log(error);
       return error;
@@ -59,10 +71,13 @@ export class TopicController {
       topic.updatedAt = new Date();
 
       topic.unit = (await this.unitService.findById(data.unit)) || undefined;
-      topic.asignature =
-        (await this.asignatureService.findById(data.asignature)) || undefined;
+      topic.coursePeriodAsignature =
+        (await this.coursePeriodAsignatureService.getCoursePeriodAsignatureById(
+          data.asignature
+        )) || undefined;
+      await this.topicService.update(topic);
 
-      return await this.topicService.update(topic);
+      return true;
     } catch (error) {
       console.log(error);
       return error;

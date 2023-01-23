@@ -5,13 +5,17 @@ import {
   unitUpdateInput,
 } from "../../infraestructure/validations/units";
 import { asignatureService } from "../asignatures/asignature.service";
+import { topicService } from "../topics/topic.service";
+import { Topic } from "../topics/topic.entity";
 
 export class UnitController {
   private unitService: unitService;
   private asignatureService: asignatureService;
+  private topicService: topicService;
   constructor() {
     this.unitService = new unitService();
     this.asignatureService = new asignatureService();
+    this.topicService = new topicService();
   }
 
   async getUnits(): Promise<Unit[] | []> {
@@ -22,16 +26,20 @@ export class UnitController {
     return await this.unitService.findById(id);
   }
 
+  async getUnitsByAsignature(asignature: number): Promise<Topic[] | []> {
+    const asignatureFound = await this.asignatureService.findById(asignature);
+    if (!asignatureFound) throw new Error("La asignatura no existe");
+
+    return await this.topicService.findByAsignature(asignature);
+  }
+
   async createUnit(data: unitCreateInput): Promise<boolean | unknown> {
     try {
       const unit = new Unit();
       unit.name = data.name;
+      await this.unitService.create(unit);
 
-      unit.asignatures = await this.asignatureService.findAllByArray(
-        data.asignatures
-      );
-
-      return await this.unitService.create(unit);
+      return true;
     } catch (error) {
       console.log(error);
       return error;
@@ -48,12 +56,9 @@ export class UnitController {
 
       unit.name = data.name;
       unit.updatedAt = new Date();
+      await this.unitService.update(unit);
 
-      unit.asignatures = await this.asignatureService.findAllByArray(
-        data.asignatures
-      );
-
-      return await this.unitService.update(unit);
+      return true;
     } catch (error) {
       console.log(error);
       return error;
