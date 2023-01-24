@@ -15,7 +15,7 @@ import {
   TypeQuestion,
 } from "../../infraestructure/types/questions";
 import { Topic } from "../topics/topic.entity";
-import { Progress } from "../progress/progress.entity";
+import { Progress } from "../userquestions/userquestion.entity";
 
 @Entity()
 @ObjectType()

@@ -10,7 +10,7 @@ import {
 import { Unit } from "../units/unit.entity";
 import { Asignature } from "../asignatures/asignature.entity";
 import { Question } from "../questions/question.entity";
-import { Progress } from "../progress/progress.entity";
+import { Progress } from "../userquestions/userquestion.entity";
 import { CoursePeriodAsignature } from "../coursePeriod_asignature/coursePeriod_asignature.entity";
 
 @Entity()

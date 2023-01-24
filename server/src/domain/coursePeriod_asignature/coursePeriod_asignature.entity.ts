@@ -11,6 +11,7 @@ import { CoursePeriod } from "../course_period/course_period.entity";
 import { Asignature } from "../asignatures/asignature.entity";
 import { User } from "../users/user.entity";
 import { Topic } from "../topics/topic.entity";
+import { UserAsignature } from "../userasignatures/userasignature.entity";
 
 @Entity()
 @ObjectType()
@@ -37,9 +38,12 @@ export class CoursePeriodAsignature extends BaseEntity {
   @OneToMany(() => Content, (content) => content.courseperiod_asignature)
   contents_courseperiodasignature!: Content[]; */
 
-  @Field(() => [User], { nullable: true })
-  @ManyToMany(() => User, (user) => user.coursePeriodAsignatures)
-  users!: User[];
+  @Field(() => UserAsignature, { nullable: true })
+  @OneToMany(
+    () => UserAsignature,
+    (userasignature) => userasignature.courseperiodasignature
+  )
+  userasignature!: UserAsignature;
 
   @Field(() => [Topic], { nullable: true })
   @OneToMany(() => Topic, (topic) => topic.coursePeriodAsignature)

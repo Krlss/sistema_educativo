@@ -7,7 +7,7 @@ import { UserUpdateProps } from "../../infraestructure/types/users";
 import { coursePeriodAsignatureService } from "../coursePeriod_asignature/coursePeriod_asignature.service";
 import { asignatureService } from "../asignatures/asignature.service";
 import { questionService } from "../questions/question.service";
-import { Progress } from "../progress/progress.entity";
+import { Progress } from "../userquestions/userquestion.entity";
 import { Asignature } from "../asignatures/asignature.entity";
 
 export class userController {
@@ -58,9 +58,9 @@ export class userController {
           await this.coursePeriodAsignatureService.getCoursePeriodAsignaturesByArrayId(
             data.asignatures
           );
-        if (asignatures.length > 0) {
+        /* if (asignatures.length > 0) {
           user.coursePeriodAsignatures = asignatures;
-        }
+        } */
       }
 
       await this.userService.create(user);
@@ -92,9 +92,9 @@ export class userController {
           await this.coursePeriodAsignatureService.getCoursePeriodAsignaturesByArrayId(
             props.asignatures
           );
-        if (asignatures.length > 0) {
+        /* if (asignatures.length > 0) {
           user.coursePeriodAsignatures = asignatures;
-        }
+        } */
       }
       if (props.questions) {
         const questions = await this.questionService.findAllByArray(

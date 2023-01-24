@@ -1,30 +1,15 @@
 import { Field, ObjectType } from "type-graphql";
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from "typeorm";
-import { User } from "../users/user.entity";
-import { Question } from "../questions/question.entity";
+import { Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 @ObjectType()
-export class Progress extends BaseEntity {
+export class Progress {
   @Field()
   @PrimaryGeneratedColumn()
-  id!: number;
+  id!: string;
 
   @Field(() => String, { nullable: true })
-  @Column({ nullable: true })
-  answer?: string;
+  isFinished?: boolean;
 
-  @Field(() => User, { nullable: true })
-  @ManyToOne(() => User, (user) => user.progress)
-  users!: User;
-
-  @Field(() => Question, { nullable: true })
-  @ManyToOne(() => Question, (question) => question.progress)
-  questions!: Question;
+  // @Field(() => String, { nullable: true })
 }
