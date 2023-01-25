@@ -20,7 +20,14 @@ export class periodService {
   }
 
   async getAllPeriods(): Promise<Period[] | []> {
-    return await AppDataSource.manager.find(Period);
+    return await AppDataSource.manager.find(Period, {
+      relations: {
+        course_periods: {
+          courses: true,
+          periods: true,
+        },
+      },
+    });
   }
 
   async createPeriod(period: Period) {
