@@ -4,10 +4,9 @@ import { usersService } from "./user.service";
 import { rolService } from "../roles/rol.service";
 import { userCreateInput } from "../../infraestructure/validations/users/user.create.inputs";
 import { UserUpdateProps } from "../../infraestructure/types/users";
-import { coursePeriodAsignatureService } from "../coursePeriod_asignature/coursePeriod_asignature.service";
+import { coursePeriodAsignatureService } from "../coursePeriodAsignature/coursePeriodAsignature.service";
 import { asignatureService } from "../asignatures/asignature.service";
 import { questionService } from "../questions/question.service";
-import { Progress } from "../userquestions/userquestion.entity";
 import { Asignature } from "../asignatures/asignature.entity";
 
 export class userController {
@@ -95,18 +94,6 @@ export class userController {
         /* if (asignatures.length > 0) {
           user.coursePeriodAsignatures = asignatures;
         } */
-      }
-      if (props.questions) {
-        const questions = await this.questionService.findAllByArray(
-          props.questions
-        );
-        if (questions.length > 0) {
-          questions.forEach((question) => {
-            const progress = new Progress();
-            progress.users = user;
-            progress.questions = question;
-          });
-        }
       }
       return await this.userService.update(user);
     } catch (error) {

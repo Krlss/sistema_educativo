@@ -10,7 +10,7 @@ import {
 import { Field, ObjectType } from "type-graphql";
 import { Unit } from "../units/unit.entity";
 import { Topic } from "../topics/topic.entity";
-import { CoursePeriodAsignature } from "../coursePeriod_asignature/coursePeriod_asignature.entity";
+import { CoursePeriodAsignature } from "../coursePeriodAsignature/coursePeriodAsignature.entity";
 
 @Entity()
 @ObjectType()
@@ -38,17 +38,6 @@ export class Asignature extends BaseEntity {
   @Field()
   @Column({ default: () => "NOW()" })
   updatedAt?: Date;
-
-  /* @Field(() => [Topic], { nullable: true })
-  @OneToMany(() => Topic, (topic) => topic.asignature)
-  topics!: Topic[]; */
-
-  /* @Field(() => [Course], { nullable: true })
-  @ManyToMany(() => Course, (course) => course.asignatures)
-  @JoinTable({
-    name: "courses_asignatures",
-  })
-  courses!: Course[]; */
 
   @Field(() => [CoursePeriodAsignature], { nullable: true })
   @OneToMany(

@@ -4,13 +4,13 @@ import { asignatureCreateInput } from "../../infraestructure/validations/asignat
 import { getGoogleDriveId } from "../../infraestructure/utils/image";
 
 import { Asignature } from "./asignature.entity";
-import { CoursePeriodAsignature } from "../coursePeriod_asignature/coursePeriod_asignature.entity";
+import { CoursePeriodAsignature } from "../coursePeriodAsignature/coursePeriodAsignature.entity";
 
 import { asignatureService } from "./asignature.service";
-import { coursePeriodService } from "../course_period/course_period.service";
+import { coursePeriodService } from "../coursePeriod/coursePeriod.service";
 import { courseService } from "../courses/course.service";
 import { unitService } from "../units/unit.service";
-import { coursePeriodAsignatureService } from "../coursePeriod_asignature/coursePeriod_asignature.service";
+import { coursePeriodAsignatureService } from "../coursePeriodAsignature/coursePeriodAsignature.service";
 import { periodService } from "../periods/period.service";
 
 export class AsignatureController {
@@ -96,35 +96,19 @@ export class AsignatureController {
 
       await this.asignatureService.create(asignature);
 
-      const courseperiodasignatures: CoursePeriodAsignature[] = [];
-
       if (data.courses) {
         data.courses.forEach(async (course) => {
           const courseperiod =
             await this.coursePeriodService.getCoursePeriodById(course);
           if (courseperiod) {
             const courseperiodasignature = new CoursePeriodAsignature();
-            courseperiodasignature.courseperiod = courseperiod;
             courseperiodasignature.asignature = asignature;
+            courseperiodasignature.courseperiod = courseperiod;
             await this.coursePeriodAsignatureService.createCoursePeriodAsignature(
               courseperiodasignature
             );
-            courseperiodasignatures.push(courseperiodasignature);
           }
         });
-        /* if (courseperiodasignatures) {
-          if (data.units) {
-            data.units.forEach(async (unit) => {
-              const _unit = await this.unitService.findById(unit);
-              if (_unit) {
-                const content = new Content();
-                content.unit = _unit;
-                content.courseperiod_asignature = courseperiodasignatures[0];
-                await this.contentService.create(content);
-              }
-            });
-          }
-        } */
       }
 
       return true;
@@ -157,7 +141,6 @@ export class AsignatureController {
             await this.coursePeriodService.getCoursePeriodById(course);
           if (courseperiod) {
             const courseperiodasignature = new CoursePeriodAsignature();
-            courseperiodasignature.courseperiod = courseperiod;
             courseperiodasignature.asignature = asignature;
             await this.coursePeriodAsignatureService.createCoursePeriodAsignature(
               courseperiodasignature

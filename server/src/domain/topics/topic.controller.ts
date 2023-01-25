@@ -8,7 +8,7 @@ import {
 
 import { unitService } from "../units/unit.service";
 import { asignatureService } from "../asignatures/asignature.service";
-import { coursePeriodAsignatureService } from "../coursePeriod_asignature/coursePeriod_asignature.service";
+import { coursePeriodAsignatureService } from "../coursePeriodAsignature/coursePeriodAsignature.service";
 
 export class TopicController {
   private topicService: topicService;
@@ -44,10 +44,6 @@ export class TopicController {
       topic.video = data.video;
 
       topic.unit = (await this.unitService.findById(data.unit)) || undefined;
-      topic.coursePeriodAsignature =
-        (await this.coursePeriodAsignatureService.getCoursePeriodAsignatureById(
-          data.asignature
-        )) || undefined;
       await this.topicService.create(topic);
 
       return true;
@@ -71,10 +67,6 @@ export class TopicController {
       topic.updatedAt = new Date();
 
       topic.unit = (await this.unitService.findById(data.unit)) || undefined;
-      topic.coursePeriodAsignature =
-        (await this.coursePeriodAsignatureService.getCoursePeriodAsignatureById(
-          data.asignature
-        )) || undefined;
       await this.topicService.update(topic);
 
       return true;

@@ -8,7 +8,7 @@ import {
 } from "typeorm";
 import { Course } from "../courses/course.entity";
 import { Period } from "../periods/period.entity";
-import { CoursePeriodAsignature } from "../coursePeriod_asignature/coursePeriod_asignature.entity";
+import { CoursePeriodAsignature } from "../coursePeriodAsignature/coursePeriodAsignature.entity";
 
 @Entity()
 @ObjectType()

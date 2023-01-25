@@ -5,17 +5,11 @@ import {
   BaseEntity,
   ManyToMany,
   JoinTable,
-  JoinColumn,
   OneToMany,
 } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 import { Rol } from "../roles/rol.entity";
-import { Progress } from "../userquestions/userquestion.entity";
-import { CoursePeriodAsignature } from "../coursePeriod_asignature/coursePeriod_asignature.entity";
-import { UserAsignature } from "../userasignatures/userasignature.entity";
-/* import { Asignature } from "./Asignature";
-import { CourseAsignature } from "./CourseAsignature";
-import { Progress } from "./Progress"; */
+import { Progress } from "../progress/progress.entity";
 
 @Entity()
 @ObjectType()
@@ -46,12 +40,8 @@ export class User extends BaseEntity {
   roles!: Rol[];
 
   @Field(() => [Progress], { nullable: true })
-  @OneToMany(() => Progress, (progress) => progress.users)
+  @OneToMany(() => Progress, (progress) => progress.user)
   progress!: Progress[];
-
-  @Field(() => [UserAsignature], { nullable: true })
-  @OneToMany(() => UserAsignature, (userasignature) => userasignature.user)
-  userasignature!: UserAsignature[];
 
   @Field()
   @Column({ default: () => "NOW()" })

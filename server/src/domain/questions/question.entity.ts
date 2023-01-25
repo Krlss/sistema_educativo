@@ -15,7 +15,6 @@ import {
   TypeQuestion,
 } from "../../infraestructure/types/questions";
 import { Topic } from "../topics/topic.entity";
-import { Progress } from "../userquestions/userquestion.entity";
 
 @Entity()
 @ObjectType()
@@ -43,14 +42,6 @@ export class Question extends BaseEntity {
   @Field(() => PriorityType, { nullable: true, defaultValue: PriorityType.low })
   @Column({ type: "enum", enum: PriorityType })
   priority!: PriorityType;
-
-  /* @Field(() => [Content], { nullable: true })
-  @OneToMany(() => Content, (content) => content.question)
-  content_question!: Content[]; */
-
-  @Field(() => [Progress], { nullable: true })
-  @OneToMany(() => Progress, (progress) => progress.questions)
-  progress!: Progress[];
 
   @Field(() => Topic, { nullable: true })
   @ManyToOne(() => Topic, (topic) => topic.questions)

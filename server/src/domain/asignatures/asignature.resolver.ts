@@ -6,8 +6,8 @@ import {
 } from "../../infraestructure/validations/asignatures";
 
 import { AsignatureController } from "./asignature.controller";
-import { CoursePeriod } from "../course_period/course_period.entity";
-import { CoursePeriodAsignature } from "../coursePeriod_asignature/coursePeriod_asignature.entity";
+import { CoursePeriod } from "../coursePeriod/coursePeriod.entity";
+import { CoursePeriodAsignature } from "../coursePeriodAsignature/coursePeriodAsignature.entity";
 
 @Resolver()
 class AsignatureResolver {

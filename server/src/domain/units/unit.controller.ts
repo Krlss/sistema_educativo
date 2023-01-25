@@ -7,15 +7,23 @@ import {
 import { asignatureService } from "../asignatures/asignature.service";
 import { topicService } from "../topics/topic.service";
 import { Topic } from "../topics/topic.entity";
+import { coursePeriodAsignatureService } from "../coursePeriodAsignature/coursePeriodAsignature.service";
+import { CoursePeriodAsignatureUnit } from "../coursePeriodAsignatureUnit/coursePeriodAsignatureUnit.entity";
+import { coursePeriodAsignatureUnitService } from "../coursePeriodAsignatureUnit/coursePeriodAsignatureUnit.service";
 
 export class UnitController {
   private unitService: unitService;
   private asignatureService: asignatureService;
   private topicService: topicService;
+  private coursePeriodAsignatureService: coursePeriodAsignatureService;
+  private coursePeriodAsignatureUnitService: coursePeriodAsignatureUnitService;
   constructor() {
     this.unitService = new unitService();
     this.asignatureService = new asignatureService();
     this.topicService = new topicService();
+    this.coursePeriodAsignatureService = new coursePeriodAsignatureService();
+    this.coursePeriodAsignatureUnitService =
+      new coursePeriodAsignatureUnitService();
   }
 
   async getUnits(): Promise<Unit[] | []> {
@@ -39,6 +47,25 @@ export class UnitController {
       unit.name = data.name;
       await this.unitService.create(unit);
 
+      if (data.asignatures) {
+        data.asignatures.forEach(async (asignature) => {
+          const courseperiodasignature =
+            await this.coursePeriodAsignatureService.getCoursePeriodAsignatureById(
+              asignature
+            );
+          if (!courseperiodasignature)
+            throw new Error("La asignatura no existe");
+
+          const courseperiodasignatureunit = new CoursePeriodAsignatureUnit();
+          courseperiodasignatureunit.coursePeriodAsignature =
+            courseperiodasignature;
+          courseperiodasignatureunit.unit = unit;
+          await this.coursePeriodAsignatureUnitService.createCoursePeriodAsignatureUnit(
+            courseperiodasignatureunit
+          );
+        });
+      }
+
       return true;
     } catch (error) {
       console.log(error);
@@ -57,6 +84,25 @@ export class UnitController {
       unit.name = data.name;
       unit.updatedAt = new Date();
       await this.unitService.update(unit);
+
+      if (data.asignatures) {
+        data.asignatures.forEach(async (asignature) => {
+          const courseperiodasignature =
+            await this.coursePeriodAsignatureService.getCoursePeriodAsignatureById(
+              asignature
+            );
+          if (!courseperiodasignature)
+            throw new Error("La asignatura no existe");
+
+          const courseperiodasignatureunit = new CoursePeriodAsignatureUnit();
+          courseperiodasignatureunit.coursePeriodAsignature =
+            courseperiodasignature;
+          courseperiodasignatureunit.unit = unit;
+          await this.coursePeriodAsignatureUnitService.createCoursePeriodAsignatureUnit(
+            courseperiodasignatureunit
+          );
+        });
+      }
 
       return true;
     } catch (error) {

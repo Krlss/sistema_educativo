@@ -8,10 +8,8 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Unit } from "../units/unit.entity";
-import { Asignature } from "../asignatures/asignature.entity";
 import { Question } from "../questions/question.entity";
-import { Progress } from "../userquestions/userquestion.entity";
-import { CoursePeriodAsignature } from "../coursePeriod_asignature/coursePeriod_asignature.entity";
+import { CoursePeriodAsignatureUnitTopic } from "../coursePeriodAsignatureUnitTopic/coursePeriodAsignatureUnitTopic.entity";
 
 @Entity()
 @ObjectType()
@@ -36,26 +34,16 @@ export class Topic extends BaseEntity {
   @ManyToOne(() => Unit, (unit) => unit.topics)
   unit?: Unit;
 
-  /* @Field(() => Asignature, {
-    description: "Asignatura al que pertenece el tema",
-  })
-  @ManyToOne(() => Asignature, (asignature) => asignature.topics)
-  asignature?: Asignature; */
-
-  /* @Field(() => [Content], { nullable: true })
-  @OneToMany(() => Content, (content) => content.topic)
-  content_topic!: Content[]; */
+  @Field(() => [CoursePeriodAsignatureUnitTopic], { nullable: true })
+  @OneToMany(
+    () => CoursePeriodAsignatureUnitTopic,
+    (coursePeriodAsignatureUnitTopic) => coursePeriodAsignatureUnitTopic.topic
+  )
+  courseperiodasignatureunittopic!: CoursePeriodAsignatureUnitTopic[];
 
   @Field(() => [Question], { nullable: true })
   @OneToMany(() => Question, (question) => question.topic)
   questions!: Question[];
-
-  @Field(() => CoursePeriodAsignature, { nullable: true })
-  @ManyToOne(
-    () => CoursePeriodAsignature,
-    (coursePeriodAsignature) => coursePeriodAsignature.topics
-  )
-  coursePeriodAsignature?: CoursePeriodAsignature;
 
   @Field({ description: "Fecha de creación del tema" })
   @Column({ default: () => "NOW()" })

@@ -1,6 +1,6 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
-import { coursePeriodController } from "./course_period.controller";
-import { CoursePeriod } from "./course_period.entity";
+import { coursePeriodController } from "./coursePeriod.controller";
+import { CoursePeriod } from "./coursePeriod.entity";
 
 @Resolver()
 class CoursePeriodResolver {

@@ -1,7 +1,7 @@
 import { In } from "typeorm";
 import { AppDataSource } from "../../infraestructure/config/typeorm";
-import { CoursePeriodAsignature } from "./coursePeriod_asignature.entity";
-import { CoursePeriod } from "../course_period/course_period.entity";
+import { CoursePeriodAsignature } from "./coursePeriodAsignature.entity";
+import { CoursePeriod } from "../coursePeriod/coursePeriod.entity";
 
 export class coursePeriodAsignatureService {
   async getCoursePeriodAsignatureById(id: number) {
@@ -11,19 +11,14 @@ export class coursePeriodAsignatureService {
       },
       relations: {
         asignature: true,
-        courseperiod: { courses: true, periods: true },
       },
     });
   }
 
   async getAsignaturesByCoursePeriods(courseperiodids: number[]) {
     return await AppDataSource.manager.find(CoursePeriodAsignature, {
-      where: {
-        courseperiod: { id: In(courseperiodids) },
-      },
       relations: {
         asignature: true,
-        courseperiod: { courses: true, periods: true },
       },
     });
   }
@@ -32,7 +27,7 @@ export class coursePeriodAsignatureService {
     CoursePeriodAsignature[] | []
   > {
     return await AppDataSource.manager.find(CoursePeriodAsignature, {
-      relations: { asignature: true, courseperiod: true },
+      relations: { asignature: true },
     });
   }
 

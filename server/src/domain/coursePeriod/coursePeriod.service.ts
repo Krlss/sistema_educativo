@@ -1,6 +1,6 @@
 import { In } from "typeorm";
 import { AppDataSource } from "../../infraestructure/config/typeorm";
-import { CoursePeriod } from "./course_period.entity";
+import { CoursePeriod } from "./coursePeriod.entity";
 import { Course } from "../courses/course.entity";
 import { Period } from "../periods/period.entity";
 

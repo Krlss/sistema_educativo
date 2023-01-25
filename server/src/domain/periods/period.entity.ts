@@ -8,7 +8,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { CoursePeriod } from "../course_period/course_period.entity";
+import { CoursePeriod } from "../coursePeriod/coursePeriod.entity";
 
 @Entity()
 @ObjectType()

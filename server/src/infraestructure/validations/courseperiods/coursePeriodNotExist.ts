@@ -5,7 +5,7 @@ import {
   ValidatorConstraintInterface,
 } from "class-validator";
 import { In } from "typeorm";
-import { CoursePeriod } from "../../../domain/course_period/course_period.entity";
+import { CoursePeriod } from "../../../domain/coursePeriod/coursePeriod.entity";
 
 @ValidatorConstraint({ async: true })
 export class CoursePeriodNotExistConstraint

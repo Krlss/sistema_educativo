@@ -6,7 +6,7 @@ import UnitResolver from "./units/unit.resolver";
 import TopicResolver from "./topics/topic.resolver";
 import QuestionResolver from "./questions/question.resolver";
 import PeriodResolver from "./periods/period.resolver";
-import CoursePeriodResolver from "./course_period/course_period.resolver";
+import CoursePeriodResolver from "./coursePeriod/coursePeriod.resolver";
 
 export const resolvers = [
   userResolver,

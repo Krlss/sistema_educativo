@@ -7,7 +7,7 @@ import {
   userLoginInputs,
   userUpdateInput,
 } from "../../infraestructure/validations/users";
-import { coursePeriodAsignatureService } from "../coursePeriod_asignature/coursePeriod_asignature.service";
+import { coursePeriodAsignatureService } from "../coursePeriodAsignature/coursePeriodAsignature.service";
 
 @Resolver()
 class UserResolver {

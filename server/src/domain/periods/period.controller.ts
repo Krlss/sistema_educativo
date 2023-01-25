@@ -3,8 +3,8 @@ import periodUpdateInput from "../../infraestructure/validations/periods/period.
 import { Period } from "./period.entity";
 import { periodService } from "./period.service";
 import { courseService } from "../courses/course.service";
-import { CoursePeriod } from "../course_period/course_period.entity";
-import { coursePeriodService } from "../course_period/course_period.service";
+import { CoursePeriod } from "../coursePeriod/coursePeriod.entity";
+import { coursePeriodService } from "../coursePeriod/coursePeriod.service";
 
 export class periodController {
   private periodService: periodService;
@@ -25,6 +25,7 @@ export class periodController {
   async createPeriod(data: periodCreateInput) {
     const period = new Period();
     period.name = data.name;
+    period.updatedAt = new Date();
     await this.periodService.createPeriod(period);
     if (data.courses) {
       data.courses.forEach(async (course) => {
@@ -47,10 +48,10 @@ export class periodController {
     await this.periodService.updatePeriod(period);
     if (data.courses) {
       data.courses.forEach(async (course) => {
-        const courseperiod = await this.courseService.getCourseById(course);
-        if (courseperiod) {
+        const _course = await this.courseService.getCourseById(course);
+        if (_course) {
           const newcourseperiod = new CoursePeriod();
-          newcourseperiod.courses = courseperiod;
+          newcourseperiod.courses = _course;
           newcourseperiod.periods = period;
           await this.coursePeriodService.createCoursePeriod(newcourseperiod);
         }

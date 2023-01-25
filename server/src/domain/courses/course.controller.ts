@@ -5,8 +5,8 @@ import {
 import { periodService } from "../periods/period.service";
 import { Course } from "./course.entity";
 import { courseService } from "./course.service";
-import { coursePeriodService } from "../course_period/course_period.service";
-import { CoursePeriod } from "../course_period/course_period.entity";
+import { coursePeriodService } from "../coursePeriod/coursePeriod.service";
+import { CoursePeriod } from "../coursePeriod/coursePeriod.entity";
 
 export class courseController {
   private courseService: courseService;

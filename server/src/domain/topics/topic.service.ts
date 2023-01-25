@@ -38,40 +38,16 @@ export class topicService {
 
   async getTopicsByAsignature(asignature: number): Promise<Topic[] | []> {
     return await AppDataSource.manager.find(Topic, {
-      where: {
-        coursePeriodAsignature: {
-          id: asignature,
-        },
-      },
       relations: {
         unit: true,
-        coursePeriodAsignature: {
-          asignature: true,
-          courseperiod: {
-            courses: true,
-            periods: true,
-          },
-        },
       },
     });
   }
 
   async findByAsignature(asignature: number) {
     return await AppDataSource.manager.find(Topic, {
-      where: {
-        coursePeriodAsignature: {
-          id: asignature,
-        },
-      },
       relations: {
         unit: true,
-        coursePeriodAsignature: {
-          asignature: true,
-          courseperiod: {
-            courses: true,
-            periods: true,
-          },
-        },
       },
     });
   }

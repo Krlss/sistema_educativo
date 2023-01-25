@@ -1,5 +1,8 @@
 import { Field, ObjectType } from "type-graphql";
-import { Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "../users/user.entity";
+import { CoursePeriodAsignature } from "../coursePeriodAsignature/coursePeriodAsignature.entity";
+import { CoursePeriodAsignatureUnit } from "../coursePeriodAsignatureUnit/coursePeriodAsignatureUnit.entity";
 
 @Entity()
 @ObjectType()
@@ -8,8 +11,21 @@ export class Progress {
   @PrimaryGeneratedColumn()
   id!: string;
 
-  @Field(() => String, { nullable: true })
-  isFinished?: boolean;
+  @Field(() => User, { nullable: true })
+  @ManyToOne(() => User, (user) => user.progress)
+  user!: User;
 
-  // @Field(() => String, { nullable: true })
+  @Field(() => CoursePeriodAsignature, { nullable: true })
+  @ManyToOne(
+    () => CoursePeriodAsignature,
+    (coursePeriodAsignature) => coursePeriodAsignature.progress
+  )
+  coursePeriodAsignature!: CoursePeriodAsignature;
+
+  @Field(() => CoursePeriodAsignatureUnit, { nullable: true })
+  @ManyToOne(
+    () => CoursePeriodAsignatureUnit,
+    (coursePeriodAsignatureUnit) => coursePeriodAsignatureUnit.progress
+  )
+  coursePeriodAsignatureUnit!: CoursePeriodAsignatureUnit;
 }
