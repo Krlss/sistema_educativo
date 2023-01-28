@@ -19,7 +19,7 @@ const Login = () => {
 
   const formik = useFormik({
     initialValues: {
-      username: '',
+      email: '',
       password: '',
       rememberMe: true
     },
@@ -49,13 +49,13 @@ const Login = () => {
         )}
         <form onSubmit={formik.handleSubmit}>
           <Input
-            name="username"
-            label="Usuario o correo electrónico"
-            placeholder="Ingresa tu usuario o correo electrónico"
+            name="email"
+            label="Correo electrónico"
+            placeholder="Correo electrónico"
             type="text"
             autoFocus
             onChange={formik.handleChange}
-            error={formik.errors.username}
+            error={formik.errors.email}
           />
 
           <Input

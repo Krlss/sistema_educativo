@@ -7,7 +7,7 @@ import GeneralContext from '../../contexts/context'
 import { USER } from '../../types/ContextUser'
 import { useNavigate } from 'react-router-dom'
 export interface PropsLogin {
-  username: string
+  email: string
   password: string
   rememberMe: boolean
 }
@@ -45,7 +45,7 @@ export const useLogin = () => {
 
   const loginHandler = (Props: PropsLogin) => {
     setLoading(true)
-    login({ variables: { ...Props } })
+    login({ variables: { data: { ...Props } } })
   }
 
   return { loginHandler, data, error, loading, token }
