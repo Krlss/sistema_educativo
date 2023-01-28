@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { LOGIN } from './graphql-queries'
-import { REGISTER } from './graphql-mutations'
+import { CREATE_USER } from './graphql-mutations'
 import { useLazyQuery, useMutation } from '@apollo/client'
 import { getDataSession } from '../../utils/dataSession'
 import GeneralContext from '../../contexts/context'
@@ -13,11 +13,10 @@ export interface PropsLogin {
 }
 
 export interface PropsRegister {
-  firstname: String
-  lastname: String
-  username: String
-  email: String
-  password: String
+  name: string
+  lastName: string
+  email: string
+  password: string
 }
 
 interface LoginUser {
@@ -25,7 +24,7 @@ interface LoginUser {
 }
 
 interface RegisterUser {
-  createUser: USER
+  createUser: boolean
 }
 
 export const useLogin = () => {
@@ -58,7 +57,7 @@ export const useRegister = () => {
   const { setLoading } = useContext(GeneralContext)
 
   const [createUser, { data, error, loading }] = useMutation<RegisterUser>(
-    REGISTER,
+    CREATE_USER,
     {
       onError: () => {
         setLoading(false)
@@ -73,10 +72,7 @@ export const useRegister = () => {
   const registerHandler = (Props: PropsRegister) => {
     setLoading(true)
     createUser({
-      variables: {
-        ...Props,
-        rol: ['Student']
-      }
+      variables: { data: { ...Props } }
     })
   }
 

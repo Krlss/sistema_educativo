@@ -50,7 +50,15 @@ export class userController {
       user.lastName = data.lastName;
       user.email = data.email;
       user.password = hashPassword(data.password);
-      user.roles = await this.rolService.findAllByArray(data.roles);
+      if (data.roles)
+        user.roles = await this.rolService.findAllByArray(data.roles);
+      else
+        user.roles = await this.rolService.findAllByArrayNames([
+          "Student",
+          "Students",
+          "Estudiante",
+          "Estudiantes",
+        ]);
 
       if (data.asignatures) {
         const asignatures =

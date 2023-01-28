@@ -17,9 +17,8 @@ const Register = () => {
 
   const formik = useFormik({
     initialValues: {
-      firstname: '',
-      lastname: '',
-      username: '',
+      name: '',
+      lastName: '',
       email: '',
       password: ''
     },
@@ -42,34 +41,26 @@ const Register = () => {
         <form onSubmit={formik.handleSubmit}>
           <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-2">
             <Input
-              name="firstname"
+              name="name"
               label="Nombres"
               placeholder="Ingresa tus nombres"
               type="text"
               containerStyles="lg:my-0 my-1"
               autoFocus
               onChange={formik.handleChange}
-              error={formik.errors.firstname}
+              error={formik.errors.name}
             />
             <Input
-              name="lastname"
+              name="lastName"
               label="Apellidos"
               placeholder="Ingresa tus apellidos"
               type="text"
               containerStyles="lg:my-0 my-1"
               onChange={formik.handleChange}
-              error={formik.errors.lastname}
+              error={formik.errors.lastName}
             />
           </div>
 
-          <Input
-            name="username"
-            label="Usuario"
-            placeholder="Ingresa un usuario"
-            type="text"
-            onChange={formik.handleChange}
-            error={formik.errors.username}
-          />
           <Input
             name="email"
             label="Correo electrónico"

@@ -13,13 +13,13 @@ export const email = yup
   .max(100, 'El correo electrónico es muy largo')
   .required('El correo electrónico es requerido')
 
-export const firstname = yup
+export const name = yup
   .string()
   .min(2, 'El nombre es muy corto')
   .max(50, 'El nombre es muy largo')
   .required('El nombre es requerido')
 
-export const lastname = yup
+export const lastName = yup
   .string()
   .min(2, 'El apellido es muy corto')
   .max(50, 'El apellido es muy largo')

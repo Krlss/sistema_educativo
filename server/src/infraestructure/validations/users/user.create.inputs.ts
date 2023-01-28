@@ -26,10 +26,10 @@ export class userCreateInput {
   @MinLength(8, { message: "La contraseña debe tener al menos 8 caracteres" })
   password!: string;
 
-  @Field(() => [Int], { description: "Roles del usuario" })
+  @Field(() => [Int], { description: "Roles del usuario", nullable: true })
   @ArrayNotEmpty({ message: "El rol no puede estar vacío" })
   @RolNotExist({ message: "El rol no existe" })
-  roles!: number[];
+  roles?: number[];
 
   @Field(() => [Int], {
     description: "Materia que imparte o que recibe",

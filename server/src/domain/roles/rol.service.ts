@@ -36,6 +36,17 @@ export class rolService {
     });
   }
 
+  async findAllByArrayNames(names: string[]): Promise<Rol[] | []> {
+    return await AppDataSource.manager.find(Rol, {
+      where: {
+        name: In(names),
+      },
+      relations: {
+        users: true,
+      },
+    });
+  }
+
   async findAll(): Promise<Rol[] | []> {
     return await AppDataSource.manager.find(Rol, {
       relations: {
