@@ -2,11 +2,10 @@ import { USER } from '../../types/ContextUser'
 
 export const InitialStateUser: USER = {
   _id: '',
-  lastname: '',
+  lastName: '',
   name: '',
-  username: '',
-  mail: '',
-  rol: [],
+  email: '',
+  roles: [],
   isLogged: false,
   rememberMe: false,
   progress: []

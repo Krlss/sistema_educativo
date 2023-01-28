@@ -8,7 +8,7 @@ const Home = () => {
     <>
       <CenterLogo />
       <h1 className="text-4xl font-bold text-gray-800">
-        ¡Hola, @{user.username} bienvenido a{' '}
+        ¡Hola, @{user.name} bienvenido a{' '}
         <span className="text-red-logo font-chivo">Mapple</span>!
       </h1>
 

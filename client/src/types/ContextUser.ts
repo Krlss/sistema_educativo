@@ -26,14 +26,19 @@ export interface PROGRESS {
 }
 export interface USER {
   _id: string
-  lastname: string
+  lastName: string
   name: string
-  username: string
-  mail: string
-  rol: string[]
+  email: string
+  roles: ROLES[]
   isLogged: boolean
   rememberMe: boolean
   progress: PROGRESS[]
+}
+
+export interface ROLES {
+  id: number
+  name: string
+  createdAt: string
 }
 
 export interface IUpdateFinishedTopic {

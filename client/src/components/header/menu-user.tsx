@@ -25,7 +25,7 @@ const MenuUser = ({ isMenuOpen, setIsMenuOpen }: MenuUserProps) => {
               src={DefaultAvatar}
               className="w-10 h-10 rounded-full bg-gray-300"
             />
-            <span className="mx-2 truncate">{user.username}</span>
+            <span className="mx-2 truncate">{user.name}</span>
           </div>
           <svg
             className="h-6 w-6 text-gray-600 fill-current"
@@ -36,10 +36,10 @@ const MenuUser = ({ isMenuOpen, setIsMenuOpen }: MenuUserProps) => {
         <div className="absolute hidden group-hover:block top-6 z-50 my-4 bg-white rounded divide-y divide-gray-100 shadow-md max-w-[200px]">
           <div className="py-3 px-4">
             <span className="block text-sm font-medium truncate">
-              {user.lastname} {user.name}
+              {user.lastName} {user.name}
             </span>
             <span className="block text-sm font-medium truncate">
-              {user.mail}
+              {user.email}
             </span>
           </div>
           <ul className="py-1">

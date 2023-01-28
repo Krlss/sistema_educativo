@@ -44,7 +44,7 @@ const Navbar = () => {
                     src={DefaultAvatar}
                     className="w-6 h-6 rounded-full bg-gray-300"
                   />
-                  <span className="mx-2">{user.username}</span>
+                  <span className="mx-2">{user.name}</span>
                 </li>
               </NavLink>
 
