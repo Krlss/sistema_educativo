@@ -3,21 +3,21 @@ import { NavLink } from 'react-router-dom'
 interface Props {
   to?: string
   label: string
-  sub?: boolean
   onClick?: () => void
 }
 
-const MobileMenuNormal = ({ to, label, sub = false, onClick }: Props) => {
+const Menu = ({ to, label, onClick }: Props) => {
   return (
-    <NavLink onClick={onClick} to={to ?? '#'}>
-      <li
-        className={`py-2 text-sm text-gray-700 hover:bg-gray-100 ${
-          sub ? 'px-4' : 'px-2'
-        }`}>
+    <li>
+      <NavLink
+        to={to ?? '#'}
+        onClick={onClick}
+        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+        role="menuitem">
         {label}
-      </li>
-    </NavLink>
+      </NavLink>
+    </li>
   )
 }
 
-export default MobileMenuNormal
+export default Menu

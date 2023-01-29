@@ -7,7 +7,7 @@ const MenuNavigation = () => {
   const navLinkDefaultclassName =
     'hover:bg-yellow-page py-2 px-3 rounded-md mx-1'
   return (
-    <ul className="md:flex hidden items-center justify-center">
+    <ul className="lg:flex hidden items-center justify-center">
       <NavLink
         to="/"
         className={({ isActive }) =>

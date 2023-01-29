@@ -7,6 +7,13 @@
             "request": "launch",
             "command": "npm run local",
             "cwd": "${workspaceFolder}\\server\\src"
+        },
+        {
+            "name": "Run Chrome",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}"
         }
     ]
 }

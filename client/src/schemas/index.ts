@@ -13,3 +13,7 @@ export const registerValidationSchema = object().shape({
   email,
   password: passwordRegex
 })
+
+export const registerCourseValidationSchema = object().shape({
+  name
+})

@@ -9,6 +9,7 @@ import {
   ApolloProvider
 } from '@apollo/client'
 import GeneralProvider from './contexts/provider'
+import 'flowbite'
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -17,8 +18,6 @@ const client = new ApolloClient({
     uri: 'http://localhost:8000/graphql'
   })
 })
-
-document.body.classList.add('bg-slate-200')
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(

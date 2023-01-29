@@ -12,7 +12,7 @@ interface IconProps {
 
 const Icon = ({
   children,
-  fill = 'black',
+  fill = 'currentColor',
   height = 15,
   width = 15,
   viewBox,

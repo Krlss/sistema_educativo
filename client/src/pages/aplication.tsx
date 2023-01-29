@@ -12,7 +12,7 @@ const Aplication = () => {
   return (
     <div className="flex flex-col justify-between h-screen">
       <Navbar />
-      <div className="w-full mx-auto mb-auto">
+      <div className="w-full mx-auto mb-auto bg-slate-200">
         <Outlet />
       </div>
       <Footer />
