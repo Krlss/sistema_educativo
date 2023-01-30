@@ -11,8 +11,12 @@ export interface RowCourse {
   updatedAt: string
 }
 
+export const LoadingTable = () => {
+  return <div className="text-xl font-bold p-3">Cargando...</div>
+}
+
 const Cursos = () => {
-  const { data } = useGetCourses()
+  const { data, loading } = useGetCourses()
   const { formik, open, setOpen, isAdd, setIsAdd, title, setTitle, columns } =
     useCourse()
 
@@ -31,6 +35,9 @@ const Cursos = () => {
             }}
           />
         }
+        pagination
+        progressPending={loading}
+        progressComponent={<LoadingTable />}
         columns={columns}
         data={data?.getCourses}
         style={{ width: '100%' }}

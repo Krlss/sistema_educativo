@@ -13,7 +13,9 @@ import { useContext } from 'react'
 import GeneralContext from './contexts/context'
 import Game from './pages/home/game'
 import LoadingAllScreen from './components/loader/all-screen'
-import DefaultAplication from './pages/dashboardAplication'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 const App = () => {
   const { config } = useContext(GeneralContext)
   return (
@@ -41,7 +43,7 @@ const App = () => {
             element={<Game />}
           />
           <Route path="/prueba" element={<Game />} />
-          <Route path="/dashboard" element={<DefaultAplication />}>
+          <Route path="/dashboard">
             <Route path="cursos" element={<DashboardCursos />} />
             <Route path="pruebas" element={<Pruebas />} />
           </Route>
@@ -49,6 +51,18 @@ const App = () => {
         <Route path="*" element={<Page404 />} />
       </Routes>
       {config.loading && <LoadingAllScreen />}
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </>
   )
 }

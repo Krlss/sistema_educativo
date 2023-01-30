@@ -1,17 +1,17 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import Logo from '../../assets/logo.png'
 import MenuNavigation from './menu-navigation'
 import DefaultAvatar from '../../assets/default_avatar.png'
-import Menu from '../navLink/mobileMenuNormal'
+import MyMenu from '../navLink/mobileMenuNormal'
 
 import GeneralContext from '../../contexts/context'
-import ItemSidebar from '../navLink/itemSidebar'
-import Home from '../icons/home'
 import Asidebar from './asidebar'
+import { Menu } from '@headlessui/react'
 
 const Navbar = () => {
   const { user, logout, config } = useContext(GeneralContext)
+  const [isOpen, setIsOpen] = useState(false)
   const location = useLocation()
 
   const isDashboard = location.pathname.includes('dashboard')
@@ -23,12 +23,9 @@ const Navbar = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start">
               <button
-                data-drawer-target="logo-sidebar"
-                data-drawer-toggle="logo-sidebar"
-                aria-controls="logo-sidebar"
+                onClick={() => setIsOpen(!isOpen)}
                 type="button"
                 className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-                <span className="sr-only">Open sidebar</span>
                 <svg
                   className="w-6 h-6"
                   aria-hidden="true"
@@ -49,50 +46,63 @@ const Navbar = () => {
               </NavLink>
             </div>
             {!isDashboard ? <MenuNavigation /> : null}
-            <div className="flex items-center">
-              <div className="flex items-center ml-3">
-                <div>
-                  <button
-                    type="button"
-                    className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                    aria-expanded="false"
-                    data-dropdown-toggle="dropdown-user">
-                    <span className="sr-only">Open user menu</span>
-                    <img
-                      className="w-8 h-8 rounded-full"
-                      src={DefaultAvatar}
-                      alt="user photo"
-                    />
-                  </button>
-                </div>
-                <div
-                  className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
-                  id="dropdown-user">
-                  <div className="px-4 py-3" role="none">
-                    <p
-                      className="text-sm text-gray-900 dark:text-white"
-                      role="none">
-                      {user.name} {user.lastName}
-                    </p>
-                    <p
-                      className="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
-                      role="none">
-                      {user.email}
-                    </p>
-                  </div>
-                  <ul className="py-1" role="none">
-                    <Menu label="Dashboard" to="/dashboard" />
-                    <Menu label="Cerrar sesión" onClick={() => logout()} />
-                  </ul>
-                </div>
-              </div>
-            </div>
+            <User user={user} logout={logout} />
           </div>
         </div>
       </nav>
-      {!isDashboard ? <Asidebar /> : null}
+      <Asidebar isDashboard={isDashboard} open={isOpen} setOpen={setIsOpen} />
     </>
   )
 }
 
 export default Navbar
+
+const User = ({
+  user,
+  logout
+}: {
+  user: {
+    name: string
+    lastName: string
+    email: string
+  }
+  logout: () => void
+}) => {
+  const { email, lastName, name } = user
+  return (
+    <Menu>
+      <Menu.Button className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
+        <span className="sr-only">Open user menu</span>
+        <img
+          className="w-8 h-8 rounded-full"
+          src={DefaultAvatar}
+          alt="user photo"
+        />
+      </Menu.Button>
+      <Menu.Items className="absolute z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600 lg:top-14 top-[3.3rem] right-5">
+        <Menu.Items className="px-4 py-3">
+          <Menu.Item disabled>
+            <p className="text-sm text-gray-900 dark:text-white" role="none">
+              {name} {lastName}
+            </p>
+          </Menu.Item>
+          <Menu.Item disabled>
+            <p
+              className="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
+              role="none">
+              {email}
+            </p>
+          </Menu.Item>
+        </Menu.Items>
+        <Menu.Items className="py-1">
+          <Menu.Item>
+            <MyMenu label="Dashboard" to="/dashboard/cursos" />
+          </Menu.Item>
+          <Menu.Item>
+            <MyMenu label="Cerrar sesión" onClick={() => logout()} />
+          </Menu.Item>
+        </Menu.Items>
+      </Menu.Items>
+    </Menu>
+  )
+}

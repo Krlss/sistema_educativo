@@ -18,13 +18,13 @@ const Actions = ({
           <Edit />
         </Icon>
       </button>
-      <button className="group hover:text-red-500" onClick={onDelete}>
+      {/* <button className="group hover:text-red-500" onClick={onDelete}>
         <Icon
           viewBox="16 16"
           className="group-hover:fill-current group-hover:text-red-500">
           <Trash />
         </Icon>
-      </button>
+      </button> */}
     </div>
   )
 }

@@ -2,6 +2,7 @@ import { useMutation, useQuery } from '@apollo/client'
 import { RowCourse } from '../../pages/dashboard/cursos'
 import { CREATE_COURSE, UPDATE_COURSE } from './graphql-mutation'
 import { GETCOURSES } from './graphql-queries'
+import { toast } from 'react-toastify'
 
 interface IGETCOURSES {
   data: {
@@ -33,10 +34,10 @@ export const useCreateCourse = () => {
         }
       },
       onCompleted: () => {
-        console.log('onCompleted')
+        toast.success('Curso creado con éxito')
       },
       onError(error) {
-        console.log('onError' + error)
+        toast.error(error.message)
       }
     })
   }
@@ -53,10 +54,10 @@ export const useCreateCourse = () => {
         updateCourseId
       },
       onCompleted: () => {
-        console.log('onCompleted')
+        toast.success('Curso actualizado con éxito')
       },
       onError(error) {
-        console.log('onError' + error)
+        toast.error(error.message)
       }
     })
   }
