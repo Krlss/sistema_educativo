@@ -26,18 +26,20 @@ export class periodController {
     const period = new Period();
     period.name = data.name;
     period.updatedAt = new Date();
-    await this.periodService.createPeriod(period);
     if (data.courses) {
-      data.courses.forEach(async (course) => {
-        const courseperiod = await this.courseService.getCourseById(course);
-        if (courseperiod) {
-          const newcourseperiod = new CoursePeriod();
-          newcourseperiod.courses = courseperiod;
-          newcourseperiod.periods = period;
-          await this.coursePeriodService.createCoursePeriod(newcourseperiod);
-        }
-      });
+      const courses = await this.courseService.getCoursesByArrayId(
+        data.courses
+      );
+      period.courses = courses;
+
+      /*  courses.forEach(async (course) => {
+        const newcourseperiod = new CoursePeriod();
+        newcourseperiod.course = course;
+        newcourseperiod.period = period;
+        await this.coursePeriodService.createCoursePeriod(newcourseperiod);
+      }); */
     }
+    await this.periodService.createPeriod(period);
     return true;
   }
 
@@ -51,8 +53,8 @@ export class periodController {
         const _course = await this.courseService.getCourseById(course);
         if (_course) {
           const newcourseperiod = new CoursePeriod();
-          newcourseperiod.courses = _course;
-          newcourseperiod.periods = period;
+          /* newcourseperiod.courses = _course; */
+          newcourseperiod.period = period;
           await this.coursePeriodService.createCoursePeriod(newcourseperiod);
         }
       });

@@ -10,3 +10,5 @@ export const GETCOURSES = gql`
     }
   }
 `
+
+export const GETPERIOD = gql``

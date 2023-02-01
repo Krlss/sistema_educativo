@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString, IsArray } from "class-validator";
 import { Field, InputType, Int } from "type-graphql";
-import { CoursePeriodNotExist } from "../courseperiods/coursePeriodNotExist";
+import { CourseNotExist } from "../courses/courseNotExist";
 
 @InputType()
 export class periodCreateInput {
@@ -15,7 +15,7 @@ export class periodCreateInput {
   })
   @IsNotEmpty({ message: "Los cursos del periodo no pueden estar vacías" })
   @IsArray({ message: "Los cursos del periodo deben ser un array" })
-  @CoursePeriodNotExist({ message: "Algunos de los cursos no existen" })
+  @CourseNotExist({ message: "Algunos de los cursos no existen" })
   courses?: number[];
 }
 

@@ -15,6 +15,7 @@ import Game from './pages/home/game'
 import LoadingAllScreen from './components/loader/all-screen'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import InscriptionStudens from './pages/dashboard/inscription-students'
 
 const App = () => {
   const { config } = useContext(GeneralContext)
@@ -45,6 +46,10 @@ const App = () => {
           <Route path="/prueba" element={<Game />} />
           <Route path="/dashboard">
             <Route path="cursos" element={<DashboardCursos />} />
+            <Route
+              path="inscribir-estudiantes"
+              element={<InscriptionStudens />}
+            />
             <Route path="pruebas" element={<Pruebas />} />
           </Route>
         </Route>

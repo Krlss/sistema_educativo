@@ -26,8 +26,7 @@ export class asignatureService {
         courseperiod_asignatures: {
           asignature: true,
           courseperiod: {
-            courses: true,
-            periods: true,
+            period: true,
           },
         },
       },

@@ -11,7 +11,7 @@ const Footer = () => {
   return (
     <footer
       className={`bg-yellow-page text-black mt-10 ${
-        isDashboard ? 'lg:ml-40' : ''
+        isDashboard ? 'lg:ml-[16rem]' : ''
       }`}>
       <div className="flex justify-center flex-col md:flex-row md:justify-between items-center gap-3 container max-w-[1366px] mx-auto p-5">
         <div className="flex flex-col justify-center items-center md:items-start">

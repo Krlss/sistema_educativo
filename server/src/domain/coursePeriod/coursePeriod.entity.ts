@@ -2,6 +2,7 @@ import { Field, ObjectType } from "type-graphql";
 import {
   BaseEntity,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -17,13 +18,13 @@ export class CoursePeriod extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Field(() => Course, { nullable: true })
-  @ManyToOne(() => Course, (course) => course.course_periods)
-  courses!: Course;
+  @Field(() => Course)
+  @ManyToOne(() => Course, (course) => course.periods)
+  course!: Course;
 
-  @Field(() => Period, { nullable: true })
-  @ManyToOne(() => Period, (period) => period.course_periods)
-  periods!: Period;
+  @Field(() => Period)
+  @ManyToOne(() => Period, (period) => period.courses)
+  period!: Period;
 
   @Field(() => [CoursePeriodAsignature], { nullable: true })
   @OneToMany(

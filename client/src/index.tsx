@@ -9,7 +9,6 @@ import {
   ApolloProvider
 } from '@apollo/client'
 import GeneralProvider from './contexts/provider'
-import 'flowbite'
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),

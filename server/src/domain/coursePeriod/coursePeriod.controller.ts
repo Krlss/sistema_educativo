@@ -25,8 +25,8 @@ export class coursePeriodController {
     if (!period) throw new Error("El periodo no existe");
 
     const course_service = new CoursePeriod();
-    course_service.courses = course;
-    course_service.periods = period;
+    /*     course_service.courses = course;
+     */ course_service.period = period;
 
     return await this.coursePeriodService.createCoursePeriod(course_service);
   }
@@ -36,12 +36,12 @@ export class coursePeriodController {
     if (courseId) {
       const course = await this.courseService.getCourseById(courseId);
       if (!course) throw new Error("El curso no existe");
-      coursePeriod.courses = course;
+      coursePeriod.course = course;
     }
     if (periodId) {
       const period = await this.periodService.getPeriodById(periodId);
       if (!period) throw new Error("El periodo no existe");
-      coursePeriod.periods = period;
+      coursePeriod.period = period;
     }
     return await this.coursePeriodService.updateCoursePeriod(coursePeriod);
   }

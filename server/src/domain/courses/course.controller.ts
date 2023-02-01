@@ -40,14 +40,14 @@ export class courseController {
           data.periods
         );
         if (!period.length) throw new Error("El periodo no existe");
-        period.forEach(async (period) => {
+        /*  period.forEach(async (period) => {
           const course_period = new CoursePeriod();
           course_period.courses = course;
           course_period.periods = period;
           return await this.coursePeriodService.createCoursePeriod(
             course_period
           );
-        });
+        }); */
       }
 
       return true;
@@ -71,14 +71,14 @@ export class courseController {
       if (data.periods) {
         data.periods.forEach(async (period) => {
           const _period = await this.periodService.getPeriodById(period);
-          if (_period) {
+          /* if (_period) {
             const course_period = new CoursePeriod();
             course_period.courses = course;
             course_period.periods = _period;
             return await this.coursePeriodService.createCoursePeriod(
               course_period
             );
-          }
+          } */
         });
       }
       await this.courseService.updateCourse(course);

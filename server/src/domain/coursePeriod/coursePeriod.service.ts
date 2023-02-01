@@ -10,7 +10,7 @@ export class coursePeriodService {
       where: {
         id,
       },
-      relations: { periods: true, courses: true },
+      relations: { period: true, course: true },
     });
   }
 
@@ -19,25 +19,25 @@ export class coursePeriodService {
     period: Period
   ): Promise<CoursePeriod[] | []> {
     return await AppDataSource.manager.find(CoursePeriod, {
-      relations: { periods: true, courses: true },
+      relations: { period: true, course: true },
       where: {
-        courses: { id: course.id },
-        periods: { id: period.id },
+        course: { id: course.id },
+        period: { id: period.id },
       },
     });
   }
 
   async getAllCoursePeriods(): Promise<CoursePeriod[] | []> {
     return await AppDataSource.manager.find(CoursePeriod, {
-      relations: { periods: true, courses: true },
+      relations: { period: true, course: true },
     });
   }
 
   async getCoursePeriodsByPeriod(period: Period): Promise<CoursePeriod[] | []> {
     return await AppDataSource.manager.find(CoursePeriod, {
-      relations: { periods: true, courses: true },
+      relations: { period: true, course: true },
       where: {
-        periods: { id: period.id },
+        period: { id: period.id },
       },
     });
   }

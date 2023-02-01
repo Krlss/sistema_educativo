@@ -5,13 +5,17 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   OneToMany,
+  JoinColumn,
+  JoinTable,
 } from "typeorm";
+import { SharedProp } from "../../infraestructure/helpers/sharedProp.helper";
 
 import { CoursePeriod } from "../coursePeriod/coursePeriod.entity";
+import { Period } from "../periods/period.entity";
 
 @Entity()
 @ObjectType()
-export class Course extends BaseEntity {
+export class Course extends SharedProp {
   @Field()
   @PrimaryGeneratedColumn()
   id!: number;
@@ -28,7 +32,9 @@ export class Course extends BaseEntity {
   @Column({ default: () => "NOW()" })
   updatedAt?: Date;
 
-  @Field(() => [CoursePeriod], { nullable: true })
-  @OneToMany(() => CoursePeriod, (courseperiod) => courseperiod.periods)
-  course_periods!: CoursePeriod[];
+  @Field(() => Period, { nullable: true })
+  @OneToMany(() => CoursePeriod, (courseperiod) => courseperiod.period, {
+    cascade: true,
+  })
+  periods!: Period[];
 }
