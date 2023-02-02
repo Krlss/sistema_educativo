@@ -1,0 +1,163 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Period {
+  id: ID
+  name: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  courses: [Course!]
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Course {
+  id: ID
+  name: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  periods: [Period!]
+}
+
+type Rol {
+  id: ID
+  name: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  users: [User!]
+}
+
+type User {
+  id: ID
+  email: String
+  password: String
+  name: String
+  lastName: String
+  createAt: String
+  updateAt: String
+  roles: [Rol!]
+}
+
+type Query {
+  courses: [Course!]!
+  course(id: String!): Course
+  periods: [Period!]!
+  period(id: String!): Period
+  users: [User!]!
+  user(id: String!): User
+  roles: [Rol!]!
+  rol(id: String!): Rol
+}
+
+type Mutation {
+  createCourse(input: CreateCourseDTO!): Course
+  updateCourse(input: UpdateCourseDTO!): Course
+  deleteCourse(id: String!): Course
+  createPeriod(input: CreatePeriodDTO!): Period
+  updatePeriod(input: UpdatePeriodDTO!): Period
+  deletePeriod(id: String!): Period
+  createUser(input: CreateUserDTO!): User
+  updateUser(input: UpdateUserDTO!): User
+  deleteUser(id: String!): User
+  createRol(input: CreateRolDTO!): Rol!
+  updateRol(input: UpdateRolDTO!): Rol!
+  deleteRol(id: String!): Rol!
+}
+
+input CreateCourseDTO {
+  """Nombre del curso"""
+  name: String!
+
+  """Períodos del curso"""
+  periods: [String!]
+}
+
+input UpdateCourseDTO {
+  """Nombre del curso"""
+  name: String
+
+  """Períodos del curso"""
+  periods: [String!]
+
+  """Id del curso"""
+  id: String!
+}
+
+input CreatePeriodDTO {
+  """Nombre del periodo"""
+  name: String!
+
+  """Cursos del periodo"""
+  courses: [String!]
+}
+
+input UpdatePeriodDTO {
+  """Nombre del periodo"""
+  name: String
+
+  """Cursos del periodo"""
+  courses: [String!]
+
+  """Id del periodo"""
+  id: String!
+}
+
+input CreateUserDTO {
+  """Email del usuario"""
+  email: String!
+
+  """Contraseña del usuario"""
+  password: String!
+
+  """Nombre del usuario"""
+  name: String!
+
+  """Apellido del usuario"""
+  lastName: String!
+
+  """Roles del usuario"""
+  roles: [String!]
+}
+
+input UpdateUserDTO {
+  """Email del usuario"""
+  email: String
+
+  """Contraseña del usuario"""
+  password: String
+
+  """Nombre del usuario"""
+  name: String
+
+  """Apellido del usuario"""
+  lastName: String
+
+  """Roles del usuario"""
+  roles: [String!]
+
+  """Id del rol"""
+  id: String!
+}
+
+input CreateRolDTO {
+  """Nombre del rol"""
+  name: String!
+
+  """Usuarios del rol"""
+  users: [String!]
+}
+
+input UpdateRolDTO {
+  """Nombre del rol"""
+  name: String
+
+  """Usuarios del rol"""
+  users: [String!]
+
+  """Id del rol"""
+  id: String!
+}
