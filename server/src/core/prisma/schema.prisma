@@ -7,23 +7,57 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum QuestionType {
+  true_or_false
+  true_or_false_cp
+  true_or_false_cp_objects
+  true_or_false_numbers_and_text
+  put_points_in_cp
+  choose_an_option
+  choose_any_option
+  choose_an_option_textnumber
+  write_coor_cp
+  write_value_from_text
+  write_number_positional
+  drag_and_drop_objects
+  drag_and_drop_text
+  drag_and_drop_sets
+  selects_points_in_cp
+  select_place_table_option
+  positional_table
+  listen_numbers
+  listen_text
+  order
+  base10_descomposition
+  positional_sum
+  positional_mult
+  table_multiplication
+  place_sign
+  positional_rest
+  drag_and_drop_complete
+  simple_multi
+  operation_simple
+}
+
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
+  id        String     @id @default(cuid())
+  email     String     @unique
   password  String
   name      String
   lastName  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
   deletedAt DateTime?
   roles     Role[]
+  topics    Topic[]
+  progress  Progress[]
 }
 
 model Role {
-  id        String   @id @default(cuid())
-  name      String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        String    @id @default(cuid())
+  name      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   deletedAt DateTime?
   users     User[]
 }
@@ -46,13 +80,109 @@ model Course {
   periods   CoursesPeriods[]
 }
 
-model CoursesPeriods {
-  id        Int      @id @default(autoincrement())
-  periodId  String
-  courseId  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Asignature {
+  id                        String                      @id @default(cuid())
+  name                      String
+  createdAt                 DateTime                    @default(now())
+  updatedAt                 DateTime                    @updatedAt
+  deletedAt                 DateTime?
+  coursesPeriodsAsignatures CoursesPeriodsAsignatures[]
+}
+
+model Unit {
+  id                             String                           @id @default(cuid())
+  name                           String
+  createdAt                      DateTime                         @default(now())
+  updatedAt                      DateTime                         @updatedAt
+  deletedAt                      DateTime?
+  periodsCoursesAsignaturesUnits PeriodsCoursesAsignaturesUnits[]
+}
+
+model Question {
+  id        String       @id @default(cuid())
+  title     String
+  subtitle  String
+  type      QuestionType
+  options   Json
+  topicId   String
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
   deletedAt DateTime?
-  period    Period   @relation(fields: [periodId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  course    Course   @relation(fields: [courseId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  topic     Topic        @relation(fields: [topicId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+}
+
+model Topic {
+  id                                   String                                 @id @default(cuid())
+  name                                 String
+  image                                String?
+  video                                String?
+  createdAt                            DateTime                               @default(now())
+  updatedAt                            DateTime                               @updatedAt
+  deletedAt                            DateTime?
+  questions                            Question[]
+  users                                User[]
+  periodsCoursesAsignaturesUnitsTopics PeriodsCoursesAsignaturesUnitsTopics[]
+}
+
+model CoursesPeriods {
+  id                        Int                         @id @default(autoincrement())
+  periodId                  String
+  courseId                  String
+  createdAt                 DateTime                    @default(now())
+  updatedAt                 DateTime                    @updatedAt
+  deletedAt                 DateTime?
+  period                    Period                      @relation(fields: [periodId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  course                    Course                      @relation(fields: [courseId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  coursesPeriodsAsignatures CoursesPeriodsAsignatures[]
+}
+
+model CoursesPeriodsAsignatures {
+  id                         Int                              @id @default(autoincrement())
+  asignatureId               String
+  createdAt                  DateTime                         @default(now())
+  updatedAt                  DateTime                         @updatedAt
+  deletedAt                  DateTime?
+  coursePeriodId             Int
+  asignature                 Asignature                       @relation(fields: [asignatureId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  coursePeriod               CoursesPeriods                   @relation(fields: [coursePeriodId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  periodCourseAsignatureUnit PeriodsCoursesAsignaturesUnits[]
+  progress                   Progress[]
+}
+
+model PeriodsCoursesAsignaturesUnits {
+  id                               Int                                    @id @default(autoincrement())
+  unitId                           String
+  createdAt                        DateTime                               @default(now())
+  updatedAt                        DateTime                               @updatedAt
+  deletedAt                        DateTime?
+  coursePeriodAsignatureId         Int
+  unit                             Unit                                   @relation(fields: [unitId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  coursePeriodAsignature           CoursesPeriodsAsignatures              @relation(fields: [coursePeriodAsignatureId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  periodCourseAsignatureUnitsTopic PeriodsCoursesAsignaturesUnitsTopics[]
+  progress                         Progress[]
+}
+
+model PeriodsCoursesAsignaturesUnitsTopics {
+  id                           Int                            @id @default(autoincrement())
+  topicId                      String
+  createdAt                    DateTime                       @default(now())
+  updatedAt                    DateTime                       @updatedAt
+  deletedAt                    DateTime?
+  topic                        Topic                          @relation(fields: [topicId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  periodCourseAsignatureUnitId Int
+  periodCourseAsignatureUnit   PeriodsCoursesAsignaturesUnits @relation(fields: [periodCourseAsignatureUnitId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+}
+
+model Progress {
+  id                           String    @id @default(cuid())
+  userId                       String
+  coursePeriodAsignatureId     Int
+  periodCourseAsignatureUnitId Int
+  createdAt                    DateTime  @default(now())
+  updatedAt                    DateTime  @updatedAt
+  deletedAt                    DateTime?
+
+  user                       User                           @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  coursePeriodAsignature     CoursesPeriodsAsignatures      @relation(fields: [coursePeriodAsignatureId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  periodCourseAsignatureUnit PeriodsCoursesAsignaturesUnits @relation(fields: [periodCourseAsignatureUnitId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 }

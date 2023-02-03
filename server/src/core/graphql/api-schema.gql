@@ -42,6 +42,61 @@ type User {
   roles: [Rol!]
 }
 
+type Topic {
+  id: ID
+  name: String
+  image: String
+  video: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  question: [Question!]
+}
+
+type Question {
+  id: ID
+  title: String
+  subtitle: String
+  type: QuestionType
+  options: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  topic: Topic
+}
+
+enum QuestionType {
+  order
+  place_sign
+  listen_text
+  simple_multi
+  write_coor_cp
+  true_or_false
+  positional_sum
+  listen_numbers
+  positional_rest
+  positional_mult
+  choose_an_option
+  operation_simple
+  put_points_in_cp
+  true_or_false_cp
+  positional_table
+  choose_any_option
+  drag_and_drop_text
+  drag_and_drop_sets
+  table_multiplication
+  selects_points_in_cp
+  write_value_from_text
+  base10_descomposition
+  drag_and_drop_objects
+  drag_and_drop_complete
+  write_number_positional
+  true_or_false_cp_objects
+  select_place_table_option
+  choose_an_option_textnumber
+  true_or_false_numbers_and_text
+}
+
 type Query {
   courses: [Course!]!
   course(id: String!): Course
@@ -51,6 +106,10 @@ type Query {
   user(id: String!): User
   roles: [Rol!]!
   rol(id: String!): Rol
+  questions: [Question!]
+  question(id: String!): Question
+  topics: [Topic!]
+  topic(id: String!): Topic
 }
 
 type Mutation {
@@ -66,6 +125,12 @@ type Mutation {
   createRol(input: CreateRolDTO!): Rol!
   updateRol(input: UpdateRolDTO!): Rol!
   deleteRol(id: String!): Rol!
+  createQuestion(input: CreateQuestionDTO!): Question!
+  updateQuestion(input: UpdateQuestionDTO!): Question!
+  deleteQuestion(id: String!): Question!
+  createTopic(input: CreateTopicDTO!): Topic!
+  updateTopic(input: UpdateTopicDTO!): Topic!
+  removeTopic(id: String!): Topic!
 }
 
 input CreateCourseDTO {
@@ -159,5 +224,67 @@ input UpdateRolDTO {
   users: [String!]
 
   """Id del rol"""
+  id: String!
+}
+
+input CreateQuestionDTO {
+  """Título de la pregunta"""
+  title: String!
+
+  """Subtítulo de la pregunta"""
+  subtitle: String = ""
+
+  """Tipo de pregunta"""
+  type: QuestionType!
+
+  """Es un objecto, tiene varias formas."""
+  options: String!
+
+  """Id del tema al que pertenece la pregunta"""
+  topicId: String!
+}
+
+input UpdateQuestionDTO {
+  """Título de la pregunta"""
+  title: String
+
+  """Subtítulo de la pregunta"""
+  subtitle: String = ""
+
+  """Tipo de pregunta"""
+  type: QuestionType
+
+  """Es un objecto, tiene varias formas."""
+  options: String
+
+  """Id del tema al que pertenece la pregunta"""
+  topicId: String
+
+  """Id de la pregunta"""
+  id: String!
+}
+
+input CreateTopicDTO {
+  """Nombre del tema"""
+  name: String!
+
+  """Esta imagen representa la clase del tema"""
+  image: String!
+
+  """Este es el vídeo más explicativo del tema"""
+  video: String!
+}
+
+input UpdateTopicDTO {
+  """Nombre del tema"""
+  name: String
+
+  """Esta imagen representa la clase del tema"""
+  image: String
+
+  """Este es el vídeo más explicativo del tema"""
+  video: String
+
+  """Id del tema"""
   id: String!
 }
