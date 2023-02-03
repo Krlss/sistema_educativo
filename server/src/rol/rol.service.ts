@@ -59,4 +59,11 @@ export class RolService {
       },
     });
   }
+  async getByName(name: string) {
+    return await this.prismaService.role.findUnique({
+      where: {
+        name,
+      },
+    });
+  }
 }
