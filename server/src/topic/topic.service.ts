@@ -10,11 +10,7 @@ export class TopicService {
   async getMany() {
     return this.prismaService.topic.findMany({
       include: {
-        questions: {
-          include: {
-            topic: true,
-          },
-        },
+        questions: true,
       },
     });
   }
@@ -23,11 +19,7 @@ export class TopicService {
     return this.prismaService.topic.findUnique({
       where: { id },
       include: {
-        questions: {
-          include: {
-            topic: true,
-          },
-        },
+        questions: true,
       },
     });
   }

@@ -25,5 +25,5 @@ export class Topic {
   deletedAt: Date;
 
   @Field(() => [Question], { nullable: true })
-  question: Question[];
+  questions: Question[];
 }

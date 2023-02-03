@@ -50,7 +50,7 @@ type Topic {
   createdAt: DateTime
   updatedAt: DateTime
   deletedAt: DateTime
-  question: [Question!]
+  questions: [Question!]
 }
 
 type Question {
