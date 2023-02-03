@@ -7,7 +7,7 @@ type Period {
   name: String
   createdAt: DateTime
   updatedAt: DateTime
-  courses: [Course!]
+  coursesPeriods: [CoursesPeriods!]
 }
 
 """
@@ -15,12 +15,22 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type CoursesPeriods {
+  id: Float
+  createdAt: DateTime
+  updatedAt: DateTime
+  periodId: String
+  courseId: String
+  period: Period
+  course: Course
+}
+
 type Course {
   id: ID
   name: String
   createdAt: DateTime
   updatedAt: DateTime
-  periods: [Period!]
+  coursesPeriods: [CoursesPeriods!]
 }
 
 type Rol {
@@ -120,6 +130,10 @@ type Query {
   topic(id: String!): Topic
   asignatures: [Asignature!]
   asignature(id: String!): Asignature
+  coursesPeriods: [CoursesPeriods!]
+  coursePeriod(id: Float!): CoursesPeriods
+  coursePeriodByCourseId(id: String!): [CoursesPeriods!]
+  coursePeriodByPeriodId(id: String!): [CoursesPeriods!]
 }
 
 type Mutation {

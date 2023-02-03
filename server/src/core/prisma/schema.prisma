@@ -63,21 +63,21 @@ model Role {
 }
 
 model Period {
-  id        String           @id @default(cuid())
-  name      String
-  createdAt DateTime         @default(now())
-  updatedAt DateTime         @updatedAt
-  deletedAt DateTime?
-  courses   CoursesPeriods[]
+  id             String           @id @default(cuid())
+  name           String
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  deletedAt      DateTime?
+  coursesPeriods CoursesPeriods[]
 }
 
 model Course {
-  id        String           @id @default(cuid())
-  name      String
-  createdAt DateTime         @default(now())
-  updatedAt DateTime         @updatedAt
-  deletedAt DateTime?
-  periods   CoursesPeriods[]
+  id             String           @id @default(cuid())
+  name           String
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  deletedAt      DateTime?
+  coursesPeriods CoursesPeriods[]
 }
 
 model Asignature {

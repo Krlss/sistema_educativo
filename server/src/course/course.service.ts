@@ -9,7 +9,7 @@ export class CourseService {
   async getMany() {
     return await this.prismaService.course.findMany({
       include: {
-        periods: {
+        coursesPeriods: {
           include: {
             period: true,
           },
@@ -22,7 +22,7 @@ export class CourseService {
     return await this.prismaService.course.findUnique({
       where: { id },
       include: {
-        periods: {
+        coursesPeriods: {
           include: {
             period: true,
           },

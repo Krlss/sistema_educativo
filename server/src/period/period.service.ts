@@ -10,7 +10,7 @@ export class PeriodService {
   async getMany() {
     return await this.prismaService.period.findMany({
       include: {
-        courses: {
+        coursesPeriods: {
           include: {
             course: true,
           },
@@ -23,7 +23,7 @@ export class PeriodService {
     return await this.prismaService.period.findUnique({
       where: { id },
       include: {
-        courses: {
+        coursesPeriods: {
           include: {
             course: true,
           },
@@ -36,7 +36,7 @@ export class PeriodService {
     return await this.prismaService.period.findFirst({
       where: { name },
       include: {
-        courses: {
+        coursesPeriods: {
           include: {
             course: true,
           },
@@ -46,16 +46,25 @@ export class PeriodService {
   }
 
   async create(data: CreatePeriodDTO) {
+    const { name, ...coursesPeriods } = data;
     return await this.prismaService.period.create({
       data: {
-        ...data,
+        name,
         ...(data.courses && {
-          courses: {
+          coursesPeriods: {
             createMany: {
-              data: data.courses.map((courseId) => ({ courseId })),
+              data: coursesPeriods.courses.map((courseId) => ({ courseId })),
             },
           },
         }),
+      },
+      include: {
+        coursesPeriods: {
+          include: {
+            course: true,
+            period: true,
+          },
+        },
       },
     });
   }

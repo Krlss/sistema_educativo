@@ -10,24 +10,11 @@ export class CourseController {
   constructor(private readonly courseService: CourseService) {}
 
   async getMany() {
-    const courses = await this.courseService.getMany();
-    const result = courses.map((course) => {
-      return {
-        ...course,
-        periods: course.periods.map((period) => period.period),
-      };
-    });
-    return result;
+    return await this.courseService.getMany();
   }
 
   async get(id: string) {
-    const course = await this.courseService.get(id);
-    return course
-      ? {
-          ...course,
-          periods: course.periods.map((period) => period.period),
-        }
-      : null;
+    return await this.courseService.get(id);
   }
 
   async create(data: CreateCourseDTO) {

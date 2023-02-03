@@ -8,24 +8,11 @@ export class PeriodController {
   constructor(private readonly periodService: PeriodService) {}
 
   async getMany() {
-    const periods = await this.periodService.getMany();
-    const result = periods.map((course) => {
-      return {
-        ...course,
-        courses: course.courses.map((course) => course.course),
-      };
-    });
-    return result;
+    return await this.periodService.getMany();
   }
 
   async get(id: string) {
-    const period = await this.periodService.get(id);
-    return period
-      ? {
-          ...period,
-          courses: period.courses.map((course) => course.course),
-        }
-      : null;
+    return await this.periodService.get(id);
   }
 
   async create(data: CreatePeriodDTO) {

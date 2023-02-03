@@ -9,6 +9,7 @@ import { ConfigModule } from '@nestjs/config';
 import { QuestionModule } from './question/question.module';
 import { TopicModule } from './topic/topic.module';
 import { AsignatureModule } from './asignature/asignature.module';
+import { CoursesPeriodsModule } from './courses-periods/courses-periods.module';
 import configuration from './config/configuration';
 
 @Module({
@@ -22,6 +23,7 @@ import configuration from './config/configuration';
     QuestionModule,
     TopicModule,
     AsignatureModule,
+    CoursesPeriodsModule,
   ],
 })
 export class AppModule {}
