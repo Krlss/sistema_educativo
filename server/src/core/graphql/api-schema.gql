@@ -97,6 +97,14 @@ enum QuestionType {
   true_or_false_numbers_and_text
 }
 
+type Asignature {
+  id: ID
+  name: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
 type Query {
   courses: [Course!]!
   course(id: String!): Course
@@ -110,6 +118,8 @@ type Query {
   question(id: String!): Question
   topics: [Topic!]
   topic(id: String!): Topic
+  asignatures: [Asignature!]
+  asignature(id: String!): Asignature
 }
 
 type Mutation {
@@ -131,6 +141,9 @@ type Mutation {
   createTopic(input: CreateTopicDTO!): Topic!
   updateTopic(input: UpdateTopicDTO!): Topic!
   removeTopic(id: String!): Topic!
+  createAsignature(input: CreateAsignatureDTO!): Asignature!
+  updateAsignature(input: UpdateAsignatureDTO!): Asignature!
+  deleteAsignature(id: String!): Asignature!
 }
 
 input CreateCourseDTO {
@@ -287,4 +300,15 @@ input UpdateTopicDTO {
 
   """Id del tema"""
   id: String!
+}
+
+input CreateAsignatureDTO {
+  """Nombre de la asignatura"""
+  name: String!
+}
+
+input UpdateAsignatureDTO {
+  """Nombre de la asignatura"""
+  name: String
+  id: ID
 }

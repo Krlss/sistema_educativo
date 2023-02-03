@@ -8,6 +8,7 @@ import { RolModule } from './rol/rol.module';
 import { ConfigModule } from '@nestjs/config';
 import { QuestionModule } from './question/question.module';
 import { TopicModule } from './topic/topic.module';
+import { AsignatureModule } from './asignature/asignature.module';
 import configuration from './config/configuration';
 
 @Module({
@@ -20,6 +21,7 @@ import configuration from './config/configuration';
     RolModule,
     QuestionModule,
     TopicModule,
+    AsignatureModule,
   ],
 })
 export class AppModule {}
