@@ -32,6 +32,19 @@ export class PeriodService {
     });
   }
 
+  async getByName(name: string) {
+    return await this.prismaService.period.findFirst({
+      where: { name },
+      include: {
+        courses: {
+          include: {
+            course: true,
+          },
+        },
+      },
+    });
+  }
+
   async create(data: CreatePeriodDTO) {
     return await this.prismaService.period.create({
       data: {
@@ -48,9 +61,6 @@ export class PeriodService {
   }
 
   async update(data: UpdatePeriodDTO) {
-    const find = await this.get(data.id);
-    if (!find) throw new Error('No se encontró el periodo');
-
     return await this.prismaService.period.update({
       where: { id: data.id },
       data: {
@@ -71,8 +81,6 @@ export class PeriodService {
   }
 
   async delete(id: string) {
-    const find = await this.get(id);
-    if (!find) throw new Error('No se encontró el periodo');
     return await this.prismaService.period.delete({
       where: { id },
     });
