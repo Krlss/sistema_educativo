@@ -66,4 +66,22 @@ export class UserService {
       },
     });
   }
+
+  async getManyByIds(ids: string[]) {
+    return await this.prismaService.user.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+  }
+
+  async getByEmail(email: string) {
+    return await this.prismaService.user.findUnique({
+      where: {
+        email,
+      },
+    });
+  }
 }

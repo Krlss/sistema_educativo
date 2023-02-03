@@ -66,4 +66,14 @@ export class RolService {
       },
     });
   }
+
+  async getManyByIds(ids: string[]) {
+    return await this.prismaService.role.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+  }
 }

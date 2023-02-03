@@ -5,7 +5,7 @@ import {
 import { RolService } from '../rol.service';
 import { Injectable } from '@nestjs/common';
 
-@ValidatorConstraint({ name: 'IsPeriodExist', async: true })
+@ValidatorConstraint({ name: 'IsExistId', async: true })
 @Injectable()
 export class IsExist implements ValidatorConstraintInterface {
   constructor(protected readonly rolService: RolService) {}

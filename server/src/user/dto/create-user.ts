@@ -1,5 +1,7 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { IsNotEmpty, MinLength, IsEmail } from 'class-validator';
+import { IsNotEmpty, MinLength, IsEmail, Validate } from 'class-validator';
+import { IsExistsRoles } from '../../rol/validations/ids.rol.exist';
+import { IsUniqueEmail } from '../validations/email.user.exist';
 
 @InputType()
 export class CreateUserDTO {
@@ -7,6 +9,9 @@ export class CreateUserDTO {
   @IsNotEmpty({ message: 'El correo del usuario no puede estar vacío' })
   @MinLength(10, { message: 'El correo debe tener al menos 10 caracteres' })
   @IsEmail({}, { message: 'El correo no es válido' })
+  @Validate(IsUniqueEmail, {
+    message: 'El correo ya se encuentra registrado',
+  })
   email: string;
 
   @Field(() => String, { description: 'Contraseña del usuario' })
@@ -25,5 +30,8 @@ export class CreateUserDTO {
   lastName: string;
 
   @Field(() => [String], { nullable: true, description: 'Roles del usuario' })
+  @Validate(IsExistsRoles, {
+    message: 'Alguno de los roles no existe',
+  })
   roles: string[];
 }

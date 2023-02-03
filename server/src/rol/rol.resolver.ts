@@ -1,35 +1,35 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
-import { RolService } from './rol.service';
+import { RolController } from './rol.controller';
 import { Rol } from './entities/rol.entity';
 import { CreateRolDTO } from './dto/create-rol';
 import { UpdateRolDTO } from './dto/update-rol';
 
 @Resolver(() => Rol)
 export class RolResolver {
-  constructor(private readonly rolService: RolService) {}
+  constructor(private readonly rolController: RolController) {}
 
   @Mutation(() => Rol)
   createRol(@Args('input') data: CreateRolDTO) {
-    return this.rolService.create(data);
+    return this.rolController.create(data);
   }
 
   @Query(() => [Rol])
   roles() {
-    return this.rolService.getMany();
+    return this.rolController.getMany();
   }
 
   @Query(() => Rol, { nullable: true })
   rol(@Args('id') id: string) {
-    return this.rolService.get(id);
+    return this.rolController.get(id);
   }
 
   @Mutation(() => Rol)
   updateRol(@Args('input') data: UpdateRolDTO) {
-    return this.rolService.update(data);
+    return this.rolController.update(data);
   }
 
   @Mutation(() => Rol)
   deleteRol(@Args('id') id: string) {
-    return this.rolService.delete(id);
+    return this.rolController.delete(id);
   }
 }
