@@ -70,17 +70,18 @@ export class PeriodService {
   }
 
   async update(data: UpdatePeriodDTO) {
+    const { name, ...coursesPeriods } = data;
     return await this.prismaService.period.update({
       where: { id: data.id },
       data: {
-        ...data,
+        name,
         ...(data.courses && {
-          courses: {
+          coursesPeriods: {
             deleteMany: {
               periodId: data.id,
             },
             createMany: {
-              data: data.courses.map((courseId) => ({ courseId })),
+              data: coursesPeriods.courses.map((courseId) => ({ courseId })),
               skipDuplicates: true,
             },
           },
