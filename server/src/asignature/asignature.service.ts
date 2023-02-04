@@ -10,10 +10,10 @@ export class AsignatureService {
   async getMany() {
     return await this.prismaService.asignature.findMany({
       include: {
-        coursesPeriodsAsignatures: {
+        periodsCoursesAsignatures: {
           include: {
             asignature: true,
-            coursePeriod: {
+            periodCourse: {
               include: {
                 course: true,
                 period: true,
@@ -34,10 +34,10 @@ export class AsignatureService {
     return await this.prismaService.asignature.findUnique({
       where: { id },
       include: {
-        coursesPeriodsAsignatures: {
+        periodsCoursesAsignatures: {
           include: {
             asignature: true,
-            coursePeriod: {
+            periodCourse: {
               include: {
                 course: true,
                 period: true,
@@ -55,18 +55,36 @@ export class AsignatureService {
   }
 
   async create(data: CreateAsignatureDTO) {
+    const { periodsCourses, ...others } = data;
     return await this.prismaService.asignature.create({
-      data,
+      data: {
+        ...others,
+        periodsCoursesAsignatures: {
+          createMany: {
+            data: periodsCourses.map((periodCourseId) => ({
+              periodCourseId,
+            })),
+          },
+        },
+      },
     });
   }
 
   async update(data: UpdateAsignatureDTO) {
-    const find = await this.get(data.id);
-    if (!find) throw new Error('No se encontró el asignatura');
-
+    const { name, periodsCourses } = data;
     return await this.prismaService.asignature.update({
       where: { id: data.id },
-      data,
+      data: {
+        periodsCoursesAsignatures: {
+          deleteMany: { asignatureId: data.id },
+          createMany: {
+            data: periodsCourses.map((periodCourseId) => ({
+              periodCourseId,
+            })),
+          },
+        },
+        name,
+      },
     });
   }
 

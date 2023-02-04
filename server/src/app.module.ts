@@ -9,8 +9,11 @@ import { ConfigModule } from '@nestjs/config';
 import { QuestionModule } from './question/question.module';
 import { TopicModule } from './topic/topic.module';
 import { AsignatureModule } from './asignature/asignature.module';
-import { CoursesPeriodsModule } from './courses-periods/courses-periods.module';
-import { CoursesPeriodsAsignaturesModule } from './courses-periods-asignatures/courses-periods-asignatures.module';
+import { PeriodsCoursesModule } from './courses-periods/courses-periods.module';
+import { PeriodsCoursesAsignaturesModule } from './courses-periods-asignatures/courses-periods-asignatures.module';
+import { PeriodsCoursesAsignaturesUnitsModule } from './courses-periods-asignatures-units/courses-periods-asignatures-units.module';
+import { UnitModule } from './unit/unit.module';
+import { CoursePeriodsAsignaturesUnitsTopicModule } from './course-periods-asignatures-units-topic/course-periods-asignatures-units-topic.module';
 import configuration from './config/configuration';
 
 @Module({
@@ -24,8 +27,11 @@ import configuration from './config/configuration';
     QuestionModule,
     TopicModule,
     AsignatureModule,
-    CoursesPeriodsModule,
-    CoursesPeriodsAsignaturesModule,
+    PeriodsCoursesModule,
+    PeriodsCoursesAsignaturesModule,
+    PeriodsCoursesAsignaturesUnitsModule,
+    UnitModule,
+    CoursePeriodsAsignaturesUnitsTopicModule,
   ],
 })
 export class AppModule {}

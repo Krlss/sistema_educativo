@@ -25,8 +25,22 @@ export class TopicService {
   }
 
   async create(data: CreateTopicDTO) {
+    const { periodCourseAsignatureUnitId, ...others } = data;
     return this.prismaService.topic.create({
-      data,
+      data: {
+        ...others,
+        ...(data.periodCourseAsignatureUnitId && {
+          periodsCoursesAsignaturesUnitsTopics: {
+            createMany: {
+              data: data.periodCourseAsignatureUnitId.map(
+                (periodCourseAsignatureUnitId) => ({
+                  periodCourseAsignatureUnitId,
+                }),
+              ),
+            },
+          },
+        }),
+      },
     });
   }
 

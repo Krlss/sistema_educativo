@@ -68,7 +68,7 @@ model Period {
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
   deletedAt      DateTime?
-  coursesPeriods CoursesPeriods[]
+  periodsCourses PeriodsCourses[]
 }
 
 model Course {
@@ -77,7 +77,7 @@ model Course {
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
   deletedAt      DateTime?
-  coursesPeriods CoursesPeriods[]
+  periodsCourses PeriodsCourses[]
 }
 
 model Asignature {
@@ -86,7 +86,7 @@ model Asignature {
   createdAt                 DateTime                    @default(now())
   updatedAt                 DateTime                    @updatedAt
   deletedAt                 DateTime?
-  coursesPeriodsAsignatures CoursesPeriodsAsignatures[]
+  periodsCoursesAsignatures PeriodsCoursesAsignatures[]
 }
 
 model Unit {
@@ -124,7 +124,7 @@ model Topic {
   periodsCoursesAsignaturesUnitsTopics PeriodsCoursesAsignaturesUnitsTopics[]
 }
 
-model CoursesPeriods {
+model PeriodsCourses {
   id                        Int                         @id @default(autoincrement())
   periodId                  String
   courseId                  String
@@ -133,18 +133,18 @@ model CoursesPeriods {
   deletedAt                 DateTime?
   period                    Period                      @relation(fields: [periodId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   course                    Course                      @relation(fields: [courseId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  coursesPeriodsAsignatures CoursesPeriodsAsignatures[]
+  periodsCoursesAsignatures PeriodsCoursesAsignatures[]
 }
 
-model CoursesPeriodsAsignatures {
+model PeriodsCoursesAsignatures {
   id                         Int                              @id @default(autoincrement())
   asignatureId               String
   createdAt                  DateTime                         @default(now())
   updatedAt                  DateTime                         @updatedAt
   deletedAt                  DateTime?
-  coursePeriodId             Int
+  periodCourseId             Int
   asignature                 Asignature                       @relation(fields: [asignatureId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  coursePeriod               CoursesPeriods                   @relation(fields: [coursePeriodId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  periodCourse               PeriodsCourses                   @relation(fields: [periodCourseId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   periodCourseAsignatureUnit PeriodsCoursesAsignaturesUnits[]
   progress                   Progress[]
 }
@@ -155,9 +155,9 @@ model PeriodsCoursesAsignaturesUnits {
   createdAt                        DateTime                               @default(now())
   updatedAt                        DateTime                               @updatedAt
   deletedAt                        DateTime?
-  coursePeriodAsignatureId         Int
+  periodCourseAsignatureId         Int
   unit                             Unit                                   @relation(fields: [unitId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  coursePeriodAsignature           CoursesPeriodsAsignatures              @relation(fields: [coursePeriodAsignatureId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  periodCourseAsignature           PeriodsCoursesAsignatures              @relation(fields: [periodCourseAsignatureId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   periodCourseAsignatureUnitsTopic PeriodsCoursesAsignaturesUnitsTopics[]
   progress                         Progress[]
 }
@@ -176,13 +176,13 @@ model PeriodsCoursesAsignaturesUnitsTopics {
 model Progress {
   id                           String    @id @default(cuid())
   userId                       String
-  coursePeriodAsignatureId     Int
+  periodCourseAsignatureId     Int
   periodCourseAsignatureUnitId Int
   createdAt                    DateTime  @default(now())
   updatedAt                    DateTime  @updatedAt
   deletedAt                    DateTime?
 
   user                       User                           @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  coursePeriodAsignature     CoursesPeriodsAsignatures      @relation(fields: [coursePeriodAsignatureId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  periodCourseAsignature     PeriodsCoursesAsignatures      @relation(fields: [periodCourseAsignatureId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   periodCourseAsignatureUnit PeriodsCoursesAsignaturesUnits @relation(fields: [periodCourseAsignatureUnitId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 }

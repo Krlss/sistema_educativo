@@ -1,14 +1,15 @@
 import { Module } from '@nestjs/common';
-import { CoursesPeriodsService } from './courses-periods.service';
-import { CoursesPeriodsResolver } from './courses-periods.resolver';
-import { CoursesPeriodsController } from './courses-periods.controller';
+import { PeriodsCoursesService } from './courses-periods.service';
+import { PeriodsCoursesResolver } from './courses-periods.resolver';
+import { PeriodsCoursesController } from './courses-periods.controller';
 
 @Module({
   providers: [
-    CoursesPeriodsResolver,
-    CoursesPeriodsService,
-    CoursesPeriodsController,
+    PeriodsCoursesResolver,
+    PeriodsCoursesService,
+    PeriodsCoursesController,
   ],
-  controllers: [CoursesPeriodsController],
+  controllers: [PeriodsCoursesController],
+  exports: [PeriodsCoursesService],
 })
-export class CoursesPeriodsModule {}
+export class PeriodsCoursesModule {}

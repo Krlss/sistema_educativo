@@ -1,9 +1,9 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Asignature } from 'src/asignature/entities/asignature.entity';
-import { CoursesPeriods } from 'src/courses-periods/entities/courses-period.entity';
+import { PeriodsCourses } from 'src/courses-periods/entities/courses-period.entity';
 
 @ObjectType()
-export class CoursesPeriodsAsignature {
+export class PeriodsCoursesAsignature {
   @Field({ nullable: true })
   id: number;
 
@@ -20,13 +20,13 @@ export class CoursesPeriodsAsignature {
   deletedAt: Date;
 
   @Field({ nullable: true })
-  coursePeriodId: string;
+  periodCourseId: string;
 
   /* @Field({ nullable: true })
   asignature: Asignature; */
 
-  @Field(() => CoursesPeriods, { nullable: true })
-  coursePeriod: CoursesPeriods;
+  @Field(() => PeriodsCourses, { nullable: true })
+  periodCourse: PeriodsCourses;
 
   /* @Field(() => PeriodsCoursesAsignaturesUnits, { nullable: true })
   periodCourseAsignatureUnit: PeriodsCoursesAsignaturesUnits; */

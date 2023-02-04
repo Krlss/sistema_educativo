@@ -10,7 +10,7 @@ export class PeriodService {
   async getMany() {
     return await this.prismaService.period.findMany({
       include: {
-        coursesPeriods: {
+        periodsCourses: {
           include: {
             course: true,
           },
@@ -23,7 +23,7 @@ export class PeriodService {
     return await this.prismaService.period.findUnique({
       where: { id },
       include: {
-        coursesPeriods: {
+        periodsCourses: {
           include: {
             course: true,
           },
@@ -36,7 +36,7 @@ export class PeriodService {
     return await this.prismaService.period.findFirst({
       where: { name },
       include: {
-        coursesPeriods: {
+        periodsCourses: {
           include: {
             course: true,
           },
@@ -46,20 +46,20 @@ export class PeriodService {
   }
 
   async create(data: CreatePeriodDTO) {
-    const { name, ...coursesPeriods } = data;
+    const { name, ...periodsCourses } = data;
     return await this.prismaService.period.create({
       data: {
         name,
         ...(data.courses && {
-          coursesPeriods: {
+          periodsCourses: {
             createMany: {
-              data: coursesPeriods.courses.map((courseId) => ({ courseId })),
+              data: periodsCourses.courses.map((courseId) => ({ courseId })),
             },
           },
         }),
       },
       include: {
-        coursesPeriods: {
+        periodsCourses: {
           include: {
             course: true,
             period: true,
@@ -70,18 +70,18 @@ export class PeriodService {
   }
 
   async update(data: UpdatePeriodDTO) {
-    const { name, ...coursesPeriods } = data;
+    const { name, ...periodsCourses } = data;
     return await this.prismaService.period.update({
       where: { id: data.id },
       data: {
         name,
         ...(data.courses && {
-          coursesPeriods: {
+          periodsCourses: {
             deleteMany: {
               periodId: data.id,
             },
             createMany: {
-              data: coursesPeriods.courses.map((courseId) => ({ courseId })),
+              data: periodsCourses.courses.map((courseId) => ({ courseId })),
               skipDuplicates: true,
             },
           },

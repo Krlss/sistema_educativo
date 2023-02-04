@@ -11,6 +11,7 @@ export class IsPeriodsExist implements ValidatorConstraintInterface {
   constructor(protected readonly periodService: PeriodService) {}
 
   async validate(text: string[]) {
+    if (!text) return true;
     return (await this.periodService.getManyByIds(text)).length === text.length;
   }
 }

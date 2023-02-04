@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/core/prisma/prisma.service';
 
 @Injectable()
-export class CoursesPeriodsService {
+export class PeriodsCoursesService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async get(id: number) {
-    return this.prismaService.coursesPeriods.findUnique({
+    return this.prismaService.periodsCourses.findUnique({
       where: {
         id,
       },
@@ -18,7 +18,7 @@ export class CoursesPeriodsService {
   }
 
   async getMany() {
-    return this.prismaService.coursesPeriods.findMany({
+    return this.prismaService.periodsCourses.findMany({
       include: {
         course: true,
         period: true,
@@ -26,8 +26,18 @@ export class CoursesPeriodsService {
     });
   }
 
+  async getManyByIds(ids: number[]) {
+    return this.prismaService.periodsCourses.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+  }
+
   async getByCourseId(courseId: string) {
-    return this.prismaService.coursesPeriods.findMany({
+    return this.prismaService.periodsCourses.findMany({
       where: {
         courseId,
       },
@@ -39,7 +49,7 @@ export class CoursesPeriodsService {
   }
 
   async getByPeriodId(periodId: string) {
-    return this.prismaService.coursesPeriods.findMany({
+    return this.prismaService.periodsCourses.findMany({
       where: {
         periodId,
       },
@@ -51,7 +61,7 @@ export class CoursesPeriodsService {
   }
 
   async getID_byCoursePeriod(periodId: string, courseId: string) {
-    return this.prismaService.coursesPeriods.findFirst({
+    return this.prismaService.periodsCourses.findFirst({
       where: {
         courseId,
         periodId,

@@ -3,7 +3,7 @@ import { Course } from 'src/course/entities/course.entity';
 import { Period } from 'src/period/entities/period.entity';
 
 @ObjectType()
-export class CoursesPeriods {
+export class PeriodsCourses {
   @Field({ nullable: true })
   id: number;
 

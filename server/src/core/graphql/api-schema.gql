@@ -7,7 +7,7 @@ type Period {
   name: String
   createdAt: DateTime
   updatedAt: DateTime
-  coursesPeriods: [CoursesPeriods!]
+  periodsCourses: [PeriodsCourses!]
 }
 
 """
@@ -15,7 +15,7 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type CoursesPeriods {
+type PeriodsCourses {
   id: Float
   createdAt: DateTime
   updatedAt: DateTime
@@ -30,7 +30,7 @@ type Course {
   name: String
   createdAt: DateTime
   updatedAt: DateTime
-  coursesPeriods: [CoursesPeriods!]
+  periodsCourses: [PeriodsCourses!]
 }
 
 type Rol {
@@ -107,21 +107,50 @@ enum QuestionType {
   true_or_false_numbers_and_text
 }
 
+type PeriodsCoursesAsignature {
+  id: Float
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  periodCourseId: String
+  periodCourse: PeriodsCourses
+}
+
+type PeriodsCoursesAsignaturesUnit {
+  id: Int!
+  periodCourseAsignatureId: Int!
+  unitId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+  periodCourseAsignature: PeriodsCoursesAsignature!
+}
+
 type Asignature {
   id: ID
   name: String
   createdAt: DateTime
   updatedAt: DateTime
   deletedAt: DateTime
+  periodsCourses: [PeriodsCourses!]
 }
 
-type CoursesPeriodsAsignature {
-  id: Float
+type Unit {
+  id: ID
+  name: String
   createdAt: DateTime
   updatedAt: DateTime
   deletedAt: DateTime
-  coursePeriodId: String
-  coursePeriod: CoursesPeriods
+  periodsCoursesAsignaturesUnits: [PeriodsCoursesAsignaturesUnit!]
+}
+
+type CoursePeriodsAsignaturesUnitsTopic {
+  id: Int
+  name: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  periodCoursesAsignaturesUnitsId: Int
 }
 
 type Query {
@@ -137,15 +166,23 @@ type Query {
   question(id: String!): Question
   topics: [Topic!]
   topic(id: String!): Topic
+  periodsCoursesAsignaturesUnits: [PeriodsCoursesAsignaturesUnit!]!
+  periodsCoursesAsignaturesUnit(id: Int!): PeriodsCoursesAsignaturesUnit!
+  periodsCoursesAsignaturesUnitsByCoursePeriodAsignature(data: Int!): [PeriodsCoursesAsignaturesUnit!]!
+  periodsCoursesAsignaturesUnitsByCoursePeriodAsignature_Unit(periodCourseAsignatureUnitId: Int!, unitId: String!): PeriodsCoursesAsignaturesUnit!
   asignatures: [Asignature!]
   asignature(id: String!): Asignature
-  coursesPeriods: [CoursesPeriods!]
-  coursePeriod(id: Float!): CoursesPeriods
-  coursePeriodByCourseId(id: String!): [CoursesPeriods!]
-  coursePeriodByPeriodId(id: String!): [CoursesPeriods!]
-  coursesPeriodsAsignatures: [CoursesPeriodsAsignature!]!
-  coursesPeriodsAsignature(id: Int!): CoursesPeriodsAsignature
-  asignaturesByPeriod_Course(input: FindByPeriodAndCourseDTO!): [CoursesPeriodsAsignature!]!
+  periodsCourses: [PeriodsCourses!]
+  periodCourse(id: Float!): PeriodsCourses
+  periodCourseByCourseId(id: String!): [PeriodsCourses!]
+  periodCourseByPeriodId(id: String!): [PeriodsCourses!]
+  periodsCoursesAsignatures: [PeriodsCoursesAsignature!]!
+  periodsCoursesAsignature(id: Int!): PeriodsCoursesAsignature
+  asignaturesByPeriod_Course(input: FindByPeriodAndCourseDTO!): [PeriodsCoursesAsignature!]!
+  units: [Unit!]!
+  unit(id: String!): Unit
+  getMany: [CoursePeriodsAsignaturesUnitsTopic!]!
+  get(id: Int!): CoursePeriodsAsignaturesUnitsTopic!
 }
 
 input FindByPeriodAndCourseDTO {
@@ -178,6 +215,9 @@ type Mutation {
   createAsignature(input: CreateAsignatureDTO!): Asignature!
   updateAsignature(input: UpdateAsignatureDTO!): Asignature!
   deleteAsignature(id: String!): Asignature!
+  createUnit(input: CreateUnitDTO!): Unit!
+  updateUnit(input: UpdateUnitDTO!): Unit!
+  deleteUnit(id: String!): Unit!
 }
 
 input CreateCourseDTO {
@@ -320,6 +360,9 @@ input CreateTopicDTO {
 
   """Este es el vídeo más explicativo del tema"""
   video: String!
+
+  """Unidad a la que pertenece el tema"""
+  periodCourseAsignatureUnitId: [Float!]
 }
 
 input UpdateTopicDTO {
@@ -332,6 +375,9 @@ input UpdateTopicDTO {
   """Este es el vídeo más explicativo del tema"""
   video: String
 
+  """Unidad a la que pertenece el tema"""
+  periodCourseAsignatureUnitId: [Float!]
+
   """Id del tema"""
   id: String!
 }
@@ -339,10 +385,33 @@ input UpdateTopicDTO {
 input CreateAsignatureDTO {
   """Nombre de la asignatura"""
   name: String!
+
+  """Cursos a los que pertenece la asignatura"""
+  periodsCourses: [Int!]
 }
 
 input UpdateAsignatureDTO {
   """Nombre de la asignatura"""
   name: String
+
+  """Cursos a los que pertenece la asignatura"""
+  periodsCourses: [Int!]
   id: ID
+}
+
+input CreateUnitDTO {
+  """Nombre de la unidad"""
+  name: String!
+
+  """Asignatura a la que pertenece la unidad"""
+  periodsCoursesAsignature: [Int!]
+}
+
+input UpdateUnitDTO {
+  """Nombre de la unidad"""
+  name: String
+
+  """Asignatura a la que pertenece la unidad"""
+  periodsCoursesAsignature: [Int!]
+  id: String!
 }

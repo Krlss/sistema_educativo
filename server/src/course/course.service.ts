@@ -9,7 +9,7 @@ export class CourseService {
   async getMany() {
     return await this.prismaService.course.findMany({
       include: {
-        coursesPeriods: {
+        periodsCourses: {
           include: {
             period: true,
           },
@@ -22,7 +22,7 @@ export class CourseService {
     return await this.prismaService.course.findUnique({
       where: { id },
       include: {
-        coursesPeriods: {
+        periodsCourses: {
           include: {
             period: true,
           },
@@ -32,20 +32,20 @@ export class CourseService {
   }
 
   async create(data: CreateCourseDTO) {
-    const { name, ...coursesPeriods } = data;
+    const { name, ...periodsCourses } = data;
     return await this.prismaService.course.create({
       data: {
         name,
         ...(data.periods && {
-          coursesPeriods: {
+          periodsCourses: {
             createMany: {
-              data: coursesPeriods.periods.map((periodId) => ({ periodId })),
+              data: periodsCourses.periods.map((periodId) => ({ periodId })),
             },
           },
         }),
       },
       include: {
-        coursesPeriods: {
+        periodsCourses: {
           include: {
             course: true,
             period: true,
@@ -56,18 +56,18 @@ export class CourseService {
   }
 
   async update(data: UpdateCourseDTO) {
-    const { name, ...coursesPeriods } = data;
+    const { name, ...periodsCourses } = data;
     return await this.prismaService.course.update({
       where: { id: data.id },
       data: {
         name,
         ...(data.periods && {
-          coursesPeriods: {
+          periodsCourses: {
             deleteMany: {
               courseId: data.id,
             },
             createMany: {
-              data: coursesPeriods.periods.map((periodId) => ({ periodId })),
+              data: periodsCourses.periods.map((periodId) => ({ periodId })),
               skipDuplicates: true,
             },
           },

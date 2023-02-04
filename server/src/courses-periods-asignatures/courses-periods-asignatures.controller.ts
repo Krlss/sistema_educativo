@@ -1,10 +1,10 @@
 import { Controller } from '@nestjs/common';
-import { CoursesPeriodsAsignaturesService } from './courses-periods-asignatures.service';
+import { PeriodsCoursesAsignaturesService } from './courses-periods-asignatures.service';
 import { FindByPeriodAndCourseDTO } from './dto/findByPeriodAndCourse';
 
 @Controller('courses-periods-asignatures')
-export class CoursesPeriodsAsignaturesController {
-  constructor(private readonly CPAService: CoursesPeriodsAsignaturesService) {}
+export class PeriodsCoursesAsignaturesController {
+  constructor(private readonly CPAService: PeriodsCoursesAsignaturesService) {}
 
   async getAll() {
     return this.CPAService.getAll();
