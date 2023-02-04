@@ -5,7 +5,7 @@ import { PrismaService } from 'src/core/prisma/prisma.service';
 export class CoursesPeriodsService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  get(id: number) {
+  async get(id: number) {
     return this.prismaService.coursesPeriods.findUnique({
       where: {
         id,
@@ -17,7 +17,7 @@ export class CoursesPeriodsService {
     });
   }
 
-  getMany() {
+  async getMany() {
     return this.prismaService.coursesPeriods.findMany({
       include: {
         course: true,
@@ -26,7 +26,7 @@ export class CoursesPeriodsService {
     });
   }
 
-  getByCourseId(courseId: string) {
+  async getByCourseId(courseId: string) {
     return this.prismaService.coursesPeriods.findMany({
       where: {
         courseId,
@@ -38,7 +38,7 @@ export class CoursesPeriodsService {
     });
   }
 
-  getByPeriodId(periodId: string) {
+  async getByPeriodId(periodId: string) {
     return this.prismaService.coursesPeriods.findMany({
       where: {
         periodId,
@@ -46,6 +46,18 @@ export class CoursesPeriodsService {
       include: {
         course: true,
         period: true,
+      },
+    });
+  }
+
+  async getID_byCoursePeriod(periodId: string, courseId: string) {
+    return this.prismaService.coursesPeriods.findFirst({
+      where: {
+        courseId,
+        periodId,
+      },
+      select: {
+        id: true,
       },
     });
   }

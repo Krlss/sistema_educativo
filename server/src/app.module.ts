@@ -10,6 +10,7 @@ import { QuestionModule } from './question/question.module';
 import { TopicModule } from './topic/topic.module';
 import { AsignatureModule } from './asignature/asignature.module';
 import { CoursesPeriodsModule } from './courses-periods/courses-periods.module';
+import { CoursesPeriodsAsignaturesModule } from './courses-periods-asignatures/courses-periods-asignatures.module';
 import configuration from './config/configuration';
 
 @Module({
@@ -24,6 +25,7 @@ import configuration from './config/configuration';
     TopicModule,
     AsignatureModule,
     CoursesPeriodsModule,
+    CoursesPeriodsAsignaturesModule,
   ],
 })
 export class AppModule {}

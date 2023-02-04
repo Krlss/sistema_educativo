@@ -115,6 +115,15 @@ type Asignature {
   deletedAt: DateTime
 }
 
+type CoursesPeriodsAsignature {
+  id: Float
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  coursePeriodId: String
+  coursePeriod: CoursesPeriods
+}
+
 type Query {
   courses: [Course!]!
   course(id: String!): Course
@@ -134,6 +143,17 @@ type Query {
   coursePeriod(id: Float!): CoursesPeriods
   coursePeriodByCourseId(id: String!): [CoursesPeriods!]
   coursePeriodByPeriodId(id: String!): [CoursesPeriods!]
+  coursesPeriodsAsignatures: [CoursesPeriodsAsignature!]!
+  coursesPeriodsAsignature(id: Int!): CoursesPeriodsAsignature
+  asignaturesByPeriod_Course(input: FindByPeriodAndCourseDTO!): [CoursesPeriodsAsignature!]!
+}
+
+input FindByPeriodAndCourseDTO {
+  """Id del periodo"""
+  periodId: String!
+
+  """Id del curso"""
+  courseId: String!
 }
 
 type Mutation {
