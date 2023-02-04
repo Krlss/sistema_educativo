@@ -32,35 +32,42 @@ export class CourseService {
   }
 
   async create(data: CreateCourseDTO) {
+    const { name, ...coursesPeriods } = data;
     return await this.prismaService.course.create({
       data: {
-        ...data,
+        name,
         ...(data.periods && {
-          periods: {
+          coursesPeriods: {
             createMany: {
-              data: data.periods.map((periodId) => ({ periodId })),
+              data: coursesPeriods.periods.map((periodId) => ({ periodId })),
             },
           },
         }),
+      },
+      include: {
+        coursesPeriods: {
+          include: {
+            course: true,
+            period: true,
+          },
+        },
       },
     });
   }
 
   async update(data: UpdateCourseDTO) {
-    const find = await this.get(data.id);
-    if (!find) throw new Error('No se encontró el curso');
-
+    const { name, ...coursesPeriods } = data;
     return await this.prismaService.course.update({
       where: { id: data.id },
       data: {
-        ...data,
+        name,
         ...(data.periods && {
-          periods: {
+          coursesPeriods: {
             deleteMany: {
               courseId: data.id,
             },
             createMany: {
-              data: data.periods.map((periodId) => ({ periodId })),
+              data: coursesPeriods.periods.map((periodId) => ({ periodId })),
               skipDuplicates: true,
             },
           },
@@ -70,10 +77,20 @@ export class CourseService {
   }
 
   async delete(id: string) {
-    const find = await this.get(id);
-    if (!find) throw new Error('No se encontró el curso');
     return await this.prismaService.course.delete({
       where: { id },
+    });
+  }
+
+  async getByName(name: string) {
+    return await this.prismaService.course.findFirst({
+      where: { name },
+    });
+  }
+
+  async getManyByIds(ids: string[]) {
+    return await this.prismaService.course.findMany({
+      where: { id: { in: ids } },
     });
   }
 }

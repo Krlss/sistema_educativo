@@ -1,6 +1,7 @@
 import { InputType, Field } from '@nestjs/graphql';
 import { IsNotEmpty, MinLength, Validate } from 'class-validator';
 import { IsNameUnique } from '../validations/name.period.exist';
+import { IsCoursesExist } from 'src/course/validations/ids.course.exist';
 
 @InputType()
 export class CreatePeriodDTO {
@@ -13,5 +14,8 @@ export class CreatePeriodDTO {
   name: string;
 
   @Field(() => [String], { description: 'Cursos del periodo', nullable: true })
+  @Validate(IsCoursesExist, {
+    message: 'Algunos de los cursos no existen',
+  })
   courses?: string[];
 }

@@ -95,7 +95,7 @@ export class PeriodService {
     });
   }
 
-  async getManyByArrayIds(ids: string[]) {
+  async getManyByIds(ids: string[]) {
     return await this.prismaService.period.findMany({
       where: {
         id: {

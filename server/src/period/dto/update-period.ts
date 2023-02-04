@@ -1,5 +1,5 @@
 import { CreatePeriodDTO } from './create-period';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { InputType, Field, PartialType } from '@nestjs/graphql';
 import { IsNotEmpty, MinLength, Validate } from 'class-validator';
 import { IsExist } from '../validations/id.period.exist';
 

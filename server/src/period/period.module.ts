@@ -1,19 +1,21 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { PeriodService } from './period.service';
 import { PeriodResolver } from './period.resolver';
 import { PeriodController } from './period.controller';
-import { IsExist } from './validations/id.period.exist';
-import { IsNameUnique } from './validations/name.period.exist';
+import PeriodValidations from './validations';
+import { CourseModule } from '../course/course.module';
+import { IsCoursesExist } from 'src/course/validations/ids.course.exist';
 
 @Module({
+  imports: [forwardRef(() => CourseModule)],
   providers: [
     PeriodResolver,
     PeriodService,
     PeriodController,
-    IsExist,
-    IsNameUnique,
+    IsCoursesExist,
+    ...PeriodValidations,
   ],
-  exports: [PeriodService],
   controllers: [PeriodController],
+  exports: [PeriodService],
 })
 export class PeriodModule {}
