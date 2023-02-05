@@ -1,23 +1,34 @@
 import { PrismaClient } from '@prisma/client';
-import * as bcrypt from 'bcrypt';
 const prisma = new PrismaClient();
 
+import { periodSeed } from './seeds/period.seed';
+import { usersSeed } from './seeds/users.seed';
+import { roleSeed } from './seeds/roles.seed';
+import { courseSeed } from './seeds/course.seed';
+import { asignatureSeed } from './seeds/asignature.seed';
+import { unitSeed } from './seeds/unit.seed';
+import { topicSeed } from './seeds/topic.seed';
+import { quesitonSeed } from './seeds/question.seed';
+
 async function main() {
-  const roles = await prisma.role.createMany({
-    data: [{ name: 'admin' }, { name: 'student' }, { name: 'teacher' }],
-  });
-  const user = await prisma.user.create({
-    data: {
-      name: 'admin',
-      lastName: 'admin',
-      email: 'admin@localhost.com',
-      password: await bcrypt.hash('12345678', 10),
-      roles: {
-        connect: [{ name: 'admin' }],
-      },
+  await roleSeed();
+  await usersSeed();
+  const period = await periodSeed();
+  await courseSeed(period.id);
+
+  const periodsCourses = await prisma.periodsCourses.findFirst({
+    where: {
+      periodId: period.id,
+    },
+    select: {
+      id: true,
     },
   });
-  console.log({ roles, user });
+
+  const periodsCoursesAsignatures = await asignatureSeed(periodsCourses.id);
+  await unitSeed(periodsCoursesAsignatures);
+  await topicSeed();
+  await quesitonSeed();
 }
 main()
   .then(async () => {

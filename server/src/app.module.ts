@@ -14,6 +14,7 @@ import { PeriodsCoursesAsignaturesModule } from './courses-periods-asignatures/c
 import { PeriodsCoursesAsignaturesUnitsModule } from './courses-periods-asignatures-units/courses-periods-asignatures-units.module';
 import { UnitModule } from './unit/unit.module';
 import { CoursePeriodsAsignaturesUnitsTopicModule } from './course-periods-asignatures-units-topic/course-periods-asignatures-units-topic.module';
+import { ProgressModule } from './progress/progress.module';
 import configuration from './config/configuration';
 
 @Module({
@@ -32,6 +33,7 @@ import configuration from './config/configuration';
     PeriodsCoursesAsignaturesUnitsModule,
     UnitModule,
     CoursePeriodsAsignaturesUnitsTopicModule,
+    ProgressModule,
   ],
 })
 export class AppModule {}

@@ -83,6 +83,8 @@ model Course {
 model Asignature {
   id                        String                      @id @default(cuid())
   name                      String
+  description               String
+  image                     String
   createdAt                 DateTime                    @default(now())
   updatedAt                 DateTime                    @updatedAt
   deletedAt                 DateTime?
@@ -101,7 +103,7 @@ model Unit {
 model Question {
   id        String       @id @default(cuid())
   title     String
-  subtitle  String
+  subtitle  String?
   type      QuestionType
   options   Json
   topicId   String

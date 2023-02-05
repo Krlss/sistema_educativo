@@ -10,7 +10,7 @@ export class Question {
   @Field({ nullable: true })
   title: string;
 
-  @Field({ nullable: true, defaultValue: '' })
+  @Field({ nullable: true, defaultValue: undefined })
   subtitle?: string;
 
   @Field(() => QuestionType, {
