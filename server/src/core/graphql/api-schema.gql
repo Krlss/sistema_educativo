@@ -129,6 +129,8 @@ type PeriodsCoursesAsignaturesUnit {
 type Asignature {
   id: ID
   name: String
+  description: String
+  image: String
   createdAt: DateTime
   updatedAt: DateTime
   deletedAt: DateTime
@@ -395,6 +397,12 @@ input CreateAsignatureDTO {
   """Nombre de la asignatura"""
   name: String!
 
+  """Descripción de la asignatura"""
+  description: String!
+
+  """Imagen que represente a la asignatura"""
+  image: String!
+
   """Cursos a los que pertenece la asignatura"""
   periodsCourses: [Int!]
 }
@@ -402,6 +410,12 @@ input CreateAsignatureDTO {
 input UpdateAsignatureDTO {
   """Nombre de la asignatura"""
   name: String
+
+  """Descripción de la asignatura"""
+  description: String
+
+  """Imagen que represente a la asignatura"""
+  image: String
 
   """Cursos a los que pertenece la asignatura"""
   periodsCourses: [Int!]
