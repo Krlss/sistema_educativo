@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
 import { User } from './entities/user.entity';
 import { CreateUserDTO } from './dto/create-user';
 import { UpdateUserDTO } from './dto/update-user';
@@ -6,6 +6,8 @@ import { UserController } from './user.controller';
 import { CreateProgressDTO } from './dto/create-progress';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { sign } from 'jsonwebtoken';
+import { JwtGuard } from 'src/auth/jwt.guard';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -17,6 +19,7 @@ export class UserResolver {
   }
 
   @Query(() => User, { nullable: true })
+  @UseGuards(JwtGuard)
   user(@Args('id') id: string) {
     return this.userController.get(id);
   }
@@ -26,8 +29,16 @@ export class UserResolver {
   login(
     @Args({ name: 'email', type: () => String }) email: string,
     @Args({ name: 'password', type: () => String }) password: string,
+    @Context('user') user: User,
   ) {
-    return 'You are logged in!';
+    const payload = {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      lastName: user.lastName,
+      roles: user.roles,
+    };
+    return sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
   }
 
   @Mutation(() => User, { nullable: true })
