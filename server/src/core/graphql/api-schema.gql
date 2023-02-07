@@ -2,11 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Period {
+type Asignature {
   id: ID
   name: String
+  description: String
+  image: String
   createdAt: DateTime
   updatedAt: DateTime
+  deletedAt: DateTime
   periodsCourses: [PeriodsCourses!]
 }
 
@@ -15,22 +18,14 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type PeriodsCourses {
-  id: Float
-  createdAt: DateTime
+type PeriodsCoursesAsignaturesUnit {
+  id: Int!
+  periodCourseAsignatureId: Int!
+  unitId: String!
+  createdAt: DateTime!
   updatedAt: DateTime
-  periodId: String
-  courseId: String
-  period: Period
-  course: Course
-}
-
-type Course {
-  id: ID
-  name: String
-  createdAt: DateTime
-  updatedAt: DateTime
-  periodsCourses: [PeriodsCourses!]
+  deletedAt: DateTime
+  periodCourseAsignature: PeriodsCoursesAsignature!
 }
 
 type Rol {
@@ -50,6 +45,57 @@ type User {
   createAt: String
   updateAt: String
   roles: [Rol!]
+  progress: [Progress!]
+}
+
+type Progress {
+  id: ID
+  user: User!
+  questions: String
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+  periodsCoursesAsignatures: PeriodsCoursesAsignature
+  periodCourseAsignatureUnit: PeriodsCoursesAsignaturesUnit
+}
+
+type PeriodsCoursesAsignature {
+  id: Float
+  asignatureId: [Asignature!]
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  periodCourseId: String
+  periodCourse: PeriodsCourses
+  periodCourseAsignatureUnit: [PeriodsCoursesAsignaturesUnit!]
+  progress: [Progress!]
+}
+
+type Period {
+  id: ID
+  name: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  periodsCourses: [PeriodsCourses!]
+}
+
+type PeriodsCourses {
+  id: Float
+  createdAt: DateTime
+  updatedAt: DateTime
+  periodId: String
+  courseId: String
+  period: Period
+  course: Course
+  periodsCoursesAsignatures: [PeriodsCoursesAsignature!]
+}
+
+type Course {
+  id: ID
+  name: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  periodsCourses: [PeriodsCourses!]
 }
 
 type Topic {
@@ -107,36 +153,6 @@ enum QuestionType {
   true_or_false_numbers_and_text
 }
 
-type PeriodsCoursesAsignature {
-  id: Float
-  createdAt: DateTime
-  updatedAt: DateTime
-  deletedAt: DateTime
-  periodCourseId: String
-  periodCourse: PeriodsCourses
-}
-
-type PeriodsCoursesAsignaturesUnit {
-  id: Int!
-  periodCourseAsignatureId: Int!
-  unitId: String!
-  createdAt: DateTime!
-  updatedAt: DateTime
-  deletedAt: DateTime
-  periodCourseAsignature: PeriodsCoursesAsignature!
-}
-
-type Asignature {
-  id: ID
-  name: String
-  description: String
-  image: String
-  createdAt: DateTime
-  updatedAt: DateTime
-  deletedAt: DateTime
-  periodsCourses: [PeriodsCourses!]
-}
-
 type Unit {
   id: ID
   name: String
@@ -153,11 +169,6 @@ type CoursePeriodsAsignaturesUnitsTopic {
   updatedAt: DateTime
   deletedAt: DateTime
   periodCoursesAsignaturesUnitsId: Int
-}
-
-type Progress {
-  """Example field (placeholder)"""
-  exampleField: Int!
 }
 
 type Query {
@@ -190,7 +201,6 @@ type Query {
   unit(id: String!): Unit
   getMany: [CoursePeriodsAsignaturesUnitsTopic!]!
   get(id: Int!): CoursePeriodsAsignaturesUnitsTopic!
-  progress(id: Int!): Progress!
 }
 
 input FindByPeriodAndCourseDTO {
@@ -210,6 +220,7 @@ type Mutation {
   deletePeriod(id: String!): Period
   createUser(input: CreateUserDTO!): User
   updateUser(input: UpdateUserDTO!): User
+  enrollUser(data: CreateProgressDTO!): Boolean
   deleteUser(id: String!): User
   createRol(input: CreateRolDTO!): Rol!
   updateRol(input: UpdateRolDTO!): Rol!
@@ -226,9 +237,6 @@ type Mutation {
   createUnit(input: CreateUnitDTO!): Unit!
   updateUnit(input: UpdateUnitDTO!): Unit!
   deleteUnit(id: String!): Unit!
-  createProgress(createProgressInput: CreateProgressInput!): Progress!
-  updateProgress(updateProgressInput: UpdateProgressInput!): Progress!
-  removeProgress(id: Int!): Progress!
 }
 
 input CreateCourseDTO {
@@ -302,8 +310,14 @@ input UpdateUserDTO {
   """Roles del usuario"""
   roles: [String!]
 
-  """Id del rol"""
+  """Id del usuario"""
   id: String!
+}
+
+input CreateProgressDTO {
+  """User ID"""
+  userId: String!
+  periodCourseId: Int
 }
 
 input CreateRolDTO {
@@ -437,15 +451,4 @@ input UpdateUnitDTO {
   """Asignatura a la que pertenece la unidad"""
   periodsCoursesAsignature: [Int!]
   id: String!
-}
-
-input CreateProgressInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input UpdateProgressInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
 }

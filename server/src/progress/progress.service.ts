@@ -1,22 +1,47 @@
 import { Injectable } from '@nestjs/common';
-import { CreateProgressInput } from './dto/create-progress.input';
-import { UpdateProgressInput } from './dto/update-progress.input';
+import { CreateProgressDTO } from './dto/create-progress';
+import { UpdateProgressDTO } from './dto/update-progress';
+import { PrismaService } from 'src/core/prisma/prisma.service';
 
 @Injectable()
 export class ProgressService {
-  create(createProgressInput: CreateProgressInput) {
-    return 'This action adds a new progress';
+  constructor(private readonly prismaService: PrismaService) {}
+
+  create(data: CreateProgressDTO) {
+    return this.prismaService.progress.create({
+      data: {
+        ...(data.periodsCoursesAsignaturesId && {
+          periodCourseAsignature: {
+            connect: {
+              id: data.periodsCoursesAsignaturesId,
+            },
+          },
+        }),
+        ...(data.periodCourseAsignatureUnitId && {
+          periodCourseAsignatureUnit: {
+            connect: {
+              id: data.periodCourseAsignatureUnitId,
+            },
+          },
+        }),
+        user: {
+          connect: {
+            id: data.userId,
+          },
+        },
+      },
+    });
   }
 
-  findAll() {
+  getMany() {
     return `This action returns all progress`;
   }
 
-  findOne(id: number) {
+  get(id: number) {
     return `This action returns a #${id} progress`;
   }
 
-  update(id: number, updateProgressInput: UpdateProgressInput) {
+  update(id: number, updateProgressInput: UpdateProgressDTO) {
     return `This action updates a #${id} progress`;
   }
 

@@ -13,6 +13,31 @@ export class PeriodsCoursesService {
       include: {
         course: true,
         period: true,
+        periodsCoursesAsignatures: {
+          include: {
+            asignature: true,
+            periodCourseAsignatureUnit: {
+              include: {
+                unit: true,
+              },
+            },
+            periodCourse: {
+              include: {
+                course: true,
+                period: true,
+              },
+            },
+            progress: {
+              include: {
+                periodCourseAsignatureUnit: {
+                  include: {
+                    unit: true,
+                  },
+                },
+              },
+            },
+          },
+        },
       },
     });
   }

@@ -54,6 +54,22 @@ export class AsignatureService {
     });
   }
 
+  async getAsignatureByPeriod(id: string) {
+    return await this.prismaService.asignature.findMany({
+      where: {
+        periodsCoursesAsignatures: {
+          some: {
+            periodCourse: {
+              period: {
+                id,
+              },
+            },
+          },
+        },
+      },
+    });
+  }
+
   async create(data: CreateAsignatureDTO) {
     const { periodsCourses, ...others } = data;
     return await this.prismaService.asignature.create({

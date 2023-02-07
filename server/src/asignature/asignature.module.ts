@@ -14,5 +14,6 @@ import { IsCoursePeriodsExist } from 'src/courses-periods/validations/ids.course
     IsCoursePeriodsExist,
   ],
   controllers: [AsignatureController],
+  exports: [AsignatureService],
 })
 export class AsignatureModule {}

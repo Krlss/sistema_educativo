@@ -1,31 +1,38 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { ProgressService } from './progress.service';
 import { Progress } from './entities/progress.entity';
-import { CreateProgressInput } from './dto/create-progress.input';
-import { UpdateProgressInput } from './dto/update-progress.input';
+import { CreateProgressDTO } from './dto/create-progress';
+import { UpdateProgressDTO } from './dto/update-progress';
 
 @Resolver(() => Progress)
-export class ProgressResolver {
+class ProgressResolver {
   constructor(private readonly progressService: ProgressService) {}
 
+  /*   @Query(() => [Progress], { name: 'progress' })
+  progresss() {
+    return this.progressService.findAll();
+  } */
+
+  @Query(() => Progress, { name: 'progress' })
+  progress(@Args('id', { type: () => Int }) id: number) {
+    return this.progressService.get(id);
+  }
+
   @Mutation(() => Progress)
-  createProgress(@Args('createProgressInput') createProgressInput: CreateProgressInput) {
+  createProgress(
+    @Args('createProgressInput') createProgressInput: CreateProgressDTO,
+  ) {
     return this.progressService.create(createProgressInput);
   }
 
-  @Query(() => [Progress], { name: 'progress' })
-  findAll() {
-    return this.progressService.findAll();
-  }
-
-  @Query(() => Progress, { name: 'progress' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.progressService.findOne(id);
-  }
-
   @Mutation(() => Progress)
-  updateProgress(@Args('updateProgressInput') updateProgressInput: UpdateProgressInput) {
-    return this.progressService.update(updateProgressInput.id, updateProgressInput);
+  updateProgress(
+    @Args('updateProgressInput') updateProgressInput: UpdateProgressDTO,
+  ) {
+    return this.progressService.update(
+      updateProgressInput.id,
+      updateProgressInput,
+    );
   }
 
   @Mutation(() => Progress)

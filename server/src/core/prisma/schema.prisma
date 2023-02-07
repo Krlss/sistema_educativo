@@ -105,7 +105,7 @@ model Question {
   title     String
   subtitle  String?
   type      QuestionType
-  options   Json
+  options   String       @db.LongText
   topicId   String
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
@@ -178,13 +178,14 @@ model PeriodsCoursesAsignaturesUnitsTopics {
 model Progress {
   id                           String    @id @default(cuid())
   userId                       String
-  periodCourseAsignatureId     Int
-  periodCourseAsignatureUnitId Int
+  periodCourseAsignatureId     Int?
+  periodCourseAsignatureUnitId Int?
+  questions                    String?   @db.LongText
   createdAt                    DateTime  @default(now())
   updatedAt                    DateTime  @updatedAt
   deletedAt                    DateTime?
 
-  user                       User                           @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  periodCourseAsignature     PeriodsCoursesAsignatures      @relation(fields: [periodCourseAsignatureId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  periodCourseAsignatureUnit PeriodsCoursesAsignaturesUnits @relation(fields: [periodCourseAsignatureUnitId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  user                       User                            @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  periodCourseAsignature     PeriodsCoursesAsignatures?      @relation(fields: [periodCourseAsignatureId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  periodCourseAsignatureUnit PeriodsCoursesAsignaturesUnits? @relation(fields: [periodCourseAsignatureUnitId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 }

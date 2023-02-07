@@ -2,6 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserDTO } from './dto/create-user';
 import { UpdateUserDTO } from './dto/update-user';
 import { PrismaService } from 'src/core/prisma/prisma.service';
+import { User } from './entities/user.entity';
+import { Course } from 'src/course/entities/course.entity';
+import { PeriodsCoursesAsignature } from 'src/courses-periods-asignatures/entities/courses-periods-asignature.entity';
+import { PeriodsCoursesAsignaturesUnit } from 'src/courses-periods-asignatures-units/entities/courses-periods-asignatures-unit.entity';
+import { PeriodsCourses } from 'src/courses-periods/entities/courses-period.entity';
 
 @Injectable()
 export class UserService {
@@ -22,6 +27,26 @@ export class UserService {
       },
       include: {
         roles: true,
+        progress: {
+          include: {
+            periodCourseAsignature: {
+              include: {
+                asignature: true,
+                periodCourse: {
+                  include: {
+                    course: true,
+                    period: true,
+                  },
+                },
+              },
+            },
+            periodCourseAsignatureUnit: {
+              include: {
+                unit: true,
+              },
+            },
+          },
+        },
       },
     });
   }

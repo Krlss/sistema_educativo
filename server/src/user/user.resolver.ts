@@ -3,6 +3,7 @@ import { User } from './entities/user.entity';
 import { CreateUserDTO } from './dto/create-user';
 import { UpdateUserDTO } from './dto/update-user';
 import { UserController } from './user.controller';
+import { CreateProgressDTO } from './dto/create-progress';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -25,6 +26,11 @@ export class UserResolver {
   @Mutation(() => User, { nullable: true })
   updateUser(@Args('input') data: UpdateUserDTO) {
     return this.userController.update(data);
+  }
+
+  @Mutation(() => Boolean, { nullable: true })
+  enrollUser(@Args('data') data: CreateProgressDTO) {
+    return this.userController.enroll(data);
   }
 
   @Mutation(() => User, { nullable: true })
