@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 
 export const GETCOURSES = gql`
   query Query {
-    getCourses {
+    courses {
       id
       createdAt
       name
@@ -10,5 +10,3 @@ export const GETCOURSES = gql`
     }
   }
 `
-
-export const GETPERIOD = gql``

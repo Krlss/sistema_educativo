@@ -9,6 +9,10 @@ async function bootstrap() {
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
   app.useGlobalPipes(new ValidationPipe());
 
-  await app.listen(3000);
+  const port = process.env.PORT || 8000;
+
+  await app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
 }
 bootstrap();

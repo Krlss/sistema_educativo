@@ -65,8 +65,6 @@ export class UserService {
   }
 
   async update(data: UpdateUserDTO) {
-    const find = await this.get(data.id);
-    if (!find) throw new Error('No se encontro el usuario');
     return await this.prismaService.user.update({
       where: {
         id: data.id,
@@ -83,8 +81,6 @@ export class UserService {
   }
 
   async delete(id: string) {
-    const find = await this.get(id);
-    if (!find) throw new Error('No se encontro el usuario');
     return await this.prismaService.user.delete({
       where: {
         id,

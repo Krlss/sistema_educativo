@@ -4,6 +4,8 @@ import { CreateUserDTO } from './dto/create-user';
 import { UpdateUserDTO } from './dto/update-user';
 import { UserController } from './user.controller';
 import { CreateProgressDTO } from './dto/create-progress';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -13,9 +15,19 @@ export class UserResolver {
   users() {
     return this.userController.getMany();
   }
+
   @Query(() => User, { nullable: true })
   user(@Args('id') id: string) {
     return this.userController.get(id);
+  }
+
+  @Query(() => String)
+  @UseGuards(AuthGuard)
+  login(
+    @Args({ name: 'email', type: () => String }) email: string,
+    @Args({ name: 'password', type: () => String }) password: string,
+  ) {
+    return 'You are logged in!';
   }
 
   @Mutation(() => User, { nullable: true })

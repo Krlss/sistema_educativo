@@ -178,6 +178,7 @@ type Query {
   period(id: String!): Period
   users: [User!]!
   user(id: String!): User
+  login(email: String!, password: String!): String!
   roles: [Rol!]!
   rol(id: String!): Rol
   questions: [Question!]
