@@ -8,6 +8,7 @@ import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { sign } from 'jsonwebtoken';
 import { JwtGuard } from 'src/auth/jwt.guard';
+import { RolesGuard } from 'src/auth/roles.guard';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -19,7 +20,7 @@ export class UserResolver {
   }
 
   @Query(() => User, { nullable: true })
-  @UseGuards(JwtGuard)
+  @UseGuards(JwtGuard, new RolesGuard(['student', 'teacher', 'admin']))
   user(@Args('id') id: string) {
     return this.userController.get(id);
   }
