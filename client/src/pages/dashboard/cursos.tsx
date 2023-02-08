@@ -43,8 +43,6 @@ const Cursos = () => {
   const { formik, open, setOpen, isAdd, setIsAdd, title, setTitle, columns } =
     useCourse()
 
-  console.log({ formik })
-
   return (
     <>
       <DataTable

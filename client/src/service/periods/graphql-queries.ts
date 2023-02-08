@@ -5,8 +5,19 @@ export const GETPERIODS = gql`
     periods {
       id
       name
-      createdAt
-      updatedAt
+      periodsCourses {
+        id
+        periodId
+        courseId
+        period {
+          name
+          id
+        }
+        course {
+          name
+          id
+        }
+      }
     }
   }
 `

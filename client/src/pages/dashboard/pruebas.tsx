@@ -1,127 +1,36 @@
-import React, { useState } from 'react'
-const data_ = {
-  curso: '2023-2024',
-  createdAt: '2023-10-10',
-  asignatures: [
-    {
-      name: 'Matemáticas',
-      units: [
-        {
-          name: 'Unidad 1',
-          active: true
-        },
-        {
-          name: 'Unidad 2',
-          active: false
-        },
-        {
-          name: 'Unidad 3',
-          active: true
-        },
-        {
-          name: 'Unidad 4',
-          active: true
-        },
-        {
-          name: 'Unidad 5',
-          active: false
-        },
-        {
-          name: 'Unidad 6',
-          active: false
-        }
-      ]
-    },
-    {
-      name: 'Inglés',
-      units: [
-        {
-          name: 'Unidad 1',
-          active: false
-        },
-        {
-          name: 'Unidad 2',
-          active: false
-        },
-        {
-          name: 'Unidad 3',
-          active: false
-        },
-        {
-          name: 'Unidad 4',
-          active: false
-        },
-        {
-          name: 'Unidad 5',
-          active: false
-        },
-        {
-          name: 'Unidad 6',
-          active: false
-        }
-      ]
-    },
-    {
-      name: 'Computación',
-      units: [
-        {
-          name: 'Unidad 1',
-          active: false
-        },
-        {
-          name: 'Unidad 2',
-          active: false
-        },
-        {
-          name: 'Unidad 3',
-          active: false
-        },
-        {
-          name: 'Unidad 4',
-          active: false
-        },
-        {
-          name: 'Unidad 5',
-          active: false
-        },
-        {
-          name: 'Unidad 6',
-          active: false
-        }
-      ]
-    }
-  ]
-}
+import React from 'react'
+import Select from 'react-select'
+import usePruebas from '../../hooks/pages/usePruebas'
 
 const Pruebas = () => {
-  const [data, setData] = useState(data_)
+  const { data, courses, periods, setCourses } = usePruebas()
 
   return (
     <div>
-      <h1 className="text-center p-5 font-bold text-lg">Curso: {data.curso}</h1>
-      {data.asignatures.map((asignature, a) => {
-        return (
-          <div key={a} className="my-4">
-            <h2 className="font-bold mb-1">Materia: {asignature.name}</h2>
-            <div className="grid grid-cols-auto-index-pruebas gap-2">
-              {asignature.units.map((unit, index) => {
-                return (
-                  <ContectPrueba
-                    key={index}
-                    unit={unit}
-                    onChange={e => {
-                      const newData = { ...data }
-                      newData.asignatures[a].units[index].active =
-                        e.target.checked
-                      setData(newData)
-                    }}
-                  />
-                )
-              })}
-            </div>
-          </div>
-        )
-      })}
+      <div className="flex gap-3">
+        <div className="max-w-xs w-full">
+          <label className="text-lg font-semibold">Periodo:</label>
+          <Select
+            options={periods}
+            placeholder="Selecciona un periodo"
+            onChange={e => {
+              const periodsCourses = data?.periods
+                .find(period => period.id === e!.value)
+                ?.periodsCourses.map(periodCourse => {
+                  return {
+                    value: periodCourse.course.id,
+                    label: periodCourse.course.name
+                  }
+                })
+              setCourses(periodsCourses)
+            }}
+          />
+        </div>
+        <div className="max-w-xs w-full">
+          <label className="text-lg font-semibold">Curso:</label>
+          <Select options={courses} placeholder="Selecciona un curso" />
+        </div>
+      </div>
     </div>
   )
 }
