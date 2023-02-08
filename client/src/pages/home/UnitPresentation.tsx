@@ -21,7 +21,7 @@ const UnitPresentation = () => {
             const isFinished = user?.progress
               ?.find(p => p.id_asignature === asignatureId)
               ?.unit?.find(u => u.id_unit === unitId)
-              ?.topic?.find(t => t.id_topic === top._id)?.finished
+              ?.topic?.find(t => t.id_topic === top.id)?.finished
             return (
               <div
                 className="rounded-md flex items-center my-3 justify-start shadow bg-slate-50 h-[150px] md:h-[120px]"
@@ -45,7 +45,7 @@ const UnitPresentation = () => {
                   {haveClass && (
                     <div className="flex md:flex-col flex-row gap-2 mr-5">
                       <NavLink
-                        to={`/asignatura/${asignatureId}/unidad/${unitId}/tema/${top._id}`}>
+                        to={`/asignatura/${asignatureId}/unidad/${unitId}/tema/${top.id}`}>
                         <li
                           className={`first-line:font-bold text-sm px-4 py-2 rounded text-center list-none min-w-[115px] shadow ${
                             isFinished

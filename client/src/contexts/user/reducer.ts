@@ -22,7 +22,7 @@ export default (state: USER, action: UserReducerProps) => {
       removeDataSession('token')
       return {
         ...state,
-        _id: '',
+        id: '',
         username: '',
         lastname: '',
         name: '',

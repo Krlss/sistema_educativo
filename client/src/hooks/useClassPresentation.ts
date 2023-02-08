@@ -10,7 +10,7 @@ const useClassPresentation = () => {
   const navigate = useNavigate()
 
   const [topic, setTopic] = useState<{
-    _id: string
+    id: string
     name: string
     description?: string
     video?: string
@@ -18,9 +18,9 @@ const useClassPresentation = () => {
 
   useEffect(() => {
     const topic = config.asignatures
-      .find(asignature => asignature._id === asignatureId)
-      ?.unit.find(unit => unit._id === unitId)
-      ?.topic.find(topic => topic._id === topicId)
+      .find(asignature => asignature.id === asignatureId)
+      ?.unit.find(unit => unit.id === unitId)
+      ?.topic.find(topic => topic.id === topicId)
     if (!topic) return navigate(`/asignatura/${asignatureId}/unidad/${unitId}`)
     setTopic(topic)
 
@@ -35,7 +35,7 @@ const useClassPresentation = () => {
           asignatureId,
           unitId,
           topicId,
-          userId: user._id
+          userId: user.id
         }
       })
     }

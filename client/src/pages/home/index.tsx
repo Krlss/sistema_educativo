@@ -20,7 +20,7 @@ const Home = () => {
         <div className="flex flex-wrap mt-4 gap-8">
           {config.asignatures.map((asignature, index) => {
             const findCourse = user.progress.find(
-              course => course.id_asignature === asignature._id
+              course => course.id_asignature === asignature.id
             ) as PROGRESS
 
             const canGiveExam = findCourse.unit?.reduce(
@@ -38,7 +38,7 @@ const Home = () => {
                 numberCourse={index + 1}
                 nameCourse={asignature.name}
                 progress={percentage[index]}
-                to={asignature._id}
+                to={asignature.id}
                 StringImage={asignature.image}
                 canGiveExam={!!canGiveExam.can}
               />

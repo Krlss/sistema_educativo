@@ -1,10 +1,12 @@
 import { gql } from '@apollo/client'
 
 export const GETPERIODS = gql`
-  query getPeriods {
-    getPeriods {
-      name
+  query Periods {
+    periods {
       id
+      name
+      createdAt
+      updatedAt
     }
   }
 `

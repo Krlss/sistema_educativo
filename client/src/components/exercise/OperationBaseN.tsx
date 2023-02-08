@@ -64,14 +64,14 @@ const OperationBaseN = (props: question) => {
       }, 0)
 
       const newQuestion = {
-        _id: props._id,
+        id: props.id,
         nota: lengthCorrect / lengthInputs,
         isDone: true,
         responseUser: JSON.stringify({ state })
       }
 
       const find = gameState.questions.find(
-        question => question._id === newQuestion._id
+        question => question.id === newQuestion.id
       )
 
       if (find) {
@@ -81,7 +81,7 @@ const OperationBaseN = (props: question) => {
       }
     } else {
       updatedQuestion({
-        _id: props._id,
+        id: props.id,
         nota: 0,
         isDone: false,
         responseUser: undefined

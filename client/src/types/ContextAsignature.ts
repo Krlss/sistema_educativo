@@ -1,13 +1,13 @@
 export interface ASIGNATURE {
-  _id: string
+  id: string
   name: string
   description: string
   image: string
   unit: {
-    _id: string
+    id: string
     name: string
     topic: {
-      _id: string
+      id: string
       name: string
       description?: string
       video?: string

@@ -18,14 +18,14 @@ const SimpleMulti = (props: question) => {
   useEffect(() => {
     if (answer) {
       const newQuestion = {
-        _id: props._id,
+        id: props.id,
         nota: answer === props_.value ? 1 : 0,
         isDone: true,
         responseUser: JSON.stringify({ answer })
       }
 
       const find = gameState.questions.find(
-        question => question._id === newQuestion._id
+        question => question.id === newQuestion.id
       )
 
       if (find) {

@@ -49,14 +49,14 @@ const useSelectPointCP = ({
       )
 
       const newQuestion = {
-        _id: question._id,
+        id: question.id,
         nota: veryfied.note,
         isDone: true,
         responseUser: JSON.stringify({ asnwer: newCoordinates })
       }
 
       const find = gameState.questions.find(
-        question => question._id === newQuestion._id
+        question => question.id === newQuestion.id
       )
 
       if (find) {
@@ -66,7 +66,7 @@ const useSelectPointCP = ({
       }
     } else {
       updatedQuestion({
-        _id: question._id,
+        id: question.id,
         nota: 0,
         isDone: false,
         responseUser: undefined

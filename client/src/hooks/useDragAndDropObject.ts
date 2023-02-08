@@ -103,14 +103,14 @@ const useDragAndDropObject = ({
     if (!options_.length) {
       const correct = verifyFinal(response)
       const newQuestion = {
-        _id: question._id,
+        id: question.id,
         nota: correct.note,
         isDone: true,
         responseUser: JSON.stringify({ response })
       }
 
       const find = gameState.questions.find(
-        question => question._id === newQuestion._id
+        question => question.id === newQuestion.id
       )
 
       if (find) {
@@ -120,7 +120,7 @@ const useDragAndDropObject = ({
       }
     } else {
       updatedQuestion({
-        _id: question._id,
+        id: question.id,
         nota: 0,
         isDone: false,
         responseUser: undefined

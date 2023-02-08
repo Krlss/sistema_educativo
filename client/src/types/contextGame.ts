@@ -1,5 +1,5 @@
 export interface QuestionsExtends {
-  _id: string
+  id: string
   nota: number
   isDone: boolean
   responseUser?: string

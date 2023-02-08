@@ -37,13 +37,13 @@ export default (state: QUESTION, action: GameReducerProps) => {
     case 'removeQuestion':
       return {
         ...state,
-        questions: state.questions.filter(question => question._id !== payload)
+        questions: state.questions.filter(question => question.id !== payload)
       }
     case 'updatedQuestion':
       return {
         ...state,
         questions: state.questions.map(question =>
-          question._id === payload._id ? payload : question
+          question.id === payload.id ? payload : question
         )
       }
     case 'setNext':

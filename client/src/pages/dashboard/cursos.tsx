@@ -3,22 +3,47 @@ import { useGetCourses } from '../../service/courses/custom-hook'
 import { useCourse } from '../../service/courses/useCourse'
 import RightSidebar from '../../components/sidebar/rightSidebar'
 import Input from '../../components/inputs/inputWithLabel'
+import { useGetPeriods } from '../../service/periods/custom-hook'
+import { useState } from 'react'
+import Select from 'react-select'
+import { FieldArray, Formik, Form, Field } from 'formik'
 
-export interface RowCourse {
-  id: number
+export interface course {
+  id: string
   name: string
   createdAt: string
   updatedAt: string
+  deletedAt?: string
+  periodsCourses: periodsCourses[]
 }
-
+export interface period {
+  id: string
+  name: string
+  createdAt: string
+  updatedAt: string
+  deletedAt?: string
+}
+export interface periodsCourses {
+  id: number
+  createdAt: string
+  updatedAt: string
+  deletedAt?: string
+  periodId: string
+  courseId: string
+  period: period
+  course: course
+}
 export const LoadingTable = () => {
   return <div className="text-xl font-bold p-3">Cargando...</div>
 }
 
 const Cursos = () => {
   const { data, loading } = useGetCourses()
+  const { data: dataPeriods } = useGetPeriods()
   const { formik, open, setOpen, isAdd, setIsAdd, title, setTitle, columns } =
     useCourse()
+
+  console.log({ formik })
 
   return (
     <>
@@ -39,7 +64,7 @@ const Cursos = () => {
         progressPending={loading}
         progressComponent={<LoadingTable />}
         columns={columns}
-        data={data?.getCourses}
+        data={data?.courses}
         style={{ width: '100%' }}
         customStyles={{
           headCells: {
@@ -58,7 +83,7 @@ const Cursos = () => {
         open={open}
         title={title}
         isAdd={isAdd}>
-        <Modal formik={formik} />
+        <Modal formik={formik} periods={dataPeriods?.periods} />
       </RightSidebar>
     </>
   )
@@ -87,7 +112,13 @@ export const HeaderTable = ({
   )
 }
 
-const Modal = ({ formik }: { formik: any }) => {
+const Modal = ({ formik, periods }: { formik: any; periods?: period[] }) => {
+  const defaultValues = periods?.map(period => {
+    const selected = formik.values.periods?.includes(period.id)
+    if (selected) {
+      return { value: period.id, label: period.name }
+    }
+  })
   return (
     <form>
       <Input
@@ -99,6 +130,22 @@ const Modal = ({ formik }: { formik: any }) => {
         onChange={formik.handleChange}
         error={formik.errors.name}
         value={formik.values.name}
+      />
+      <Select
+        options={periods?.map(period => ({
+          value: period.id,
+          label: period.name
+        }))}
+        defaultValue={defaultValues}
+        isMulti
+        placeholder="Seleccione un periodo"
+        className="w-full min-w-full"
+        onChange={(e: any) => {
+          formik.setFieldValue(
+            'periods',
+            e?.map((item: any) => item.value)
+          )
+        }}
       />
     </form>
   )

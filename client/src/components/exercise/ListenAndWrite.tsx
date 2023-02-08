@@ -59,14 +59,14 @@ const ListenAndWrite = (props: question) => {
         }
       )
       const newQuestion = {
-        _id: props._id,
+        id: props.id,
         nota: correct.note,
         isDone: true,
         responseUser: JSON.stringify({ options })
       }
 
       const find = gameState.questions.find(
-        question => question._id === newQuestion._id
+        question => question.id === newQuestion.id
       )
 
       if (find) {
@@ -76,7 +76,7 @@ const ListenAndWrite = (props: question) => {
       }
     } else {
       updatedQuestion({
-        _id: props._id,
+        id: props.id,
         nota: 0,
         isDone: false,
         responseUser: undefined

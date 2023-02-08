@@ -47,7 +47,7 @@ export interface chooseAnOption_ {
 
 export interface question {
   index: number
-  _id: string
+  id: string
   title: string
   subtitle: string | null
   type: typeQuestion

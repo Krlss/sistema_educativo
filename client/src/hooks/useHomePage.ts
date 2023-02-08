@@ -8,7 +8,7 @@ const useHomePage = () => {
   useEffect(() => {
     const percentage = user?.progress?.map(p => {
       const asignatureFind = config?.asignatures?.find(
-        asignature => asignature._id === p.id_asignature
+        asignature => asignature.id === p.id_asignature
       )
 
       const total = asignatureFind?.unit?.reduce(

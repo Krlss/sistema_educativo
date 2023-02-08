@@ -15,7 +15,7 @@ export type GeneralContextProps = {
   setLoading: (loading: boolean) => void
   setQuestion: (question: QuestionsExtends) => void
   setQuestions: (questions: QuestionsExtends[]) => void
-  removeQuestion: (_id: string) => void
+  removeQuestion: (id: string) => void
   updatedQuestion: (question: QuestionsExtends) => void
   setIndex: (index: number) => void
   gameState: QUESTION

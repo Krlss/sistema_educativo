@@ -45,14 +45,14 @@ const SelectPlaceTableOption = (props: question) => {
         response: option.response
       }))
       const newQuestion = {
-        _id: props._id,
+        id: props.id,
         nota: correct.note,
         isDone: true,
         responseUser: JSON.stringify({ response })
       }
 
       const find = gameState.questions.find(
-        question => question._id === newQuestion._id
+        question => question.id === newQuestion.id
       )
 
       if (find) {
@@ -62,7 +62,7 @@ const SelectPlaceTableOption = (props: question) => {
       }
     } else {
       updatedQuestion({
-        _id: props._id,
+        id: props.id,
         nota: 0,
         isDone: false,
         responseUser: undefined

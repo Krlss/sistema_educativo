@@ -20,14 +20,14 @@ const useChooseAnyOption = ({ question, options_ }: Props) => {
       const answerTrue = answer.filter(option => option.value === true).length
 
       const newQuestion = {
-        _id: question._id,
+        id: question.id,
         nota: isWrong ? 0 : answerTrue / optionsTrue,
         isDone: true,
         responseUser: JSON.stringify({ answer })
       }
 
       const find = gameState.questions.find(
-        question => question._id === newQuestion._id
+        question => question.id === newQuestion.id
       )
 
       if (find) {
@@ -37,7 +37,7 @@ const useChooseAnyOption = ({ question, options_ }: Props) => {
       }
     } else {
       updatedQuestion({
-        _id: question._id,
+        id: question.id,
         nota: 0,
         isDone: false,
         responseUser: undefined

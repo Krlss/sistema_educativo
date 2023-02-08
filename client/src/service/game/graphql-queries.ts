@@ -3,7 +3,7 @@ import { gql } from '@apollo/client'
 export const QUESTIONS_BY_UNIT = gql`
   query questionsByUnit($unitId: String!, $asignatureId: String!) {
     getRandomUnitQuestions(unitId: $unitId, asignatureId: $asignatureId) {
-      _id
+      id
       options
       title
       type
@@ -15,7 +15,7 @@ export const QUESTIONS_BY_UNIT = gql`
 export const QUESTIONS_BY_ASIGNATURE = gql`
   query questionsByAsignature($asignatureId: String!) {
     getRandomQuestionsByAsignatures(asignatureId: $asignatureId) {
-      _id
+      id
       options
       title
       type

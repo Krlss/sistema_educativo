@@ -3,11 +3,11 @@ import { gql } from '@apollo/client'
 export const GETTOPICS = gql`
   query GETTOPICS($asignatureId: String!, $unitId: String!) {
     getTopics(asignatureId: $asignatureId, unitId: $unitId) {
-      _id
+      id
       name
       asignature_name
       topic {
-        _id
+        id
         name
         description
         video

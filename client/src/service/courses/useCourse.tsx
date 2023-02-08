@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useQuery } from '@apollo/client'
-import { RowCourse } from '../../pages/dashboard/cursos'
+import { course } from '../../pages/dashboard/cursos'
 import { GETCOURSES } from './graphql-queries'
 import { useFormik } from 'formik'
 import { registerCourseValidationSchema } from '../../schemas'
@@ -13,30 +13,49 @@ export const useCourse = () => {
   const [isAdd, setIsAdd] = useState(true)
   const [title, setTitle] = useState('Agregar curso')
   const { handleCreateCourse, handleUpdateCourse } = useCreateCourse()
+  const [selectRow, setSelectRow] = useState<{
+    id: string
+    name: string
+    periods: string[]
+  }>({
+    id: '',
+    name: '',
+    periods: []
+  })
 
   const formik = useFormik({
     initialValues: {
-      id: undefined as number | undefined,
-      name: ''
+      name: '',
+      periods: [] as string[]
     },
     validationSchema: registerCourseValidationSchema,
     onSubmit: values => {
       if (isAdd) {
         handleCreateCourse(values)
       } else {
-        handleUpdateCourse(values.id, {
-          name: values.name
+        const { id, name } = selectRow
+        handleUpdateCourse({
+          id,
+          ...(name !== values.name && { name: values.name }),
+          periods: values.periods
         })
       }
       setOpen(false)
     }
   })
 
-  const columns: TableColumn<RowCourse>[] = [
+  const columns: TableColumn<course>[] = [
     {
       name: 'Curso',
       selector: row => row.name,
       sortable: true
+    },
+    {
+      name: 'Periodos',
+      selector: row => {
+        return row.periodsCourses.map(period => period.period.name).join(', ')
+      },
+      sortable: false
     },
     {
       name: 'Creado hace',
@@ -58,10 +77,13 @@ export const useCourse = () => {
             onClick={() => {
               setOpen(true)
               setIsAdd(false)
-              formik.setValues({
+              const period_ = {
                 id: row.id,
-                name: row.name
-              })
+                name: row.name,
+                periods: row.periodsCourses.map(period => period.periodId)
+              }
+              formik.setValues(period_)
+              setSelectRow(period_)
               setTitle('Editar curso')
             }}
             onDelete={() => {

@@ -5,21 +5,17 @@ import { GETPERIODS } from './graphql-queries'
 import { getRamdonArrayColors, pastelColors } from '../../constants/colors'
 
 import GeneralContext from '../../contexts/context'
-
-export interface PERIOD {
-  id: number
-  name: string
-}
+import { period } from '../../pages/dashboard/cursos'
 
 export interface getPeriodsProps {
-  getPeriods: PERIOD[]
+  periods: period[]
 }
 
 export interface getPeriodProps {
-  getPeriod: PERIOD
+  periods: period
 }
 
 export const useGetPeriods = () => {
   const { data, loading, error } = useQuery<getPeriodsProps>(GETPERIODS)
-  return { dataPeriods: data, error, loadingPeriods: loading }
+  return { data, error, loadingPeriods: loading }
 }

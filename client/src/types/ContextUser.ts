@@ -1,17 +1,17 @@
 export interface TOPIC {
-  _id: string
+  id: string
   nota: number
   id_topic: string
   finished: boolean
   questions: {
-    _id: string
+    id: string
     nota: number
     id_question: string
     isDone: boolean
   }[]
 }
 export interface UNIT {
-  _id: string
+  id: string
   nota: number
   id_unit: string
   finished: boolean
@@ -19,26 +19,27 @@ export interface UNIT {
 }
 
 export interface PROGRESS {
-  _id: string
+  id: string
   nota: number
   id_asignature: string
   unit?: UNIT[]
 }
 export interface USER {
-  _id: string
+  id: string
   lastName: string
   name: string
   email: string
   roles: ROLES[]
   isLogged: boolean
-  rememberMe: boolean
   progress: PROGRESS[]
 }
 
 export interface ROLES {
-  id: number
+  id: string
   name: string
   createdAt: string
+  updatedAt: string
+  deletedAt?: string
 }
 
 export interface IUpdateFinishedTopic {

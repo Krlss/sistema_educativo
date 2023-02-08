@@ -38,14 +38,14 @@ const useOrderOneDigitNumbers = (props: question) => {
     const response = options.map(option => option.value).join('')
 
     const newQuestion = {
-      _id: props._id,
+      id: props.id,
       nota: options_.value === response ? 1 : 0,
       isDone: true,
       responseUser: JSON.stringify({ response })
     }
 
     const find = gameState.questions.find(
-      question => question._id === newQuestion._id
+      question => question.id === newQuestion.id
     )
 
     if (find) {

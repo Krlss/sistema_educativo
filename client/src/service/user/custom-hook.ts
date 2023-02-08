@@ -5,6 +5,7 @@ import { useLazyQuery, useMutation } from '@apollo/client'
 import { getDataSession } from '../../utils/dataSession'
 import GeneralContext from '../../contexts/context'
 import { USER } from '../../types/ContextUser'
+import jwtDecode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
 export interface PropsLogin {
   email: string
@@ -27,7 +28,7 @@ interface RegisterUser {
 }
 
 export const useLogin = () => {
-  const { setIsLogged, setLoading } = useContext(GeneralContext)
+  const { setUser, setIsLogged, setLoading } = useContext(GeneralContext)
   const token = getDataSession('rt')
   const navigate = useNavigate()
 
@@ -37,7 +38,8 @@ export const useLogin = () => {
     },
     onCompleted({ login }) {
       setLoading(false)
-      /* setUser({ ...login }) */
+      const user = jwtDecode<USER>(login)
+      setUser({ ...user })
       setIsLogged(true)
       navigate('/')
     }

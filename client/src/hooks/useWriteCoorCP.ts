@@ -45,14 +45,14 @@ const useWriteCoorCP = ({
       )
 
       const newQuestion = {
-        _id: question._id,
+        id: question.id,
         nota: correct.note,
         isDone: true,
         responseUser: JSON.stringify({ options })
       }
 
       const find = gameState.questions.find(
-        question => question._id === newQuestion._id
+        question => question.id === newQuestion.id
       )
 
       if (find) {
@@ -62,7 +62,7 @@ const useWriteCoorCP = ({
       }
     } else {
       updatedQuestion({
-        _id: question._id,
+        id: question.id,
         nota: 0,
         isDone: false,
         responseUser: undefined

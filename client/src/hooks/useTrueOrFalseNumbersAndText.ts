@@ -12,14 +12,14 @@ const useTrueOrFalseNumbersAndText = ({ question }: { question: question }) => {
     if (answer) {
       const { correct } = options_
       const newQuestion = {
-        _id: question._id,
+        id: question.id,
         nota: String(correct) === answer ? 1 : 0,
         isDone: true,
         responseUser: JSON.stringify({ answer })
       }
 
       const find = gameState.questions.find(
-        question => question._id === newQuestion._id
+        question => question.id === newQuestion.id
       )
 
       if (find) {

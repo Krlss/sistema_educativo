@@ -73,14 +73,14 @@ const useDragAndDropChooseText = ({
         const response = verifyDragAndDropChooseText(newAnswers)
         if (response) {
           const newQuestion = {
-            _id: question._id,
+            id: question.id,
             nota: response.note,
             isDone: true,
             responseUser: JSON.stringify({ anwers: newAnswers })
           }
 
           const find = gameState.questions.find(
-            question => question._id === newQuestion._id
+            question => question.id === newQuestion.id
           )
 
           if (find) {

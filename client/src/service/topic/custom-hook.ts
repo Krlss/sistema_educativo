@@ -10,11 +10,11 @@ import { getDataSession } from '../../utils/dataSession'
 import { GET_USER_PROGRESS } from '../progress/graphql-queries'
 
 interface IGetTopics {
-  _id: string
+  id: string
   name: string
   asignature_name: string
   topic: {
-    _id: string
+    id: string
     name: string
     description: string
     video: string
@@ -22,14 +22,14 @@ interface IGetTopics {
 }
 
 interface TOPIC {
-  _id: string
+  id: string
   name: string
   description?: string
   video?: string
 }
 
 interface ASIGNATURES {
-  _id: string
+  id: string
   asignature_name: string
   name: string
   topic?: TOPIC[]
@@ -99,7 +99,7 @@ export const useGetTopics = () => {
     createUserUnit({
       variables: { ...props },
       onCompleted: ({ createUserUnit }) => {
-        setUser({ ...createUserUnit, rememberMe: token.rememberMe })
+        setUser({ ...createUserUnit })
       }
     })
   }
@@ -111,7 +111,7 @@ export const useGetTopics = () => {
     })
 
     if (createdUserUnit === undefined && token) {
-      createUserUnitHandler({ asignatureId, unitId, userId: token._id })
+      createUserUnitHandler({ asignatureId, unitId, userId: token.id })
     }
 
     window.scrollTo({ top: 0, behavior: 'smooth' })

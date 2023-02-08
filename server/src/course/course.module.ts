@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { CourseService } from './course.service';
 import { CourseResolver } from './course.resolver';
 import { PeriodModule } from 'src/period/period.module';
@@ -7,7 +7,7 @@ import CourseValidaitons from './validations';
 import { IsPeriodsExist } from 'src/period/validations/ids.period.exist';
 
 @Module({
-  imports: [PeriodModule],
+  imports: [forwardRef(() => PeriodModule)],
   providers: [
     CourseService,
     CourseResolver,

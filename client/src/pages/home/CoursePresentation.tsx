@@ -24,14 +24,14 @@ const CoursePresentation = () => {
         <div className="mx-auto max-w-5xl pb-20 w-full">
           {asignature?.unit?.map((unt, index) => {
             const unitFined = user?.progress?.find(p =>
-              p.unit?.find(u => u.id_unit === unt._id)
+              p.unit?.find(u => u.id_unit === unt.id)
             ) as PROGRESS
 
             /**
              * Número de temas completados
              */
             const isCompleted = unitFined?.unit
-              ?.find(u => u.id_unit === unt._id)
+              ?.find(u => u.id_unit === unt.id)
               ?.topic?.filter(t => t.finished).length
 
             /**
@@ -45,7 +45,7 @@ const CoursePresentation = () => {
               p => p.id_asignature === asignatureId
             )
 
-            const isUnit = isAsignature?.unit?.find(u => u.id_unit === unt._id)
+            const isUnit = isAsignature?.unit?.find(u => u.id_unit === unt.id)
 
             return (
               <div
@@ -53,7 +53,7 @@ const CoursePresentation = () => {
                 className="rounded-md flex items-start justify-between md:flex-row flex-col md:items-center my-3 shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white h-[225px] md:h-[120px] ">
                 <NavLink
                   className="rounded-md flex items-center justify-start h-full"
-                  to={`/asignatura/${asignatureId}/unidad/${unt._id}`}>
+                  to={`/asignatura/${asignatureId}/unidad/${unt.id}`}>
                   <div
                     className="items-center justify-center min-w-[104px] max-w-[80px] w-full rounded-l-md font-bold text-xl md:flex hidden h-full"
                     style={{
@@ -87,18 +87,18 @@ const CoursePresentation = () => {
                   </div>
                 ) : equalsCompleted && !gameState.timeLeft ? (
                   <DarPruebaDiv
-                    asignature={asignature._id}
-                    unit={asignature.unit[index]._id}
+                    asignature={asignature.id}
+                    unit={asignature.unit[index].id}
                     title="Dar prueba"
                   />
                 ) : (
                   equalsCompleted &&
-                  questionsId?.asignatureId === asignature._id &&
-                  questionsId?.unitId === asignature.unit[index]._id &&
+                  questionsId?.asignatureId === asignature.id &&
+                  questionsId?.unitId === asignature.unit[index].id &&
                   gameState.timeLeft && (
                     <DarPruebaDiv
-                      asignature={asignature._id}
-                      unit={asignature.unit[index]._id}
+                      asignature={asignature.id}
+                      unit={asignature.unit[index].id}
                       title="Continuar"
                     />
                   )

@@ -262,11 +262,11 @@ const useGame = () => {
     let questions_: QuestionsExtends[] = []
     if (!existQuestions) {
       questions_ = dataGame.map(item => ({
-        _id: item._id,
+        id: item.id,
         nota: 0,
         isDone: false
       })) as {
-        _id: string
+        id: string
         nota: number
         isDone: boolean
       }[]
@@ -330,13 +330,13 @@ const useGame = () => {
         if (asignatureId && unitId) {
           const progressId_ = user.progress.find(
             item => item.id_asignature === asignatureId
-          )?._id
+          )?.id
 
           handlerQualifyForUnit({
             data: JSON.stringify(gameState.questions),
             unitId,
             progressId: progressId_,
-            userId: user._id,
+            userId: user.id,
             nota: gameState.qualification
           })
         }

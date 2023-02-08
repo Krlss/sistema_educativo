@@ -32,14 +32,14 @@ const useBase10Descomposition = (props: question) => {
       const response = value_.filter(item => item.isCorrect).length
 
       const newQuestion = {
-        _id: props._id,
+        id: props.id,
         nota: Number((response / value_.length).toFixed(2)),
         isDone: true,
         responseUser: JSON.stringify({ response: value_ })
       }
 
       const find = gameState.questions.find(
-        question => question._id === newQuestion._id
+        question => question.id === newQuestion.id
       )
 
       if (find) {
@@ -49,7 +49,7 @@ const useBase10Descomposition = (props: question) => {
       }
     } else {
       updatedQuestion({
-        _id: props._id,
+        id: props.id,
         nota: 0,
         isDone: false,
         responseUser: undefined

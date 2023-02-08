@@ -111,14 +111,14 @@ const usePositionalTable = ({
       )
 
       const newQuestion = {
-        _id: question._id,
+        id: question.id,
         nota: correct.note,
         isDone: true,
         responseUser: JSON.stringify({ tableValues })
       }
 
       const find = gameState.questions.find(
-        question => question._id === newQuestion._id
+        question => question.id === newQuestion.id
       )
 
       if (find) {
@@ -128,7 +128,7 @@ const usePositionalTable = ({
       }
     } else {
       updatedQuestion({
-        _id: question._id,
+        id: question.id,
         nota: 0,
         isDone: false,
         responseUser: undefined

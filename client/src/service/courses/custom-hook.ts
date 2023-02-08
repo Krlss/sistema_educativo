@@ -1,12 +1,12 @@
 import { useMutation, useQuery } from '@apollo/client'
-import { RowCourse } from '../../pages/dashboard/cursos'
+import { course } from '../../pages/dashboard/cursos'
 import { CREATE_COURSE, UPDATE_COURSE } from './graphql-mutation'
 import { GETCOURSES } from './graphql-queries'
 import { toast } from 'react-toastify'
 
 interface IGETCOURSES {
   data: {
-    getCourses: RowCourse[]
+    courses: course[]
   }
   loading: boolean
   error: any
@@ -26,32 +26,33 @@ export const useCreateCourse = () => {
     refetchQueries: [{ query: GETCOURSES }]
   })
 
-  const handleCreateCourse = (course: { name: string }) => {
+  const handleCreateCourse = (course: { name: string; periods?: string[] }) => {
     createCourse({
       variables: {
-        data: {
+        input: {
           ...course
         }
       },
       onCompleted: () => {
         toast.success('Curso creado con éxito')
       },
-      onError(error) {
-        toast.error(error.message)
+      onError(error: any) {
+        toast.error(error.response.message.map((e: any) => e.message).join(''))
       }
     })
   }
 
-  const handleUpdateCourse = (
-    updateCourseId: number | undefined,
-    course: { name: string }
-  ) => {
+  const handleUpdateCourse = (course: {
+    id: string
+    name?: string
+    periods?: string[]
+  }) => {
+    console.log({ course })
     updateCourse({
       variables: {
-        data: {
+        input: {
           ...course
-        },
-        updateCourseId
+        }
       },
       onCompleted: () => {
         toast.success('Curso actualizado con éxito')

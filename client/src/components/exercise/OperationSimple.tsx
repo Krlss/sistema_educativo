@@ -51,14 +51,14 @@ const OperationSimple = (props: question) => {
       if (correct === props_.correct) nota += 0.8
 
       const newQuestion = {
-        _id: props._id,
+        id: props.id,
         nota,
         isDone: true,
         responseUser: JSON.stringify({ state })
       }
 
       const find = gameState.questions.find(
-        question => question._id === newQuestion._id
+        question => question.id === newQuestion.id
       )
 
       if (find) {
@@ -68,14 +68,14 @@ const OperationSimple = (props: question) => {
       }
     } else if (state?.correct && !props_.residuo) {
       const newQuestion = {
-        _id: props._id,
+        id: props.id,
         nota: state?.correct === props_.correct ? 1 : 0,
         isDone: true,
         responseUser: JSON.stringify({ state })
       }
 
       const find = gameState.questions.find(
-        question => question._id === newQuestion._id
+        question => question.id === newQuestion.id
       )
 
       if (find) {

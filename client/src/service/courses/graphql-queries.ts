@@ -1,12 +1,25 @@
 import { gql } from '@apollo/client'
 
 export const GETCOURSES = gql`
-  query Query {
+  query Courses {
     courses {
       id
-      createdAt
       name
+      createdAt
       updatedAt
+      periodsCourses {
+        id
+        createdAt
+        updatedAt
+        periodId
+        courseId
+        period {
+          name
+          id
+          createdAt
+          updatedAt
+        }
+      }
     }
   }
 `

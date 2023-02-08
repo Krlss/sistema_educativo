@@ -15,14 +15,14 @@ const useChooseAnOption = ({ question, options_ }: Props) => {
     if (answer) {
       const isCorrect = options_.find(option => option.text === answer)?.value
       const newQuestion = {
-        _id: question._id,
+        id: question.id,
         nota: isCorrect ? 1 : 0,
         isDone: true,
         responseUser: JSON.stringify({ answer })
       }
 
       const find = gameState.questions.find(
-        question => question._id === newQuestion._id
+        question => question.id === newQuestion.id
       )
 
       if (find) {

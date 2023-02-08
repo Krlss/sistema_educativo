@@ -60,14 +60,14 @@ const useNumberPositional = (props: question) => {
       const realValue = value.map(item => item.value).join('')
       const response = value.map(item => item.response).join('')
       const newQuestion = {
-        _id: props._id,
+        id: props.id,
         nota: realValue === response ? 1 : 0,
         isDone: true,
         responseUser: JSON.stringify({ response })
       }
 
       const find = gameState.questions.find(
-        question => question._id === newQuestion._id
+        question => question.id === newQuestion.id
       )
 
       if (find) {
@@ -77,7 +77,7 @@ const useNumberPositional = (props: question) => {
       }
     } else {
       updatedQuestion({
-        _id: props._id,
+        id: props.id,
         nota: 0,
         isDone: false,
         responseUser: undefined

@@ -3,15 +3,15 @@ import { gql } from '@apollo/client'
 export const GETASIGNATURES = gql`
   query ASIGNATURES {
     getAsignatures {
-      _id
+      id
       name
       description
       image
       unit {
-        _id
+        id
         name
         topic {
-          _id
+          id
           name
           description
           video
@@ -24,15 +24,15 @@ export const GETASIGNATURES = gql`
 export const GETASIGNATURE = gql`
   query ASIGNATURE($asignatureId: String!) {
     getAsignature(id: $asignatureId) {
-      _id
+      id
       name
       description
       image
       unit {
-        _id
+        id
         name
         topic {
-          _id
+          id
           name
           description
           video

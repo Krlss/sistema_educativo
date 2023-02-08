@@ -26,6 +26,7 @@ import {
 import { diffMinutes } from '../utils'
 import Swal from 'sweetalert2'
 import { question } from '../types/game'
+import jwtDecode from 'jwt-decode'
 
 const GeneralProvider = (props: any) => {
   const [user, dispatchUser] = useReducer(UserReducer, InitialStateUser)
@@ -34,11 +35,12 @@ const GeneralProvider = (props: any) => {
   const { getAsignatures } = useGetAsignatures()
   const { handleGetUserProgress } = useGetUserProgress({ dispatchUser })
   useEffect(() => {
-    const token = getDataSession('token')
-    if (token) {
-      dispatchUser({ type: 'setUser', payload: token })
+    const rt = getDataSession('rt')
+    if (rt) {
+      const user = jwtDecode<USER>(rt)
+      dispatchUser({ type: 'setUser', payload: user })
       handleGetUserProgress({
-        userId: token._id
+        userId: rt.id
       })
     }
     const initialTimeStamp = getDataSession('initialTimeStamp')
@@ -49,14 +51,14 @@ const GeneralProvider = (props: any) => {
 
   useEffect(() => {
     if (user.isLogged) {
-      /* getAsignatures({
+      getAsignatures({
         onCompleted(data: getAsignaturesProps) {
           dispatchConfig({
             type: 'setAsignatures',
             payload: data.getAsignatures
           })
         }
-      }) */
+      })
     }
   }, [user.isLogged])
 
@@ -76,8 +78,8 @@ const GeneralProvider = (props: any) => {
     dispatchGame({ type: 'setQuestions', payload: questions })
   }
 
-  const removeQuestion = (_id: string) => {
-    dispatchGame({ type: 'removeQuestion', payload: _id })
+  const removeQuestion = (id: string) => {
+    dispatchGame({ type: 'removeQuestion', payload: id })
   }
 
   const updatedQuestion = (question: QuestionsExtends) => {
