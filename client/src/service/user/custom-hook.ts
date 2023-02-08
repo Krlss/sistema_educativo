@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom'
 export interface PropsLogin {
   email: string
   password: string
-  rememberMe: boolean
 }
 
 export interface PropsRegister {
@@ -20,7 +19,7 @@ export interface PropsRegister {
 }
 
 interface LoginUser {
-  login: USER
+  login: string
 }
 
 interface RegisterUser {
@@ -28,8 +27,8 @@ interface RegisterUser {
 }
 
 export const useLogin = () => {
-  const { setUser, setLoading } = useContext(GeneralContext)
-  const token = getDataSession('token')
+  const { setIsLogged, setLoading } = useContext(GeneralContext)
+  const token = getDataSession('rt')
   const navigate = useNavigate()
 
   const [login, { data, error, loading }] = useLazyQuery<LoginUser>(LOGIN, {
@@ -38,21 +37,22 @@ export const useLogin = () => {
     },
     onCompleted({ login }) {
       setLoading(false)
-      setUser({ ...login })
+      /* setUser({ ...login }) */
+      setIsLogged(true)
       navigate('/')
     }
   })
 
   const loginHandler = (Props: PropsLogin) => {
     setLoading(true)
-    login({ variables: { data: { ...Props } } })
+    login({ variables: { ...Props } })
   }
 
   return { loginHandler, data, error, loading, token }
 }
 
 export const useRegister = () => {
-  const token = getDataSession('token')
+  const token = getDataSession('rt')
   const navigate = useNavigate()
   const { setLoading } = useContext(GeneralContext)
 

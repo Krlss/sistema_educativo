@@ -48,7 +48,7 @@ export class UserResolver {
     const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
     res.cookie('rt', accessToken, {
-      httpOnly: true,
+      httpOnly: false,
       sameSite: 'none',
       path: '/',
       secure: true,

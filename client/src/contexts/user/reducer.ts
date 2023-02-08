@@ -6,6 +6,7 @@ export type UserReducerProps =
   | { type: 'resetUser'; payload: undefined }
   | { type: 'setUserProgress'; payload: PROGRESS[] }
   | { type: 'updateFinishedTopic'; payload: IUpdateFinishedTopic }
+  | { type: 'setIsLogged'; payload: boolean }
 
 export default (state: USER, action: UserReducerProps) => {
   const { type, payload } = action
@@ -15,8 +16,7 @@ export default (state: USER, action: UserReducerProps) => {
       setDataSession('token', payload)
       return {
         ...state,
-        ...payload,
-        isLogged: true
+        ...payload
       }
     case 'resetUser':
       removeDataSession('token')
@@ -36,6 +36,11 @@ export default (state: USER, action: UserReducerProps) => {
       return {
         ...state,
         progress: payload
+      }
+    case 'setIsLogged':
+      return {
+        ...state,
+        isLogged: payload
       }
     /* case 'updateFinishedTopic':
       const { asignatureId, unitId, topicId } = payload

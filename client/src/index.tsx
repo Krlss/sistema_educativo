@@ -1,6 +1,8 @@
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import './index.css'
+import { getDataSession } from './utils/dataSession'
+
 import App from './App'
 import {
   ApolloClient,
@@ -14,7 +16,14 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
   connectToDevTools: true,
   link: new HttpLink({
-    uri: 'http://localhost:8000/graphql'
+    uri: 'http://localhost:8000/graphql',
+    credentials: 'include',
+    headers: () => {
+      const rt = getDataSession('rt')
+      return {
+        authorization: rt ? `Bearer ${rt}` : ''
+      }
+    }
   })
 })
 

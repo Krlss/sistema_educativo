@@ -49,16 +49,20 @@ const GeneralProvider = (props: any) => {
 
   useEffect(() => {
     if (user.isLogged) {
-      getAsignatures({
+      /* getAsignatures({
         onCompleted(data: getAsignaturesProps) {
           dispatchConfig({
             type: 'setAsignatures',
             payload: data.getAsignatures
           })
         }
-      })
+      }) */
     }
   }, [user.isLogged])
+
+  const setIsLogged = (isLogged: boolean) => {
+    dispatchUser({ type: 'setIsLogged', payload: isLogged })
+  }
 
   const setNext = (next: boolean) => {
     dispatchGame({ type: 'setNext', payload: next })
@@ -235,7 +239,8 @@ const GeneralProvider = (props: any) => {
         setInitialGame,
         resetGame,
         setNext,
-        calculateQualification
+        calculateQualification,
+        setIsLogged
       }}>
       {props.children}
     </GeneralContext.Provider>

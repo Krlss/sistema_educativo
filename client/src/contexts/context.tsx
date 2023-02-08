@@ -28,6 +28,7 @@ export type GeneralContextProps = {
   resetGame: () => void
   setNext: (boolean: boolean) => void
   calculateQualification: () => void
+  setIsLogged: (isLogged: boolean) => void
 }
 
 const GeneralContext = createContext<GeneralContextProps>(

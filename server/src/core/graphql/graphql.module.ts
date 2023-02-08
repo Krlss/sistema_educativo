@@ -16,7 +16,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/core/graphql/api-schema.gql'),
       playground: false,
-      introspection: process.env.NODE_ENV === 'development',
+      //introspection: process.env.NODE_ENV === 'development',
       plugins: [
         ApolloServerPluginLandingPageLocalDefault({
           includeCookies: true,

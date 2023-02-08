@@ -5,7 +5,7 @@ import { getDataSession } from '../utils/dataSession'
 import StaticLeftSidebar from '../components/sidebar/staticLeftSidebar'
 
 const Aplication = () => {
-  const token = getDataSession('token')
+  const token = getDataSession('rt')
   if (!token) {
     return <Navigate to="/iniciar-sesion" />
   }
