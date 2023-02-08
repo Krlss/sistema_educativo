@@ -9,6 +9,7 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 import { Observable } from 'rxjs';
 import { UserService } from 'src/user/user.service';
 import { compare } from 'src/common/helpers/bcrypt.helpers';
+import { sign } from 'jsonwebtoken';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

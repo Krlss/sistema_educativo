@@ -9,6 +9,7 @@ import { AuthGuard } from 'src/auth/auth.guard';
 import { sign } from 'jsonwebtoken';
 import { JwtGuard } from 'src/auth/jwt.guard';
 import { RolesGuard } from 'src/auth/roles.guard';
+import { Response } from 'express';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -31,6 +32,7 @@ export class UserResolver {
     @Args({ name: 'email', type: () => String }) email: string,
     @Args({ name: 'password', type: () => String }) password: string,
     @Context('user') user: User,
+    @Context('res') res: Response,
   ) {
     const payload = {
       id: user.id,
@@ -39,7 +41,22 @@ export class UserResolver {
       lastName: user.lastName,
       roles: user.roles,
     };
-    return sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    const accessToken = sign(payload, process.env.JWT_SECRET, {
+      expiresIn: '7d',
+    });
+    const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+
+    res.cookie('rt', accessToken, {
+      httpOnly: true,
+      sameSite: 'none',
+      path: '/',
+      secure: true,
+      domain: 'localhost',
+      expires,
+    });
+
+    return accessToken;
   }
 
   @Mutation(() => User, { nullable: true })
