@@ -24,6 +24,9 @@ export class PeriodsCoursesAsignature {
   @Field({ nullable: true })
   periodCourseId: string;
 
+  @Field(() => Asignature, { nullable: true })
+  asignature: Asignature;
+
   @Field(() => PeriodsCourses, { nullable: true })
   periodCourse: PeriodsCourses;
 

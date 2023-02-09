@@ -28,5 +28,19 @@ export const usersSeed = async () => {
     });
     console.log('Users created: ', users.length);
   }
+  for (let i = 0; i < 100; i++) {
+    const password_ = await bcrypt.hash('12345678', 10);
+    await prisma.user.create({
+      data: {
+        name: 'student' + i,
+        lastName: 'student' + i,
+        email: 'student' + i + '@localhost.com',
+        password: password_,
+        roles: {
+          connect: [{ name: 'student' }],
+        },
+      },
+    });
+  }
   prisma.$disconnect();
 };

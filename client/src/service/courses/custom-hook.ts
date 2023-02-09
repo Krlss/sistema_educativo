@@ -3,6 +3,7 @@ import { course } from '../../pages/dashboard/cursos'
 import { CREATE_COURSE, UPDATE_COURSE } from './graphql-mutation'
 import { GETCOURSES } from './graphql-queries'
 import { toast } from 'react-toastify'
+import { GETPERIODS } from '../periods/graphql-queries'
 
 interface IGETCOURSES {
   data: {
@@ -20,10 +21,10 @@ export const useGetCourses = () => {
 
 export const useCreateCourse = () => {
   const [createCourse] = useMutation(CREATE_COURSE, {
-    refetchQueries: [{ query: GETCOURSES }]
+    refetchQueries: [{ query: GETCOURSES }, { query: GETPERIODS }]
   })
   const [updateCourse] = useMutation(UPDATE_COURSE, {
-    refetchQueries: [{ query: GETCOURSES }]
+    refetchQueries: [{ query: GETCOURSES }, { query: GETPERIODS }]
   })
 
   const handleCreateCourse = (course: { name: string; periods?: string[] }) => {

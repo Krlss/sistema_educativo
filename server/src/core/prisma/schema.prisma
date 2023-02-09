@@ -153,6 +153,7 @@ model PeriodsCoursesAsignatures {
 
 model PeriodsCoursesAsignaturesUnits {
   id                               Int                                    @id @default(autoincrement())
+  testActive                       Boolean                                @default(false)
   unitId                           String
   createdAt                        DateTime                               @default(now())
   updatedAt                        DateTime                               @updatedAt

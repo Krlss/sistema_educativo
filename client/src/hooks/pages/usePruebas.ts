@@ -1,19 +1,43 @@
 import { useEffect, useState } from 'react'
 import { useLazyQuery } from '@apollo/client'
 import { GETPERIODS } from '../../service/periods/graphql-queries'
-
+import { useMutation } from '@apollo/client'
+import { CHANGE_TEST_ACTIVE } from '../../service/units/graphql-mutations'
 interface PERIODS_ {
   id: string
   name: string
-  periodsCourses: PERIODSCOURSES[]
+  PC: PERIODSCOURSES[]
 }
 
 interface PERIODSCOURSES {
-  id: string
+  id: number
   periodId: string
   courseId: string
   period: PERIOD
   course: COURSE
+  PCA: PERIODSCOURSESASIGNATURES[]
+}
+
+interface PERIODSCOURSESASIGNATURES {
+  id: number
+  asignature: ASIGNATURE
+  PCAU: PERIODCOURSEASIGNATUREUNIT[]
+}
+
+interface PERIODCOURSEASIGNATUREUNIT {
+  id: number
+  testActive: boolean
+  unit: UNIT
+}
+
+interface ASIGNATURE {
+  id: string
+  name: string
+}
+
+interface UNIT {
+  id: string
+  name: string
 }
 
 interface PERIOD {
@@ -34,8 +58,40 @@ const usePruebas = () => {
   const [periods, setPeriods] = useState<{ value: string; label: string }[]>([])
 
   const [courses, setCourses] = useState<
-    { value: string; label: string }[] | undefined
+    { value: number; label: string }[] | undefined
   >([])
+
+  const [asignatures, setAsignatures] = useState<
+    { value: number; label: string }[] | undefined
+  >([])
+
+  const [units, setUnits] = useState<PERIODCOURSEASIGNATUREUNIT[] | undefined>(
+    []
+  )
+
+  const [selectedPeriod, setSelectedPeriod] = useState<string | undefined>()
+  const [selectedCourse, setSelectedCourse] = useState<number | undefined>()
+
+  const [testUnitActive] = useMutation(CHANGE_TEST_ACTIVE, {
+    refetchQueries: [{ query: GETPERIODS }]
+  })
+
+  const changeTestUnitActive = (id: number, testActive: boolean) => {
+    testUnitActive({
+      variables: {
+        input: {
+          id,
+          testActive
+        }
+      },
+      onCompleted() {
+        console.log('Test active change!')
+      },
+      onError(error) {
+        console.log('Error changing test active', error)
+      }
+    })
+  }
 
   useEffect(() => {
     getPeriods({
@@ -52,7 +108,23 @@ const usePruebas = () => {
     })
   }, [loading])
 
-  return { data, error, loading, periods, courses, setCourses }
+  return {
+    data,
+    error,
+    loading,
+    periods,
+    courses,
+    setCourses,
+    asignatures,
+    setAsignatures,
+    selectedPeriod,
+    setSelectedPeriod,
+    selectedCourse,
+    setSelectedCourse,
+    units,
+    setUnits,
+    changeTestUnitActive
+  }
 }
 
 export default usePruebas

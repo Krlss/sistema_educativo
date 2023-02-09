@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/core/prisma/prisma.service';
+import { UpdatePeriodsCoursesAsignaturesUnitDTO } from './dto/update-courses-periods-asignatures-unit.input';
 
 @Injectable()
 export class PeriodsCoursesAsignaturesUnitsService {
@@ -83,6 +84,23 @@ export class PeriodsCoursesAsignaturesUnitsService {
           },
         },
         unit: true,
+      },
+    });
+  }
+
+  async update(data: UpdatePeriodsCoursesAsignaturesUnitDTO) {
+    const { id, testActive } = data;
+    const find = await this.get(id);
+    if (!find) {
+      throw new Error('No existe el registro');
+    }
+
+    return await this.prismaService.periodsCoursesAsignaturesUnits.update({
+      where: {
+        id,
+      },
+      data: {
+        testActive,
       },
     });
   }

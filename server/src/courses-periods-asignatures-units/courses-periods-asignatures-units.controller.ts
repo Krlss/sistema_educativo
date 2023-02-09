@@ -1,5 +1,6 @@
 import { Controller } from '@nestjs/common';
 import { PeriodsCoursesAsignaturesUnitsService } from './courses-periods-asignatures-units.service';
+import { UpdatePeriodsCoursesAsignaturesUnitDTO } from './dto/update-courses-periods-asignatures-unit.input';
 
 @Controller('courses-periods-asignatures-units')
 export class PeriodsCoursesAsignaturesUnitsController {
@@ -27,5 +28,9 @@ export class PeriodsCoursesAsignaturesUnitsController {
       unitId,
       periodCourseAsignatureId,
     );
+  }
+
+  async update(data: UpdatePeriodsCoursesAsignaturesUnitDTO) {
+    return await this.CPAUService.update(data);
   }
 }

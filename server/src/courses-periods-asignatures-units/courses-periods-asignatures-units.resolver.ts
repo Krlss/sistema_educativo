@@ -1,8 +1,8 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { PeriodsCoursesAsignaturesUnitsController } from './courses-periods-asignatures-units.controller';
 import { PeriodsCoursesAsignaturesUnit } from './entities/courses-periods-asignatures-unit.entity';
-import { CreatePeriodsCoursesAsignaturesUnitInput } from './dto/create-courses-periods-asignatures-unit.input';
-import { UpdatePeriodsCoursesAsignaturesUnitInput } from './dto/update-courses-periods-asignatures-unit.input';
+import { CreatePeriodsCoursesAsignaturesUnitDTO } from './dto/create-courses-periods-asignatures-unit.input';
+import { UpdatePeriodsCoursesAsignaturesUnitDTO } from './dto/update-courses-periods-asignatures-unit.input';
 
 @Resolver(() => PeriodsCoursesAsignaturesUnit)
 export class PeriodsCoursesAsignaturesUnitsResolver {
@@ -43,5 +43,13 @@ export class PeriodsCoursesAsignaturesUnitsResolver {
       unitId,
       periodCourseAsignatureId,
     );
+  }
+
+  @Mutation(() => PeriodsCoursesAsignaturesUnit)
+  testUnitActive(
+    @Args('input')
+    data: UpdatePeriodsCoursesAsignaturesUnitDTO,
+  ) {
+    return this.CPAUController.update(data);
   }
 }

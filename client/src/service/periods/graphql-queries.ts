@@ -5,7 +5,7 @@ export const GETPERIODS = gql`
     periods {
       id
       name
-      periodsCourses {
+      PC: periodsCourses {
         id
         periodId
         courseId
@@ -16,6 +16,21 @@ export const GETPERIODS = gql`
         course {
           name
           id
+        }
+        PCA: periodsCoursesAsignatures {
+          id
+          asignature {
+            name
+            id
+          }
+          PCAU: periodCourseAsignatureUnit {
+            id
+            testActive
+            unit {
+              name
+              id
+            }
+          }
         }
       }
     }
