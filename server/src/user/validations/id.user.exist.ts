@@ -11,7 +11,6 @@ export class IsExistUser implements ValidatorConstraintInterface {
   constructor(protected readonly userService: UserService) {}
 
   async validate(text: string) {
-    console.log('text', text);
     return !!(await this.userService.get(text));
   }
 }

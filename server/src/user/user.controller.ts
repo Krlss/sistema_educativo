@@ -24,6 +24,10 @@ export class UserController {
     return await this.userService.get(id);
   }
 
+  async getStudents() {
+    return await this.userService.getStudents();
+  }
+
   async create(data: CreateUserDTO) {
     return await this.userService.create({
       ...data,

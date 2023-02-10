@@ -5,3 +5,9 @@ export const CREATE_USER = gql`
     createUser(data: $data)
   }
 `
+
+export const ENROLL = gql`
+  mutation Mutation($data: CreateProgressDTO!) {
+    enrollUser(data: $data)
+  }
+`

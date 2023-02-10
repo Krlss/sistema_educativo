@@ -51,6 +51,43 @@ export class UserService {
     });
   }
 
+  async getStudents() {
+    return await this.prismaService.user.findMany({
+      where: {
+        roles: {
+          some: {
+            name: {
+              in: ['student', 'estudiante'],
+            },
+          },
+        },
+      },
+      include: {
+        roles: true,
+        progress: {
+          include: {
+            periodCourseAsignature: {
+              include: {
+                asignature: true,
+                periodCourse: {
+                  include: {
+                    course: true,
+                    period: true,
+                  },
+                },
+              },
+            },
+            periodCourseAsignatureUnit: {
+              include: {
+                unit: true,
+              },
+            },
+          },
+        },
+      },
+    });
+  }
+
   async create(data: CreateUserDTO) {
     return await this.prismaService.user.create({
       data: {

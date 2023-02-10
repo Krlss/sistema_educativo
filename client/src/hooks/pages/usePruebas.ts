@@ -3,7 +3,7 @@ import { useLazyQuery } from '@apollo/client'
 import { GETPERIODS } from '../../service/periods/graphql-queries'
 import { useMutation } from '@apollo/client'
 import { CHANGE_TEST_ACTIVE } from '../../service/units/graphql-mutations'
-interface PERIODS_ {
+export interface PERIODS_ {
   id: string
   name: string
   PC: PERIODSCOURSES[]

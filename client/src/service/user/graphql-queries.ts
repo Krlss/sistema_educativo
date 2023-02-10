@@ -22,3 +22,20 @@ export const GET_USER = gql`
     }
   }
 `
+
+export const GETSTUDENTS = gql`
+  query Query {
+    students {
+      label: name
+      progress {
+        pca: periodsCoursesAsignatures {
+          pc: periodCourse {
+            id
+          }
+        }
+      }
+      value: id
+      email
+    }
+  }
+`

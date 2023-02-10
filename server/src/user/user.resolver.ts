@@ -26,6 +26,12 @@ export class UserResolver {
     return this.userController.get(id);
   }
 
+  @Query(() => [User], { nullable: true })
+  // @UseGuards(JwtGuard, new RolesGuard(['teacher', 'admin']))
+  students() {
+    return this.userController.getStudents();
+  }
+
   @Query(() => String)
   @UseGuards(AuthGuard)
   login(
