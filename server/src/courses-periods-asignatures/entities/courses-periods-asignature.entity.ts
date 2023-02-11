@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
 import { Asignature } from 'src/asignature/entities/asignature.entity';
 import { PeriodsCourses } from 'src/courses-periods/entities/courses-period.entity';
 import { Progress } from 'src/progress/entities/progress.entity';
@@ -9,8 +9,8 @@ export class PeriodsCoursesAsignatures {
   @Field({ nullable: true })
   id: number;
 
-  @Field(() => [Asignature], { nullable: true })
-  asignatureId: Asignature[];
+  @Field(() => ID, { nullable: true })
+  asignatureId: string;
 
   @Field({ nullable: true })
   createdAt: Date;

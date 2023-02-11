@@ -27,6 +27,7 @@ export const GETSTUDENTS = gql`
   query Query {
     students {
       label: name
+      lastName
       progress {
         pca: periodCourseAsignature {
           pci: periodCourseId

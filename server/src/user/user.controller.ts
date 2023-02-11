@@ -47,6 +47,9 @@ export class UserController {
     const coursePeriod = await this.coursePeriodService.get(
       input.periodCourseId,
     );
+    if (!coursePeriod.periodsCoursesAsignatures.length)
+      throw new Error('Este curso periodo no tiene asignaturas asignadas!');
+
     coursePeriod.periodsCoursesAsignatures.forEach(async (asignature) => {
       await this.progressService.create({
         periodsCoursesAsignaturesId: asignature.id,
