@@ -52,10 +52,29 @@ export const useCourse = () => {
     },
     {
       name: 'Periodos',
-      selector: row => {
-        return row.periodsCourses.map(period => period.period.name).join(', ')
+      cell: row => {
+        const onlyTwo = row.periodsCourses
+          .map(period => period.period.name)
+          .slice(0, 2)
+        const rest = row.periodsCourses.length - 2
+        return (
+          <div className="flex flex-row gap-1">
+            {onlyTwo.map((period, key) => (
+              <span key={key} className="bg-slate-500 p-0.5 text-white rounded">
+                {period}
+              </span>
+            ))}
+            {rest > 0 && (
+              <span className="bg-blue-400 p-0.5 rounded">+{rest}</span>
+            )}
+          </div>
+        )
       },
-      sortable: false
+      sortable: false,
+      style: {
+        paddingTop: '0.5rem',
+        paddingBottom: '0.5rem'
+      }
     },
     {
       name: 'Creado hace',
