@@ -28,10 +28,8 @@ export const GETSTUDENTS = gql`
     students {
       label: name
       progress {
-        pca: periodsCoursesAsignatures {
-          pc: periodCourse {
-            id
-          }
+        pca: periodCourseAsignature {
+          pci: periodCourseId
         }
       }
       value: id

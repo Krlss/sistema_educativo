@@ -1,13 +1,7 @@
-import { Listbox, Transition } from '@headlessui/react'
-import { useState, Fragment, useEffect } from 'react'
-import Icon from '../../components/icons'
-/* import Select from '../../components/icons/select'
- */ import ExpandedSelect from '../../components/icons/expandedSelect'
+import { useState, useRef } from 'react'
 import Select from 'react-select'
 
 import DataTable, { TableColumn } from 'react-data-table-component'
-import Actions from '../../components/tables/actions'
-import { useInscriptionStudent } from '../../hooks/pages/useIncriptionStudents'
 import { useMutation, useQuery } from '@apollo/client'
 import { ENROLL } from '../../service/user/graphql-mutations'
 import { GETPERIODS } from '../../service/periods/graphql-queries'
@@ -24,11 +18,12 @@ interface Student {
   value: string
   label: string
   email: string
-  progress: { pca: { pc: { id: number } } }[]
+  progress: { pca: { pci: number } }[]
 }
 
 const InscriptionStudens = () => {
   // const { periods, setSelectedPeriod } = useInscriptionStudent()
+  const selectStudents = useRef<any>(null)
   const [periodCourse, setPeriodCourse] =
     useState<{ value: number; label: string; p: string }[]>()
   const [students, setStudents] = useState<Student[]>([])
@@ -68,12 +63,15 @@ const InscriptionStudens = () => {
   } */
 
   const handlePeriodCourse = (pc: number) => {
-    const students = studens.students.filter(
-      s => s.progress.filter(pr => pr?.pca?.pc.id === pc).length
+    const students = studens?.students.filter(
+      s => s.progress.filter(pr => pr?.pca?.pci === pc).length
     )
-    const studentswtpc = studens.students.filter(s =>
-      s.progress.filter(pr => pr?.pca?.pc.id !== pc)
-    )
+    const studentswtpc = studens?.students.filter(s => {
+      const aux = s.progress.find(pr => pr?.pca?.pci !== pc)
+      if (!aux) {
+        return s
+      }
+    })
     setStudents(students)
     setStudentsWtPC(studentswtpc)
   }
@@ -88,8 +86,10 @@ const InscriptionStudens = () => {
           }
         },
         onCompleted: () => {
+          if (selectStudents.current) {
+            selectStudents.current.setValue(null)
+          }
           setSelectedStudent(undefined)
-          setSelectedPC(undefined)
           setStudents([...students, selectedStudent])
           setStudentsWtPC(
             studentsWtPC.filter(s => s.value !== selectedStudent.value)
@@ -149,6 +149,7 @@ const InscriptionStudens = () => {
             options={studentsWtPC}
             placeholder="Seleccione un curso"
             className="w-full min-w-full"
+            ref={selectStudents}
             onChange={e => {
               if (e) {
                 setSelectedStudent(e)
