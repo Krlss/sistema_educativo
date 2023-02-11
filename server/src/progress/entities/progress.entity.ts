@@ -24,7 +24,7 @@ export class Progress {
   deletedAt: Date;
 
   @Field(() => PeriodsCoursesAsignatures, { nullable: true })
-  periodsCoursesAsignature?: PeriodsCoursesAsignatures;
+  periodCourseAsignature?: PeriodsCoursesAsignatures;
 
   @Field(() => PeriodsCoursesAsignaturesUnits, { nullable: true })
   periodCourseAsignatureUnit?: PeriodsCoursesAsignaturesUnits;

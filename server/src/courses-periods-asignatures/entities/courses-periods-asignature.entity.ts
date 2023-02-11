@@ -22,7 +22,7 @@ export class PeriodsCoursesAsignatures {
   deletedAt: Date;
 
   @Field({ nullable: true })
-  periodCourseId: string;
+  periodCourseId: number;
 
   @Field(() => Asignature, { nullable: true })
   asignature: Asignature;
