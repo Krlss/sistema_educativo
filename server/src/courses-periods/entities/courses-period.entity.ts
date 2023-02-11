@@ -1,6 +1,6 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Course } from 'src/course/entities/course.entity';
-import { PeriodsCoursesAsignature } from 'src/courses-periods-asignatures/entities/courses-periods-asignature.entity';
+import { PeriodsCoursesAsignatures } from 'src/courses-periods-asignatures/entities/courses-periods-asignature.entity';
 import { Period } from 'src/period/entities/period.entity';
 
 @ObjectType()
@@ -26,6 +26,6 @@ export class PeriodsCourses {
   @Field(() => Course, { nullable: true })
   course: Course;
 
-  @Field(() => [PeriodsCoursesAsignature], { nullable: true })
-  periodsCoursesAsignatures: PeriodsCoursesAsignature[];
+  @Field(() => [PeriodsCoursesAsignatures], { nullable: true })
+  periodsCoursesAsignatures: PeriodsCoursesAsignatures[];
 }

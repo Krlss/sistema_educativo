@@ -1,25 +1,25 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { PeriodsCoursesAsignaturesController } from './courses-periods-asignatures.controller';
 import { FindByPeriodAndCourseDTO } from './dto/findByPeriodAndCourse';
-import { PeriodsCoursesAsignature } from './entities/courses-periods-asignature.entity';
+import { PeriodsCoursesAsignatures } from './entities/courses-periods-asignature.entity';
 
-@Resolver(() => PeriodsCoursesAsignature)
+@Resolver(() => PeriodsCoursesAsignatures)
 export class PeriodsCoursesAsignaturesResolver {
   constructor(
     private readonly CPAController: PeriodsCoursesAsignaturesController,
   ) {}
 
-  @Query(() => [PeriodsCoursesAsignature])
+  @Query(() => [PeriodsCoursesAsignatures])
   periodsCoursesAsignatures() {
     return this.CPAController.getAll();
   }
 
-  @Query(() => PeriodsCoursesAsignature, { nullable: true })
+  @Query(() => PeriodsCoursesAsignatures, { nullable: true })
   periodsCoursesAsignature(@Args('id', { type: () => Int }) id: number) {
     return this.CPAController.get(id);
   }
 
-  @Query(() => [PeriodsCoursesAsignature])
+  @Query(() => [PeriodsCoursesAsignatures])
   async asignaturesByPeriod_Course(
     @Args({ name: 'input', type: () => FindByPeriodAndCourseDTO })
     data: FindByPeriodAndCourseDTO,

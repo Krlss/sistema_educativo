@@ -2,10 +2,10 @@ import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Asignature } from 'src/asignature/entities/asignature.entity';
 import { PeriodsCourses } from 'src/courses-periods/entities/courses-period.entity';
 import { Progress } from 'src/progress/entities/progress.entity';
-import { PeriodsCoursesAsignaturesUnit } from 'src/courses-periods-asignatures-units/entities/courses-periods-asignatures-unit.entity';
+import { PeriodsCoursesAsignaturesUnits } from 'src/courses-periods-asignatures-units/entities/courses-periods-asignatures-unit.entity';
 
 @ObjectType()
-export class PeriodsCoursesAsignature {
+export class PeriodsCoursesAsignatures {
   @Field({ nullable: true })
   id: number;
 
@@ -27,11 +27,14 @@ export class PeriodsCoursesAsignature {
   @Field(() => Asignature, { nullable: true })
   asignature: Asignature;
 
+  @Field({ nullable: true })
+  periodCourseAsignatureId: number;
+
   @Field(() => PeriodsCourses, { nullable: true })
   periodCourse: PeriodsCourses;
 
-  @Field(() => [PeriodsCoursesAsignaturesUnit], { nullable: true })
-  periodCourseAsignatureUnit: PeriodsCoursesAsignaturesUnit[];
+  @Field(() => [PeriodsCoursesAsignaturesUnits], { nullable: true })
+  periodCourseAsignatureUnit: PeriodsCoursesAsignaturesUnits[];
 
   @Field(() => [Progress], { nullable: true })
   progress: Progress[];

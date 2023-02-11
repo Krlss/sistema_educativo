@@ -1,6 +1,6 @@
 import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
-import { PeriodsCoursesAsignaturesUnit } from 'src/courses-periods-asignatures-units/entities/courses-periods-asignatures-unit.entity';
-import { PeriodsCoursesAsignature } from 'src/courses-periods-asignatures/entities/courses-periods-asignature.entity';
+import { PeriodsCoursesAsignaturesUnits } from 'src/courses-periods-asignatures-units/entities/courses-periods-asignatures-unit.entity';
+import { PeriodsCoursesAsignatures } from 'src/courses-periods-asignatures/entities/courses-periods-asignature.entity';
 import { User } from 'src/user/entities/user.entity';
 
 @ObjectType()
@@ -23,9 +23,9 @@ export class Progress {
   @Field(() => Date, { nullable: true })
   deletedAt: Date;
 
-  @Field(() => PeriodsCoursesAsignature, { nullable: true })
-  periodsCoursesAsignatures?: PeriodsCoursesAsignature;
+  @Field(() => PeriodsCoursesAsignatures, { nullable: true })
+  periodsCoursesAsignature?: PeriodsCoursesAsignatures;
 
-  @Field(() => PeriodsCoursesAsignaturesUnit, { nullable: true })
-  periodCourseAsignatureUnit?: PeriodsCoursesAsignaturesUnit;
+  @Field(() => PeriodsCoursesAsignaturesUnits, { nullable: true })
+  periodCourseAsignatureUnit?: PeriodsCoursesAsignaturesUnits;
 }

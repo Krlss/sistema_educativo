@@ -3,7 +3,7 @@ import { UnitService } from './unit.service';
 import { UnitResolver } from './unit.resolver';
 import { UnitController } from './unit.controller';
 import customValidations from './validations';
-import { PeriodsCoursesAsignature } from 'src/courses-periods-asignatures/entities/courses-periods-asignature.entity';
+import { PeriodsCoursesAsignatures } from 'src/courses-periods-asignatures/entities/courses-periods-asignature.entity';
 
 @Module({
   providers: [
@@ -11,7 +11,7 @@ import { PeriodsCoursesAsignature } from 'src/courses-periods-asignatures/entiti
     UnitService,
     UnitController,
     ...customValidations,
-    PeriodsCoursesAsignature,
+    PeriodsCoursesAsignatures,
   ],
   controllers: [UnitController],
 })

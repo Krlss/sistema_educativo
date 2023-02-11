@@ -1,5 +1,5 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { PeriodsCoursesAsignaturesUnit } from 'src/courses-periods-asignatures-units/entities/courses-periods-asignatures-unit.entity';
+import { PeriodsCoursesAsignaturesUnits } from 'src/courses-periods-asignatures-units/entities/courses-periods-asignatures-unit.entity';
 
 @ObjectType()
 export class Unit {
@@ -18,6 +18,6 @@ export class Unit {
   @Field(() => Date, { nullable: true })
   deletedAt: Date;
 
-  @Field(() => [PeriodsCoursesAsignaturesUnit], { nullable: true })
-  periodsCoursesAsignaturesUnits: PeriodsCoursesAsignaturesUnit[];
+  @Field(() => [PeriodsCoursesAsignaturesUnits], { nullable: true })
+  periodsCoursesAsignaturesUnits: PeriodsCoursesAsignaturesUnits[];
 }

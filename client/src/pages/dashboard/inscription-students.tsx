@@ -78,12 +78,7 @@ const InscriptionStudens = () => {
     setStudentsWtPC(studentswtpc)
   }
 
-  const handleStudent = (student: Student) => {
-    setSelectedStudent(student)
-  }
-
   const handleEnroll = () => {
-    console.log(selectedPC, selectedStudent!.value)
     if (selectedPC && selectedStudent) {
       enroll({
         variables: {
@@ -109,8 +104,8 @@ const InscriptionStudens = () => {
 
   return (
     <div>
-      <div className="flex md:items-center justify-start gap-4 w-full md:flex-row flex-col">
-        <div className="max-w-xs">
+      <div className="flex lg:items-end justify-start gap-4 w-full lg:flex-row flex-col">
+        <div className="max-w-xs w-full">
           <label className="font-bold text-lg">Periodo</label>
           <Select
             options={periods?.periods?.map(p => {
@@ -121,11 +116,15 @@ const InscriptionStudens = () => {
             onChange={e => {
               if (e!.value) {
                 setSelectedP(e!.value)
+                setSelectedStudent(undefined)
+                setSelectedPC(undefined)
+                setStudents([])
+                setStudentsWtPC([])
               }
             }}
           />
         </div>
-        <div className="max-w-xs">
+        <div className="max-w-xs w-full">
           <label className="font-bold text-lg">Cursos</label>
           <Select
             options={periods?.periods
@@ -138,11 +137,13 @@ const InscriptionStudens = () => {
             onChange={e => {
               if (e!.value) {
                 handlePeriodCourse(e!.value)
+                setSelectedPC(e!.value)
+                setSelectedStudent(undefined)
               }
             }}
           />
         </div>
-        <div className="max-w-xs">
+        <div className="max-w-xs w-full">
           <label className="font-bold text-lg">Estudiantes</label>
           <Select
             options={studentsWtPC}
@@ -150,14 +151,17 @@ const InscriptionStudens = () => {
             className="w-full min-w-full"
             onChange={e => {
               if (e) {
-                handleStudent(e)
+                setSelectedStudent(e)
               }
             }}
           />
         </div>
         <div>
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md ${
+              !selectedP && !selectedPC && !selectedStudent ? 'opacity-50' : ''
+            }`}
+            disabled={!selectedP && !selectedPC && !selectedStudent}
             onClick={() => {
               handleEnroll()
             }}>

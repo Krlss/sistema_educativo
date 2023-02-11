@@ -4,8 +4,8 @@ import { UpdateUserDTO } from './dto/update-user';
 import { PrismaService } from 'src/core/prisma/prisma.service';
 import { User } from './entities/user.entity';
 import { Course } from 'src/course/entities/course.entity';
-import { PeriodsCoursesAsignature } from 'src/courses-periods-asignatures/entities/courses-periods-asignature.entity';
-import { PeriodsCoursesAsignaturesUnit } from 'src/courses-periods-asignatures-units/entities/courses-periods-asignatures-unit.entity';
+import { PeriodsCoursesAsignatures } from 'src/courses-periods-asignatures/entities/courses-periods-asignature.entity';
+import { PeriodsCoursesAsignaturesUnits } from 'src/courses-periods-asignatures-units/entities/courses-periods-asignatures-unit.entity';
 import { PeriodsCourses } from 'src/courses-periods/entities/courses-period.entity';
 
 @Injectable()
@@ -68,6 +68,7 @@ export class UserService {
           include: {
             periodCourseAsignature: {
               include: {
+                periodCourseAsignatureUnit: true,
                 asignature: true,
                 periodCourse: {
                   include: {

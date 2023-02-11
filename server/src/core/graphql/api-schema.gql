@@ -24,10 +24,10 @@ type Unit {
   createdAt: DateTime
   updatedAt: DateTime
   deletedAt: DateTime
-  periodsCoursesAsignaturesUnits: [PeriodsCoursesAsignaturesUnit!]
+  periodsCoursesAsignaturesUnits: [PeriodsCoursesAsignaturesUnits!]
 }
 
-type PeriodsCoursesAsignaturesUnit {
+type PeriodsCoursesAsignaturesUnits {
   id: Int!
   periodCourseAsignatureId: Int!
   testActive: Boolean!
@@ -35,7 +35,7 @@ type PeriodsCoursesAsignaturesUnit {
   createdAt: DateTime!
   updatedAt: DateTime
   deletedAt: DateTime
-  periodCourseAsignature: PeriodsCoursesAsignature!
+  periodCourseAsignature: PeriodsCoursesAsignatures!
   unit: Unit!
 }
 
@@ -66,11 +66,11 @@ type Progress {
   createdAt: DateTime!
   updatedAt: DateTime
   deletedAt: DateTime
-  periodsCoursesAsignatures: PeriodsCoursesAsignature
-  periodCourseAsignatureUnit: PeriodsCoursesAsignaturesUnit
+  periodsCoursesAsignature: PeriodsCoursesAsignatures
+  periodCourseAsignatureUnit: PeriodsCoursesAsignaturesUnits
 }
 
-type PeriodsCoursesAsignature {
+type PeriodsCoursesAsignatures {
   id: Float
   asignatureId: [Asignature!]
   createdAt: DateTime
@@ -78,8 +78,9 @@ type PeriodsCoursesAsignature {
   deletedAt: DateTime
   periodCourseId: String
   asignature: Asignature
+  periodCourseAsignatureId: Float
   periodCourse: PeriodsCourses
-  periodCourseAsignatureUnit: [PeriodsCoursesAsignaturesUnit!]
+  periodCourseAsignatureUnit: [PeriodsCoursesAsignaturesUnits!]
   progress: [Progress!]
 }
 
@@ -99,7 +100,7 @@ type PeriodsCourses {
   courseId: String
   period: Period
   course: Course
-  periodsCoursesAsignatures: [PeriodsCoursesAsignature!]
+  periodsCoursesAsignatures: [PeriodsCoursesAsignatures!]
 }
 
 type Course {
@@ -189,19 +190,19 @@ type Query {
   question(id: String!): Question
   topics: [Topic!]
   topic(id: String!): Topic
-  periodsCoursesAsignaturesUnits: [PeriodsCoursesAsignaturesUnit!]!
-  periodsCoursesAsignaturesUnit(id: Int!): PeriodsCoursesAsignaturesUnit!
-  periodsCoursesAsignaturesUnitsByCoursePeriodAsignature(data: Int!): [PeriodsCoursesAsignaturesUnit!]!
-  periodsCoursesAsignaturesUnitsByCoursePeriodAsignature_Unit(periodCourseAsignatureUnitId: Int!, unitId: String!): PeriodsCoursesAsignaturesUnit!
+  periodsCoursesAsignaturesUnits: [PeriodsCoursesAsignaturesUnits!]!
+  periodsCoursesAsignaturesUnit(id: Int!): PeriodsCoursesAsignaturesUnits!
+  periodsCoursesAsignaturesUnitsByCoursePeriodAsignature(data: Int!): [PeriodsCoursesAsignaturesUnits!]!
+  periodsCoursesAsignaturesUnitsByCoursePeriodAsignature_Unit(periodCourseAsignatureUnitId: Int!, unitId: String!): PeriodsCoursesAsignaturesUnits!
   asignatures: [Asignature!]
   asignature(id: String!): Asignature
   periodsCourses: [PeriodsCourses!]
   periodCourse(id: Float!): PeriodsCourses
   periodCourseByCourseId(id: String!): [PeriodsCourses!]
   periodCourseByPeriodId(id: String!): [PeriodsCourses!]
-  periodsCoursesAsignatures: [PeriodsCoursesAsignature!]!
-  periodsCoursesAsignature(id: Int!): PeriodsCoursesAsignature
-  asignaturesByPeriod_Course(input: FindByPeriodAndCourseDTO!): [PeriodsCoursesAsignature!]!
+  periodsCoursesAsignatures: [PeriodsCoursesAsignatures!]!
+  periodsCoursesAsignature(id: Int!): PeriodsCoursesAsignatures
+  asignaturesByPeriod_Course(input: FindByPeriodAndCourseDTO!): [PeriodsCoursesAsignatures!]!
   units: [Unit!]!
   unit(id: String!): Unit
   getMany: [CoursePeriodsAsignaturesUnitsTopic!]!
@@ -236,7 +237,7 @@ type Mutation {
   createTopic(input: CreateTopicDTO!): Topic!
   updateTopic(input: UpdateTopicDTO!): Topic!
   removeTopic(id: String!): Topic!
-  testUnitActive(input: UpdatePeriodsCoursesAsignaturesUnitDTO!): PeriodsCoursesAsignaturesUnit!
+  testUnitActive(input: UpdatePeriodsCoursesAsignaturesUnitDTO!): PeriodsCoursesAsignaturesUnits!
   createAsignature(input: CreateAsignatureDTO!): Asignature!
   updateAsignature(input: UpdateAsignatureDTO!): Asignature!
   deleteAsignature(id: String!): Asignature!
