@@ -5,8 +5,8 @@ import { useInscriptionStudent } from '../../hooks/pages/useIncriptionStudents'
 interface RowStudent {
   value: string
   lastName: string
+  name: string
   label: string
-  email: string
 }
 
 const InscriptionStudens = () => {
@@ -34,12 +34,12 @@ const InscriptionStudens = () => {
     },
     {
       name: 'Nombres',
-      selector: row => row.label,
+      selector: row => row.name,
       sortable: true
     },
     {
       name: 'Correo',
-      selector: row => row.email,
+      selector: row => row.label,
       sortable: true
     }
   ]
@@ -96,7 +96,7 @@ const InscriptionStudens = () => {
       {selectedP && selectedPC ? (
         <div className="mt-5">
           <DataTable
-            title="Estudiantes"
+            title={<div className="text-lg font-semibold">Estudiantes</div>}
             pagination
             columns={columns}
             data={studentTable}

@@ -9,8 +9,8 @@ import { toast } from 'react-toastify'
 export interface Student {
   value: string
   lastName: string
+  name: string
   label: string
-  email: string
   progress: { pca: { pci: number } }[]
 }
 
@@ -134,14 +134,9 @@ export const useInscriptionStudent = () => {
 
   const getStudentsNoIPC = () => {
     // ver si se puede hacer desde prisma
-    return dataStudents?.students
-      .filter(s => !s.progress.some(pr => pr?.pca?.pci === selectedPC))
-      .map(student => {
-        return {
-          ...student,
-          label: `${student.lastName} ${student.label}`
-        }
-      })
+    return dataStudents?.students.filter(
+      s => !s.progress.some(pr => pr?.pca?.pci === selectedPC)
+    )
   }
 
   return {
