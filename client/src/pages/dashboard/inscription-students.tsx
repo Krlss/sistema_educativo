@@ -93,25 +93,27 @@ const InscriptionStudens = () => {
           </button>
         </div>
       </div>
-      <div className="mt-5">
-        <DataTable
-          title="Estudiantes"
-          pagination
-          columns={columns}
-          data={studentTable}
-          style={{ width: '100%' }}
-          customStyles={{
-            headCells: {
-              style: {
-                fontSize: '0.875rem',
-                fontWeight: 'bold',
-                color: '#4A5568'
+      {selectedP && selectedPC ? (
+        <div className="mt-5">
+          <DataTable
+            title="Estudiantes"
+            pagination
+            columns={columns}
+            data={studentTable}
+            style={{ width: '100%' }}
+            customStyles={{
+              headCells: {
+                style: {
+                  fontSize: '0.875rem',
+                  fontWeight: 'bold',
+                  color: '#4A5568'
+                }
               }
-            }
-          }}
-          noDataComponent="No hay datos"
-        />
-      </div>
+            }}
+            noDataComponent="No hay datos"
+          />
+        </div>
+      ) : null}
     </div>
   )
 }

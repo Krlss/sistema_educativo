@@ -74,6 +74,7 @@ export const useInscriptionStudent = () => {
   }, [loading])
 
   useEffect(() => {
+    refSelectUser.current.setValue(null)
     setStudentSelect(getStudentsNoIPC())
     setStudentTable(getStudentsIPC())
   }, [selectedPC])
@@ -109,9 +110,7 @@ export const useInscriptionStudent = () => {
           }
         },
         onCompleted: () => {
-          if (refSelectUser.current) {
-            refSelectUser.current.setValue(null)
-          }
+          refSelectUser.current.setValue(null)
           setSelectedStudent(undefined)
           setStudentTable([...studentTable, selectedStudent])
           setStudentSelect(
@@ -134,12 +133,15 @@ export const useInscriptionStudent = () => {
   }
 
   const getStudentsNoIPC = () => {
-    return dataStudents?.students.filter(s => {
-      const aux = s.progress.some(pr => pr?.pca?.pci === selectedPC)
-      if (!aux) {
-        return s
-      }
-    })
+    // ver si se puede hacer desde prisma
+    return dataStudents?.students
+      .filter(s => !s.progress.some(pr => pr?.pca?.pci === selectedPC))
+      .map(student => {
+        return {
+          ...student,
+          label: `${student.lastName} ${student.label}`
+        }
+      })
   }
 
   return {
