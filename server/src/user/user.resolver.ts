@@ -80,6 +80,19 @@ export class UserResolver {
     return accessToken;
   }
 
+  @Query(() => String, { nullable: true })
+  @UseGuards(JwtGuard, new RolesGuard(['student', 'teacher', 'admin']))
+  logout(@Context('res') res: Response) {
+    res.clearCookie('rt', {
+      httpOnly: false,
+      sameSite: 'none',
+      path: '/',
+      secure: true,
+      domain: 'localhost',
+    });
+    return 'ok';
+  }
+
   @Mutation(() => User, { nullable: true })
   createUser(@Args('input') data: CreateUserDTO) {
     return this.userController.create(data);

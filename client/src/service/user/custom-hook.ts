@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { GETROLES, GETUSERS, LOGIN } from './graphql-queries'
+import { GETROLES, GETUSERS, LOGIN, LOGOUT } from './graphql-queries'
 import { CREATE_USER, UPDATE_USER_ROLES } from './graphql-mutations'
 import { useLazyQuery, useMutation, useQuery } from '@apollo/client'
 import { getDataSession } from '../../utils/dataSession'
@@ -155,4 +155,14 @@ export const useUpdateUser = () => {
   return {
     handleUpdateUserRol
   }
+}
+
+export const useLogout = () => {
+  const [Logout, { data }] = useLazyQuery(LOGOUT)
+
+  const handleLogout = () => {
+    Logout()
+  }
+
+  return { handleLogout, data }
 }

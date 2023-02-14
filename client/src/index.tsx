@@ -8,23 +8,32 @@ import {
   ApolloClient,
   HttpLink,
   InMemoryCache,
+  createHttpLink,
   ApolloProvider
 } from '@apollo/client'
 import GeneralProvider from './contexts/provider'
 
-const client = new ApolloClient({
-  cache: new InMemoryCache(),
-  connectToDevTools: true,
-  link: new HttpLink({
-    uri: 'http://localhost:8000/graphql',
-    credentials: 'include',
-    headers: () => {
-      const rt = getDataSession('rt')
-      return {
-        authorization: rt ? `Bearer ${rt}` : ''
-      }
+import { setContext } from '@apollo/client/link/context'
+
+const httpLink = createHttpLink({
+  uri: 'http://localhost:8000/graphql',
+  credentials: 'include'
+})
+
+const authLink = setContext((_, { headers }) => {
+  const token = getDataSession('rt')
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : ''
     }
-  })
+  }
+})
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+  connectToDevTools: true
 })
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)

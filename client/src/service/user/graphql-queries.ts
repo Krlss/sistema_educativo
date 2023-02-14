@@ -65,3 +65,8 @@ export const GETROLES = gql`
     }
   }
 `
+export const LOGOUT = gql`
+  query Query {
+    logout
+  }
+`

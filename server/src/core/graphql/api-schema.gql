@@ -194,6 +194,7 @@ type Query {
   getAsignaturesUserInscribed(id: String!): [Asignature!]
   getAsignatureUserInscribed(userId: String!, asignatureId: String!): Asignature
   login(email: String!, password: String!): String!
+  logout: String
   roles: [Rol!]!
   rol(id: String!): Rol
   questions: [Question!]

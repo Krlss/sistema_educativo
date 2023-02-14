@@ -9,7 +9,7 @@ import { ASIGNATURE } from '../types/ContextAsignature'
 import GameReducer from './game/reducer'
 import { InitialStateGame } from './game/initialState'
 import { QuestionsExtends } from '../types/contextGame'
-
+import { useLogout } from '../service/user/custom-hook'
 import {
   useGetAsignatures,
   getAsignaturesProps
@@ -34,6 +34,7 @@ const GeneralProvider = (props: any) => {
   const [gameState, dispatchGame] = useReducer(GameReducer, InitialStateGame)
   const { getAsignatures } = useGetAsignatures()
   const { handleGetUserProgress } = useGetUserProgress({ dispatchUser })
+  const { handleLogout } = useLogout()
   useEffect(() => {
     const rt = getDataSession('rt')
     if (rt) {
@@ -115,6 +116,7 @@ const GeneralProvider = (props: any) => {
   }
 
   const logout = () => {
+    handleLogout()
     dispatchUser({
       type: 'resetUser',
       payload: undefined
