@@ -17,6 +17,8 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import InscriptionStudens from './pages/dashboard/inscription-students'
 import Users from './pages/dashboard/usuarios'
+import Students from './pages/dashboard/estudiantes'
+import Reports from './pages/dashboard/reports'
 
 const App = () => {
   const { config } = useContext(GeneralContext)
@@ -53,6 +55,8 @@ const App = () => {
             />
             <Route path="usuarios" element={<Users />} />
             <Route path="pruebas" element={<Pruebas />} />
+            <Route path="estudiantes" element={<Students />} />
+            <Route path="reportes" element={<Reports />} />
           </Route>
         </Route>
         <Route path="*" element={<Page404 />} />
