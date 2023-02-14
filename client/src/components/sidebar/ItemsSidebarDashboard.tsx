@@ -22,7 +22,7 @@ const ItemsSidebarDashboard = () => {
       <MyNavLink text="Estudiantes" to="/dashboard/reportes">
         <Estudiantes />
       </MyNavLink>
-      <MyNavLink text="Usuarios" to="/dashboard/usuarios">
+      <MyNavLink text="Cambiar rol a usuarios" to="/dashboard/usuarios">
         <Users />
       </MyNavLink>
       <MyNavLink text="Reportes" to="/dashboard/reportes">

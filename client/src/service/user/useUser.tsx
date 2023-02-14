@@ -79,18 +79,6 @@ export const useUser = () => {
       }
     },
     {
-      name: 'Creado hace',
-      selector: row => row.createdAt,
-      sortable: true,
-      format: row => row.createdAt?.split('T')[0]
-    },
-    {
-      name: 'Actualizado hace',
-      selector: row => row.updatedAt,
-      sortable: true,
-      format: row => row.updatedAt?.split('T')[0]
-    },
-    {
       name: 'Acciones',
       cell: row => {
         return (

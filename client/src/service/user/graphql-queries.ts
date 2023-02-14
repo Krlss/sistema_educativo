@@ -49,8 +49,6 @@ export const GETUSERS = gql`
       email
       name
       lastName
-      createdAt
-      updatedAt
       roles {
         id
         name
