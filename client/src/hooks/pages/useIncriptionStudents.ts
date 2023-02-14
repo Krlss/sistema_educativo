@@ -11,7 +11,7 @@ export interface Student {
   lastName: string
   name: string
   label: string
-  progress: { pca: { pci: number } }[]
+  progress: { pca: { pci: number; pc: { p: string } } }[]
 }
 
 export interface SelectCourse {
@@ -135,7 +135,7 @@ export const useInscriptionStudent = () => {
   const getStudentsNoIPC = () => {
     // ver si se puede hacer desde prisma
     return dataStudents?.students.filter(
-      s => !s.progress.some(pr => pr?.pca?.pci === selectedPC)
+      s => !s.progress.some(pr => pr?.pca?.pc?.p === selectedP)
     )
   }
 

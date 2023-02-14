@@ -31,6 +31,9 @@ export const GETSTUDENTS = gql`
       progress {
         pca: periodCourseAsignature {
           pci: periodCourseId
+          pc: periodCourse {
+            p: periodId
+          }
         }
       }
       value: id
