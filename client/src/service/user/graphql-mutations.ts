@@ -11,3 +11,11 @@ export const ENROLL = gql`
     enrollUser(data: $data)
   }
 `
+
+export const UPDATE_USER_ROLES = gql`
+  mutation Mutation($input: UpdateUserDTO!) {
+    updateUser(input: $input) {
+      id
+    }
+  }
+`

@@ -7,7 +7,7 @@ const Actions = ({
   onDelete
 }: {
   onClick: () => void
-  onDelete: () => void
+  onDelete?: () => void
 }) => {
   return (
     <div className="flex justify-center gap-2 mr-2">

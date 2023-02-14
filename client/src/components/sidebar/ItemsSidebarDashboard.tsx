@@ -3,6 +3,7 @@ import Unidad from '../icons/unidad'
 import Estudiantes from '../icons/students'
 import Reports from '../icons/report'
 import MyNavLink from '../navLink/myNavlink'
+import Users from '../icons/users'
 
 const ItemsSidebarDashboard = () => {
   return (
@@ -20,6 +21,9 @@ const ItemsSidebarDashboard = () => {
       </MyNavLink>
       <MyNavLink text="Estudiantes" to="/dashboard/reportes">
         <Estudiantes />
+      </MyNavLink>
+      <MyNavLink text="Usuarios" to="/dashboard/usuarios">
+        <Users />
       </MyNavLink>
       <MyNavLink text="Reportes" to="/dashboard/reportes">
         <Reports />

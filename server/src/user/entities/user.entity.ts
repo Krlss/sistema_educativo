@@ -20,10 +20,10 @@ export class User {
   lastName: string;
 
   @Field(() => String, { nullable: true })
-  createAt: Date;
+  createdAt: Date;
 
   @Field(() => String, { nullable: true })
-  updateAt: Date;
+  updatedAt: Date;
 
   @Field(() => [Rol], { nullable: true })
   roles: Rol[];

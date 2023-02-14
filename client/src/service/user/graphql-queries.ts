@@ -41,3 +41,29 @@ export const GETSTUDENTS = gql`
     }
   }
 `
+
+export const GETUSERS = gql`
+  query Users {
+    users {
+      id
+      email
+      name
+      lastName
+      createdAt
+      updatedAt
+      roles {
+        id
+        name
+      }
+    }
+  }
+`
+
+export const GETROLES = gql`
+  query Roles {
+    roles {
+      id
+      name
+    }
+  }
+`

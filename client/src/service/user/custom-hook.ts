@@ -1,12 +1,19 @@
 import { useContext } from 'react'
-import { LOGIN } from './graphql-queries'
-import { CREATE_USER } from './graphql-mutations'
-import { useLazyQuery, useMutation } from '@apollo/client'
+import { GETROLES, GETUSERS, LOGIN } from './graphql-queries'
+import { CREATE_USER, UPDATE_USER_ROLES } from './graphql-mutations'
+import { useLazyQuery, useMutation, useQuery } from '@apollo/client'
 import { getDataSession } from '../../utils/dataSession'
 import GeneralContext from '../../contexts/context'
 import { USER } from '../../types/ContextUser'
 import jwtDecode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { course } from '../../pages/dashboard/cursos'
+import { useFormik } from 'formik'
+import { registerCourseValidationSchema } from '../../schemas'
+import { TableColumn } from 'react-data-table-component'
+import Actions from '../../components/tables/actions'
+import { toast } from 'react-toastify'
 export interface PropsLogin {
   email: string
   password: string
@@ -79,4 +86,73 @@ export const useRegister = () => {
   }
 
   return { registerHandler, data, error, loading, token }
+}
+
+interface IGETUSERS {
+  data: {
+    users: users[]
+  }
+  loading: boolean
+  error: any
+}
+
+export interface users {
+  id: string
+  email: string
+  name: string
+  lastName: string
+  createdAt: string
+  updatedAt: string
+  roles: roles[]
+}
+
+export interface roles {
+  id: string
+  name: string
+}
+
+export const useGetUsers = () => {
+  const { data, loading, error } = useQuery(GETUSERS) as IGETUSERS
+
+  return { data, loading, error }
+}
+
+interface IGETROLES {
+  data: {
+    roles: roles[]
+  }
+  loading: boolean
+  error: any
+}
+
+export const useGetRoles = () => {
+  const { data, loading, error } = useQuery(GETROLES) as IGETROLES
+
+  return { data, loading, error }
+}
+
+export const useUpdateUser = () => {
+  const [updateUserRoles] = useMutation(UPDATE_USER_ROLES, {
+    refetchQueries: [{ query: GETUSERS }, { query: GETROLES }]
+  })
+
+  const handleUpdateUserRol = (user: { id: string; roles?: string[] }) => {
+    updateUserRoles({
+      variables: {
+        input: {
+          ...user
+        }
+      },
+      onCompleted: () => {
+        toast.success('Usuario actualizado con éxito')
+      },
+      onError(error) {
+        toast.error(error.message)
+      }
+    })
+  }
+
+  return {
+    handleUpdateUserRol
+  }
 }

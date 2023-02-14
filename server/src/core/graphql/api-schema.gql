@@ -76,8 +76,8 @@ type User {
   password: String
   name: String
   lastName: String
-  createAt: String
-  updateAt: String
+  createdAt: String
+  updatedAt: String
   roles: [Rol!]
   progress: [Progress!]
 }
