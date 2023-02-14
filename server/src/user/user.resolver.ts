@@ -10,6 +10,8 @@ import { sign } from 'jsonwebtoken';
 import { JwtGuard } from 'src/auth/jwt.guard';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { Response } from 'express';
+import { Progress } from 'src/progress/entities/progress.entity';
+import { Asignature } from 'src/asignature/entities/asignature.entity';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -30,6 +32,19 @@ export class UserResolver {
   // @UseGuards(JwtGuard, new RolesGuard(['teacher', 'admin']))
   students() {
     return this.userController.getStudents();
+  }
+
+  @Query(() => [Asignature], { nullable: true })
+  getAsignaturesUserInscribed(@Args('id') id: string) {
+    return this.userController.getAsignaturesByUserId(id);
+  }
+
+  @Query(() => Asignature, { nullable: true })
+  getAsignatureUserInscribed(
+    @Args('userId') userId: string,
+    @Args('asignatureId') asignatureId: string,
+  ) {
+    return this.userController.getAsignatureByUserId(userId, asignatureId);
   }
 
   @Query(() => String)

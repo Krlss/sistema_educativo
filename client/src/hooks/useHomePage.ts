@@ -11,10 +11,10 @@ const useHomePage = () => {
         asignature => asignature.id === p.id_asignature
       )
 
-      const total = asignatureFind?.unit?.reduce(
-        (acc, unit) => acc + unit.topic.length + asignatureFind.unit.length,
-        0
-      ) as number
+      const total = asignatureFind?.PCA?.reduce((acc, pca) => {
+        acc += pca.PCAU.length
+        return acc
+      }, 0) as number
 
       const finished = p.unit?.reduce((acc, u) => {
         if (u.finished) acc++

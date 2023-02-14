@@ -1,13 +1,9 @@
 import { Dialog, Transition } from '@headlessui/react'
 import ItemSidebar from '../navLink/itemSidebar'
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
 import Home from '../icons/home'
-import Curso from '../icons/curso'
-import Unidad from '../icons/unidad'
-import Estudiantes from '../icons/students'
-import Reports from '../icons/report'
-import MyNavLink from '../navLink/myNavlink'
 import ItemsSidebarDashboard from './ItemsSidebarDashboard'
+import GeneralContext from '../../contexts/context'
 
 const Asidebar = ({
   open,
@@ -18,6 +14,7 @@ const Asidebar = ({
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
   isDashboard: boolean
 }) => {
+  const { config } = useContext(GeneralContext)
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={setOpen}>
@@ -52,9 +49,19 @@ const Asidebar = ({
                           </ItemSidebar>
                         </ul>
                         <div className="h-px my-4 bg-gray-200"></div>
-                        <ul className="flex items-center p-2 font-bold">
-                          Asignaturas
-                        </ul>
+                        {config.asignatures.length ? (
+                          <ul className="flex items-center p-2 font-bold">
+                            Asignaturas
+                          </ul>
+                        ) : null}
+                        {config.asignatures.map((asignature, index) => (
+                          <ul key={index}>
+                            <ItemSidebar
+                              label={asignature.name}
+                              to={`/asignatura/${asignature.id}`}
+                            />
+                          </ul>
+                        ))}
                       </div>
                     </div>
                   ) : (

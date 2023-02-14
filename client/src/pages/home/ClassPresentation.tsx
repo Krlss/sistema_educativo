@@ -16,7 +16,7 @@ const ClassPresentation = () => {
           />
         </div>
       )}
-      {descriptionIsImage && <img src={topic?.description} width="100%" />}
+      {descriptionIsImage && <img src={topic?.image} width="100%" />}
     </div>
   )
 }

@@ -4,6 +4,7 @@ import { PROGRESS } from '../../types/ContextUser'
 import useHomePage from '../../hooks/useHomePage'
 const Home = () => {
   const { config, percentage, user } = useHomePage()
+
   return (
     <>
       <CenterLogo />
@@ -13,7 +14,9 @@ const Home = () => {
       </h1>
 
       <h2 className="text-2xl font-bold text-gray-800">
-        Estos son tus progresos en los cursos
+        {config.asignatures.length
+          ? 'Estos son tus progresos en los cursos'
+          : 'No hay cursos disponibles, por favor contacta a tu profesor'}
       </h2>
 
       <div className="flex items-center justify-between mb-20">
@@ -23,7 +26,7 @@ const Home = () => {
               course => course.id_asignature === asignature.id
             ) as PROGRESS
 
-            const canGiveExam = findCourse.unit?.reduce(
+            const canGiveExam = findCourse?.unit?.reduce(
               (acc, u, _, array) => {
                 if (u.finished) acc.unit++
                 if (array.length === acc.unit) acc.can = 1
@@ -40,7 +43,7 @@ const Home = () => {
                 progress={percentage[index]}
                 to={asignature.id}
                 StringImage={asignature.image}
-                canGiveExam={!!canGiveExam.can}
+                canGiveExam={!!canGiveExam?.can}
               />
             )
           })}

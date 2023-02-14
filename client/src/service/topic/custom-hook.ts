@@ -11,32 +11,37 @@ import { GET_USER_PROGRESS } from '../progress/graphql-queries'
 
 interface IGetTopics {
   id: string
-  name: string
   asignature_name: string
-  topic: {
-    id: string
-    name: string
-    description: string
-    video: string
-  }[]
+  PCA: periodsCoursesAsignatures[]
 }
 
-interface TOPIC {
+interface unit {
   id: string
   name: string
-  description?: string
+}
+
+interface periodCourseAsignatureUnitsTopic {
+  topic: topic
+}
+
+interface periodCourseAsignatureUnits {
+  unit: unit
+  PCAUT: periodCourseAsignatureUnitsTopic[]
+}
+
+interface periodsCoursesAsignatures {
+  PCAU: periodCourseAsignatureUnits[]
+}
+
+interface topic {
+  id: string
+  name: string
+  image?: string
   video?: string
 }
 
-interface ASIGNATURES {
-  id: string
-  asignature_name: string
-  name: string
-  topic?: TOPIC[]
-}
-
 export interface getTopicsProps {
-  getTopics: IGetTopics
+  topicsByAsignatureAndUser: IGetTopics
 }
 
 export interface IcreateUserUnit {
@@ -46,7 +51,7 @@ export interface IcreateUserUnit {
 export const useGetTopics = () => {
   const navigate = useNavigate()
   const { setLoading, user, setUser } = useContext(GeneralContext)
-  const [asignature, setAsignature] = useState<ASIGNATURES>()
+  const [asignature, setAsignature] = useState<IGetTopics>()
   const [colors, setColors] = useState<string[]>([])
   const token = getDataSession('token')
 
@@ -59,19 +64,35 @@ export const useGetTopics = () => {
 
   const getTopicsHandler = (props: {
     asignatureId: string
+    userId: string
     unitId: string
   }) => {
     setLoading(true)
     getTopics({
       variables: { ...props },
-      onCompleted: ({ getTopics }) => {
-        setAsignature(getTopics)
-        setColors(getRamdonArrayColors(getTopics.topic.length))
+      onCompleted: ({ topicsByAsignatureAndUser }) => {
+        const dataTrasnformed = topicsByAsignatureAndUser.PCA[0].PCAU.find(
+          u => u.unit.id === unitId
+        ) as periodCourseAsignatureUnits
+        setAsignature({
+          asignature_name: topicsByAsignatureAndUser.asignature_name,
+          id: topicsByAsignatureAndUser.id,
+          PCA: [
+            {
+              PCAU: [dataTrasnformed]
+            }
+          ]
+        })
+        setColors(
+          getRamdonArrayColors(
+            topicsByAsignatureAndUser.PCA[0].PCAU[0].PCAUT.length
+          )
+        )
         setLoading(false)
       },
       onError: () => {
         setLoading(false)
-        navigate(`/curso/${props.asignatureId}`)
+        navigate(`/asignatura/${props.asignatureId}`)
       }
     })
   }
@@ -107,6 +128,7 @@ export const useGetTopics = () => {
   useEffect(() => {
     getTopicsHandler({
       asignatureId,
+      userId: user.id,
       unitId
     })
 
@@ -115,7 +137,7 @@ export const useGetTopics = () => {
     }
 
     window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [asignatureId, unitId])
+  }, [asignatureId, unitId, user.id])
 
   return {
     getTopics,

@@ -27,14 +27,11 @@ export class PeriodsCoursesAsignatures {
   @Field(() => Asignature, { nullable: true })
   asignature: Asignature;
 
-  @Field({ nullable: true })
-  periodCourseAsignatureId: number;
-
   @Field(() => PeriodsCourses, { nullable: true })
   periodCourse: PeriodsCourses;
 
   @Field(() => [PeriodsCoursesAsignaturesUnits], { nullable: true })
-  periodCourseAsignatureUnit: PeriodsCoursesAsignaturesUnits[];
+  periodCourseAsignatureUnits: PeriodsCoursesAsignaturesUnits[];
 
   @Field(() => [Progress], { nullable: true })
   progress: Progress[];

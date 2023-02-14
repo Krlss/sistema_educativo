@@ -1,12 +1,14 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
+import { PeriodsCoursesAsignaturesUnits } from 'src/courses-periods-asignatures-units/entities/courses-periods-asignatures-unit.entity';
+import { Topic } from 'src/topic/entities/topic.entity';
 
 @ObjectType()
-export class CoursePeriodsAsignaturesUnitsTopic {
+export class PeriodsCoursesAsignaturesUnitsTopics {
   @Field(() => Int, { nullable: true })
   id: number;
 
-  @Field(() => String, { nullable: true })
-  name: string;
+  @Field(() => ID, { nullable: true })
+  topicId: string;
 
   @Field(() => Date, { nullable: true })
   createdAt: Date;
@@ -17,6 +19,12 @@ export class CoursePeriodsAsignaturesUnitsTopic {
   @Field(() => Date, { nullable: true })
   deletedAt: Date;
 
+  @Field(() => Topic, { nullable: true })
+  topic: Topic;
+
   @Field(() => Int, { nullable: true })
-  periodCoursesAsignaturesUnitsId: number;
+  periodCourseAsignatureUnitId: number;
+
+  @Field(() => PeriodsCoursesAsignaturesUnits, { nullable: true })
+  periodCourseAsignatureUnit: PeriodsCoursesAsignaturesUnits;
 }

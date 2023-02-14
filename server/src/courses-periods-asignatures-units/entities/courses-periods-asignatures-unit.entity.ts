@@ -1,25 +1,21 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
+import { PeriodsCoursesAsignaturesUnitsTopics } from 'src/course-periods-asignatures-units-topic/entities/course-periods-asignatures-units-topic.entity';
 import { PeriodsCoursesAsignatures } from 'src/courses-periods-asignatures/entities/courses-periods-asignature.entity';
+import { Progress } from 'src/progress/entities/progress.entity';
 import { Unit } from 'src/unit/entities/unit.entity';
-// import { PeriodsCoursesAsignaturesUnitsTopics } from 'src/periods-courses-asignatures-units-topics/entities/periods-courses-asignatures-units-topic.entity';
-// import { Unit } from 'src/unit/entities/unit.entity';
-// import { Progress } from 'src/progress/entities/progress.entity';
 
 @ObjectType()
 export class PeriodsCoursesAsignaturesUnits {
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   id: number;
 
-  @Field(() => Int)
-  periodCourseAsignatureId: number;
-
-  @Field(() => Boolean)
+  @Field(() => Boolean, { nullable: true })
   testActive: boolean;
 
-  @Field(() => String)
+  @Field(() => ID, { nullable: true })
   unitId: string;
 
-  @Field(() => Date)
+  @Field(() => Date, { nullable: true })
   createdAt: Date;
 
   @Field(() => Date, { nullable: true })
@@ -28,17 +24,18 @@ export class PeriodsCoursesAsignaturesUnits {
   @Field(() => Date, { nullable: true })
   deletedAt: Date;
 
-  @Field(() => PeriodsCoursesAsignatures)
-  periodCourseAsignature: PeriodsCoursesAsignatures;
+  @Field(() => Int, { nullable: true })
+  periodCourseAsignatureId: number;
 
-  @Field(() => Unit)
+  @Field(() => Unit, { nullable: true })
   unit: Unit;
 
-  /* @Field(() => Unit)
-  unit: Unit; */
-  /* @Field(() => PeriodsCoursesAsignaturesUnitsTopic)
-  periodCourseAsignatureUnitsTopic: PeriodsCoursesAsignaturesUnitsTopic; */
+  @Field(() => PeriodsCoursesAsignatures, { nullable: true })
+  periodCourseAsignature: PeriodsCoursesAsignatures;
 
-  /* @Field(() => Progress)
-  progress: Progress; */
+  @Field(() => [PeriodsCoursesAsignaturesUnitsTopics], { nullable: true })
+  periodCourseAsignatureUnitsTopic: PeriodsCoursesAsignaturesUnitsTopics[];
+
+  @Field(() => [Progress], { nullable: true })
+  progress: Progress[];
 }

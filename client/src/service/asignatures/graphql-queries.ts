@@ -1,41 +1,49 @@
 import { gql } from '@apollo/client'
 
 export const GETASIGNATURES = gql`
-  query ASIGNATURES {
-    getAsignatures {
+  query Query($id: String!) {
+    getAsignatures: getAsignaturesUserInscribed(id: $id) {
       id
       name
       description
       image
-      unit {
-        id
-        name
-        topic {
-          id
-          name
-          description
-          video
+      PCA: periodsCoursesAsignatures {
+        PCAU: periodCourseAsignatureUnits {
+          unit {
+            id
+            name
+          }
+          PCAUT: periodCourseAsignatureUnitsTopic {
+            topic {
+              id
+              name
+              image
+              video
+            }
+          }
         }
       }
     }
   }
 `
-
 export const GETASIGNATURE = gql`
-  query ASIGNATURE($asignatureId: String!) {
-    getAsignature(id: $asignatureId) {
+  query Query($userId: String!, $asignatureId: String!) {
+    getAsignatureUserInscribed(userId: $userId, asignatureId: $asignatureId) {
       id
       name
       description
       image
-      unit {
-        id
-        name
-        topic {
-          id
-          name
-          description
-          video
+      PCA: periodsCoursesAsignatures {
+        PCAU: periodCourseAsignatureUnits {
+          unit {
+            id
+            name
+          }
+          PCAUT: periodCourseAsignatureUnitsTopic {
+            topic {
+              name
+            }
+          }
         }
       }
     }

@@ -8,9 +8,9 @@ interface unitSeed {
 }
 
 export const unitSeed = async (ids: unitSeed[]) => {
-  const periodCourseAsignatureId = ids.map((id) => id.id);
-
   await prisma.unit.deleteMany();
+  await prisma.periodsCoursesAsignaturesUnits.deleteMany();
+  const periodCourseAsignatureId = ids.map((id) => id.id);
 
   for (const unit of units) {
     await prisma.unit.create({

@@ -44,19 +44,19 @@ export class UserController {
 
   async enroll(input: CreateProgressDTO) {
     const user = await this.userService.get(input.userId);
-    const coursePeriod = await this.coursePeriodService.get(
+    const periodCourse = await this.coursePeriodService.get(
       input.periodCourseId,
     );
-    if (!coursePeriod.periodsCoursesAsignatures.length)
+    if (!periodCourse.periodsCoursesAsignatures.length)
       throw new Error('Este curso periodo no tiene asignaturas asignadas!');
 
-    coursePeriod.periodsCoursesAsignatures.forEach(async (asignature) => {
+    periodCourse.periodsCoursesAsignatures.forEach(async (asignature) => {
       await this.progressService.create({
         periodsCoursesAsignaturesId: asignature.id,
         userId: user.id,
         periodCourseAsignatureUnitId: null,
       });
-      asignature.periodCourseAsignatureUnit.forEach(async (unit) => {
+      asignature.periodCourseAsignatureUnits.forEach(async (unit) => {
         await this.progressService.create({
           periodCourseAsignatureUnitId: unit.id,
           userId: user.id,
@@ -69,5 +69,13 @@ export class UserController {
 
   async delete(id: string) {
     return await this.userService.delete(id);
+  }
+
+  async getAsignaturesByUserId(id: string) {
+    return await this.userService.getAsignaturesByUserId(id);
+  }
+
+  async getAsignatureByUserId(id: string, asignatureId: string) {
+    return await this.userService.getAsignatureByUserId(id, asignatureId);
   }
 }

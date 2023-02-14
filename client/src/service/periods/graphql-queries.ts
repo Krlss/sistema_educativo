@@ -23,7 +23,7 @@ export const GETPERIODS = gql`
             name
             id
           }
-          PCAU: periodCourseAsignatureUnit {
+          PCAU: periodCourseAsignatureUnits {
             id
             testActive
             unit {

@@ -16,7 +16,8 @@ export default (state: USER, action: UserReducerProps) => {
       setDataSession('token', payload)
       return {
         ...state,
-        ...payload
+        ...payload,
+        isLogged: true
       }
     case 'resetUser':
       removeDataSession('token')

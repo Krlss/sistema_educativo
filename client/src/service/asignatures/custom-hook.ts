@@ -12,7 +12,7 @@ export interface getAsignaturesProps {
 }
 
 export interface getAsignatureProps {
-  getAsignature: ASIGNATURE
+  getAsignatureUserInscribed: ASIGNATURE
 }
 
 export const useGetAsignatures = () => {
@@ -27,7 +27,7 @@ export const useGetAsignature = () => {
   const navigate = useNavigate()
   const [colors, setColors] = useState(pastelColors)
   const [asignature, setAsignature] = useState<ASIGNATURE>()
-  const { setLoading } = useContext(GeneralContext)
+  const { setLoading, user } = useContext(GeneralContext)
   const [getAsignature, { data, error, loading }] =
     useLazyQuery<getAsignatureProps>(GETASIGNATURE)
 
@@ -35,11 +35,14 @@ export const useGetAsignature = () => {
     setLoading(true)
     getAsignature({
       variables: {
+        userId: user.id,
         asignatureId
       },
-      onCompleted: ({ getAsignature }) => {
-        setAsignature(getAsignature)
-        setColors(getRamdonArrayColors(getAsignature.unit.length))
+      onCompleted: ({ getAsignatureUserInscribed }) => {
+        setAsignature(getAsignatureUserInscribed)
+        setColors(
+          getRamdonArrayColors(getAsignatureUserInscribed.PCA[0].PCAU.length)
+        )
         setLoading(false)
       },
       onError: () => {

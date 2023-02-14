@@ -45,7 +45,9 @@ const Navbar = () => {
                 </span>
               </NavLink>
             </div>
-            {!isDashboard ? <MenuNavigation /> : null}
+            {!isDashboard && config.asignatures.length ? (
+              <MenuNavigation />
+            ) : null}
             <User user={user} logout={logout} />
           </div>
         </div>

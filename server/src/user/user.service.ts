@@ -145,4 +145,111 @@ export class UserService {
       },
     });
   }
+
+  async getPeriodsCoursesByUserId(id: string) {
+    return await this.prismaService.period.findFirst({
+      where: {
+        periodsCourses: {
+          some: {
+            periodsCoursesAsignatures: {
+              some: {
+                progress: {
+                  some: {
+                    userId: id,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        name: 'desc',
+      },
+      take: 1,
+      select: {
+        id: true,
+        name: true,
+      },
+    });
+  }
+
+  async getAsignaturesByUserId(id: string) {
+    const period = await this.getPeriodsCoursesByUserId(id);
+
+    return await this.prismaService.asignature.findMany({
+      where: {
+        periodsCoursesAsignatures: {
+          some: {
+            periodCourse: {
+              periodId: period?.id,
+            },
+            progress: {
+              some: {
+                userId: id,
+                periodCourseAsignatureId: {
+                  not: null,
+                },
+              },
+            },
+          },
+        },
+      },
+      include: {
+        periodsCoursesAsignatures: {
+          include: {
+            periodCourseAsignatureUnits: {
+              include: {
+                unit: true,
+                periodCourseAsignatureUnitsTopic: {
+                  include: {
+                    topic: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+  }
+
+  async getAsignatureByUserId(id: string, asignatureId: string) {
+    const period = await this.getPeriodsCoursesByUserId(id);
+
+    return await this.prismaService.asignature.findUnique({
+      where: {
+        id: asignatureId,
+      },
+      include: {
+        periodsCoursesAsignatures: {
+          where: {
+            periodCourse: {
+              periodId: period?.id,
+            },
+            progress: {
+              some: {
+                userId: id,
+                periodCourseAsignatureId: {
+                  not: null,
+                },
+              },
+            },
+          },
+          include: {
+            periodCourseAsignatureUnits: {
+              include: {
+                unit: true,
+                periodCourseAsignatureUnitsTopic: {
+                  include: {
+                    topic: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+  }
 }

@@ -8,8 +8,14 @@ export class Progress {
   @Field(() => ID, { nullable: true })
   id: string;
 
-  @Field(() => User)
-  user: User;
+  @Field(() => ID, { nullable: true })
+  userId: string;
+
+  @Field(() => Int, { nullable: true })
+  periodCourseAsignatureId;
+
+  @Field(() => Int, { nullable: true })
+  periodCourseAsignatureUnitId;
 
   @Field(() => String, { nullable: true })
   questions?: string;
@@ -22,6 +28,9 @@ export class Progress {
 
   @Field(() => Date, { nullable: true })
   deletedAt: Date;
+
+  @Field(() => User)
+  user: User;
 
   @Field(() => PeriodsCoursesAsignatures, { nullable: true })
   periodCourseAsignature?: PeriodsCoursesAsignatures;

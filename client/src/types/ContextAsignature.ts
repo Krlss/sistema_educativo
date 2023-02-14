@@ -3,14 +3,30 @@ export interface ASIGNATURE {
   name: string
   description: string
   image: string
-  unit: {
-    id: string
-    name: string
-    topic: {
-      id: string
-      name: string
-      description?: string
-      video?: string
-    }[]
-  }[]
+  PCA: periodsCoursesAsignatures[]
+}
+
+interface periodsCoursesAsignatures {
+  PCAU: periodCourseAsignatureUnits[]
+}
+
+interface periodCourseAsignatureUnits {
+  unit: unit
+  PCAUT: periodCourseAsignatureUnitsTopic[]
+}
+
+interface periodCourseAsignatureUnitsTopic {
+  topic: topic
+}
+
+interface topic {
+  id: string
+  name: string
+  description?: string
+  video?: string
+}
+
+interface unit {
+  id: string
+  name: string
 }

@@ -18,6 +18,19 @@ export class AsignatureResolver {
     return this.asignatureController.get(id);
   }
 
+  @Query(() => Asignature, { nullable: true })
+  topicsByAsignatureAndUser(
+    @Args('asignatureId') asignatureId: string,
+    @Args('userId') userId: string,
+    @Args('unitId') unitId: string,
+  ) {
+    return this.asignatureController.getTopicsByAsignatureAndUser(
+      asignatureId,
+      userId,
+      unitId,
+    );
+  }
+
   @Mutation(() => Asignature)
   createAsignature(@Args('input') data: CreateAsignatureDTO) {
     return this.asignatureController.create(data);

@@ -10,117 +10,13 @@ type Asignature {
   createdAt: DateTime
   updatedAt: DateTime
   deletedAt: DateTime
-  periodsCourses: [PeriodsCourses!]
+  periodsCoursesAsignatures: [PeriodsCoursesAsignatures!]
 }
 
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
-
-type Unit {
-  id: ID
-  name: String
-  createdAt: DateTime
-  updatedAt: DateTime
-  deletedAt: DateTime
-  periodsCoursesAsignaturesUnits: [PeriodsCoursesAsignaturesUnits!]
-}
-
-type PeriodsCoursesAsignaturesUnits {
-  id: Int!
-  periodCourseAsignatureId: Int!
-  testActive: Boolean!
-  unitId: String!
-  createdAt: DateTime!
-  updatedAt: DateTime
-  deletedAt: DateTime
-  periodCourseAsignature: PeriodsCoursesAsignatures!
-  unit: Unit!
-}
-
-type Rol {
-  id: ID
-  name: String
-  createdAt: DateTime
-  updatedAt: DateTime
-  users: [User!]
-}
-
-type User {
-  id: ID
-  email: String
-  password: String
-  name: String
-  lastName: String
-  createAt: String
-  updateAt: String
-  roles: [Rol!]
-  progress: [Progress!]
-}
-
-type Progress {
-  id: ID
-  user: User!
-  questions: String
-  createdAt: DateTime!
-  updatedAt: DateTime
-  deletedAt: DateTime
-  periodCourseAsignature: PeriodsCoursesAsignatures
-  periodCourseAsignatureUnit: PeriodsCoursesAsignaturesUnits
-}
-
-type PeriodsCoursesAsignatures {
-  id: Float
-  asignatureId: ID
-  createdAt: DateTime
-  updatedAt: DateTime
-  deletedAt: DateTime
-  periodCourseId: Float
-  asignature: Asignature
-  periodCourseAsignatureId: Float
-  periodCourse: PeriodsCourses
-  periodCourseAsignatureUnit: [PeriodsCoursesAsignaturesUnits!]
-  progress: [Progress!]
-}
-
-type Period {
-  id: ID
-  name: String
-  createdAt: DateTime
-  updatedAt: DateTime
-  periodsCourses: [PeriodsCourses!]
-}
-
-type PeriodsCourses {
-  id: Float
-  createdAt: DateTime
-  updatedAt: DateTime
-  periodId: String
-  courseId: String
-  period: Period
-  course: Course
-  periodsCoursesAsignatures: [PeriodsCoursesAsignatures!]
-}
-
-type Course {
-  id: ID
-  name: String
-  createdAt: DateTime
-  updatedAt: DateTime
-  periodsCourses: [PeriodsCourses!]
-}
-
-type Topic {
-  id: ID
-  name: String
-  image: String
-  video: String
-  createdAt: DateTime
-  updatedAt: DateTime
-  deletedAt: DateTime
-  questions: [Question!]
-}
 
 type Question {
   id: ID
@@ -166,13 +62,125 @@ enum QuestionType {
   true_or_false_numbers_and_text
 }
 
-type CoursePeriodsAsignaturesUnitsTopic {
+type Rol {
+  id: ID
+  name: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  users: [User!]
+}
+
+type User {
+  id: ID
+  email: String
+  password: String
+  name: String
+  lastName: String
+  createAt: String
+  updateAt: String
+  roles: [Rol!]
+  progress: [Progress!]
+}
+
+type Topic {
+  id: ID
+  name: String
+  image: String
+  video: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  questions: [Question!]
+  users: [User!]
+  periodsCoursesAsignaturesUnitsTopics: [PeriodsCoursesAsignaturesUnitsTopics!]
+}
+
+type PeriodsCoursesAsignaturesUnitsTopics {
   id: Int
+  topicId: ID
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  topic: Topic
+  periodCourseAsignatureUnitId: Int
+  periodCourseAsignatureUnit: PeriodsCoursesAsignaturesUnits
+}
+
+type Unit {
+  id: ID
   name: String
   createdAt: DateTime
   updatedAt: DateTime
   deletedAt: DateTime
-  periodCoursesAsignaturesUnitsId: Int
+  periodsCoursesAsignaturesUnits: [PeriodsCoursesAsignaturesUnits!]
+}
+
+type PeriodsCoursesAsignaturesUnits {
+  id: Int
+  testActive: Boolean
+  unitId: ID
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  periodCourseAsignatureId: Int
+  unit: Unit
+  periodCourseAsignature: PeriodsCoursesAsignatures
+  periodCourseAsignatureUnitsTopic: [PeriodsCoursesAsignaturesUnitsTopics!]
+  progress: [Progress!]
+}
+
+type Progress {
+  id: ID
+  userId: ID
+  periodCourseAsignatureId: Int
+  periodCourseAsignatureUnitId: Int
+  questions: String
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+  user: User!
+  periodCourseAsignature: PeriodsCoursesAsignatures
+  periodCourseAsignatureUnit: PeriodsCoursesAsignaturesUnits
+}
+
+type PeriodsCoursesAsignatures {
+  id: Float
+  asignatureId: ID
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  periodCourseId: Float
+  asignature: Asignature
+  periodCourse: PeriodsCourses
+  periodCourseAsignatureUnits: [PeriodsCoursesAsignaturesUnits!]
+  progress: [Progress!]
+}
+
+type Period {
+  id: ID
+  name: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  periodsCourses: [PeriodsCourses!]
+}
+
+type PeriodsCourses {
+  id: Float
+  createdAt: DateTime
+  updatedAt: DateTime
+  periodId: String
+  courseId: String
+  period: Period
+  course: Course
+  periodsCoursesAsignatures: [PeriodsCoursesAsignatures!]
+}
+
+type Course {
+  id: ID
+  name: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  periodsCourses: [PeriodsCourses!]
 }
 
 type Query {
@@ -183,6 +191,8 @@ type Query {
   users: [User!]!
   user(id: String!): User
   students: [User!]
+  getAsignaturesUserInscribed(id: String!): [Asignature!]
+  getAsignatureUserInscribed(userId: String!, asignatureId: String!): Asignature
   login(email: String!, password: String!): String!
   roles: [Rol!]!
   rol(id: String!): Rol
@@ -196,6 +206,7 @@ type Query {
   periodsCoursesAsignaturesUnitsByCoursePeriodAsignature_Unit(periodCourseAsignatureUnitId: Int!, unitId: String!): PeriodsCoursesAsignaturesUnits!
   asignatures: [Asignature!]
   asignature(id: String!): Asignature
+  topicsByAsignatureAndUser(asignatureId: String!, userId: String!, unitId: String!): Asignature
   periodsCourses: [PeriodsCourses!]
   periodCourse(id: Float!): PeriodsCourses
   periodCourseByCourseId(id: String!): [PeriodsCourses!]
@@ -205,8 +216,8 @@ type Query {
   asignaturesByPeriod_Course(input: FindByPeriodAndCourseDTO!): [PeriodsCoursesAsignatures!]!
   units: [Unit!]!
   unit(id: String!): Unit
-  getMany: [CoursePeriodsAsignaturesUnitsTopic!]!
-  get(id: Int!): CoursePeriodsAsignaturesUnitsTopic!
+  getMany: [PeriodsCoursesAsignaturesUnitsTopics!]!
+  get(id: Int!): PeriodsCoursesAsignaturesUnitsTopics!
 }
 
 input FindByPeriodAndCourseDTO {

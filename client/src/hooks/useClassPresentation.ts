@@ -12,15 +12,17 @@ const useClassPresentation = () => {
   const [topic, setTopic] = useState<{
     id: string
     name: string
-    description?: string
+    image?: string
     video?: string
   }>()
 
   useEffect(() => {
     const topic = config.asignatures
-      .find(asignature => asignature.id === asignatureId)
-      ?.unit.find(unit => unit.id === unitId)
-      ?.topic.find(topic => topic.id === topicId)
+      .find(asig => asig.id === asignatureId)
+      ?.PCA.find(pca => pca.PCAU)
+      ?.PCAU.find(pcau => pcau.unit.id === unitId)
+      ?.PCAUT.find(pcaut => pcaut.topic.id === topicId)?.topic
+
     if (!topic) return navigate(`/asignatura/${asignatureId}/unidad/${unitId}`)
     setTopic(topic)
 
@@ -41,7 +43,7 @@ const useClassPresentation = () => {
     }
   }, [asignatureId, unitId])
 
-  const descriptionIsImage = topic?.description?.includes('http')
+  const descriptionIsImage = topic?.image?.includes('http')
 
   return {
     topic,

@@ -139,16 +139,16 @@ model PeriodsCourses {
 }
 
 model PeriodsCoursesAsignatures {
-  id                         Int                              @id @default(autoincrement())
-  asignatureId               String
-  createdAt                  DateTime                         @default(now())
-  updatedAt                  DateTime                         @updatedAt
-  deletedAt                  DateTime?
-  periodCourseId             Int
-  asignature                 Asignature                       @relation(fields: [asignatureId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  periodCourse               PeriodsCourses                   @relation(fields: [periodCourseId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  periodCourseAsignatureUnit PeriodsCoursesAsignaturesUnits[]
-  progress                   Progress[]
+  id                          Int                              @id @default(autoincrement())
+  asignatureId                String
+  createdAt                   DateTime                         @default(now())
+  updatedAt                   DateTime                         @updatedAt
+  deletedAt                   DateTime?
+  periodCourseId              Int
+  asignature                  Asignature                       @relation(fields: [asignatureId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  periodCourse                PeriodsCourses                   @relation(fields: [periodCourseId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  periodCourseAsignatureUnits PeriodsCoursesAsignaturesUnits[]
+  progress                    Progress[]
 }
 
 model PeriodsCoursesAsignaturesUnits {

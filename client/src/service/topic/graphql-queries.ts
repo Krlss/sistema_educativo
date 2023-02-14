@@ -1,16 +1,33 @@
 import { gql } from '@apollo/client'
 
 export const GETTOPICS = gql`
-  query GETTOPICS($asignatureId: String!, $unitId: String!) {
-    getTopics(asignatureId: $asignatureId, unitId: $unitId) {
+  query TopicsByAsignatureAndUser(
+    $asignatureId: String!
+    $userId: String!
+    $unitId: String!
+  ) {
+    topicsByAsignatureAndUser(
+      asignatureId: $asignatureId
+      userId: $userId
+      unitId: $unitId
+    ) {
       id
-      name
-      asignature_name
-      topic {
-        id
-        name
-        description
-        video
+      asignature_name: name
+      PCA: periodsCoursesAsignatures {
+        PCAU: periodCourseAsignatureUnits {
+          unit {
+            id
+            name
+          }
+          PCAUT: periodCourseAsignatureUnitsTopic {
+            topic {
+              id
+              name
+              image
+              video
+            }
+          }
+        }
       }
     }
   }

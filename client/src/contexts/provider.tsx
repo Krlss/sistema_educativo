@@ -52,6 +52,9 @@ const GeneralProvider = (props: any) => {
   useEffect(() => {
     if (user.isLogged) {
       getAsignatures({
+        variables: {
+          id: user.id
+        },
         onCompleted(data: getAsignaturesProps) {
           dispatchConfig({
             type: 'setAsignatures',

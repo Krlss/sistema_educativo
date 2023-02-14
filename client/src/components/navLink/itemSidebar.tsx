@@ -17,7 +17,7 @@ const ItemSidebar = ({ to, label, children, viewBox }: Props) => {
         className={({ isActive }) =>
           `${
             isActive ? 'bg-yellow-page' : 'hover:bg-gray-100'
-          } flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700`
+          } flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-yellow2-page`
         }>
         {children && viewBox ? <Icon viewBox={viewBox}>{children}</Icon> : null}
         <span className="flex-1 ml-3 whitespace-nowrap">{label}</span>

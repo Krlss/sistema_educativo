@@ -26,4 +26,16 @@ export class AsignatureController {
   async delete(id: string) {
     return this.asignatureService.delete(id);
   }
+
+  async getTopicsByAsignatureAndUser(
+    asignatureId: string,
+    userId: string,
+    unitId: string,
+  ) {
+    return this.asignatureService.getTopicsByAsignatureAndUser(
+      asignatureId,
+      userId,
+      unitId,
+    );
+  }
 }

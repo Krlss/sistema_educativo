@@ -16,7 +16,7 @@ export class PeriodsCoursesService {
         periodsCoursesAsignatures: {
           include: {
             asignature: true,
-            periodCourseAsignatureUnit: {
+            periodCourseAsignatureUnits: {
               include: {
                 unit: true,
               },

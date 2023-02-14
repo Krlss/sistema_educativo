@@ -37,10 +37,8 @@ export const topicSeed = async () => {
         ...(topic.image && { image: topic.image }),
         ...(topic.video && { video: topic.video }),
         periodsCoursesAsignaturesUnitsTopics: {
-          createMany: {
-            data: {
-              periodCourseAsignatureUnitId: periodCourseAsignatureUnitId.id,
-            },
+          create: {
+            periodCourseAsignatureUnitId: periodCourseAsignatureUnitId.id,
           },
         },
       },

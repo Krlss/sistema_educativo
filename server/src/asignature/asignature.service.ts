@@ -12,14 +12,13 @@ export class AsignatureService {
       include: {
         periodsCoursesAsignatures: {
           include: {
-            asignature: true,
             periodCourse: {
               include: {
                 course: true,
                 period: true,
               },
             },
-            periodCourseAsignatureUnit: {
+            periodCourseAsignatureUnits: {
               include: {
                 unit: true,
               },
@@ -43,9 +42,14 @@ export class AsignatureService {
                 period: true,
               },
             },
-            periodCourseAsignatureUnit: {
+            periodCourseAsignatureUnits: {
               include: {
                 unit: true,
+                periodCourseAsignatureUnitsTopic: {
+                  include: {
+                    topic: true,
+                  },
+                },
               },
             },
           },
@@ -62,6 +66,40 @@ export class AsignatureService {
             periodCourse: {
               period: {
                 id,
+              },
+            },
+          },
+        },
+      },
+    });
+  }
+
+  async getTopicsByAsignatureAndUser(
+    id: string,
+    userId: string,
+    unitId: string,
+  ) {
+    return await this.prismaService.asignature.findUnique({
+      where: { id },
+      include: {
+        periodsCoursesAsignatures: {
+          include: {
+            periodCourseAsignatureUnits: {
+              where: {
+                unitId,
+              },
+              include: {
+                progress: {
+                  where: {
+                    userId,
+                  },
+                },
+                unit: true,
+                periodCourseAsignatureUnitsTopic: {
+                  include: {
+                    topic: true,
+                  },
+                },
               },
             },
           },
