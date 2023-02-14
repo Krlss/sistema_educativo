@@ -64,6 +64,7 @@ export const useRegister = () => {
   const token = getDataSession('rt')
   const navigate = useNavigate()
   const { setLoading } = useContext(GeneralContext)
+  const { data: dataRoles } = useGetRoles()
 
   const [createUser, { data, error, loading }] = useMutation<RegisterUser>(
     CREATE_USER,
@@ -80,12 +81,13 @@ export const useRegister = () => {
 
   const registerHandler = (Props: PropsRegister) => {
     setLoading(true)
+    const studentRole = dataRoles?.roles.find(role => role.name === 'student')
     createUser({
-      variables: { data: { ...Props } }
+      variables: { input: { ...Props, roles: [`${studentRole?.id}`] } }
     })
   }
 
-  return { registerHandler, data, error, loading, token }
+  return { registerHandler, data, error, loading, token, dataRoles }
 }
 
 interface IGETUSERS {
