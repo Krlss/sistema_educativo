@@ -41,7 +41,7 @@ const GeneralProvider = (props: any) => {
       const user = jwtDecode<USER>(rt)
       dispatchUser({ type: 'setUser', payload: user })
       handleGetUserProgress({
-        userId: rt.id
+        userId: user.id
       })
     }
     const initialTimeStamp = getDataSession('initialTimeStamp')

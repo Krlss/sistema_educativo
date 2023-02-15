@@ -12,25 +12,7 @@ import { RolesGuard } from 'src/auth/roles.guard';
 import { Response } from 'express';
 import { Progress } from 'src/progress/entities/progress.entity';
 import { Asignature } from 'src/asignature/entities/asignature.entity';
-
-class ProgressData {
-  id: string;
-  nota: number;
-  id_asignature: string;
-  unit: {
-    id: string;
-    nota: number;
-    id_unit: string;
-    id_asignature: string;
-    finished: boolean;
-    topic: {
-      id: string;
-      nota: number;
-      id_topic: string;
-      finished: boolean;
-    }[];
-  }[];
-}
+import { CustomProgress } from 'src/progress/entities/custom-progress.entity';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -58,7 +40,7 @@ export class UserResolver {
     return this.userController.getAsignaturesByUserId(id);
   }
 
-  @Query(() => [ProgressData], { nullable: true })
+  @Query(() => [CustomProgress], { nullable: true })
   getUserProgress(@Args('userId') userId: string) {
     return this.userController.getProgressByUserId(userId);
   }

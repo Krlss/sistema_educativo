@@ -1,6 +1,6 @@
 export interface TOPIC {
   id: string
-  nota: number
+  nota?: number
   id_topic: string
   finished: boolean
   questions: {
@@ -12,7 +12,7 @@ export interface TOPIC {
 }
 export interface UNIT {
   id: string
-  nota: number
+  nota?: number
   id_unit: string
   finished: boolean
   topic: TOPIC[]
@@ -20,7 +20,7 @@ export interface UNIT {
 
 export interface PROGRESS {
   id: string
-  nota: number
+  nota?: number
   id_asignature: string
   unit?: UNIT[]
 }

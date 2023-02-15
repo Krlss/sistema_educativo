@@ -8,15 +8,16 @@ export const GET_USER_PROGRESS = gql`
       id_asignature
       unit {
         id
+        id_unit
+        id_asignature
+        nota
+        finished
         topic {
           id
-          nota
           id_topic
+          nota
           finished
         }
-        nota
-        id_unit
-        finished
       }
     }
   }
