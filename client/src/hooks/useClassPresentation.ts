@@ -31,13 +31,10 @@ const useClassPresentation = () => {
       ?.unit?.find(unit => unit.id_unit === unitId)
       ?.topic?.find(topic => topic.id_topic === topicId)
 
-    if (findTopic?.finished === false) {
+    if (!findTopic) {
       updatedFinishedTopicMutation({
         variables: {
-          asignatureId,
-          unitId,
-          topicId,
-          userId: user.id
+          topicId
         }
       })
     }

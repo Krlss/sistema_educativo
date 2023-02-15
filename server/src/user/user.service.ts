@@ -256,8 +256,19 @@ export class UserService {
           },
         },
       },
+      include: {
+        periodsCoursesAsignaturesUnitsTopics: {
+          include: {
+            periodCourseAsignatureUnit: {
+              include: {
+                periodCourseAsignature: true,
+              },
+            },
+          },
+        },
+      },
     });
-    console.log(topics);
+
     const progress = await this.prismaService.progress.findMany({
       where: {
         userId: id,
@@ -323,8 +334,16 @@ export class UserService {
       }
     });
     topics.forEach((item) => {
+      const findTopic = item.periodsCoursesAsignaturesUnitsTopics.find(
+        (topic) => topic.topicId === item.id,
+      );
       units.forEach((unit) => {
-        if (item.id === unit.id_unit) {
+        if (
+          findTopic.periodCourseAsignatureUnit.unitId === unit.id_unit &&
+          unit.id_asignature ===
+            findTopic.periodCourseAsignatureUnit.periodCourseAsignature
+              .asignatureId
+        ) {
           unit.topic.push({ id: item.id, id_topic: item.id, finished: true });
         }
       });
@@ -376,5 +395,21 @@ export class UserService {
         },
       },
     });
+  }
+
+  async updateUserTopic(userId: string, topicId: string) {
+    await this.prismaService.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        topics: {
+          connect: {
+            id: topicId,
+          },
+        },
+      },
+    });
+    return true;
   }
 }

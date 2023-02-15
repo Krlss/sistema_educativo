@@ -51,17 +51,7 @@ export const CREATEUSERUNIT = gql`
 `
 
 export const updatedFinishedTopic = gql`
-  mutation finishedUserTopic(
-    $topicId: String!
-    $unitId: String!
-    $asignatureId: String!
-    $userId: String!
-  ) {
-    finishedUserTopic(
-      topicId: $topicId
-      unitId: $unitId
-      asignatureId: $asignatureId
-      userId: $userId
-    )
+  mutation Mutation($topicId: String!) {
+    updateFinishedTopic(topicId: $topicId)
   }
 `

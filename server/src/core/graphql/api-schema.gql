@@ -267,6 +267,7 @@ type Mutation {
   updateUser(input: UpdateUserDTO!): User
   enrollUser(data: CreateProgressDTO!): Boolean
   deleteUser(id: String!): User
+  updateFinishedTopic(topicId: String!): Boolean
   createRol(input: CreateRolDTO!): Rol!
   updateRol(input: UpdateRolDTO!): Rol!
   deleteRol(id: String!): Rol!

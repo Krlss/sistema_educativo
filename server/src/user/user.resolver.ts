@@ -118,4 +118,13 @@ export class UserResolver {
   deleteUser(@Args('id') id: string) {
     return this.userController.delete(id);
   }
+
+  @Mutation(() => Boolean, { nullable: true })
+  @UseGuards(JwtGuard, new RolesGuard(['student', 'teacher', 'admin']))
+  updateFinishedTopic(
+    @Args('topicId') topicId: string,
+    @Context('user') user: User,
+  ) {
+    return this.userController.updateUserTopic(user.id, topicId);
+  }
 }

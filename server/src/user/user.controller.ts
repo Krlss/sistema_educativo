@@ -82,4 +82,8 @@ export class UserController {
   async getAsignatureByUserId(id: string, asignatureId: string) {
     return await this.userService.getAsignatureByUserId(id, asignatureId);
   }
+
+  async updateUserTopic(userId: string, topicId: string) {
+    return await this.userService.updateUserTopic(userId, topicId);
+  }
 }

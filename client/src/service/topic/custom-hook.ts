@@ -132,9 +132,9 @@ export const useGetTopics = () => {
       unitId
     })
 
-    if (createdUserUnit === undefined && token) {
+    /* if (createdUserUnit === undefined && token) {
       createUserUnitHandler({ asignatureId, unitId, userId: token.id })
-    }
+    } */
 
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [asignatureId, unitId, user.id])
