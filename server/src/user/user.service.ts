@@ -214,6 +214,131 @@ export class UserService {
     });
   }
 
+  async getUserLastPeriod(id: string) {
+    return await this.prismaService.progress.findMany({
+      where: {
+        userId: id,
+      },
+      include: {
+        periodCourseAsignature: {
+          include: {
+            periodCourse: {
+              include: {
+                period: true,
+              },
+            },
+          },
+        },
+        periodCourseAsignatureUnit: {
+          include: {
+            periodCourseAsignature: {
+              include: {
+                periodCourse: {
+                  include: {
+                    period: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+  }
+
+  async getProgressByUserId(id: string) {
+    const period = await this.getUserLastPeriod(id);
+    const topics = await this.prismaService.topic.findMany({
+      where: {
+        users: {
+          some: {
+            id,
+          },
+        },
+      },
+    });
+    console.log(topics);
+    const progress = await this.prismaService.progress.findMany({
+      where: {
+        userId: id,
+      },
+      include: {
+        periodCourseAsignature: {
+          include: {
+            periodCourse: {
+              include: {
+                period: true,
+              },
+            },
+            asignature: true,
+          },
+        },
+        periodCourseAsignatureUnit: {
+          include: {
+            unit: true,
+            periodCourseAsignatureUnitsTopic: {
+              include: {
+                topic: true,
+              },
+            },
+            periodCourseAsignature: {
+              include: {
+                periodCourse: {
+                  include: {
+                    period: true,
+                  },
+                },
+                asignature: true,
+              },
+            },
+          },
+        },
+      },
+    });
+    // console.log(data);
+
+    const asignatures = [];
+    progress.forEach((item) => {
+      if (item.periodCourseAsignatureId) {
+        asignatures.push({
+          id: item.id,
+          nota: item.nota,
+          id_asignature: item.periodCourseAsignature.asignatureId,
+          unit: [],
+        });
+      }
+    });
+    const units = [];
+    progress.forEach((item) => {
+      if (item.periodCourseAsignatureUnitId) {
+        units.push({
+          id: item.id,
+          nota: item.nota,
+          id_unit: item.periodCourseAsignatureUnit.unitId,
+          id_asignature:
+            item.periodCourseAsignatureUnit.periodCourseAsignature.asignatureId,
+          finished: item.finished,
+          topic: [],
+        });
+      }
+    });
+    topics.forEach((item) => {
+      units.forEach((unit) => {
+        if (item.id === unit.id_unit) {
+          unit.topic.push({ id: item.id, id_topic: item.id, finished: true });
+        }
+      });
+    });
+    asignatures.forEach((item) => {
+      units.forEach((unit) => {
+        if (item.id_asignature === unit.id_asignature) {
+          item.unit.push(unit);
+        }
+      });
+    });
+    return asignatures;
+  }
+
   async getAsignatureByUserId(id: string, asignatureId: string) {
     const period = await this.getPeriodsCoursesByUserId(id);
 

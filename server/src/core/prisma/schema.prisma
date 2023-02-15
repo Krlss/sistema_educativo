@@ -181,7 +181,9 @@ model Progress {
   userId                       String
   periodCourseAsignatureId     Int?
   periodCourseAsignatureUnitId Int?
+  nota                         Float?
   questions                    String?   @db.LongText
+  finished                     Boolean   @default(false)
   createdAt                    DateTime  @default(now())
   updatedAt                    DateTime  @updatedAt
   deletedAt                    DateTime?

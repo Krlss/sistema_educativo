@@ -13,6 +13,25 @@ import { Response } from 'express';
 import { Progress } from 'src/progress/entities/progress.entity';
 import { Asignature } from 'src/asignature/entities/asignature.entity';
 
+class ProgressData {
+  id: string;
+  nota: number;
+  id_asignature: string;
+  unit: {
+    id: string;
+    nota: number;
+    id_unit: string;
+    id_asignature: string;
+    finished: boolean;
+    topic: {
+      id: string;
+      nota: number;
+      id_topic: string;
+      finished: boolean;
+    }[];
+  }[];
+}
+
 @Resolver(() => User)
 export class UserResolver {
   constructor(private readonly userController: UserController) {}
@@ -29,7 +48,7 @@ export class UserResolver {
   }
 
   @Query(() => [User], { nullable: true })
-  // @UseGuards(JwtGuard, new RolesGuard(['teacher', 'admin']))
+  @UseGuards(JwtGuard, new RolesGuard(['teacher', 'admin']))
   students() {
     return this.userController.getStudents();
   }
@@ -37,6 +56,11 @@ export class UserResolver {
   @Query(() => [Asignature], { nullable: true })
   getAsignaturesUserInscribed(@Args('id') id: string) {
     return this.userController.getAsignaturesByUserId(id);
+  }
+
+  @Query(() => [ProgressData], { nullable: true })
+  getUserProgress(@Args('userId') userId: string) {
+    return this.userController.getProgressByUserId(userId);
   }
 
   @Query(() => Asignature, { nullable: true })

@@ -134,7 +134,9 @@ type Progress {
   userId: ID
   periodCourseAsignatureId: Int
   periodCourseAsignatureUnitId: Int
+  nota: Float
   questions: String
+  finished: Boolean
   createdAt: DateTime!
   updatedAt: DateTime
   deletedAt: DateTime
@@ -192,6 +194,7 @@ type Query {
   user(id: String!): User
   students: [User!]
   getAsignaturesUserInscribed(id: String!): [Asignature!]
+  getUserProgress(userId: String!): [Progress!]
   getAsignatureUserInscribed(userId: String!, asignatureId: String!): Asignature
   login(email: String!, password: String!): String!
   logout: String
@@ -203,18 +206,29 @@ type Query {
   topic(id: String!): Topic
   periodsCoursesAsignaturesUnits: [PeriodsCoursesAsignaturesUnits!]!
   periodsCoursesAsignaturesUnit(id: Int!): PeriodsCoursesAsignaturesUnits!
-  periodsCoursesAsignaturesUnitsByCoursePeriodAsignature(data: Int!): [PeriodsCoursesAsignaturesUnits!]!
-  periodsCoursesAsignaturesUnitsByCoursePeriodAsignature_Unit(periodCourseAsignatureUnitId: Int!, unitId: String!): PeriodsCoursesAsignaturesUnits!
+  periodsCoursesAsignaturesUnitsByCoursePeriodAsignature(
+    data: Int!
+  ): [PeriodsCoursesAsignaturesUnits!]!
+  periodsCoursesAsignaturesUnitsByCoursePeriodAsignature_Unit(
+    periodCourseAsignatureUnitId: Int!
+    unitId: String!
+  ): PeriodsCoursesAsignaturesUnits!
   asignatures: [Asignature!]
   asignature(id: String!): Asignature
-  topicsByAsignatureAndUser(asignatureId: String!, userId: String!, unitId: String!): Asignature
+  topicsByAsignatureAndUser(
+    asignatureId: String!
+    userId: String!
+    unitId: String!
+  ): Asignature
   periodsCourses: [PeriodsCourses!]
   periodCourse(id: Float!): PeriodsCourses
   periodCourseByCourseId(id: String!): [PeriodsCourses!]
   periodCourseByPeriodId(id: String!): [PeriodsCourses!]
   periodsCoursesAsignatures: [PeriodsCoursesAsignatures!]!
   periodsCoursesAsignature(id: Int!): PeriodsCoursesAsignatures
-  asignaturesByPeriod_Course(input: FindByPeriodAndCourseDTO!): [PeriodsCoursesAsignatures!]!
+  asignaturesByPeriod_Course(
+    input: FindByPeriodAndCourseDTO!
+  ): [PeriodsCoursesAsignatures!]!
   units: [Unit!]!
   unit(id: String!): Unit
   getMany: [PeriodsCoursesAsignaturesUnitsTopics!]!
@@ -222,10 +236,14 @@ type Query {
 }
 
 input FindByPeriodAndCourseDTO {
-  """Id del periodo"""
+  """
+  Id del periodo
+  """
   periodId: String!
 
-  """Id del curso"""
+  """
+  Id del curso
+  """
   courseId: String!
 }
 
@@ -249,7 +267,9 @@ type Mutation {
   createTopic(input: CreateTopicDTO!): Topic!
   updateTopic(input: UpdateTopicDTO!): Topic!
   removeTopic(id: String!): Topic!
-  testUnitActive(input: UpdatePeriodsCoursesAsignaturesUnitDTO!): PeriodsCoursesAsignaturesUnits!
+  testUnitActive(
+    input: UpdatePeriodsCoursesAsignaturesUnitDTO!
+  ): PeriodsCoursesAsignaturesUnits!
   createAsignature(input: CreateAsignatureDTO!): Asignature!
   updateAsignature(input: UpdateAsignatureDTO!): Asignature!
   deleteAsignature(id: String!): Asignature!
@@ -259,221 +279,340 @@ type Mutation {
 }
 
 input CreateCourseDTO {
-  """Nombre del curso"""
+  """
+  Nombre del curso
+  """
   name: String!
 
-  """Períodos del curso"""
+  """
+  Períodos del curso
+  """
   periods: [String!]
 }
 
 input UpdateCourseDTO {
-  """Nombre del curso"""
+  """
+  Nombre del curso
+  """
   name: String
 
-  """Períodos del curso"""
+  """
+  Períodos del curso
+  """
   periods: [String!]
 
-  """Id del curso"""
+  """
+  Id del curso
+  """
   id: String!
 }
 
 input CreatePeriodDTO {
-  """Nombre del periodo"""
+  """
+  Nombre del periodo
+  """
   name: String!
 
-  """Cursos del periodo"""
+  """
+  Cursos del periodo
+  """
   courses: [String!]
 }
 
 input UpdatePeriodDTO {
-  """Nombre del periodo"""
+  """
+  Nombre del periodo
+  """
   name: String
 
-  """Cursos del periodo"""
+  """
+  Cursos del periodo
+  """
   courses: [String!]
 
-  """Id del periodo"""
+  """
+  Id del periodo
+  """
   id: String!
 }
 
 input CreateUserDTO {
-  """Email del usuario"""
+  """
+  Email del usuario
+  """
   email: String!
 
-  """Contraseña del usuario"""
+  """
+  Contraseña del usuario
+  """
   password: String!
 
-  """Nombre del usuario"""
+  """
+  Nombre del usuario
+  """
   name: String!
 
-  """Apellido del usuario"""
+  """
+  Apellido del usuario
+  """
   lastName: String!
 
-  """Roles del usuario"""
+  """
+  Roles del usuario
+  """
   roles: [String!]
 }
 
 input UpdateUserDTO {
-  """Email del usuario"""
+  """
+  Email del usuario
+  """
   email: String
 
-  """Contraseña del usuario"""
+  """
+  Contraseña del usuario
+  """
   password: String
 
-  """Nombre del usuario"""
+  """
+  Nombre del usuario
+  """
   name: String
 
-  """Apellido del usuario"""
+  """
+  Apellido del usuario
+  """
   lastName: String
 
-  """Roles del usuario"""
+  """
+  Roles del usuario
+  """
   roles: [String!]
 
-  """Id del usuario"""
+  """
+  Id del usuario
+  """
   id: String!
 }
 
 input CreateProgressDTO {
-  """User ID"""
+  """
+  User ID
+  """
   userId: String!
   periodCourseId: Int
 }
 
 input CreateRolDTO {
-  """Nombre del rol"""
+  """
+  Nombre del rol
+  """
   name: String!
 
-  """Usuarios del rol"""
+  """
+  Usuarios del rol
+  """
   users: [String!]
 }
 
 input UpdateRolDTO {
-  """Nombre del rol"""
+  """
+  Nombre del rol
+  """
   name: String
 
-  """Usuarios del rol"""
+  """
+  Usuarios del rol
+  """
   users: [String!]
 
-  """Id del rol"""
+  """
+  Id del rol
+  """
   id: String!
 }
 
 input CreateQuestionDTO {
-  """Título de la pregunta"""
+  """
+  Título de la pregunta
+  """
   title: String!
 
-  """Subtítulo de la pregunta"""
+  """
+  Subtítulo de la pregunta
+  """
   subtitle: String = ""
 
-  """Tipo de pregunta"""
+  """
+  Tipo de pregunta
+  """
   type: QuestionType!
 
-  """Es un objecto, tiene varias formas."""
+  """
+  Es un objecto, tiene varias formas.
+  """
   options: String!
 
-  """Id del tema al que pertenece la pregunta"""
+  """
+  Id del tema al que pertenece la pregunta
+  """
   topicId: String!
 }
 
 input UpdateQuestionDTO {
-  """Título de la pregunta"""
+  """
+  Título de la pregunta
+  """
   title: String
 
-  """Subtítulo de la pregunta"""
+  """
+  Subtítulo de la pregunta
+  """
   subtitle: String = ""
 
-  """Tipo de pregunta"""
+  """
+  Tipo de pregunta
+  """
   type: QuestionType
 
-  """Es un objecto, tiene varias formas."""
+  """
+  Es un objecto, tiene varias formas.
+  """
   options: String
 
-  """Id del tema al que pertenece la pregunta"""
+  """
+  Id del tema al que pertenece la pregunta
+  """
   topicId: String
 
-  """Id de la pregunta"""
+  """
+  Id de la pregunta
+  """
   id: String!
 }
 
 input CreateTopicDTO {
-  """Nombre del tema"""
+  """
+  Nombre del tema
+  """
   name: String!
 
-  """Esta imagen representa la clase del tema"""
+  """
+  Esta imagen representa la clase del tema
+  """
   image: String!
 
-  """Este es el vídeo más explicativo del tema"""
+  """
+  Este es el vídeo más explicativo del tema
+  """
   video: String!
 
-  """Unidad a la que pertenece el tema"""
+  """
+  Unidad a la que pertenece el tema
+  """
   periodCourseAsignatureUnitId: [Float!]
 }
 
 input UpdateTopicDTO {
-  """Nombre del tema"""
+  """
+  Nombre del tema
+  """
   name: String
 
-  """Esta imagen representa la clase del tema"""
+  """
+  Esta imagen representa la clase del tema
+  """
   image: String
 
-  """Este es el vídeo más explicativo del tema"""
+  """
+  Este es el vídeo más explicativo del tema
+  """
   video: String
 
-  """Unidad a la que pertenece el tema"""
+  """
+  Unidad a la que pertenece el tema
+  """
   periodCourseAsignatureUnitId: [Float!]
 
-  """Id del tema"""
+  """
+  Id del tema
+  """
   id: String!
 }
 
 input UpdatePeriodsCoursesAsignaturesUnitDTO {
-  """"""
+  """
+  """
   testActive: Boolean
   id: Int!
 }
 
 input CreateAsignatureDTO {
-  """Nombre de la asignatura"""
+  """
+  Nombre de la asignatura
+  """
   name: String!
 
-  """Descripción de la asignatura"""
+  """
+  Descripción de la asignatura
+  """
   description: String!
 
-  """Imagen que represente a la asignatura"""
+  """
+  Imagen que represente a la asignatura
+  """
   image: String!
 
-  """Cursos a los que pertenece la asignatura"""
+  """
+  Cursos a los que pertenece la asignatura
+  """
   periodsCourses: [Int!]
 }
 
 input UpdateAsignatureDTO {
-  """Nombre de la asignatura"""
+  """
+  Nombre de la asignatura
+  """
   name: String
 
-  """Descripción de la asignatura"""
+  """
+  Descripción de la asignatura
+  """
   description: String
 
-  """Imagen que represente a la asignatura"""
+  """
+  Imagen que represente a la asignatura
+  """
   image: String
 
-  """Cursos a los que pertenece la asignatura"""
+  """
+  Cursos a los que pertenece la asignatura
+  """
   periodsCourses: [Int!]
   id: ID
 }
 
 input CreateUnitDTO {
-  """Nombre de la unidad"""
+  """
+  Nombre de la unidad
+  """
   name: String!
 
-  """Asignatura a la que pertenece la unidad"""
+  """
+  Asignatura a la que pertenece la unidad
+  """
   periodsCoursesAsignature: [Int!]
 }
 
 input UpdateUnitDTO {
-  """Nombre de la unidad"""
+  """
+  Nombre de la unidad
+  """
   name: String
 
-  """Asignatura a la que pertenece la unidad"""
+  """
+  Asignatura a la que pertenece la unidad
+  """
   periodsCoursesAsignature: [Int!]
   id: String!
 }

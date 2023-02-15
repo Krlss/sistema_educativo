@@ -1,6 +1,7 @@
 import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
 import { Progress } from 'src/progress/entities/progress.entity';
 import { Rol } from 'src/rol/entities/rol.entity';
+import { Topic } from 'src/topic/entities/topic.entity';
 
 @ObjectType()
 export class User {
@@ -24,6 +25,9 @@ export class User {
 
   @Field(() => String, { nullable: true })
   updatedAt: Date;
+
+  @Field(() => [Topic], { nullable: true })
+  topics: Topic[];
 
   @Field(() => [Rol], { nullable: true })
   roles: Rol[];

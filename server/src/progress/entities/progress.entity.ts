@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
+import { ObjectType, Field, Int, ID, Float } from '@nestjs/graphql';
 import { PeriodsCoursesAsignaturesUnits } from 'src/courses-periods-asignatures-units/entities/courses-periods-asignatures-unit.entity';
 import { PeriodsCoursesAsignatures } from 'src/courses-periods-asignatures/entities/courses-periods-asignature.entity';
 import { User } from 'src/user/entities/user.entity';
@@ -12,13 +12,19 @@ export class Progress {
   userId: string;
 
   @Field(() => Int, { nullable: true })
-  periodCourseAsignatureId;
+  periodCourseAsignatureId: number;
 
   @Field(() => Int, { nullable: true })
-  periodCourseAsignatureUnitId;
+  periodCourseAsignatureUnitId: number;
+
+  @Field(() => Float, { nullable: true })
+  nota: number;
 
   @Field(() => String, { nullable: true })
   questions?: string;
+
+  @Field(() => Boolean, { nullable: true })
+  finished?: boolean;
 
   @Field(() => Date)
   createdAt: Date;

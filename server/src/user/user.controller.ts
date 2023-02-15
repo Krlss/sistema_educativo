@@ -28,6 +28,10 @@ export class UserController {
     return await this.userService.getStudents();
   }
 
+  async getProgressByUserId(id: string) {
+    return await this.userService.getProgressByUserId(id);
+  }
+
   async create(data: CreateUserDTO) {
     return await this.userService.create({
       ...data,
