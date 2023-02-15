@@ -11,8 +11,16 @@ const useHomePage = () => {
         asignature => asignature.id === p.id_asignature
       )
 
-      const total = asignatureFind?.PCA?.reduce((acc, pca) => {
+      const unitsTotal = asignatureFind?.PCA?.reduce((acc, pca) => {
         acc += pca.PCAU.length
+        return acc
+      }, 0) as number
+
+      const topicsTotal = asignatureFind?.PCA?.reduce((acc, pca) => {
+        acc += pca.PCAU.reduce((acc, u) => {
+          acc += u.PCAUT.length
+          return acc
+        }, 0)
         return acc
       }, 0) as number
 
@@ -24,7 +32,9 @@ const useHomePage = () => {
         }, 0)
         return acc
       }, 0) as number
-      const percentage = Math.round((finished / total) * 100)
+      const percentage = Math.round(
+        (finished / (unitsTotal + topicsTotal)) * 100
+      )
 
       return isNaN(percentage) ? 0 : percentage
     }) as number[]
