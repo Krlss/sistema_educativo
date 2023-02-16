@@ -29,6 +29,8 @@ export class UserController {
   }
 
   async getProgressByUserId(id: string) {
+    const progress = await this.userService.getProgressByUserId(id);
+
     return await this.userService.getProgressByUserId(id);
   }
 
@@ -76,7 +78,21 @@ export class UserController {
   }
 
   async getAsignaturesByUserId(id: string) {
-    return await this.userService.getAsignaturesByUserId(id);
+    const lastPeriod = await this.userService.getUserLastPeriod(id);
+    console.log({ lastPeriod });
+    const asignatures = await this.userService.getAsignaturesByUserId(
+      id,
+      lastPeriod.id,
+    );
+
+    const transformData = asignatures.map((A) => {
+      A.periodsCoursesAsignatures = A.periodsCoursesAsignatures.filter(
+        (B) => B.periodCourse.periodId === lastPeriod.id,
+      );
+      return A;
+    });
+
+    return transformData;
   }
 
   async getAsignatureByUserId(id: string, asignatureId: string) {

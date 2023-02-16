@@ -174,15 +174,13 @@ export class UserService {
     });
   }
 
-  async getAsignaturesByUserId(id: string) {
-    const period = await this.getPeriodsCoursesByUserId(id);
-
+  async getAsignaturesByUserId(id: string, periodId: string) {
     return await this.prismaService.asignature.findMany({
       where: {
         periodsCoursesAsignatures: {
           some: {
             periodCourse: {
-              periodId: period?.id,
+              periodId,
             },
             progress: {
               some: {
@@ -208,6 +206,7 @@ export class UserService {
                 },
               },
             },
+            periodCourse: true,
           },
         },
       },
@@ -215,7 +214,32 @@ export class UserService {
   }
 
   async getUserLastPeriod(id: string) {
-    return await this.prismaService.progress.findMany({
+    return await this.prismaService.period.findFirst({
+      where: {
+        periodsCourses: {
+          some: {
+            periodsCoursesAsignatures: {
+              some: {
+                progress: {
+                  some: {
+                    userId: id,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        name: 'desc',
+      },
+      take: 1,
+      select: {
+        id: true,
+        name: true,
+      },
+    });
+    /*  return await this.prismaService.progress.findMany({
       where: {
         userId: id,
       },
@@ -243,11 +267,11 @@ export class UserService {
           },
         },
       },
-    });
+    }); */
   }
 
   async getProgressByUserId(id: string) {
-    const period = await this.getUserLastPeriod(id);
+    const periodId = await this.getUserLastPeriod(id);
     const topics = await this.prismaService.topic.findMany({
       where: {
         users: {
@@ -272,6 +296,14 @@ export class UserService {
     const progress = await this.prismaService.progress.findMany({
       where: {
         userId: id,
+        periodCourseAsignatureId: {
+          not: null,
+        },
+        periodCourseAsignature: {
+          periodCourse: {
+            periodId: periodId.id,
+          },
+        },
       },
       include: {
         periodCourseAsignature: {
@@ -306,7 +338,6 @@ export class UserService {
         },
       },
     });
-    // console.log(data);
 
     const asignatures = [];
     progress.forEach((item) => {
@@ -321,6 +352,7 @@ export class UserService {
     });
     const units = [];
     progress.forEach((item) => {
+      console.log({ item });
       if (item.periodCourseAsignatureUnitId) {
         units.push({
           id: item.id,
