@@ -314,6 +314,11 @@ export class UserService {
               },
             },
             asignature: true,
+            periodCourseAsignatureUnits: {
+              include: {
+                unit: true,
+              },
+            },
           },
         },
         periodCourseAsignatureUnit: {
@@ -351,10 +356,25 @@ export class UserService {
       }
     });
     const units = [];
+
     progress.forEach((item) => {
-      console.log({ item });
-      if (item.periodCourseAsignatureUnitId) {
-        units.push({
+      if (item.periodCourseAsignature.periodCourseAsignatureUnits) {
+        item.periodCourseAsignature.periodCourseAsignatureUnits.forEach(
+          (unit) => {
+            /* const findUnit = units.find((u) => u.id_unit === unit.unitId);
+            if (!findUnit) { */
+            units.push({
+              id: item.id,
+              nota: item.nota,
+              id_unit: unit.unitId,
+              id_asignature: item.periodCourseAsignature.asignatureId,
+              finished: item.finished,
+              topic: [],
+            });
+            /* } */
+          },
+        );
+        /* units.push({
           id: item.id,
           nota: item.nota,
           id_unit: item.periodCourseAsignatureUnit.unitId,
@@ -362,7 +382,7 @@ export class UserService {
             item.periodCourseAsignatureUnit.periodCourseAsignature.asignatureId,
           finished: item.finished,
           topic: [],
-        });
+        }); */
       }
     });
     topics.forEach((item) => {
