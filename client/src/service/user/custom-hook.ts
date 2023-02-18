@@ -48,6 +48,10 @@ export const useLogin = () => {
       const user = jwtDecode<USER>(login)
       setUser({ ...user })
       setIsLogged(true)
+      if (user.roles.find(e => e.name === 'admin')) {
+        navigate('/dashboard/cursos')
+        return
+      }
       navigate('/')
     }
   })
