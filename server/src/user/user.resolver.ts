@@ -13,6 +13,7 @@ import { Response } from 'express';
 import { Progress } from 'src/progress/entities/progress.entity';
 import { Asignature } from 'src/asignature/entities/asignature.entity';
 import { CustomProgress } from 'src/progress/entities/custom-progress.entity';
+import { CustomAsignatureInscribed } from 'src/asignature/entities/customAsignatureInscribed';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -45,7 +46,7 @@ export class UserResolver {
     return this.userController.getProgressByUserId(userId);
   }
 
-  @Query(() => Asignature, { nullable: true })
+  @Query(() => CustomAsignatureInscribed, { nullable: true })
   getAsignatureUserInscribed(
     @Args('userId') userId: string,
     @Args('asignatureId') asignatureId: string,

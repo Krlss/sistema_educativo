@@ -42,13 +42,21 @@ export class AsignatureController {
       userId,
       unitId,
     );
+
+    const periodCourseFind = data.periodsCoursesAsignatures.find(
+      (p) => p.periodCourse.periodId === period.id,
+    );
+
     return {
       ...data,
-      periodsCoursesAsignatures: [
-        data.periodsCoursesAsignatures.find(
-          (item) => item.periodCourse.periodId === period.id,
-        ),
-      ],
+      unit: {
+        ...periodCourseFind.periodCourseAsignatureUnits.find(
+          (pcau) => pcau.periodCourseAsignatureId,
+        ).unit,
+        topics: periodCourseFind.periodCourseAsignatureUnits
+          .find((pcau) => pcau.periodCourseAsignatureId)
+          .periodCourseAsignatureUnitsTopic.map((t) => t.topic),
+      },
     };
   }
 }

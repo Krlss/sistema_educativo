@@ -3,6 +3,7 @@ import { AsignatureController } from './asignature.controller';
 import { Asignature } from './entities/asignature.entity';
 import { CreateAsignatureDTO } from './dto/create-asignature';
 import { UpdateAsignatureDTO } from './dto/update-asignature';
+import { CustomTopicsIncribed } from './entities/customTopicsInscribed';
 
 @Resolver(() => Asignature)
 export class AsignatureResolver {
@@ -18,7 +19,7 @@ export class AsignatureResolver {
     return this.asignatureController.get(id);
   }
 
-  @Query(() => Asignature, { nullable: true })
+  @Query(() => CustomTopicsIncribed, { nullable: true })
   topicsByAsignatureAndUser(
     @Args('asignatureId') asignatureId: string,
     @Args('userId') userId: string,

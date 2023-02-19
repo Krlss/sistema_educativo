@@ -430,6 +430,7 @@ export class UserService {
             },
           },
           include: {
+            periodCourse: true,
             periodCourseAsignatureUnits: {
               include: {
                 unit: true,

@@ -10,10 +10,7 @@ import GameReducer from './game/reducer'
 import { InitialStateGame } from './game/initialState'
 import { QuestionsExtends } from '../types/contextGame'
 import { useLogout } from '../service/user/custom-hook'
-import {
-  useGetAsignatures,
-  getAsignaturesProps
-} from '../service/asignatures/custom-hook'
+import { getAsignaturesProps } from '../service/asignatures/custom-hook'
 import { useGetUserProgress } from '../service/progress/custom-hook'
 import {
   getDataSession,
@@ -32,7 +29,6 @@ const GeneralProvider = (props: any) => {
   const [user, dispatchUser] = useReducer(UserReducer, InitialStateUser)
   const [config, dispatchConfig] = useReducer(ConfigReducer, InitialStateConfig)
   const [gameState, dispatchGame] = useReducer(GameReducer, InitialStateGame)
-  const { getAsignatures } = useGetAsignatures()
   const { handleGetUserProgress } = useGetUserProgress({ dispatchUser })
   const { handleLogout } = useLogout()
 
