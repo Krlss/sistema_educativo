@@ -21,3 +21,11 @@ export const UPDATE_USER_ROLES = gql`
     }
   }
 `
+
+export const UPDATE_USER_TOPIC = gql`
+  mutation Mutation($input: UpdateUserDTO!) {
+    updateUser(input: $input) {
+      id
+    }
+  }
+`

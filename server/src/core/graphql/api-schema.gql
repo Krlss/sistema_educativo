@@ -373,6 +373,9 @@ input CreateUserDTO {
 
   """Roles del usuario"""
   roles: [String!]
+
+  """Temas que ha visto"""
+  topics: [String!]
 }
 
 input UpdateUserDTO {
@@ -390,6 +393,9 @@ input UpdateUserDTO {
 
   """Roles del usuario"""
   roles: [String!]
+
+  """Temas que ha visto"""
+  topics: [String!]
 
   """Id del usuario"""
   id: String!

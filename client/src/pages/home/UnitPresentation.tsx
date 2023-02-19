@@ -21,7 +21,7 @@ const UnitPresentation = () => {
             const isFinished = user?.progress
               ?.find(p => p.id === asignatureId)
               ?.unit?.find(u => u.id === unitId)
-              ?.topic?.find(t => t.id === t.id)?.finished
+              ?.topic?.find(t => t.id === id)?.finished
 
             return (
               <div

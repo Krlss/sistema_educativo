@@ -97,6 +97,11 @@ export class UserService {
             connect: data.roles.map((id) => ({ id })),
           },
         }),
+        ...(data.topics && {
+          topics: {
+            connect: data.topics.map((id) => ({ id })),
+          },
+        }),
       },
     });
   }
@@ -111,6 +116,11 @@ export class UserService {
         ...(data.roles && {
           roles: {
             set: data.roles.map((id) => ({ id })),
+          },
+        }),
+        ...(data.topics && {
+          topics: {
+            set: data.topics.map((id) => ({ id })),
           },
         }),
       },

@@ -34,4 +34,7 @@ export class CreateUserDTO {
     message: 'Alguno de los roles no existe',
   })
   roles: string[];
+
+  @Field(() => [String], { nullable: true, description: 'Temas que ha visto' })
+  topics: string[];
 }

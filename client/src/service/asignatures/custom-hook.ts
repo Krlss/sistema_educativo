@@ -26,7 +26,9 @@ export const useGetAsignature = () => {
   const [asignature, setAsignature] = useState<ASIGNATURE>()
   const { setLoading } = useContext(GeneralContext)
   const [getAsignature, { data, error, loading }] =
-    useLazyQuery<getAsignatureProps>(GETASIGNATURE)
+    useLazyQuery<getAsignatureProps>(GETASIGNATURE, {
+      fetchPolicy: 'no-cache'
+    })
 
   const getAsignatureHandler = (asignatureId: string) => {
     setLoading(true)

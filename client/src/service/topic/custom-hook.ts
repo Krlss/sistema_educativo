@@ -1,4 +1,4 @@
-import { useLazyQuery, useMutation } from '@apollo/client'
+import { useLazyQuery, useQuery } from '@apollo/client'
 import { GETTOPICS } from './graphql-queries'
 import { CREATEUSERUNIT, updatedFinishedTopic } from './graphql-mutations'
 import { getRamdonArrayColors } from '../../constants/colors'
@@ -9,6 +9,7 @@ import { USER } from '../../types/ContextUser'
 import { getDataSession } from '../../utils/dataSession'
 import { GET_USER_PROGRESS } from '../progress/graphql-queries'
 import jwtDecode from 'jwt-decode'
+import { GETTOPIC } from '../asignatures/graphql-queries'
 
 interface IGetTopics {
   id: string
@@ -47,7 +48,9 @@ export const useGetTopics = () => {
     unitId: string
   }
 
-  const [getTopics] = useLazyQuery<getTopicsProps>(GETTOPICS)
+  const [getTopics] = useLazyQuery<getTopicsProps>(GETTOPICS, {
+    fetchPolicy: 'no-cache'
+  })
 
   const getTopicsHandler = (props: {
     asignatureId: string

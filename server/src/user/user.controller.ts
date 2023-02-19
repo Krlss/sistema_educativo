@@ -100,7 +100,10 @@ export class UserController {
     const data = await this.userService.getAsignatureByUserId(id, asignatureId);
 
     return {
-      ...data,
+      id: data.id,
+      name: data.name,
+      description: data.description,
+      image: data.image,
       units: data.periodsCoursesAsignatures
         .find((p) => p.periodCourse.periodId === period.id)
         .periodCourseAsignatureUnits.map((u) => {

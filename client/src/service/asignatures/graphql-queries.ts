@@ -18,3 +18,14 @@ export const GETASIGNATURE = gql`
     }
   }
 `
+
+export const GETTOPIC = gql`
+  query Topic($topicId: String!) {
+    topic(id: $topicId) {
+      id
+      name
+      image
+      video
+    }
+  }
+`
