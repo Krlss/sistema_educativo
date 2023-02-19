@@ -84,6 +84,7 @@ export class AsignatureService {
       include: {
         periodsCoursesAsignatures: {
           include: {
+            periodCourse: true,
             periodCourseAsignatureUnits: {
               where: {
                 unitId,

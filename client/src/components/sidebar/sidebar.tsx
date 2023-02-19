@@ -14,7 +14,7 @@ const Asidebar = ({
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
   isDashboard: boolean
 }) => {
-  const { config } = useContext(GeneralContext)
+  const { user } = useContext(GeneralContext)
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={setOpen}>
@@ -49,16 +49,16 @@ const Asidebar = ({
                           </ItemSidebar>
                         </ul>
                         <div className="h-px my-4 bg-gray-200"></div>
-                        {config.asignatures.length ? (
+                        {user.progress.length ? (
                           <ul className="flex items-center p-2 font-bold">
                             Asignaturas
                           </ul>
                         ) : null}
-                        {config.asignatures.map((asignature, index) => (
+                        {user.progress.map((p, index) => (
                           <ul key={index}>
                             <ItemSidebar
-                              label={asignature.name}
-                              to={`/asignatura/${asignature.id}`}
+                              label={p.name}
+                              to={`/asignatura/${p.id}`}
                             />
                           </ul>
                         ))}

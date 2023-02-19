@@ -77,8 +77,8 @@ const useGame = () => {
   const [renderDataGame, setRenderDataGame] = useState<React.ReactNode[]>([])
 
   const unitFind = user?.progress
-    .find(item => item.id_asignature === asignatureId)
-    ?.unit?.find(item => item.id_unit === unitId)
+    .find(item => item.id === asignatureId)
+    ?.unit?.find(u => u.id === unitId)
 
   if (unitFind?.finished) {
     navigate(`/asignatura/${asignatureId}`)
@@ -329,7 +329,7 @@ const useGame = () => {
 
         if (asignatureId && unitId) {
           const progressId_ = user.progress.find(
-            item => item.id_asignature === asignatureId
+            item => item.id === asignatureId
           )?.id
 
           handlerQualifyForUnit({

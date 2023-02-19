@@ -3,7 +3,7 @@ import GeneralContext from '../../contexts/context'
 import { NavLink } from 'react-router-dom'
 
 const MenuNavigation = () => {
-  const { config } = useContext(GeneralContext)
+  const { user } = useContext(GeneralContext)
   const navLinkDefaultclassName =
     'hover:bg-yellow-page py-2 px-3 rounded-md mx-1'
   return (
@@ -20,7 +20,7 @@ const MenuNavigation = () => {
         <li className="text-black-logo font-semibold">Asignaturas</li>
 
         <ul className="absolute hidden group-hover:block border top-10 left-0 bg-white shadow-md z-50">
-          {config.asignatures.map((asignature, index) => (
+          {user.progress.map((asignature, index) => (
             <NavLink to={`/asignatura/${asignature.id}`} key={index}>
               <li className="text-black-logo font-semibold hover:bg-yellow-page py-4 px-6">
                 {asignature.name}

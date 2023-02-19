@@ -12,21 +12,17 @@ export const GETTOPICS = gql`
       unitId: $unitId
     ) {
       id
-      asignature_name: name
-      PCA: periodsCoursesAsignatures {
-        PCAU: periodCourseAsignatureUnits {
-          unit {
-            id
-            name
-          }
-          PCAUT: periodCourseAsignatureUnitsTopic {
-            topic {
-              id
-              name
-              image
-              video
-            }
-          }
+      name
+      description
+      image
+      unit {
+        id
+        name
+        topics {
+          id
+          name
+          image
+          video
         }
       }
     }

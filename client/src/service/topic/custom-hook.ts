@@ -1,4 +1,4 @@
-import { useLazyQuery, useMutation } from '@apollo/client'
+import { useLazyQuery, useQuery } from '@apollo/client'
 import { GETTOPICS } from './graphql-queries'
 import { CREATEUSERUNIT, updatedFinishedTopic } from './graphql-mutations'
 import { getRamdonArrayColors } from '../../constants/colors'
@@ -8,29 +8,21 @@ import GeneralContext from '../../contexts/context'
 import { USER } from '../../types/ContextUser'
 import { getDataSession } from '../../utils/dataSession'
 import { GET_USER_PROGRESS } from '../progress/graphql-queries'
+import jwtDecode from 'jwt-decode'
+import { GETTOPIC } from '../asignatures/graphql-queries'
 
 interface IGetTopics {
   id: string
-  asignature_name: string
-  PCA: periodsCoursesAsignatures[]
+  name: string
+  description: string
+  image: string
+  unit: unit
 }
 
 interface unit {
   id: string
   name: string
-}
-
-interface periodCourseAsignatureUnitsTopic {
-  topic: topic
-}
-
-interface periodCourseAsignatureUnits {
-  unit: unit
-  PCAUT: periodCourseAsignatureUnitsTopic[]
-}
-
-interface periodsCoursesAsignatures {
-  PCAU: periodCourseAsignatureUnits[]
+  topics: topic[]
 }
 
 interface topic {
@@ -44,22 +36,21 @@ export interface getTopicsProps {
   topicsByAsignatureAndUser: IGetTopics
 }
 
-export interface IcreateUserUnit {
-  createUserUnit: USER
-}
-
 export const useGetTopics = () => {
   const navigate = useNavigate()
   const { setLoading, user } = useContext(GeneralContext)
   const [asignature, setAsignature] = useState<IGetTopics>()
   const [colors, setColors] = useState<string[]>([])
+  const rt = getDataSession('rt')
 
   const { asignatureId, unitId } = useParams() as {
     asignatureId: string
     unitId: string
   }
 
-  const [getTopics] = useLazyQuery<getTopicsProps>(GETTOPICS)
+  const [getTopics] = useLazyQuery<getTopicsProps>(GETTOPICS, {
+    fetchPolicy: 'no-cache'
+  })
 
   const getTopicsHandler = (props: {
     asignatureId: string
@@ -70,22 +61,9 @@ export const useGetTopics = () => {
     getTopics({
       variables: { ...props },
       onCompleted: ({ topicsByAsignatureAndUser }) => {
-        const dataTrasnformed = topicsByAsignatureAndUser.PCA[0].PCAU.find(
-          u => u.unit.id === unitId
-        ) as periodCourseAsignatureUnits
-        setAsignature({
-          asignature_name: topicsByAsignatureAndUser.asignature_name,
-          id: topicsByAsignatureAndUser.id,
-          PCA: [
-            {
-              PCAU: [dataTrasnformed]
-            }
-          ]
-        })
+        setAsignature(topicsByAsignatureAndUser)
         setColors(
-          getRamdonArrayColors(
-            topicsByAsignatureAndUser.PCA[0].PCAU[0].PCAUT.length
-          )
+          getRamdonArrayColors(topicsByAsignatureAndUser.unit.topics.length)
         )
         setLoading(false)
       },
@@ -97,9 +75,10 @@ export const useGetTopics = () => {
   }
 
   useEffect(() => {
+    const user_ = jwtDecode<USER>(rt)
     getTopicsHandler({
       asignatureId,
-      userId: user.id,
+      userId: user_.id,
       unitId
     })
 

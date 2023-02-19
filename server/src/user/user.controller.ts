@@ -96,7 +96,24 @@ export class UserController {
   }
 
   async getAsignatureByUserId(id: string, asignatureId: string) {
-    return await this.userService.getAsignatureByUserId(id, asignatureId);
+    const period = await this.userService.getUserLastPeriod(id);
+    const data = await this.userService.getAsignatureByUserId(id, asignatureId);
+
+    return {
+      id: data.id,
+      name: data.name,
+      description: data.description,
+      image: data.image,
+      units: data.periodsCoursesAsignatures
+        .find((p) => p.periodCourse.periodId === period.id)
+        .periodCourseAsignatureUnits.map((u) => {
+          return {
+            ...u.unit,
+            testActive: u.testActive,
+            topics: u.periodCourseAsignatureUnitsTopic.map((t) => t.topic),
+          };
+        }),
+    };
   }
 
   async updateUserTopic(userId: string, topicId: string) {

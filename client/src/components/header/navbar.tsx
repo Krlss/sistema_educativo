@@ -10,7 +10,7 @@ import Sidebar from '../sidebar/sidebar'
 import { Menu } from '@headlessui/react'
 
 const Navbar = () => {
-  const { user, logout, config } = useContext(GeneralContext)
+  const { user, logout } = useContext(GeneralContext)
   const [isOpen, setIsOpen] = useState(false)
   const location = useLocation()
 
@@ -45,9 +45,7 @@ const Navbar = () => {
                 </span>
               </NavLink>
             </div>
-            {!isDashboard && config.asignatures.length ? (
-              <MenuNavigation />
-            ) : null}
+            {!isDashboard && user.progress.length ? <MenuNavigation /> : null}
             <User user={user} logout={logout} />
           </div>
         </div>

@@ -97,6 +97,11 @@ export class UserService {
             connect: data.roles.map((id) => ({ id })),
           },
         }),
+        ...(data.topics && {
+          topics: {
+            connect: data.topics.map((id) => ({ id })),
+          },
+        }),
       },
     });
   }
@@ -111,6 +116,11 @@ export class UserService {
         ...(data.roles && {
           roles: {
             set: data.roles.map((id) => ({ id })),
+          },
+        }),
+        ...(data.topics && {
+          topics: {
+            set: data.topics.map((id) => ({ id })),
           },
         }),
       },
@@ -259,6 +269,7 @@ export class UserService {
                 periodCourseAsignature: true,
               },
             },
+            topic: true,
           },
         },
       },
@@ -329,96 +340,81 @@ export class UserService {
       },
     });
 
-    const asignatures = [];
-    progress.forEach((item) => {
-      if (item.periodCourseAsignatureId) {
-        const topicsnumber =
-          item.periodCourseAsignature.periodCourseAsignatureUnits.reduce(
+    return progress.map(
+      ({
+        periodCourseAsignatureId,
+        periodCourseAsignature: {
+          periodCourseAsignatureUnits,
+          asignatureId,
+          asignature,
+        },
+        nota,
+        finished,
+      }) => {
+        if (periodCourseAsignatureId) {
+          const topicsnumber = periodCourseAsignatureUnits.reduce(
             (acc, unit) => acc + unit.periodCourseAsignatureUnitsTopic.length,
             0,
           );
-        const unitsnumber =
-          item.periodCourseAsignature.periodCourseAsignatureUnits.length;
+          const unitsnumber = periodCourseAsignatureUnits.length;
 
-        const topicsfinished =
-          item.periodCourseAsignature.periodCourseAsignatureUnits.reduce(
-            (acc, unit) => {
-              return (
-                acc +
-                unit.periodCourseAsignatureUnitsTopic.reduce(
-                  (acc, pcautopic) => {
-                    if (
-                      topics.find((topic) => pcautopic.topicId === topic.id)
-                    ) {
-                      return acc + 1;
-                    } else {
-                      return acc;
-                    }
-                  },
-                  0,
-                )
-              );
-            },
+          const topicsfinished = periodCourseAsignatureUnits.reduce(
+            (acc, { periodCourseAsignatureUnitsTopic }) =>
+              acc +
+              periodCourseAsignatureUnitsTopic.reduce((acc, pcautopic) => {
+                if (topics.find((topic) => pcautopic.topicId === topic.id))
+                  return acc + 1;
+                return acc;
+              }, 0),
             0,
           );
-        asignatures.push({
-          id: item.periodCourseAsignature.asignatureId,
-          nota: item.nota,
-          name: item.periodCourseAsignature.asignature.name,
-          image: item.periodCourseAsignature.asignature.image,
-          percentage: Math.round(
-            (topicsfinished / (topicsnumber + unitsnumber)) * 100,
-          ),
-          id_asignature: item.periodCourseAsignature.asignatureId,
-          unit: [],
-        });
-      }
-    });
-    const units = [];
 
-    progress.forEach((item) => {
-      if (item.periodCourseAsignature.periodCourseAsignatureUnits) {
-        item.periodCourseAsignature.periodCourseAsignatureUnits.forEach(
-          (unit) => {
-            units.push({
-              id: unit.unitId,
-              nota: item.nota,
-              id_unit: unit.unitId,
-              id_asignature: item.periodCourseAsignature.asignatureId,
-              finished: item.finished,
-              topic: [],
-            });
-          },
-        );
-      }
-    });
-    topics.forEach((item) => {
-      const findTopic = item.periodsCoursesAsignaturesUnitsTopics.find(
-        (topic) => topic.topicId === item.id,
-      );
-      units.forEach((unit) => {
-        if (
-          findTopic.periodCourseAsignatureUnit.unitId === unit.id_unit &&
-          unit.id_asignature ===
-            findTopic.periodCourseAsignatureUnit.periodCourseAsignature
-              .asignatureId
-        ) {
-          unit.topic.push({
-            id: findTopic.topicId,
-            id_topic: findTopic.topicId,
-            finished: true,
-          });
+          return {
+            id: asignatureId,
+            nota: nota,
+            name: asignature.name,
+            image: asignature.image,
+            percentage: Math.round(
+              (topicsfinished / (topicsnumber + unitsnumber)) * 100,
+            ),
+            id_asignature: asignatureId,
+            unit: periodCourseAsignatureUnits.map(({ unitId, unit }) => {
+              return {
+                id: unitId,
+                name: unit.name,
+                id_asignature: asignatureId,
+                nota: nota,
+                finished: finished,
+                topic: topics
+                  .map(({ periodsCoursesAsignaturesUnitsTopics, id }) => {
+                    const { topic, topicId, periodCourseAsignatureUnit } =
+                      periodsCoursesAsignaturesUnitsTopics.find(
+                        (topic_) => topic_.topicId === id,
+                      );
+
+                    if (
+                      periodCourseAsignatureUnit.unitId === unitId &&
+                      asignatureId ===
+                        periodCourseAsignatureUnit.periodCourseAsignature
+                          .asignatureId
+                    )
+                      return {
+                        id: topicId,
+                        id_asignature: asignatureId,
+                        id_unit: unitId,
+                        finished: true,
+                        name: topic.name,
+                        image: topic.image,
+                        video: topic.video,
+                      };
+                  })
+                  .filter((f) => f),
+              };
+            }),
+          };
         }
-      });
-    });
-    asignatures.forEach((item) => {
-      units.forEach((unit) => {
-        if (item.id_asignature === unit.id_asignature) {
-          item.unit.push(unit);
-        }
-      });
-    });
-    return asignatures;
+      },
+    );
   }
 
   async getAsignatureByUserId(id: string, asignatureId: string) {
@@ -444,6 +440,7 @@ export class UserService {
             },
           },
           include: {
+            periodCourse: true,
             periodCourseAsignatureUnits: {
               include: {
                 unit: true,

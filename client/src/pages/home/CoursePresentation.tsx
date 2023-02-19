@@ -22,16 +22,16 @@ const CoursePresentation = () => {
           <span className="text-sm font-medium">{asignature?.description}</span>
         </div>
         <div className="mx-auto max-w-5xl pb-20 w-full">
-          {asignature?.PCA[0]?.PCAU.map(({ unit, PCAUT }, index) => {
+          {asignature?.units.map(({ id, name, topics }, index) => {
             const unitFind = user?.progress?.find(p =>
-              p.unit?.find(u => u.id_unit === unit.id)
+              p.unit?.find(u => u.id === id)
             ) as PROGRESS
 
             /**
              * Número de temas completados
              */
             const isCompleted = unitFind?.unit
-              ?.find(u => u.id_unit === unit.id)
+              ?.find(u => u.id === id)
               ?.topic?.filter(t => t.finished).length
 
             /**
@@ -41,13 +41,11 @@ const CoursePresentation = () => {
             /* const equalsCompleted =
               asignature.unit[index].topic.length === isCompleted */
             const equalsCompleted =
-              asignature.PCA[0].PCAU[index].PCAUT.length === isCompleted
+              asignature.units[index].topics.length === isCompleted
 
-            const isAsignature = user.progress.find(
-              p => p.id_asignature === asignatureId
-            )
+            const isAsignature = user.progress.find(p => p.id === asignatureId)
 
-            const isUnit = isAsignature?.unit?.find(u => u.id_unit === unit.id)
+            const isUnit = isAsignature?.unit?.find(u => u.id === id)
 
             return (
               <div
@@ -55,7 +53,7 @@ const CoursePresentation = () => {
                 className="rounded-md flex items-start justify-between md:flex-row flex-col md:items-center my-3 shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white h-[225px] md:h-[120px] ">
                 <NavLink
                   className="rounded-md flex items-center justify-start h-full"
-                  to={`/asignatura/${asignatureId}/unidad/${unit.id}`}>
+                  to={`/asignatura/${asignatureId}/unidad/${id}`}>
                   <div
                     className="items-center justify-center min-w-[104px] max-w-[80px] w-full rounded-l-md font-bold text-xl md:flex hidden h-full"
                     style={{
@@ -65,8 +63,7 @@ const CoursePresentation = () => {
                   </div>
                   <div
                     className={`flex items-center flex-1 justify-start ${
-                      asignature.PCA[0].PCAU.length === isCompleted &&
-                      'max-w-3xl'
+                      asignature.units.length === isCompleted && 'max-w-3xl'
                     }`}>
                     <div className="p-4">
                       <h1 className="font-semibold">Unidad {index + 1}</h1>
@@ -74,9 +71,9 @@ const CoursePresentation = () => {
                         <span className="text-sm text-gray-600 font-semibold mr-1">
                           Incluye:
                         </span>
-                        {PCAUT.map(({ topic }, index) => (
+                        {topics.map(({ name }, index) => (
                           <span className={'text-xs mr-1'} key={index}>
-                            {topic.name} {index !== PCAUT.length - 1 && '|'}
+                            {name} {index !== topics.length - 1 && '|'}
                           </span>
                         ))}
                       </div>
@@ -91,18 +88,17 @@ const CoursePresentation = () => {
                 ) : equalsCompleted && !gameState.timeLeft ? (
                   <DarPruebaDiv
                     asignature={asignature.id}
-                    unit={asignature.PCA[0].PCAU[index].unit.id}
+                    unitId={asignature.units[index].id}
                     title="Dar prueba"
                   />
                 ) : (
                   equalsCompleted &&
                   questionsId?.asignatureId === asignature.id &&
-                  questionsId?.unitId ===
-                    asignature.PCA[0].PCAU[index].unit.id &&
+                  questionsId?.unitId === asignature.units[index].id &&
                   gameState.timeLeft && (
                     <DarPruebaDiv
                       asignature={asignature.id}
-                      unit={asignature.PCA[0].PCAU[index].unit.id}
+                      unitId={asignature.units[index].id}
                       title="Continuar"
                     />
                   )
@@ -120,16 +116,16 @@ export default CoursePresentation
 
 const DarPruebaDiv = ({
   asignature,
-  unit,
+  unitId,
   title
 }: {
   asignature: string
-  unit: string
+  unitId: string
   title: string
 }) => {
   return (
     <div className="px-3 py-2 bg-yellow-page text-black font-bold text-sm rounded mr-4 max-w-[110px] w-full text-center shadow-md hover:bg-yellow2-page">
-      <Link to={`/asignatura/${asignature}/unidad/${unit}/prueba`}>
+      <Link to={`/asignatura/${asignature}/unidad/${unitId}/prueba`}>
         {title}
       </Link>
     </div>

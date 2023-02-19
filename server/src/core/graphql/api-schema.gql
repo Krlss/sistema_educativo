@@ -195,7 +195,6 @@ type Course {
 type CustomProgress {
   id: ID
   nota: Float
-  id_asignature: ID
   name: String
   image: String
   percentage: Float
@@ -204,18 +203,50 @@ type CustomProgress {
 
 type CustomTopic {
   id: ID
-  id_topic: ID
-  nota: Float
+  id_asignature: ID
+  id_unit: ID
   finished: Boolean
+  name: String
+  image: String
+  video: String
 }
 
 type CustomUnit {
   id: ID
-  id_unit: ID
+  name: String
   id_asignature: ID
   nota: Float
   finished: Boolean
   topic: [CustomTopic!]
+}
+
+type CustomAsignatureInscribed {
+  id: ID
+  name: String
+  description: String
+  image: String
+  units: [CustomUnitInscribed!]
+}
+
+type CustomUnitInscribed {
+  id: ID
+  name: String
+  topics: [CustomTopicsInscribed!]
+}
+
+type CustomTopicsInscribed {
+  id: ID
+  name: String
+  image: String
+  video: String
+}
+
+type CustomTopicsIncribed {
+  id: ID
+  name: String
+  description: String
+  image: String
+  unit: CustomUnitInscribed
 }
 
 type Query {
@@ -228,7 +259,7 @@ type Query {
   students: [User!]
   getAsignaturesUserInscribed(id: String!): [Asignature!]
   getUserProgress(userId: String!): [CustomProgress!]
-  getAsignatureUserInscribed(userId: String!, asignatureId: String!): Asignature
+  getAsignatureUserInscribed(userId: String!, asignatureId: String!): CustomAsignatureInscribed
   login(email: String!, password: String!): String!
   logout: String
   roles: [Rol!]!
@@ -245,7 +276,7 @@ type Query {
   periodsCoursesAsignaturesUnitsByCoursePeriodAsignature_Unit(periodCourseAsignatureUnitId: Int!, unitId: String!): PeriodsCoursesAsignaturesUnits!
   asignatures: [Asignature!]
   asignature(id: String!): Asignature
-  topicsByAsignatureAndUser(asignatureId: String!, userId: String!, unitId: String!): Asignature
+  topicsByAsignatureAndUser(asignatureId: String!, userId: String!, unitId: String!): CustomTopicsIncribed
   periodsCourses: [PeriodsCourses!]
   periodCourse(id: Float!): PeriodsCourses
   periodCourseByCourseId(id: String!): [PeriodsCourses!]
@@ -350,6 +381,9 @@ input CreateUserDTO {
 
   """Roles del usuario"""
   roles: [String!]
+
+  """Temas que ha visto"""
+  topics: [String!]
 }
 
 input UpdateUserDTO {
@@ -367,6 +401,9 @@ input UpdateUserDTO {
 
   """Roles del usuario"""
   roles: [String!]
+
+  """Temas que ha visto"""
+  topics: [String!]
 
   """Id del usuario"""
   id: String!
