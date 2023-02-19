@@ -70,6 +70,7 @@ export const useGetTopics = () => {
     getTopics({
       variables: { ...props },
       onCompleted: ({ topicsByAsignatureAndUser }) => {
+        console.log({ topicsByAsignatureAndUser })
         const dataTrasnformed = topicsByAsignatureAndUser.PCA[0].PCAU.find(
           u => u.unit.id === unitId
         ) as periodCourseAsignatureUnits

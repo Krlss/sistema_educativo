@@ -7,9 +7,7 @@ export type GeneralContextProps = {
   user: USER
   setUser: (user: USER) => void
   logout: () => void
-  setAsignatures: (asignatures: ASIGNATURE[]) => void
   config: {
-    asignatures: ASIGNATURE[]
     loading: boolean
   }
   setLoading: (loading: boolean) => void
@@ -19,11 +17,6 @@ export type GeneralContextProps = {
   updatedQuestion: (question: QuestionsExtends) => void
   setIndex: (index: number) => void
   gameState: QUESTION
-  /*  updateFinishedTopic: (
-    asignatureId: string,
-    unitId: string,
-    topicId: string
-  ) => void */
   setInitialGame: () => void
   resetGame: () => void
   setNext: (boolean: boolean) => void

@@ -189,7 +189,6 @@ type Course {
 type CustomProgress {
   id: ID
   nota: Float
-  id_asignature: ID
   name: String
   image: String
   percentage: Float
@@ -198,14 +197,17 @@ type CustomProgress {
 
 type CustomTopic {
   id: ID
-  id_topic: ID
-  nota: Float
+  id_asignature: ID
+  id_unit: ID
   finished: Boolean
+  name: String
+  image: String
+  video: String
 }
 
 type CustomUnit {
   id: ID
-  id_unit: ID
+  name: String
   id_asignature: ID
   nota: Float
   finished: Boolean

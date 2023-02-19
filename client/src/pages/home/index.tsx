@@ -2,8 +2,10 @@ import HomeCard from '../../components/cards/homeCard'
 import CenterLogo from '../../components/logo/centerLogo'
 import { PROGRESS } from '../../types/ContextUser'
 import useHomePage from '../../hooks/useHomePage'
+import GeneralContext from '../../contexts/context'
+import { useContext } from 'react'
 const Home = () => {
-  const { config, percentage, user } = useHomePage()
+  const { user } = useContext(GeneralContext)
 
   return (
     <>
@@ -14,15 +16,15 @@ const Home = () => {
       </h1>
 
       <h2 className="text-2xl font-bold text-gray-800">
-        {config.asignatures.length
+        {user.progress.length
           ? 'Estos son tus progresos en los cursos'
           : 'No hay cursos disponibles, por favor contacta a tu profesor'}
       </h2>
 
       <div className="flex items-center justify-between mb-20">
         <div className="flex flex-wrap mt-4 gap-8">
-          {config.asignatures.map((asignature, index) => {
-            const findCourse = user.progress.find(
+          {user.progress.map((p, index) => {
+            /* const findCourse = user.progress.find(
               course => course.id_asignature === asignature.id
             ) as PROGRESS
 
@@ -33,17 +35,17 @@ const Home = () => {
                 return acc
               },
               { can: 0, unit: 0 }
-            ) as { can: number; unit: number }
+            ) as { can: number; unit: number } */
 
             return (
               <HomeCard
                 key={index}
                 numberCourse={index + 1}
-                nameCourse={asignature.name}
-                progress={percentage[index]}
-                to={asignature.id}
-                StringImage={asignature.image}
-                canGiveExam={!!canGiveExam?.can}
+                nameCourse={p.name}
+                progress={p.percentage || 0}
+                to={p.id}
+                StringImage={p.image}
+                canGiveExam={false}
               />
             )
           })}

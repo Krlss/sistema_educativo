@@ -5,7 +5,7 @@
             "type": "node-terminal",
             "name": "Run Script: local",
             "request": "launch",
-            "command": "npm run local",
+            "command": "yarn start:dev",
             "cwd": "${workspaceFolder}\\server\\src"
         },
         {

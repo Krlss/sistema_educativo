@@ -24,14 +24,14 @@ const CoursePresentation = () => {
         <div className="mx-auto max-w-5xl pb-20 w-full">
           {asignature?.PCA[0]?.PCAU.map(({ unit, PCAUT }, index) => {
             const unitFind = user?.progress?.find(p =>
-              p.unit?.find(u => u.id_unit === unit.id)
+              p.unit?.find(u => u.id === unit.id)
             ) as PROGRESS
 
             /**
              * Número de temas completados
              */
             const isCompleted = unitFind?.unit
-              ?.find(u => u.id_unit === unit.id)
+              ?.find(u => u.id === unit.id)
               ?.topic?.filter(t => t.finished).length
 
             /**
@@ -43,11 +43,9 @@ const CoursePresentation = () => {
             const equalsCompleted =
               asignature.PCA[0].PCAU[index].PCAUT.length === isCompleted
 
-            const isAsignature = user.progress.find(
-              p => p.id_asignature === asignatureId
-            )
+            const isAsignature = user.progress.find(p => p.id === asignatureId)
 
-            const isUnit = isAsignature?.unit?.find(u => u.id_unit === unit.id)
+            const isUnit = isAsignature?.unit?.find(u => u.id === unit.id)
 
             return (
               <div

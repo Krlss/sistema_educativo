@@ -22,9 +22,9 @@ const UnitPresentation = () => {
             un.PCAUT.map((top, index) => {
               const haveClass = top.topic.image || top.topic.video
               const isFinished = user?.progress
-                ?.find(p => p.id_asignature === asignatureId)
-                ?.unit?.find(u => u.id_unit === unitId)
-                ?.topic?.find(t => t.id_topic === top.topic.id)?.finished
+                ?.find(p => p.id === asignatureId)
+                ?.unit?.find(u => u.id === unitId)
+                ?.topic?.find(t => t.id === top.topic.id)?.finished
 
               return (
                 <div

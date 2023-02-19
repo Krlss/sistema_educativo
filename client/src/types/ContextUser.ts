@@ -1,8 +1,11 @@
 export interface TOPIC {
   id: string
-  nota?: number
-  id_topic: string
+  id_asignature: string
+  id_unit: string
   finished: boolean
+  name: string
+  image?: string
+  video?: string
   questions: {
     id: string
     nota: number
@@ -12,8 +15,8 @@ export interface TOPIC {
 }
 export interface UNIT {
   id: string
+  id_asignature: string
   nota?: number
-  id_unit: string
   finished: boolean
   topic: TOPIC[]
 }
@@ -21,7 +24,9 @@ export interface UNIT {
 export interface PROGRESS {
   id: string
   nota?: number
-  id_asignature: string
+  image: string
+  name: string
+  percentage: number | null
   unit?: UNIT[]
 }
 export interface USER {
