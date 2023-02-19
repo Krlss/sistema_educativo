@@ -190,6 +190,9 @@ type CustomProgress {
   id: ID
   nota: Float
   id_asignature: ID
+  name: String
+  image: String
+  percentage: Float
   unit: [CustomUnit!]
 }
 

@@ -239,35 +239,6 @@ export class UserService {
         name: true,
       },
     });
-    /*  return await this.prismaService.progress.findMany({
-      where: {
-        userId: id,
-      },
-      include: {
-        periodCourseAsignature: {
-          include: {
-            periodCourse: {
-              include: {
-                period: true,
-              },
-            },
-          },
-        },
-        periodCourseAsignatureUnit: {
-          include: {
-            periodCourseAsignature: {
-              include: {
-                periodCourse: {
-                  include: {
-                    period: true,
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    }); */
   }
 
   async getProgressByUserId(id: string) {
@@ -317,6 +288,11 @@ export class UserService {
             periodCourseAsignatureUnits: {
               include: {
                 unit: true,
+                periodCourseAsignatureUnitsTopic: {
+                  include: {
+                    topic: true,
+                  },
+                },
               },
             },
           },
@@ -331,6 +307,15 @@ export class UserService {
             },
             periodCourseAsignature: {
               include: {
+                periodCourseAsignatureUnits: {
+                  include: {
+                    periodCourseAsignatureUnitsTopic: {
+                      include: {
+                        topic: true,
+                      },
+                    },
+                  },
+                },
                 periodCourse: {
                   include: {
                     period: true,
@@ -347,9 +332,43 @@ export class UserService {
     const asignatures = [];
     progress.forEach((item) => {
       if (item.periodCourseAsignatureId) {
+        const topicsnumber =
+          item.periodCourseAsignature.periodCourseAsignatureUnits.reduce(
+            (acc, unit) => acc + unit.periodCourseAsignatureUnitsTopic.length,
+            0,
+          );
+        const unitsnumber =
+          item.periodCourseAsignature.periodCourseAsignatureUnits.length;
+
+        const topicsfinished =
+          item.periodCourseAsignature.periodCourseAsignatureUnits.reduce(
+            (acc, unit) => {
+              return (
+                acc +
+                unit.periodCourseAsignatureUnitsTopic.reduce(
+                  (acc, pcautopic) => {
+                    if (
+                      topics.find((topic) => pcautopic.topicId === topic.id)
+                    ) {
+                      return acc + 1;
+                    } else {
+                      return acc;
+                    }
+                  },
+                  0,
+                )
+              );
+            },
+            0,
+          );
         asignatures.push({
           id: item.periodCourseAsignature.asignatureId,
           nota: item.nota,
+          name: item.periodCourseAsignature.asignature.name,
+          image: item.periodCourseAsignature.asignature.image,
+          percentage: Math.round(
+            (topicsfinished / (topicsnumber + unitsnumber)) * 100,
+          ),
           id_asignature: item.periodCourseAsignature.asignatureId,
           unit: [],
         });

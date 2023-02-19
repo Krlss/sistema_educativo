@@ -11,6 +11,15 @@ export class CustomProgress {
   @Field(() => ID, { nullable: true })
   id_asignature: string;
 
+  @Field(() => String, { nullable: true })
+  name: string;
+
+  @Field(() => String, { nullable: true })
+  image: string;
+
+  @Field(() => Number, { nullable: true })
+  percentage: number;
+
   @Field(() => [CustomUnit], { nullable: true })
   unit: CustomUnit[];
 }
