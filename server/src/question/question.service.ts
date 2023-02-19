@@ -24,6 +24,55 @@ export class QuestionService {
     });
   }
 
+  async getManyByUnit(unitId: string, asignatureId: string, periodId: string) {
+    return this.prismaService.question.findMany({
+      where: {
+        topic: {
+          periodsCoursesAsignaturesUnitsTopics: {
+            some: {
+              periodCourseAsignatureUnit: {
+                unitId,
+                periodCourseAsignature: {
+                  asignatureId,
+                  periodCourse: {
+                    periodId,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      include: {
+        topic: true,
+      },
+    });
+  }
+
+  async getManyByAsignature(asignatureId: string, periodId: string) {
+    return this.prismaService.question.findMany({
+      where: {
+        topic: {
+          periodsCoursesAsignaturesUnitsTopics: {
+            some: {
+              periodCourseAsignatureUnit: {
+                periodCourseAsignature: {
+                  asignatureId,
+                  periodCourse: {
+                    periodId,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      include: {
+        topic: true,
+      },
+    });
+  }
+
   async create(data: CreateQuestionDTO) {
     return this.prismaService.question.create({
       data,

@@ -28,7 +28,7 @@ export const usersSeed = async () => {
     });
     console.log('Users created: ', users.length);
   }
-  /* for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 2; i++) {
     const password_ = await bcrypt.hash('12345678', 10);
     await prisma.user.create({
       data: {
@@ -41,6 +41,6 @@ export const usersSeed = async () => {
         },
       },
     });
-  } */
+  }
   prisma.$disconnect();
 };

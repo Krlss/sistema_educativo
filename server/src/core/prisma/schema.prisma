@@ -39,6 +39,11 @@ enum QuestionType {
   operation_simple
 }
 
+enum QuestionPriority {
+  low
+  high
+}
+
 model User {
   id        String     @id @default(cuid())
   email     String     @unique
@@ -106,6 +111,7 @@ model Question {
   subtitle  String?
   type      QuestionType
   options   String       @db.LongText
+  difficulty QuestionPriority @default(low)
   topicId   String
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt

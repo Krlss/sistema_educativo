@@ -1,6 +1,7 @@
 import { InputType, Field } from '@nestjs/graphql';
 import { IsNotEmpty, MinLength } from 'class-validator';
 import { QuestionType } from '../types/question.type';
+import { QuestionDifficulty } from '../types/question.difficulty';
 
 @InputType()
 export class CreateQuestionDTO {
@@ -31,6 +32,10 @@ export class CreateQuestionDTO {
   @Field({ description: 'Es un objecto, tiene varias formas.' })
   @IsNotEmpty({ message: 'Las opciones de la pregunta no pueden estar vacías' })
   options: string;
+
+  @Field(() => QuestionDifficulty, { description: 'Prioridad de la pregunta' })
+  @IsNotEmpty({ message: 'La prioridad de la pregunta no puede estar vacía' })
+  priority: QuestionDifficulty;
 
   @Field({
     description: 'Id del tema al que pertenece la pregunta',

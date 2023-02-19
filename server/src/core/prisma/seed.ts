@@ -28,7 +28,7 @@ async function main() {
   const periodsCoursesAsignatures = await asignatureSeed(periodsCourses.id);
   await unitSeed(periodsCoursesAsignatures);
   await topicSeed();
-  await quesitonSeed();
+  // await quesitonSeed();
 }
 main()
   .then(async () => {

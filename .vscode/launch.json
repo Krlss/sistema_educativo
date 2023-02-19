@@ -1,19 +1,19 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "node-terminal",
-            "name": "Run Script: local",
-            "request": "launch",
-            "command": "npm run local",
-            "cwd": "${workspaceFolder}\\server\\src"
-        },
-        {
-            "name": "Run Chrome",
-            "type": "chrome",
-            "request": "launch",
-            "url": "http://localhost:3000",
-            "webRoot": "${workspaceFolder}"
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node-terminal",
+      "name": "Run Script: local",
+      "request": "launch",
+      "command": "npm run start:dev",
+      "cwd": "${workspaceFolder}\\server\\src"
+    },
+    {
+      "name": "Run Chrome",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}"
+    }
+  ]
 }

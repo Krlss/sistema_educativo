@@ -24,6 +24,7 @@ type Question {
   subtitle: String
   type: QuestionType
   options: String
+  difficulty: QuestionDifficulty!
   createdAt: DateTime
   updatedAt: DateTime
   deletedAt: DateTime
@@ -60,6 +61,11 @@ enum QuestionType {
   select_place_table_option
   choose_an_option_textnumber
   true_or_false_numbers_and_text
+}
+
+enum QuestionDifficulty {
+  low
+  high
 }
 
 type Rol {
@@ -229,6 +235,8 @@ type Query {
   rol(id: String!): Rol
   questions: [Question!]
   question(id: String!): Question
+  questionsByUnit(unitId: String!, asignatureId: String!, userId: String!): [Question!]
+  questionsByAsignature(asignatureId: String!, userId: String!): [Question!]
   topics: [Topic!]
   topic(id: String!): Topic
   periodsCoursesAsignaturesUnits: [PeriodsCoursesAsignaturesUnits!]!
@@ -402,6 +410,9 @@ input CreateQuestionDTO {
   """Es un objecto, tiene varias formas."""
   options: String!
 
+  """Prioridad de la pregunta"""
+  priority: QuestionDifficulty!
+
   """Id del tema al que pertenece la pregunta"""
   topicId: String!
 }
@@ -418,6 +429,9 @@ input UpdateQuestionDTO {
 
   """Es un objecto, tiene varias formas."""
   options: String
+
+  """Prioridad de la pregunta"""
+  priority: QuestionDifficulty!
 
   """Id del tema al que pertenece la pregunta"""
   topicId: String

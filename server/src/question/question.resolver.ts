@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql';
 import { Question } from './entities/question.entity';
 import { CreateQuestionDTO } from './dto/create-question';
 import { UpdateQuestionDTO } from './dto/update-question';
@@ -16,6 +16,23 @@ export class QuestionResolver {
   @Query(() => Question, { nullable: true })
   question(@Args('id') id: string) {
     return this.questionController.get(id);
+  }
+
+  @Query(() => [Question], { nullable: true })
+  questionsByUnit(
+    @Args('unitId') unitId: string,
+    @Args('asignatureId') asignatureId: string,
+    @Args('userId') userId: string,
+  ) {
+    return this.questionController.getManyByUnit(unitId, asignatureId, userId);
+  }
+
+  @Query(() => [Question], { nullable: true })
+  questionsByAsignature(
+    @Args('asignatureId') asignatureId: string,
+    @Args('userId') userId: string,
+  ) {
+    return this.questionController.getManyByAsignature(asignatureId, userId);
   }
 
   @Mutation(() => Question)

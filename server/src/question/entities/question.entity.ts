@@ -1,6 +1,7 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { QuestionType } from '../types/question.type';
 import { Topic } from 'src/topic/entities/topic.entity';
+import { QuestionDifficulty } from '../types/question.difficulty';
 
 @ObjectType()
 export class Question {
@@ -20,6 +21,11 @@ export class Question {
 
   @Field({ nullable: true })
   options: string;
+
+  @Field(() => QuestionDifficulty, {
+    defaultValue: QuestionDifficulty.low,
+  })
+  difficulty: QuestionDifficulty;
 
   @Field({ nullable: true })
   createdAt: Date;
