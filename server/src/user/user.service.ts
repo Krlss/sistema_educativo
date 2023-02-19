@@ -348,7 +348,7 @@ export class UserService {
     progress.forEach((item) => {
       if (item.periodCourseAsignatureId) {
         asignatures.push({
-          id: item.id,
+          id: item.periodCourseAsignature.asignatureId,
           nota: item.nota,
           id_asignature: item.periodCourseAsignature.asignatureId,
           unit: [],
@@ -361,28 +361,16 @@ export class UserService {
       if (item.periodCourseAsignature.periodCourseAsignatureUnits) {
         item.periodCourseAsignature.periodCourseAsignatureUnits.forEach(
           (unit) => {
-            /* const findUnit = units.find((u) => u.id_unit === unit.unitId);
-            if (!findUnit) { */
             units.push({
-              id: item.id,
+              id: unit.unitId,
               nota: item.nota,
               id_unit: unit.unitId,
               id_asignature: item.periodCourseAsignature.asignatureId,
               finished: item.finished,
               topic: [],
             });
-            /* } */
           },
         );
-        /* units.push({
-          id: item.id,
-          nota: item.nota,
-          id_unit: item.periodCourseAsignatureUnit.unitId,
-          id_asignature:
-            item.periodCourseAsignatureUnit.periodCourseAsignature.asignatureId,
-          finished: item.finished,
-          topic: [],
-        }); */
       }
     });
     topics.forEach((item) => {
@@ -396,7 +384,11 @@ export class UserService {
             findTopic.periodCourseAsignatureUnit.periodCourseAsignature
               .asignatureId
         ) {
-          unit.topic.push({ id: item.id, id_topic: item.id, finished: true });
+          unit.topic.push({
+            id: findTopic.topicId,
+            id_topic: findTopic.topicId,
+            finished: true,
+          });
         }
       });
     });

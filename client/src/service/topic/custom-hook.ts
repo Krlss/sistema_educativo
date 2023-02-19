@@ -50,10 +50,9 @@ export interface IcreateUserUnit {
 
 export const useGetTopics = () => {
   const navigate = useNavigate()
-  const { setLoading, user, setUser } = useContext(GeneralContext)
+  const { setLoading, user } = useContext(GeneralContext)
   const [asignature, setAsignature] = useState<IGetTopics>()
   const [colors, setColors] = useState<string[]>([])
-  const token = getDataSession('token')
 
   const { asignatureId, unitId } = useParams() as {
     asignatureId: string
@@ -97,44 +96,12 @@ export const useGetTopics = () => {
     })
   }
 
-  const createdUserUnit = user.progress
-    .find(progress => progress.id_asignature === asignatureId)
-    ?.unit?.find(unit => unit.id_unit === unitId)
-
-  const [createUserUnit] = useMutation<IcreateUserUnit>(CREATEUSERUNIT, {
-    onError(error) {
-      console.error('Error creating user unit', error)
-    },
-    onCompleted(data) {
-      const { createUserUnit } = data
-      setUser({ ...createUserUnit })
-      console.log('unit created')
-    }
-  })
-
-  const createUserUnitHandler = (props: {
-    asignatureId: string
-    unitId: string
-    userId: string
-  }) => {
-    createUserUnit({
-      variables: { ...props },
-      onCompleted: ({ createUserUnit }) => {
-        setUser({ ...createUserUnit })
-      }
-    })
-  }
-
   useEffect(() => {
     getTopicsHandler({
       asignatureId,
       userId: user.id,
       unitId
     })
-
-    /* if (createdUserUnit === undefined && token) {
-      createUserUnitHandler({ asignatureId, unitId, userId: token.id })
-    } */
 
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [asignatureId, unitId, user.id])
@@ -147,21 +114,5 @@ export const useGetTopics = () => {
     asignatureId,
     unitId,
     user
-  }
-}
-
-export const useUpdatedFinishedTopic = () => {
-  const [updatedFinishedTopicMutation] = useMutation(updatedFinishedTopic, {
-    onError(error) {
-      console.error('Error updating finished topic', error)
-    },
-    onCompleted() {
-      console.log('topic updated')
-    },
-    refetchQueries: [GET_USER_PROGRESS]
-  })
-
-  return {
-    updatedFinishedTopicMutation
   }
 }

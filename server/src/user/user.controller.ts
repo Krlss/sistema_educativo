@@ -79,7 +79,7 @@ export class UserController {
 
   async getAsignaturesByUserId(id: string) {
     const lastPeriod = await this.userService.getUserLastPeriod(id);
-    console.log({ lastPeriod });
+
     const asignatures = await this.userService.getAsignaturesByUserId(
       id,
       lastPeriod.id,

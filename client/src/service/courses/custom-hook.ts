@@ -48,7 +48,6 @@ export const useCreateCourse = () => {
     name?: string
     periods?: string[]
   }) => {
-    console.log({ course })
     updateCourse({
       variables: {
         input: {

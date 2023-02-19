@@ -22,98 +22,94 @@ const CoursePresentation = () => {
           <span className="text-sm font-medium">{asignature?.description}</span>
         </div>
         <div className="mx-auto max-w-5xl pb-20 w-full">
-          {asignature?.PCA.map((pca, i) =>
-            pca.PCAU.map(({ unit, PCAUT }, index) => {
-              const unitFined = user?.progress?.find(p =>
-                p.unit?.find(u => u.id_unit === unit.id)
-              ) as PROGRESS
+          {asignature?.PCA[0]?.PCAU.map(({ unit, PCAUT }, index) => {
+            const unitFind = user?.progress?.find(p =>
+              p.unit?.find(u => u.id_unit === unit.id)
+            ) as PROGRESS
 
-              /**
-               * Número de temas completados
-               */
-              const isCompleted = unitFined?.unit
-                ?.find(u => u.id_unit === unit.id)
-                ?.topic?.filter(t => t.finished).length
+            /**
+             * Número de temas completados
+             */
+            const isCompleted = unitFind?.unit
+              ?.find(u => u.id_unit === unit.id)
+              ?.topic?.filter(t => t.finished).length
 
-              /**
-               * Si el número de temas completados es igual al número de temas
-               * de la unidad, entonces la unidad está completada
-               * */
-              /* const equalsCompleted =
-                asignature.unit[index].topic.length === isCompleted */
-              const equalsCompleted =
-                asignature.PCA[i].PCAU[index].PCAUT.length === isCompleted
+            /**
+             * Si el número de temas completados es igual al número de temas
+             * de la unidad, entonces la unidad está completada
+             * */
+            /* const equalsCompleted =
+              asignature.unit[index].topic.length === isCompleted */
+            const equalsCompleted =
+              asignature.PCA[0].PCAU[index].PCAUT.length === isCompleted
 
-              const isAsignature = user.progress.find(
-                p => p.id_asignature === asignatureId
-              )
+            const isAsignature = user.progress.find(
+              p => p.id_asignature === asignatureId
+            )
 
-              const isUnit = isAsignature?.unit?.find(
-                u => u.id_unit === unit.id
-              )
+            const isUnit = isAsignature?.unit?.find(u => u.id_unit === unit.id)
 
-              return (
-                <div
-                  key={index}
-                  className="rounded-md flex items-start justify-between md:flex-row flex-col md:items-center my-3 shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white h-[225px] md:h-[120px] ">
-                  <NavLink
-                    className="rounded-md flex items-center justify-start h-full"
-                    to={`/asignatura/${asignatureId}/unidad/${unit.id}`}>
-                    <div
-                      className="items-center justify-center min-w-[104px] max-w-[80px] w-full rounded-l-md font-bold text-xl md:flex hidden h-full"
-                      style={{
-                        backgroundColor: colors[index]
-                      }}>
-                      {index + 1} .°
-                    </div>
-                    <div
-                      className={`flex items-center flex-1 justify-start ${
-                        asignature.PCA[0].PCAU.length === isCompleted &&
-                        'max-w-3xl'
-                      }`}>
-                      <div className="p-4">
-                        <h1 className="font-semibold">Unidad {index + 1}</h1>
-                        <div className="line-clamp-3 pr-5">
-                          <span className="text-sm text-gray-600 font-semibold mr-1">
-                            Incluye:
+            return (
+              <div
+                key={index}
+                className="rounded-md flex items-start justify-between md:flex-row flex-col md:items-center my-3 shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white h-[225px] md:h-[120px] ">
+                <NavLink
+                  className="rounded-md flex items-center justify-start h-full"
+                  to={`/asignatura/${asignatureId}/unidad/${unit.id}`}>
+                  <div
+                    className="items-center justify-center min-w-[104px] max-w-[80px] w-full rounded-l-md font-bold text-xl md:flex hidden h-full"
+                    style={{
+                      backgroundColor: colors[index]
+                    }}>
+                    {index + 1} .°
+                  </div>
+                  <div
+                    className={`flex items-center flex-1 justify-start ${
+                      asignature.PCA[0].PCAU.length === isCompleted &&
+                      'max-w-3xl'
+                    }`}>
+                    <div className="p-4">
+                      <h1 className="font-semibold">Unidad {index + 1}</h1>
+                      <div className="line-clamp-3 pr-5">
+                        <span className="text-sm text-gray-600 font-semibold mr-1">
+                          Incluye:
+                        </span>
+                        {PCAUT.map(({ topic }, index) => (
+                          <span className={'text-xs mr-1'} key={index}>
+                            {topic.name} {index !== PCAUT.length - 1 && '|'}
                           </span>
-                          {PCAUT.map(({ topic }, index) => (
-                            <span className={'text-xs mr-1'} key={index}>
-                              {topic.name} {index !== PCAUT.length - 1 && '|'}
-                            </span>
-                          ))}
-                        </div>
+                        ))}
                       </div>
                     </div>
-                  </NavLink>
+                  </div>
+                </NavLink>
 
-                  {isUnit?.finished ? (
-                    <div className="px-3 py-2 font-bold text-sm rounded md:mr-4 ml-4 mb-4 max-w-[110px] w-full text-center shadow-md bg-green-page cursor-default text-white">
-                      Calificación: {isUnit.nota?.toFixed(2) || 0}
-                    </div>
-                  ) : equalsCompleted && !gameState.timeLeft ? (
+                {isUnit?.finished ? (
+                  <div className="px-3 py-2 font-bold text-sm rounded md:mr-4 ml-4 mb-4 max-w-[110px] w-full text-center shadow-md bg-green-page cursor-default text-white">
+                    Calificación: {isUnit.nota?.toFixed(2) || 0}
+                  </div>
+                ) : equalsCompleted && !gameState.timeLeft ? (
+                  <DarPruebaDiv
+                    asignature={asignature.id}
+                    unit={asignature.PCA[0].PCAU[index].unit.id}
+                    title="Dar prueba"
+                  />
+                ) : (
+                  equalsCompleted &&
+                  questionsId?.asignatureId === asignature.id &&
+                  questionsId?.unitId ===
+                    asignature.PCA[0].PCAU[index].unit.id &&
+                  gameState.timeLeft && (
                     <DarPruebaDiv
                       asignature={asignature.id}
                       unit={asignature.PCA[0].PCAU[index].unit.id}
-                      title="Dar prueba"
+                      title="Continuar"
                     />
-                  ) : (
-                    equalsCompleted &&
-                    questionsId?.asignatureId === asignature.id &&
-                    questionsId?.unitId ===
-                      asignature.PCA[0].PCAU[index].unit.id &&
-                    gameState.timeLeft && (
-                      <DarPruebaDiv
-                        asignature={asignature.id}
-                        unit={asignature.PCA[0].PCAU[index].unit.id}
-                        title="Continuar"
-                      />
-                    )
-                  )}
-                </div>
-              )
-            })
-          )}
+                  )
+                )}
+              </div>
+            )
+          })}
         </div>
       </div>
     </div>

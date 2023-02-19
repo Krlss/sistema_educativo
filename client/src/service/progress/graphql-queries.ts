@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 export const GET_USER_PROGRESS = gql`
-  query getUserProgress($userId: String!) {
+  query GetUserProgress($userId: String!) {
     getUserProgress(userId: $userId) {
       id
       nota

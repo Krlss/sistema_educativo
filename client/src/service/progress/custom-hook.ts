@@ -13,31 +13,27 @@ export const useGetUserProgress = ({
 }: {
   dispatchUser: React.Dispatch<UserReducerProps>
 }) => {
-  const [getUserProgress, { data, error, loading }] =
-    useLazyQuery<getUserProgress>(GET_USER_PROGRESS, {
-      onCompleted(data) {
-        dispatchUser({
-          type: 'setUserProgress',
-          payload: data?.getUserProgress ?? []
-        })
-      },
-      onError(error) {
-        console.error(error)
-        dispatchUser({
-          type: 'setUserProgress',
-          payload: []
-        })
-      }
-    })
+  const [getUserProgress] = useLazyQuery<getUserProgress>(GET_USER_PROGRESS, {
+    onCompleted(data) {
+      dispatchUser({
+        type: 'setUserProgress',
+        payload: data?.getUserProgress ?? []
+      })
+    },
+    onError(error) {
+      console.error(error)
+      dispatchUser({
+        type: 'setUserProgress',
+        payload: []
+      })
+    }
+  })
 
   const handleGetUserProgress = (props: { userId: string }) => {
     getUserProgress({ variables: { ...props } })
   }
-  return { getUserProgress, handleGetUserProgress, data, error, loading } as {
+  return { getUserProgress, handleGetUserProgress } as {
     getUserProgress: () => void
     handleGetUserProgress: (props: { userId: string }) => void
-    data: getUserProgress
-    error: Error | undefined
-    loading: boolean
   }
 }

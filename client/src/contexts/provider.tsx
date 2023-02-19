@@ -35,6 +35,7 @@ const GeneralProvider = (props: any) => {
   const { getAsignatures } = useGetAsignatures()
   const { handleGetUserProgress } = useGetUserProgress({ dispatchUser })
   const { handleLogout } = useLogout()
+
   useEffect(() => {
     const rt = getDataSession('rt')
     if (rt) {
@@ -56,10 +57,10 @@ const GeneralProvider = (props: any) => {
         variables: {
           id: user.id
         },
-        onCompleted(data: getAsignaturesProps) {
+        onCompleted({ getAsignatures }) {
           dispatchConfig({
             type: 'setAsignatures',
-            payload: data.getAsignatures
+            payload: getAsignatures
           })
         }
       })
@@ -210,21 +211,6 @@ const GeneralProvider = (props: any) => {
     dispatchGame({
       type: 'setQualification',
       payload: qualificationFinal
-    })
-  }
-
-  const updateFinishedTopic = (
-    asignatureId: string,
-    unitId: string,
-    topicId: string
-  ) => {
-    dispatchUser({
-      type: 'updateFinishedTopic',
-      payload: {
-        asignatureId,
-        unitId,
-        topicId
-      }
     })
   }
 

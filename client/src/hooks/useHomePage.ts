@@ -8,15 +8,11 @@ const useHomePage = () => {
   useEffect(() => {
     const percentage = user?.progress?.map(p => {
       const asignatureFind = config?.asignatures?.find(
-        asignature => asignature.id === p.id_asignature
+        asignature => asignature.id === p.id
       )
 
-      const unitsTotal = asignatureFind?.PCA?.reduce((acc, pca) => {
+      const unitsTopicsLength = asignatureFind?.PCA?.reduce((acc, pca) => {
         acc += pca.PCAU.length
-        return acc
-      }, 0) as number
-
-      const topicsTotal = asignatureFind?.PCA?.reduce((acc, pca) => {
         acc += pca.PCAU.reduce((acc, u) => {
           acc += u.PCAUT.length
           return acc
@@ -32,9 +28,7 @@ const useHomePage = () => {
         }, 0)
         return acc
       }, 0) as number
-      const percentage = Math.round(
-        (finished / (unitsTotal + topicsTotal)) * 100
-      )
+      const percentage = Math.round((finished / unitsTopicsLength) * 100)
 
       return isNaN(percentage) ? 0 : percentage
     }) as number[]
