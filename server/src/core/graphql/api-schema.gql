@@ -310,6 +310,7 @@ type Mutation {
   enrollUser(data: CreateProgressDTO!): Boolean
   deleteUser(id: String!): User
   updateFinishedTopic(topicId: String!): Boolean
+  updateProgress(updateProgressInput: UpdateProgressDTO!): Boolean!
   createRol(input: CreateRolDTO!): Rol!
   updateRol(input: UpdateRolDTO!): Rol!
   deleteRol(id: String!): Rol!
@@ -413,6 +414,17 @@ input CreateProgressDTO {
   """User ID"""
   userId: String!
   periodCourseId: Int
+}
+
+input UpdateProgressDTO {
+  userId: String
+  periodsCoursesAsignaturesId: Int
+  periodCourseAsignatureUnitId: Int
+  courseId: String
+  asignatureId: String
+  unitId: String
+  questions: String
+  nota: Float
 }
 
 input CreateRolDTO {

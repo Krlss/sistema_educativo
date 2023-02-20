@@ -7,6 +7,7 @@ import { PeriodsCoursesService } from 'src/courses-periods/courses-periods.servi
 import { ProgressService } from 'src/progress/progress.service';
 import { Progress } from 'src/progress/entities/progress.entity';
 import { CreateProgressDTO } from './dto/create-progress';
+import { UpdateProgressDTO } from 'src/progress/dto/update-progress';
 
 @Controller('user')
 export class UserController {
@@ -114,6 +115,30 @@ export class UserController {
           };
         }),
     };
+  }
+
+  async updateProgress(data: UpdateProgressDTO) {
+    const period = await this.userService.getUserLastPeriod(data.userId);
+    if (data.unitId) {
+      return await this.progressService.updateUnit({
+        userId: data.userId,
+        periodId: period.id,
+        asignatureId: data.asignatureId,
+        courseId: data.courseId,
+        unitId: data.unitId,
+        questions: data.questions,
+        nota: data.nota,
+      });
+    } else {
+      return await this.progressService.updateAsignature({
+        userId: data.userId,
+        periodId: period.id,
+        asignatureId: data.asignatureId,
+        courseId: data.courseId,
+        questions: data.questions,
+        nota: data.nota,
+      });
+    }
   }
 
   async updateUserTopic(userId: string, topicId: string) {

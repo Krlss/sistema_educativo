@@ -4,6 +4,7 @@ import { CreateUserDTO } from './dto/create-user';
 import { UpdateUserDTO } from './dto/update-user';
 import { UserController } from './user.controller';
 import { CreateProgressDTO } from './dto/create-progress';
+import { UpdateProgressDTO } from 'src/progress/dto/update-progress';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { sign } from 'jsonwebtoken';
@@ -14,6 +15,7 @@ import { Progress } from 'src/progress/entities/progress.entity';
 import { Asignature } from 'src/asignature/entities/asignature.entity';
 import { CustomProgress } from 'src/progress/entities/custom-progress.entity';
 import { CustomAsignatureInscribed } from 'src/asignature/entities/customAsignatureInscribed';
+import { ProgressController } from 'src/progress/progress.controller';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -127,5 +129,10 @@ export class UserResolver {
     @Context('user') user: User,
   ) {
     return this.userController.updateUserTopic(user.id, topicId);
+  }
+
+  @Mutation(() => Boolean)
+  updateProgress(@Args('updateProgressInput') data: UpdateProgressDTO) {
+    return this.userController.updateProgress(data);
   }
 }

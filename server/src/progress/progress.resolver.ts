@@ -3,15 +3,14 @@ import { ProgressService } from './progress.service';
 import { Progress } from './entities/progress.entity';
 import { CreateProgressDTO } from './dto/create-progress';
 import { UpdateProgressDTO } from './dto/update-progress';
+import { ProgressController } from './progress.controller';
 
 @Resolver(() => Progress)
-class ProgressResolver {
-  constructor(private readonly progressService: ProgressService) {}
-
-  /*   @Query(() => [Progress], { name: 'progress' })
-  progresss() {
-    return this.progressService.findAll();
-  } */
+export class ProgressResolver {
+  constructor(
+    private readonly progressService: ProgressService,
+    private readonly progressController: ProgressController,
+  ) {}
 
   @Query(() => Progress, { name: 'progress' })
   progress(@Args('id', { type: () => Int }) id: number) {
@@ -25,14 +24,9 @@ class ProgressResolver {
     return this.progressService.create(createProgressInput);
   }
 
-  @Mutation(() => Progress)
-  updateProgress(
-    @Args('updateProgressInput') updateProgressInput: UpdateProgressDTO,
-  ) {
-    return this.progressService.update(
-      updateProgressInput.id,
-      updateProgressInput,
-    );
+  @Mutation(() => Boolean)
+  updateProgress(@Args('updateProgressInput') data: UpdateProgressDTO) {
+    return this.progressController.updateProgress(data);
   }
 
   @Mutation(() => Progress)
