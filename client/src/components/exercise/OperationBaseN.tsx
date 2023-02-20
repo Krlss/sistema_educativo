@@ -123,7 +123,7 @@ const OperationBaseN = (props: question) => {
                     name={`col-${bi},row-${di}`}
                     onChange={handleChange}
                     disabled={gameState.next}
-                    className="bg-gray-100 w-full max-w-[224px] p-2 text-center font-normal"
+                    className="w-full max-w-[224px] p-2 text-center font-normal border"
                     style={{
                       backgroundColor:
                         gameState.next && state[bi][di].isCorrect

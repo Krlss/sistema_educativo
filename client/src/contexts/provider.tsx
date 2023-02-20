@@ -24,6 +24,7 @@ import { diffMinutes } from '../utils'
 import Swal from 'sweetalert2'
 import { question } from '../types/game'
 import jwtDecode from 'jwt-decode'
+import { useLocation } from 'react-router-dom'
 
 const GeneralProvider = (props: any) => {
   const [user, dispatchUser] = useReducer(UserReducer, InitialStateUser)
@@ -31,6 +32,14 @@ const GeneralProvider = (props: any) => {
   const [gameState, dispatchGame] = useReducer(GameReducer, InitialStateGame)
   const { handleGetUserProgress } = useGetUserProgress({ dispatchUser })
   const { handleLogout } = useLogout()
+  const location = useLocation()
+
+  useEffect(() => {
+    const initialTimeStamp = getDataSession('initialTimeStamp')
+    if (initialTimeStamp) {
+      setInitialGame()
+    }
+  }, [])
 
   useEffect(() => {
     const rt = getDataSession('rt')
@@ -41,11 +50,7 @@ const GeneralProvider = (props: any) => {
         userId: user.id
       })
     }
-    const initialTimeStamp = getDataSession('initialTimeStamp')
-    if (initialTimeStamp) {
-      setInitialGame()
-    }
-  }, [])
+  }, [getDataSession('rt')])
 
   const setIsLogged = (isLogged: boolean) => {
     dispatchUser({ type: 'setIsLogged', payload: isLogged })
@@ -56,7 +61,8 @@ const GeneralProvider = (props: any) => {
   }
 
   const setQuestion = (question: QuestionsExtends) => {
-    dispatchGame({ type: 'addQuestion', payload: question })
+    if (location.pathname.includes('prueba'))
+      dispatchGame({ type: 'addQuestion', payload: question })
   }
 
   const setQuestions = (questions: QuestionsExtends[]) => {
@@ -68,7 +74,8 @@ const GeneralProvider = (props: any) => {
   }
 
   const updatedQuestion = (question: QuestionsExtends) => {
-    dispatchGame({ type: 'updatedQuestion', payload: question })
+    if (location.pathname.includes('prueba'))
+      dispatchGame({ type: 'updatedQuestion', payload: question })
   }
 
   const setIndex = (index: number) => {

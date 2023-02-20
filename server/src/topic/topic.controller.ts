@@ -25,4 +25,23 @@ export class TopicController {
   async delete(id: string) {
     return this.topicService.delete(id);
   }
+
+  async getTopicWithHighQuestion(id: string) {
+    const topic = await this.topicService.get(id);
+
+    const questionsHigh = topic.questions.filter(
+      (question) => question.difficulty === 'high',
+    );
+
+    const randomIndex = Math.floor(Math.random() * questionsHigh.length);
+
+    const question = questionsHigh[randomIndex]
+      ? questionsHigh[randomIndex]
+      : null;
+
+    return {
+      ...topic,
+      ...(question && { question }),
+    };
+  }
 }

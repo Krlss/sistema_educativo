@@ -53,7 +53,8 @@ export const useLogin = () => {
         return
       }
       navigate('/')
-    }
+    },
+    fetchPolicy: 'no-cache'
   })
 
   const loginHandler = (Props: PropsLogin) => {

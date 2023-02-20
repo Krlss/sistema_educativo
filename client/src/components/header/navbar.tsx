@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, forwardRef, useRef } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import Logo from '../../assets/logo.png'
 import MenuNavigation from './menu-navigation'
@@ -57,52 +57,56 @@ const Navbar = () => {
 
 export default Navbar
 
-const User = ({
-  user,
-  logout
-}: {
+interface UserProps {
   user: {
     name: string
     lastName: string
     email: string
   }
   logout: () => void
-}) => {
-  const { email, lastName, name } = user
-  return (
-    <Menu>
-      <Menu.Button className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300">
-        <span className="sr-only">Open user menu</span>
-        <img
-          className="w-8 h-8 rounded-full"
-          src={DefaultAvatar}
-          alt="user photo"
-        />
-      </Menu.Button>
-      <Menu.Items className="absolute z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow lg:top-14 top-[3.3rem] right-5">
-        <Menu.Items className="px-4 py-3">
-          <Menu.Item disabled>
-            <p className="text-sm text-gray-900" role="none">
-              {name} {lastName}
-            </p>
-          </Menu.Item>
-          <Menu.Item disabled>
-            <p
-              className="text-sm font-medium text-gray-900 truncate"
-              role="none">
-              {email}
-            </p>
-          </Menu.Item>
-        </Menu.Items>
-        <Menu.Items className="py-1">
-          <Menu.Item>
-            <MyMenu label="Dashboard" to="/dashboard/cursos" />
-          </Menu.Item>
-          <Menu.Item>
-            <MyMenu label="Cerrar sesión" onClick={() => logout()} />
-          </Menu.Item>
-        </Menu.Items>
-      </Menu.Items>
-    </Menu>
-  )
 }
+
+const User = forwardRef<HTMLButtonElement, UserProps>(
+  ({ user, logout }, ref) => {
+    const { email, lastName, name } = user
+
+    return (
+      <Menu>
+        <Menu.Button
+          ref={ref}
+          className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300">
+          <span className="sr-only">Open user menu</span>
+          <img
+            className="w-8 h-8 rounded-full"
+            src={DefaultAvatar}
+            alt="user photo"
+          />
+        </Menu.Button>
+        <Menu.Items className="absolute z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow lg:top-14 top-[3.3rem] right-5">
+          <Menu.Items className="px-4 py-3">
+            <Menu.Item disabled>
+              <p className="text-sm text-gray-900" role="none">
+                {name} {lastName}
+              </p>
+            </Menu.Item>
+            <Menu.Item disabled>
+              <p
+                className="text-sm font-medium text-gray-900 truncate"
+                role="none">
+                {email}
+              </p>
+            </Menu.Item>
+          </Menu.Items>
+          <Menu.Items className="py-1">
+            <Menu.Item>
+              <MyMenu label="Dashboard" to="/dashboard/cursos" />
+            </Menu.Item>
+            <Menu.Item>
+              <MyMenu label="Cerrar sesión" onClick={() => logout()} />
+            </Menu.Item>
+          </Menu.Items>
+        </Menu.Items>
+      </Menu>
+    )
+  }
+)

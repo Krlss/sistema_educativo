@@ -37,7 +37,7 @@ const ResponseTextDroppable = ({
     <div className="flex items-center gap-2 m-1 w-full">
       {item.text1 && (
         <div className="w-full">
-          <h2 className="text-sm">{item.text1}</h2>
+          <p className="text-sm">{item.text1}</p>
         </div>
       )}
       <Droppable

@@ -241,6 +241,19 @@ type CustomTopicsInscribed {
   video: String
 }
 
+type TopicCustom {
+  id: ID
+  name: String
+  image: String
+  video: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  question: Question
+  users: [User!]
+  periodsCoursesAsignaturesUnitsTopics: [PeriodsCoursesAsignaturesUnitsTopics!]
+}
+
 type CustomTopicsIncribed {
   id: ID
   name: String
@@ -270,6 +283,7 @@ type Query {
   questionsByAsignature(asignatureId: String!, userId: String!): [Question!]
   topics: [Topic!]
   topic(id: String!): Topic
+  topicWithOneHighQuestion(id: String!): TopicCustom
   periodsCoursesAsignaturesUnits: [PeriodsCoursesAsignaturesUnits!]!
   periodsCoursesAsignaturesUnit(id: Int!): PeriodsCoursesAsignaturesUnits!
   periodsCoursesAsignaturesUnitsByCoursePeriodAsignature(data: Int!): [PeriodsCoursesAsignaturesUnits!]!

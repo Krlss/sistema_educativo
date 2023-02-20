@@ -46,12 +46,13 @@ export interface chooseAnOption_ {
 }
 
 export interface question {
-  index: number
+  index?: number
   id: string
   title: string
   subtitle: string | null
   type: typeQuestion
   options: string
+  difficulty: 'LOW' | 'HIGH'
 }
 
 export interface DragAndDropChooseText_ {

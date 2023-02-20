@@ -32,7 +32,7 @@ const SelectPointsCoordinatePlane = (props: question) => {
           </div>
         ))}
       </div>
-      <div className="relative flex items-center justify-start mt-5">
+      <div className="relative flex items-center justify-start mt-5 mb-5">
         <div className="ml-[47.5px]">
           {[...Array(21)].map((_, y) => {
             return (
