@@ -51,7 +51,7 @@ const PositionalSum = (props: question) => {
         subtitle={props.subtitle}
         index={props.index}
       />
-      <div className="flex flex-col mt-2 text-right">
+      <div className="flex flex-col mt-2 text-right max-w-sm">
         {value.map((v, index) => {
           return (
             <div key={index} className="text-lg flex items-center justify-end">

@@ -21,11 +21,19 @@ export const GETASIGNATURE = gql`
 
 export const GETTOPIC = gql`
   query Topic($topicId: String!) {
-    topic(id: $topicId) {
+    topic: topicWithOneHighQuestion(id: $topicId) {
       id
       name
       image
       video
+      question {
+        id
+        title
+        subtitle
+        type
+        options
+        difficulty
+      }
     }
   }
 `

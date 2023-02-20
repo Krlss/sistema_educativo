@@ -81,7 +81,7 @@ const SelectPlaceTableOption = (props: question) => {
         {selected.map((option, index) => (
           <div
             key={index}
-            className="flex items-start justify-around py-2 gap-4 w-full">
+            className="flex items-start justify-around py-2 gap-4 w-full max-w-2xl">
             <div
               className="flex items-center justify-start px-4 py-2 rounded shadow w-full"
               style={{

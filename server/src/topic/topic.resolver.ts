@@ -3,6 +3,7 @@ import { TopicController } from './topic.controller';
 import { Topic } from './entities/topic.entity';
 import { CreateTopicDTO } from './dto/create-topic';
 import { UpdateTopicDTO } from './dto/update-topic';
+import { TopicCustom } from './entities/topicCustom';
 
 @Resolver(() => Topic)
 export class TopicResolver {
@@ -16,6 +17,11 @@ export class TopicResolver {
   @Query(() => Topic, { nullable: true })
   topic(@Args('id') id: string) {
     return this.topicController.get(id);
+  }
+
+  @Query(() => TopicCustom, { nullable: true })
+  topicWithOneHighQuestion(@Args('id') id: string) {
+    return this.topicController.getTopicWithHighQuestion(id);
   }
 
   @Mutation(() => Topic)
