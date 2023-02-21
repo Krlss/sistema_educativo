@@ -7,6 +7,8 @@ import { useContext } from 'react'
 const Home = () => {
   const { user } = useContext(GeneralContext)
 
+  console.log({ user })
+
   return (
     <>
       <CenterLogo />

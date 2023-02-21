@@ -26,6 +26,9 @@ export class CustomUnitInscribed {
   @Field(() => String, { nullable: true })
   name: string;
 
+  @Field(() => Boolean, { nullable: true })
+  testActive: boolean;
+
   @Field(() => [CustomTopicsInscribed], { nullable: true })
   topics: CustomTopicsInscribed[];
 }

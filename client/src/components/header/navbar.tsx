@@ -21,7 +21,7 @@ const Navbar = () => {
       <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200">
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center justify-start">
+            <div className="flex items-center justify-start self-center">
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 type="button"
@@ -38,7 +38,7 @@ const Navbar = () => {
                     d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
                 </svg>
               </button>
-              <NavLink to="/" className="flex ml-2 md:mr-24">
+              <NavLink to="/" className="flex ml-2">
                 <img src={Logo} className="h-8 mr-3" alt="FlowBite Logo" />
                 <span className="self-center text-xl font-bold sm:text-2xl whitespace-nowrap text-red-logo-stronger">
                   Mapple
@@ -74,7 +74,7 @@ const User = forwardRef<HTMLButtonElement, UserProps>(
       <Menu>
         <Menu.Button
           ref={ref}
-          className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300">
+          className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 md:ml-28">
           <span className="sr-only">Open user menu</span>
           <img
             className="w-8 h-8 rounded-full"

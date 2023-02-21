@@ -231,6 +231,7 @@ type CustomAsignatureInscribed {
 type CustomUnitInscribed {
   id: ID
   name: String
+  testActive: Boolean
   topics: [CustomTopicsInscribed!]
 }
 

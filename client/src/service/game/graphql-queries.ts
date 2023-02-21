@@ -1,13 +1,21 @@
 import { gql } from '@apollo/client'
 
 export const QUESTIONS_BY_UNIT = gql`
-  query questionsByUnit($unitId: String!, $asignatureId: String!) {
-    getRandomUnitQuestions(unitId: $unitId, asignatureId: $asignatureId) {
+  query QuestionsByUnit(
+    $unitId: String!
+    $asignatureId: String!
+    $userId: String!
+  ) {
+    getRandomUnitQuestions: questionsByUnit(
+      unitId: $unitId
+      asignatureId: $asignatureId
+      userId: $userId
+    ) {
       id
-      options
       title
-      type
       subtitle
+      options
+      type
     }
   }
 `

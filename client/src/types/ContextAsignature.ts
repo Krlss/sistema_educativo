@@ -9,6 +9,7 @@ export interface ASIGNATURE {
 interface UNIT {
   id: string
   name: string
+  testActive: boolean
   topics: TOPIC[]
 }
 

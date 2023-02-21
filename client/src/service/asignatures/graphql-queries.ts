@@ -10,6 +10,7 @@ export const GETASIGNATURE = gql`
       units {
         id
         name
+        testActive
         topics {
           id
           name

@@ -7,7 +7,6 @@ interface ProgressUpdateInput {
   userId: string;
   periodId: string;
   asignatureId: string;
-  courseId: string;
   unitId?: string;
   questions: string;
   nota: number;
@@ -60,9 +59,6 @@ export class ProgressService {
             period: {
               id: data.periodId,
             },
-            course: {
-              id: data.courseId,
-            },
           },
           asignatureId: data.asignatureId,
         },
@@ -89,18 +85,13 @@ export class ProgressService {
     const progress = await this.prismaService.progress.findFirst({
       where: {
         userId: data.userId,
-        periodCourseAsignature: {
-          periodCourse: {
-            period: {
-              id: data.periodId,
-            },
-            course: {
-              id: data.courseId,
-            },
-          },
-          asignatureId: data.asignatureId,
-        },
         periodCourseAsignatureUnit: {
+          periodCourseAsignature: {
+            periodCourse: {
+              periodId: data.periodId,
+            },
+            asignatureId: data.asignatureId,
+          },
           unitId: data.unitId,
         },
       },

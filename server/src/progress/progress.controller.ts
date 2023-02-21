@@ -17,7 +17,6 @@ export class ProgressController {
         userId: data.userId,
         periodId: period.id,
         asignatureId: data.asignatureId,
-        courseId: data.courseId,
         unitId: data.unitId,
         questions: data.questions,
         nota: data.nota,
@@ -27,7 +26,6 @@ export class ProgressController {
         userId: data.userId,
         periodId: period.id,
         asignatureId: data.asignatureId,
-        courseId: data.courseId,
         questions: data.questions,
         nota: data.nota,
       });

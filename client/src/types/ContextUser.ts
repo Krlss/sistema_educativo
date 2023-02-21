@@ -18,6 +18,7 @@ export interface UNIT {
   id_asignature: string
   nota?: number
   finished: boolean
+  testActive: boolean
   topic: TOPIC[]
 }
 

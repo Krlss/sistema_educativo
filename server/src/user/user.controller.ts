@@ -30,8 +30,6 @@ export class UserController {
   }
 
   async getProgressByUserId(id: string) {
-    const progress = await this.userService.getProgressByUserId(id);
-
     return await this.userService.getProgressByUserId(id);
   }
 
@@ -124,7 +122,6 @@ export class UserController {
         userId: data.userId,
         periodId: period.id,
         asignatureId: data.asignatureId,
-        courseId: data.courseId,
         unitId: data.unitId,
         questions: data.questions,
         nota: data.nota,
@@ -134,7 +131,6 @@ export class UserController {
         userId: data.userId,
         periodId: period.id,
         asignatureId: data.asignatureId,
-        courseId: data.courseId,
         questions: data.questions,
         nota: data.nota,
       });

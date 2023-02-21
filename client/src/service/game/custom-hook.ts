@@ -9,20 +9,30 @@ import { GET_USER_PROGRESS } from '../progress/graphql-queries'
 import { QUALIFY_FOR_UNIT } from './graphql-mutations'
 import { QUESTIONS_BY_ASIGNATURE, QUESTIONS_BY_UNIT } from './graphql-queries'
 import { useNavigate } from 'react-router-dom'
-import { setDataQuestionLocalStore, setDataTest } from '../../utils/dataSession'
+import {
+  getDataSession,
+  setDataQuestionLocalStore,
+  setDataTest
+} from '../../utils/dataSession'
+import jwtDecode from 'jwt-decode'
+import { USER } from '../../types/ContextUser'
 
 export const useQualifyForUnit = () => {
   const [QualifyForUnit] = useMutation(QUALIFY_FOR_UNIT)
 
   const handlerQualifyForUnit = (props: {
-    data: string
-    unitId: string
-    progressId?: string
     userId: string
+    asignatureId: string
+    unitId: string
+    questions: string
     nota: number
   }) => {
     QualifyForUnit({
-      variables: { ...props },
+      variables: {
+        input: {
+          ...props
+        }
+      },
       onCompleted() {
         console.log('Completed')
       },
@@ -39,7 +49,7 @@ export const useQuestionsByUnit = () => {
   const [getRandomQuestions] =
     useLazyQuery<getRandomQuestionsProps>(QUESTIONS_BY_UNIT)
   const navigate = useNavigate()
-
+  const rt = getDataSession('rt')
   const handleGetRandomQuestionsByUnit = ({
     asignatureId,
     unitId,
@@ -53,10 +63,12 @@ export const useQuestionsByUnit = () => {
       asignatureId,
       unitId
     })
+    const user = jwtDecode<USER>(rt)
     getRandomQuestions({
       variables: {
+        unitId,
         asignatureId,
-        unitId
+        userId: user.id
       },
       onCompleted(data) {
         if (data.getRandomUnitQuestions) {

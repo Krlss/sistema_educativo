@@ -299,6 +299,11 @@ export class UserService {
             periodCourseAsignatureUnits: {
               include: {
                 unit: true,
+                progress: {
+                  where: {
+                    userId: id,
+                  },
+                },
                 periodCourseAsignatureUnitsTopic: {
                   include: {
                     topic: true,
@@ -378,39 +383,45 @@ export class UserService {
               (topicsfinished / (topicsnumber + unitsnumber)) * 100,
             ),
             id_asignature: asignatureId,
-            unit: periodCourseAsignatureUnits.map(({ unitId, unit }) => {
-              return {
-                id: unitId,
-                name: unit.name,
-                id_asignature: asignatureId,
-                nota: nota,
-                finished: finished,
-                topic: topics
-                  .map(({ periodsCoursesAsignaturesUnitsTopics, id }) => {
-                    const { topic, topicId, periodCourseAsignatureUnit } =
-                      periodsCoursesAsignaturesUnitsTopics.find(
-                        (topic_) => topic_.topicId === id,
-                      );
+            unit: periodCourseAsignatureUnits.map(
+              ({ unitId, unit, progress, id }) => {
+                return {
+                  id: unitId,
+                  name: unit.name,
+                  id_asignature: asignatureId,
+                  nota: progress.find(
+                    (p) => p.periodCourseAsignatureUnitId === id,
+                  )?.nota,
+                  finished: progress.find(
+                    (p) => p.periodCourseAsignatureUnitId === id,
+                  )?.finished,
+                  topic: topics
+                    .map(({ periodsCoursesAsignaturesUnitsTopics, id }) => {
+                      const { topic, topicId, periodCourseAsignatureUnit } =
+                        periodsCoursesAsignaturesUnitsTopics.find(
+                          (topic_) => topic_.topicId === id,
+                        );
 
-                    if (
-                      periodCourseAsignatureUnit.unitId === unitId &&
-                      asignatureId ===
-                        periodCourseAsignatureUnit.periodCourseAsignature
-                          .asignatureId
-                    )
-                      return {
-                        id: topicId,
-                        id_asignature: asignatureId,
-                        id_unit: unitId,
-                        finished: true,
-                        name: topic.name,
-                        image: topic.image,
-                        video: topic.video,
-                      };
-                  })
-                  .filter((f) => f),
-              };
-            }),
+                      if (
+                        periodCourseAsignatureUnit.unitId === unitId &&
+                        asignatureId ===
+                          periodCourseAsignatureUnit.periodCourseAsignature
+                            .asignatureId
+                      )
+                        return {
+                          id: topicId,
+                          id_asignature: asignatureId,
+                          id_unit: unitId,
+                          finished: true,
+                          name: topic.name,
+                          image: topic.image,
+                          video: topic.video,
+                        };
+                    })
+                    .filter((f) => f),
+                };
+              },
+            ),
           };
         }
       },

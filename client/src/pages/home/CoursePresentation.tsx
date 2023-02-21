@@ -22,7 +22,7 @@ const CoursePresentation = () => {
           <span className="text-sm font-medium">{asignature?.description}</span>
         </div>
         <div className="mx-auto max-w-5xl pb-20 w-full">
-          {asignature?.units.map(({ id, name, topics }, index) => {
+          {asignature?.units.map(({ id, name, topics, testActive }, index) => {
             const unitFind = user?.progress?.find(p =>
               p.unit?.find(u => u.id === id)
             ) as PROGRESS
@@ -50,7 +50,7 @@ const CoursePresentation = () => {
             return (
               <div
                 key={index}
-                className="rounded-md flex items-start justify-between md:flex-row flex-col md:items-center my-3 shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white h-[225px] md:h-[120px] ">
+                className="rounded-md flex justify-between md:flex-row flex-col md:items-center my-3 shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white h-[225px] md:h-[120px]">
                 <NavLink
                   className="rounded-md flex items-center justify-start h-full"
                   to={`/asignatura/${asignatureId}/unidad/${id}`}>
@@ -82,25 +82,31 @@ const CoursePresentation = () => {
                 </NavLink>
 
                 {isUnit?.finished ? (
-                  <div className="px-3 py-2 font-bold text-sm rounded md:mr-4 ml-4 mb-4 max-w-[110px] w-full text-center shadow-md bg-green-page cursor-default text-white">
+                  <div className="px-3 py-2 font-bold text-sm rounded md:mr-4 mx-4 md:mb-0 mb-4 text-center shadow-md bg-green-page cursor-default text-white">
                     Calificación: {isUnit.nota?.toFixed(2) || 0}
                   </div>
-                ) : equalsCompleted && !gameState.timeLeft ? (
+                ) : testActive && equalsCompleted && !gameState.timeLeft ? (
                   <DarPruebaDiv
                     asignature={asignature.id}
                     unitId={asignature.units[index].id}
                     title="Dar prueba"
                   />
-                ) : (
+                ) : testActive &&
                   equalsCompleted &&
                   questionsId?.asignatureId === asignature.id &&
                   questionsId?.unitId === asignature.units[index].id &&
-                  gameState.timeLeft && (
-                    <DarPruebaDiv
-                      asignature={asignature.id}
-                      unitId={asignature.units[index].id}
-                      title="Continuar"
-                    />
+                  gameState.timeLeft ? (
+                  <DarPruebaDiv
+                    asignature={asignature.id}
+                    unitId={asignature.units[index].id}
+                    title="Continuar"
+                  />
+                ) : (
+                  !testActive &&
+                  equalsCompleted && (
+                    <div className="px-3 py-2 font-bold text-sm rounded md:mr-4 mx-4 md:mb-0 mb-4 text-center shadow-md bg-gray-200 cursor-default text-gray-500">
+                      Próximamente
+                    </div>
                   )
                 )}
               </div>
@@ -124,7 +130,7 @@ const DarPruebaDiv = ({
   title: string
 }) => {
   return (
-    <div className="px-3 py-2 bg-yellow-page text-black font-bold text-sm rounded mr-4 max-w-[110px] w-full text-center shadow-md hover:bg-yellow2-page">
+    <div className="px-3 py-2 font-bold text-sm rounded md:mr-4 mx-4 md:mb-0 mb-4 text-center shadow-md bg-yellow-page hover:bg-yellow2-page text-white cursor-pointer md:max-w-[110px] w-full">
       <Link to={`/asignatura/${asignature}/unidad/${unitId}/prueba`}>
         {title}
       </Link>

@@ -328,14 +328,10 @@ const useGame = () => {
         resetGame()
 
         if (asignatureId && unitId) {
-          const progressId_ = user.progress.find(
-            item => item.id === asignatureId
-          )?.id
-
           handlerQualifyForUnit({
-            data: JSON.stringify(gameState.questions),
+            questions: JSON.stringify(gameState.questions),
             unitId,
-            progressId: progressId_,
+            asignatureId,
             userId: user.id,
             nota: gameState.qualification
           })
