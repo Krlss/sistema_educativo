@@ -14,20 +14,22 @@ async function main() {
   await roleSeed();
   await usersSeed();
   const period = await periodSeed();
-  await courseSeed(period.id);
+  await courseSeed(period);
 
-  const periodsCourses = await prisma.periodsCourses.findFirst({
-    where: {
-      periodId: period.id,
-    },
-    select: {
-      id: true,
-    },
+  period.forEach(async (PC) => {
+    const periodsCourses = await prisma.periodsCourses.findFirst({
+      where: {
+        periodId: PC.id,
+      },
+      select: {
+        id: true,
+      },
+    });
+    const periodsCoursesAsignatures = await asignatureSeed(periodsCourses.id);
+    await unitSeed(periodsCoursesAsignatures);
+    await topicSeed(period);
   });
 
-  const periodsCoursesAsignatures = await asignatureSeed(periodsCourses.id);
-  await unitSeed(periodsCoursesAsignatures);
-  await topicSeed();
   // await quesitonSeed();
 }
 main()

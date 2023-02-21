@@ -10,9 +10,10 @@ export const courses = [
   },
   {
     name: 'Cuarto',
+    periods: [{ name: '2022-2023' }],
   },
   {
     name: 'Quinto',
-    periods: [{ name: '2022-2023' }],
+    periods: [{ name: '2023-2024' }],
   },
 ];

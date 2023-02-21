@@ -1,9 +1,14 @@
-import { PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 import { courses } from './data/courses';
 
 const prisma = new PrismaClient();
 
-export const courseSeed = async (periodId: string) => {
+export const courseSeed = async (
+  period: {
+    id: string;
+    name: string;
+  }[],
+) => {
   await prisma.course.deleteMany();
   await prisma.periodsCourses.deleteMany();
 
@@ -14,9 +19,12 @@ export const courseSeed = async (periodId: string) => {
         ...(course?.periods && {
           periodsCourses: {
             createMany: {
-              data: {
-                periodId,
-              },
+              data: course.periods.map(({ name }) => {
+                const period_ = period.find((p) => p.name === name);
+                return {
+                  periodId: period_.id,
+                };
+              }),
             },
           },
         }),

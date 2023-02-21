@@ -6,70 +6,77 @@ import { QuestionType } from '../../../question/types/question.type';
 
 const prisma = new PrismaClient();
 
-export const topicSeed = async () => {
+export const topicSeed = async (
+  periods: {
+    id: string;
+    name: string;
+  }[],
+) => {
   await prisma.topic.deleteMany();
+  await prisma.periodsCoursesAsignaturesUnitsTopics.deleteMany();
+  await prisma.question.deleteMany();
 
   for (const topic of topics) {
-    const periodCourseAsignatureUnitId =
-      await prisma.periodsCoursesAsignaturesUnits.findFirst({
-        where: {
-          unit: {
-            name: topic.unit,
-          },
-          periodCourseAsignature: {
-            asignature: {
-              name: topic.asignature,
+    for (const period of periods) {
+      const periodCourseAsignatureUnitId =
+        await prisma.periodsCoursesAsignaturesUnits.findFirst({
+          where: {
+            unit: {
+              name: topic.unit,
             },
-            periodCourse: {
-              course: {
-                name: 'Quinto',
+            periodCourseAsignature: {
+              asignature: {
+                name: topic.asignature,
               },
-              period: {
-                name: '2022-2023',
+              periodCourse: {
+                period: {
+                  name: period.name,
+                },
               },
             },
           },
-        },
-        select: {
-          id: true,
+          select: {
+            id: true,
+          },
+        });
+
+      const questions_ = questions.filter((q) => q.topic === topic.name);
+      await prisma.topic.create({
+        data: {
+          name: topic.name,
+          ...(topic.image && { image: topic.image }),
+          ...(topic.video && { video: topic.video }),
+          periodsCoursesAsignaturesUnitsTopics: {
+            create: {
+              periodCourseAsignatureUnitId: periodCourseAsignatureUnitId.id,
+            },
+          },
+          questions: {
+            create: questions_.map((q) => {
+              const qtype = q.type;
+              let difficulty = QuestionDifficulty.high;
+              if (
+                qtype === QuestionType.choose_an_option ||
+                qtype === QuestionType.true_or_false ||
+                qtype === QuestionType.choose_an_option_textnumber ||
+                qtype === QuestionType.choose_any_option ||
+                qtype === QuestionType.true_or_false_numbers_and_text ||
+                qtype === QuestionType.write_value_from_text
+              ) {
+                difficulty = QuestionDifficulty.low;
+              }
+              return {
+                title: q.title,
+                ...(q.subtitle && { subtitle: q.subtitle }),
+                type: q.type,
+                options: q.options,
+                difficulty: difficulty,
+              };
+            }),
+          },
         },
       });
-    const questions_ = questions.filter((q) => q.topic === topic.name);
-    await prisma.topic.create({
-      data: {
-        name: topic.name,
-        ...(topic.image && { image: topic.image }),
-        ...(topic.video && { video: topic.video }),
-        periodsCoursesAsignaturesUnitsTopics: {
-          create: {
-            periodCourseAsignatureUnitId: periodCourseAsignatureUnitId.id,
-          },
-        },
-        questions: {
-          create: questions_.map((q) => {
-            const qtype = q.type;
-            let difficulty = QuestionDifficulty.high;
-            if (
-              qtype === QuestionType.choose_an_option ||
-              qtype === QuestionType.true_or_false ||
-              qtype === QuestionType.choose_an_option_textnumber ||
-              qtype === QuestionType.choose_any_option ||
-              qtype === QuestionType.true_or_false_numbers_and_text ||
-              qtype === QuestionType.write_value_from_text
-            ) {
-              difficulty = QuestionDifficulty.low;
-            }
-            return {
-              title: q.title,
-              ...(q.subtitle && { subtitle: q.subtitle }),
-              type: q.type,
-              options: q.options,
-              difficulty: difficulty,
-            };
-          }),
-        },
-      },
-    });
+    }
   }
 
   console.log('topics created: ', topics.length);
