@@ -7,7 +7,6 @@ interface ProgressUpdateInput {
   userId: string;
   periodId: string;
   asignatureId: string;
-  courseId: string;
   unitId?: string;
   questions: string;
   nota: number;
@@ -60,9 +59,6 @@ export class ProgressService {
             period: {
               id: data.periodId,
             },
-            course: {
-              id: data.courseId,
-            },
           },
           asignatureId: data.asignatureId,
         },
@@ -93,9 +89,6 @@ export class ProgressService {
           periodCourse: {
             period: {
               id: data.periodId,
-            },
-            course: {
-              id: data.courseId,
             },
           },
           asignatureId: data.asignatureId,

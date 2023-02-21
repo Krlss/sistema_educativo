@@ -16,6 +16,7 @@ import { Asignature } from 'src/asignature/entities/asignature.entity';
 import { CustomProgress } from 'src/progress/entities/custom-progress.entity';
 import { CustomAsignatureInscribed } from 'src/asignature/entities/customAsignatureInscribed';
 import { ProgressController } from 'src/progress/progress.controller';
+import { Grades } from './entities/userGrades';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -100,6 +101,17 @@ export class UserResolver {
       domain: 'localhost',
     });
     return 'ok';
+  }
+
+  @Query(() => [Grades], { nullable: true })
+  getGradesByAsignature(
+    @Args('asignatureId') asignatureId: string,
+    @Args('periodCourseId') periodCourseId: number,
+  ) {
+    return this.userController.getGradesByAsignature(
+      asignatureId,
+      periodCourseId,
+    );
   }
 
   @Mutation(() => User, { nullable: true })

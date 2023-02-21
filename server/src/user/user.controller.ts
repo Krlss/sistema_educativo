@@ -31,8 +31,52 @@ export class UserController {
 
   async getProgressByUserId(id: string) {
     const progress = await this.userService.getProgressByUserId(id);
-
     return await this.userService.getProgressByUserId(id);
+  }
+
+  async getGradesByAsignature(asignatureId: string, periodCourseId: number) {
+    const grades = await this.userService.getGradesByAsignature(
+      asignatureId,
+      periodCourseId,
+    );
+
+    const agrades = grades
+      .map((grade) => {
+        if (grade.periodCourseAsignatureId) {
+          return {
+            id: grade.id,
+            asignature: grade.periodCourseAsignature.asignature.name,
+            course: grade.periodCourseAsignature.periodCourse.course.name,
+            nota: grade.nota,
+            userId: grade.user.id,
+            username: grade.user.name,
+            units: [],
+          };
+        }
+      })
+      .filter((grade) => grade);
+    const ugrades = grades.filter(
+      (grade) => grade.periodCourseAsignatureUnitId,
+    );
+
+    const data = agrades.map((agrade) => {
+      const units = ugrades
+        .map((unit) => {
+          if (unit.userId === agrade.userId) {
+            return {
+              id: unit.id,
+              name: unit.periodCourseAsignatureUnit.unit.name,
+              nota: unit.nota ?? 0,
+              userId: unit.user.id,
+            };
+          }
+        })
+        .filter((unit) => unit);
+      agrade.units = units;
+      return agrade;
+    });
+    console.log(data);
+    return data;
   }
 
   async create(data: CreateUserDTO) {
@@ -124,7 +168,6 @@ export class UserController {
         userId: data.userId,
         periodId: period.id,
         asignatureId: data.asignatureId,
-        courseId: data.courseId,
         unitId: data.unitId,
         questions: data.questions,
         nota: data.nota,
@@ -134,7 +177,6 @@ export class UserController {
         userId: data.userId,
         periodId: period.id,
         asignatureId: data.asignatureId,
-        courseId: data.courseId,
         questions: data.questions,
         nota: data.nota,
       });

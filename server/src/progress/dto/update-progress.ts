@@ -7,9 +7,6 @@ export class UpdateProgressDTO extends PartialType(CreateProgressDTO) {
   userId: string;
 
   @Field(() => String, { nullable: true })
-  courseId: string;
-
-  @Field(() => String, { nullable: true })
   asignatureId: string;
 
   @Field(() => String, { nullable: true })
