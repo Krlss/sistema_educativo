@@ -195,21 +195,33 @@ export const topics = [
     asignature: 'Matemáticas',
     unit: 'Unidad 4',
     name: 'Relación de orden entre fracciones',
+    video: 'https://www.youtube.com/embed/-g3nd1CRoZ0',
+    image:
+      'https://drive.google.com/uc?id=1OcNnHWs6UJ2V_bNvqwuRdwdhLeOTe9vN&export=view',
   },
   {
     asignature: 'Matemáticas',
     unit: 'Unidad 4',
     name: 'Perímetro de paralelogramos',
+    video: 'https://www.youtube.com/embed/bra0LZnoj-U',
+    image:
+      'https://drive.google.com/uc?id=1nMOEKDddGQ0tu2-ttptFWoDGIYmgpd2x&export=view',
   },
   {
     asignature: 'Matemáticas',
     unit: 'Unidad 4',
     name: 'Perímetro de trapecios',
+    video: 'https://www.youtube.com/embed/GpxqYV7rwec',
+    image:
+      'https://drive.google.com/uc?id=1uJsSlnJxdFCb2Pbzn9NrK6bYQ_uYVswj&export=view',
   },
   {
     asignature: 'Matemáticas',
     unit: 'Unidad 4',
     name: 'Perímetro de triángulos',
+    image:
+      'https://drive.google.com/uc?id=15Q9SpDNoRJ5LV9o8mZa6AZQ4LqpQ2eMR&export=view',
+    video: 'https://www.youtube.com/embed/BPl5ecBvsiY',
   },
   {
     asignature: 'Matemáticas',
@@ -225,36 +237,57 @@ export const topics = [
     asignature: 'Matemáticas',
     unit: 'Unidad 5',
     name: 'Patrones numéricos decrecientes',
+    image:
+      'https://drive.google.com/uc?id=1lqwZmIFqshaRD_j7uWjfVZJa6F0Y_obA&export=view',
+    video: 'https://www.youtube.com/embed/pv5p03wZz3c',
   },
   {
     asignature: 'Matemáticas',
     unit: 'Unidad 5',
     name: 'Números decimales en la vida cotidiana',
+    image:
+      'https://drive.google.com/uc?id=16XVe2NYdfdflaJk23RFSKTo_PlatcJ-h&export=view',
+    video: 'https://www.youtube.com/embed/yNdmniAN6PM',
   },
   {
     asignature: 'Matemáticas',
     unit: 'Unidad 5',
     name: 'Números decimales',
+    image:
+      'https://drive.google.com/uc?id=1tPthDeBydmISnCwsdoJxNCWUvlblF7Ix&export=view',
+    video: 'https://www.youtube.com/embed/OYjW1gV8SJU',
   },
   {
     asignature: 'Matemáticas',
     unit: 'Unidad 5',
     name: 'Números decimales a fracciones',
+    image:
+      'https://drive.google.com/uc?id=1UiCsR757GO0HXqVpZdbGDu874PVxOJF7&export=view',
+    video: 'https://www.youtube.com/embed/F5TT9lzXJW8',
   },
   {
     asignature: 'Matemáticas',
     unit: 'Unidad 5',
     name: 'Relación de orden entre decimales',
+    image:
+      'https://drive.google.com/uc?id=1OFyrc1jMm2tX2SWsQhbDfVILptJlOwTF&export=view',
+    video: 'https://www.youtube.com/embed/IGQGQI5t_-U',
   },
   {
     asignature: 'Matemáticas',
     unit: 'Unidad 5',
     name: 'Números decimales: representación gráfica',
+    image:
+      'https://drive.google.com/uc?id=1UlDMdFoxXBGawGhDduQygno_I6RXBqTt&export=view',
+    video: 'https://www.youtube.com/embed/mwB7zm5cARU',
   },
   {
     asignature: 'Matemáticas',
     unit: 'Unidad 5',
     name: 'Redondear decimales',
+    image:
+      'https://drive.google.com/uc?id=10-7Nonq7cJCZpW1qJDoglPyWQSutvlOJ&export=view',
+    video: 'https://www.youtube.com/embed/zRV_Nq91JpM',
   },
   {
     asignature: 'Matemáticas',

@@ -3158,4 +3158,154 @@ export const questions: Question[] = [
     unit: 'Unidad 3',
     topic: 'Conversiones de medidas de longitud',
   },
+  {
+    options:
+      '{"options":[{"value":false,"text":"1/4","image":"https://drive.google.com/uc?id=1v0N0JRfaX_TTh6StkOE-RDEpCRlng-m_&export=view"},{"value":false,"text":"1/2","image":"https://drive.google.com/uc?id=1_xK0UgpXd3oSmMO0ox41LY3FrX14Z1Eb&export=view"},{"value":true,"text":"1/5","image":"https://drive.google.com/uc?id=12q-tCYzIYXeWTxogpS0xBTt2n4JPk0FT&export=view"},{"value":false,"text":"1/6","image":"https://drive.google.com/uc?id=1nQ2O99nl_LsC9Zaid3G2GK4s7HjTs4qP&export=view"}],"urlDescription":"https://drive.google.com/uc?id=1lbm5VcxxEVHEVbj70UQt0AE3wRmi2ETU&export=view"}',
+    title: 'Seleccione la siguiente fracción simple según su representación',
+    type: QuestionType.choose_an_option,
+    subtitle: '',
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"1/4","image":"https://drive.google.com/uc?id=1v0N0JRfaX_TTh6StkOE-RDEpCRlng-m_&export=view"},{"value":false,"text":"1/2","image":"https://drive.google.com/uc?id=1_xK0UgpXd3oSmMO0ox41LY3FrX14Z1Eb&export=view"},{"value":false,"text":"1/3","image":"https://drive.google.com/uc?id=1lUBMMiNLlIDqSjnhB7apFXNRWyHlnulf&export=view"},{"value":false,"text":"1/6","image":"https://drive.google.com/uc?id=1nQ2O99nl_LsC9Zaid3G2GK4s7HjTs4qP&export=view"}],"urlDescription":"https://drive.google.com/uc?id=1f-VEYQt3R4SBXEN79hBsGTHv5t0UvviE&export=view"}',
+    title: 'Seleccione la siguiente fracción simple según su representación',
+    type: QuestionType.choose_an_option,
+    subtitle: '',
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"1/2","image":"https://drive.google.com/uc?id=1_xK0UgpXd3oSmMO0ox41LY3FrX14Z1Eb&export=view"},{"value":false,"text":"1/5","image":"https://drive.google.com/uc?id=12q-tCYzIYXeWTxogpS0xBTt2n4JPk0FT&export=view"},{"value":false,"text":"1/4","image":"https://drive.google.com/uc?id=1v0N0JRfaX_TTh6StkOE-RDEpCRlng-m_&export=view"},{"value":false,"text":"1/3","image":"https://drive.google.com/uc?id=1lUBMMiNLlIDqSjnhB7apFXNRWyHlnulf&export=view"}],"urlDescription":"https://drive.google.com/uc?id=1lOOMAGkvkmVzIokmF0L7yNbQs3PrvyTA&export=view"}',
+    title: 'Seleccione la siguiente fracción simple según su representación',
+    type: QuestionType.choose_an_option,
+    subtitle: '',
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"2/4","image":"https://drive.google.com/uc?id=1va_ucA1AwgJvsJzJu2vSqBoRro4NOYHg&export=view"},{"value":false,"text":"1/4","image":"https://drive.google.com/uc?id=1v0N0JRfaX_TTh6StkOE-RDEpCRlng-m_&export=view"},{"value":false,"text":"3/4","image":"https://drive.google.com/uc?id=1rCM2J7HLAbkliwyKGtP2LP5FL2MMKs2J&export=view"},{"value":false,"text":"1/3","image":"https://drive.google.com/uc?id=1vzkeJrAKNv39v8mpzM7OCwAJ70AQFGbR&export=view"}],"urlDescription":"https://drive.google.com/uc?id=1XYQriCVS2bZwZyq-AIsE3uitOv9ft-CS&export=view"}',
+    title: 'Seleccione la siguiente fracción simple según su representación',
+    type: QuestionType.choose_an_option,
+    subtitle: '',
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"2/4","image":"https://drive.google.com/uc?id=1va_ucA1AwgJvsJzJu2vSqBoRro4NOYHg&export=view"},{"value":true,"text":"2/4","image":"https://drive.google.com/uc?id=1vEVq_HbvIUedWnGbLw6RUsRsBvGMhZJe&export=view"},{"value":false,"text":"3/4","image":"https://drive.google.com/uc?id=1rCM2J7HLAbkliwyKGtP2LP5FL2MMKs2J&export=view"},{"value":false,"text":"3/5","image":"https://drive.google.com/uc?id=1vzkeJrAKNv39v8mpzM7OCwAJ70AQFGbR&export=view"}],"urlDescription":"https://drive.google.com/uc?id=1n4Zb9SZopsfq2IxHEYHk1PfG5twd1ej4&export=view"}',
+    title: 'Seleccione la siguiente fracción simple según su representación',
+    type: QuestionType.choose_an_option,
+    subtitle: '',
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"2/4","image":"https://drive.google.com/uc?id=1va_ucA1AwgJvsJzJu2vSqBoRro4NOYHg&export=view"},{"value":true,"text":"2/3","image":"https://drive.google.com/uc?id=1vEVq_HbvIUedWnGbLw6RUsRsBvGMhZJe&export=view"},{"value":false,"text":"3/4","image":"https://drive.google.com/uc?id=1rCM2J7HLAbkliwyKGtP2LP5FL2MMKs2J&export=view"},{"value":false,"text":"3/5","image":"https://drive.google.com/uc?id=1vzkeJrAKNv39v8mpzM7OCwAJ70AQFGbR&export=view"}]}',
+    title: 'Seleccione la siguiente fracción simple según su escritura',
+    type: QuestionType.choose_an_option,
+    subtitle: 'Tres quintos',
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"1/4","image":"https://drive.google.com/uc?id=1v0N0JRfaX_TTh6StkOE-RDEpCRlng-m_&export=view"},{"value":false,"text":"8/4","image":"https://drive.google.com/uc?id=1Tbt1pUdFKt6UNcnJagJxpBudmT1cVe4S&export=view"},{"value":true,"text":"6/9","image":"https://drive.google.com/uc?id=1RhLQZETYMyvj_H6pNmslCeLLey9WtY4c&export=view"},{"value":false,"text":"2/4","image":"https://drive.google.com/uc?id=1va_ucA1AwgJvsJzJu2vSqBoRro4NOYHg&export=view"}]}',
+    title: 'Seleccione la siguiente fracción simple según su escritura',
+    type: QuestionType.choose_an_option,
+    subtitle: 'Seis noveno',
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"4/7","image":"https://drive.google.com/uc?id=10ICt_voN28pJg9-j9TSmvHyrbwNvFgxb&export=view"},{"value":false,"text":"6/4","image":"https://drive.google.com/uc?id=1J8Hj0elsvN9X3avEef_n9gaMWiRoX640&export=view"},{"value":false,"text":"6/9","image":"https://drive.google.com/uc?id=1RhLQZETYMyvj_H6pNmslCeLLey9WtY4c&export=view"},{"value":false,"text":"2/4","image":"https://drive.google.com/uc?id=1va_ucA1AwgJvsJzJu2vSqBoRro4NOYHg&export=view"}]}',
+    title: 'Seleccione la siguiente fracción simple según su escritura',
+    type: QuestionType.choose_an_option,
+    subtitle: 'Cuatro séptimos',
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"4/7","image":"https://drive.google.com/uc?id=10ICt_voN28pJg9-j9TSmvHyrbwNvFgxb&export=view"},{"value":false,"text":"4/8","image":"https://drive.google.com/uc?id=1u-AI1nTR_VlIq0Hs0yYCGtnztDnQOG3e&export=view"},{"value":false,"text":"6/9","image":"https://drive.google.com/uc?id=1RhLQZETYMyvj_H6pNmslCeLLey9WtY4c&export=view"},{"value":false,"text":"4/4","image":"https://drive.google.com/uc?id=1_8gprdsqsIyl7Ll0WR_An6HEF8MPvJ2y&export=view"}]}',
+    title: 'Seleccione la siguiente fracción simple según su escritura',
+    type: QuestionType.choose_an_option,
+    subtitle: 'Cuatro octavos',
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"7/7","image":"https://drive.google.com/uc?id=1MZD57OPjzGbyaqfnIl_7cEQXpFO9p7L0&export=view"},{"value":true,"text":"5/8","image":"https://drive.google.com/uc?id=13pOxsAY_DsVY8EWLW4jomBVa4yHPNaoc&export=view"},{"value":false,"text":"5/7","image":"https://drive.google.com/uc?id=1S7eCBWmsgCpQT4u_IgQbEm8Qr7BIuVPh&export=view"},{"value":false,"text":"4/7","image":"https://drive.google.com/uc?id=10ICt_voN28pJg9-j9TSmvHyrbwNvFgxb&export=view"}]}',
+    title: 'Seleccione la siguiente fracción simple según su escritura',
+    type: QuestionType.choose_an_option,
+    subtitle: 'Cinco octavos',
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples',
+  },
+  {
+    options:
+      '{"correct":true,"image":"https://drive.google.com/uc?id=16kItHWVQxoeMfbSfVc3UW3YVCuUX1yyV&export=view"}',
+    title: 'Seleccione lo siguiente verdadero o falso',
+    type: QuestionType.true_or_false,
+    asignature: 'Matemáticas',
+    subtitle: 'Se lee: Siete onceavos',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples',
+  },
+  {
+    options:
+      '{"correct":false,"image":"https://drive.google.com/uc?id=1i3LbMSq418xX2_NSEmLQIxKjgaYZNTi1&export=view"}',
+    title: 'Seleccione lo siguiente verdadero o falso',
+    type: QuestionType.true_or_false,
+    asignature: 'Matemáticas',
+    subtitle: 'Se lee: Nueve quintos',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples',
+  },
+  {
+    options:
+      '{"correct":false,"image":"https://drive.google.com/uc?id=1OPu8iYWoXXL0b3L-StYvFCUU-AwRkO2e&export=view"}',
+    title: 'Seleccione lo siguiente verdadero o falso',
+    type: QuestionType.true_or_false,
+    asignature: 'Matemáticas',
+    subtitle: 'Se lee: Seis decimos',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples',
+  },
+  {
+    options:
+      '{"correct":false,"image":"https://drive.google.com/uc?id=1IFPf8oxAeOOy0MIZNhhdXPD2R9O5LjzH/&export=view"}',
+    title: 'Seleccione lo siguiente verdadero o falso',
+    type: QuestionType.true_or_false,
+    asignature: 'Matemáticas',
+    subtitle: 'Se lee: Cuatro doceavos',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples',
+  },
+  {
+    options:
+      '{"correct":false,"image":"https://drive.google.com/uc?id=1GeMSwZHkvNffXbH9sumhXNqAe3gn2Q72&export=view"}',
+    title: 'Seleccione lo siguiente verdadero o falso',
+    type: QuestionType.true_or_false,
+    asignature: 'Matemáticas',
+    subtitle: 'Se lee: Seis decimos',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples',
+  },
 ];
