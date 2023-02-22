@@ -44,10 +44,10 @@ const GeneralProvider = (props: any) => {
   useEffect(() => {
     const rt = getDataSession('rt')
     if (rt) {
-      const user = jwtDecode<USER>(rt)
-      dispatchUser({ type: 'setUser', payload: user })
+      const user_ = jwtDecode<USER>(rt)
+      dispatchUser({ type: 'setUser', payload: user_ })
       handleGetUserProgress({
-        userId: user.id
+        userId: user_.id
       })
     }
   }, [getDataSession('rt')])

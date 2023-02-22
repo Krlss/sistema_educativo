@@ -141,7 +141,11 @@ export class UserController {
 
   async getAsignatureByUserId(id: string, asignatureId: string) {
     const period = await this.userService.getUserLastPeriod(id);
-    const data = await this.userService.getAsignatureByUserId(id, asignatureId);
+    const data = await this.userService.getAsignatureByUserId(
+      id,
+      asignatureId,
+      period.id,
+    );
 
     return {
       id: data.id,

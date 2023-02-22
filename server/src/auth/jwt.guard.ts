@@ -23,6 +23,13 @@ export class JwtGuard implements CanActivate {
         ctx.user = user;
         return true;
       } catch (error) {
+        ctx.res.clearCookie('rt', {
+          httpOnly: false,
+          sameSite: 'none',
+          path: '/',
+          secure: true,
+          domain: 'localhost',
+        });
         throw new HttpException(
           'Invalid Token: ' + error.message,
           HttpStatus.UNAUTHORIZED,

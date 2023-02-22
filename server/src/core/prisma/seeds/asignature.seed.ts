@@ -3,7 +3,7 @@ import { asignatures } from './data/asignatures';
 
 const prisma = new PrismaClient();
 
-export const asignatureSeed = async (periodCourseId: number) => {
+export const asignatureSeed = async (periodCourseId: number[]) => {
   await prisma.asignature.deleteMany();
   await prisma.periodsCoursesAsignatures.deleteMany();
 
@@ -15,9 +15,9 @@ export const asignatureSeed = async (periodCourseId: number) => {
         image: asignature.image,
         periodsCoursesAsignatures: {
           createMany: {
-            data: {
+            data: periodCourseId.map((periodCourseId) => ({
               periodCourseId,
-            },
+            })),
           },
         },
       },
@@ -29,7 +29,11 @@ export const asignatureSeed = async (periodCourseId: number) => {
 
   return await prisma.periodsCoursesAsignatures.findMany({
     where: {
-      periodCourseId,
+      periodCourse: {
+        id: {
+          in: periodCourseId,
+        },
+      },
     },
     select: {
       id: true,

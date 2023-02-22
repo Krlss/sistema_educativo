@@ -336,7 +336,7 @@ export class UserService {
         },
         periodCourseAsignature: {
           periodCourse: {
-            periodId: periodId.id,
+            periodId: periodId?.id,
           },
         },
       },
@@ -481,9 +481,11 @@ export class UserService {
     );
   }
 
-  async getAsignatureByUserId(id: string, asignatureId: string) {
-    const period = await this.getPeriodsCoursesByUserId(id);
-
+  async getAsignatureByUserId(
+    id: string,
+    asignatureId: string,
+    periodId: string,
+  ) {
     return await this.prismaService.asignature.findUnique({
       where: {
         id: asignatureId,
@@ -492,7 +494,7 @@ export class UserService {
         periodsCoursesAsignatures: {
           where: {
             periodCourse: {
-              periodId: period?.id,
+              periodId,
             },
             progress: {
               some: {

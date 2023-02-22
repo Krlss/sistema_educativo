@@ -16,19 +16,19 @@ async function main() {
   const period = await periodSeed();
   await courseSeed(period);
 
-  period.forEach(async (PC) => {
-    const periodsCourses = await prisma.periodsCourses.findFirst({
-      where: {
-        periodId: PC.id,
-      },
-      select: {
-        id: true,
-      },
-    });
-    const periodsCoursesAsignatures = await asignatureSeed(periodsCourses.id);
-    await unitSeed(periodsCoursesAsignatures);
-    await topicSeed(period);
+  const periodsCourses = await prisma.periodsCourses.findMany({
+    where: {
+      periodId: { in: period.map((p) => p.id) },
+    },
+    select: {
+      id: true,
+    },
   });
+  const periodsCoursesAsignatures = await asignatureSeed(
+    periodsCourses.map((pc) => pc.id),
+  );
+  await unitSeed(periodsCoursesAsignatures);
+  await topicSeed(period);
 
   // await quesitonSeed();
 }
