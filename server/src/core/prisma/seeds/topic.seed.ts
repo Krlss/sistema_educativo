@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import { topics } from './data/topics';
 import { questions } from './data/questions';
 import { QuestionDifficulty } from '../../../question/types/question.difficulty';
-import QuestionType from '../../../question/types/question.type';
+import { QuestionType } from '../../../question/types/question.type';
 
 const prisma = new PrismaClient();
 
