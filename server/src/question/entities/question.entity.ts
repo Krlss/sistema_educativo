@@ -1,5 +1,5 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import QuestionType from '../types/question.type';
+import { QuestionType } from '../types/question.type';
 import { Topic } from 'src/topic/entities/topic.entity';
 import { QuestionDifficulty } from '../types/question.difficulty';
 
