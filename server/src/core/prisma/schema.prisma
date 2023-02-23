@@ -37,6 +37,9 @@ enum QuestionType {
   drag_and_drop_complete
   simple_multi
   operation_simple
+  simple_fraction_simplification
+  simple_fraction_decimal
+  image_write_answer
 }
 
 enum QuestionPriority {

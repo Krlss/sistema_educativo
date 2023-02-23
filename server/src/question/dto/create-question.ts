@@ -1,6 +1,6 @@
 import { InputType, Field } from '@nestjs/graphql';
 import { IsNotEmpty, MinLength } from 'class-validator';
-import { QuestionType } from '../types/question.type';
+import QuestionType from '../types/question.type';
 import { QuestionDifficulty } from '../types/question.difficulty';
 
 @InputType()
