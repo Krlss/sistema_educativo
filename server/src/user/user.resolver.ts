@@ -103,14 +103,16 @@ export class UserResolver {
     return 'ok';
   }
 
-  @Query(() => [Grades], { nullable: true })
+  @Query(() => String, { nullable: true })
   getGradesByAsignature(
     @Args('asignatureId') asignatureId: string,
     @Args('periodCourseId') periodCourseId: number,
+    @Context('res') res: Response,
   ) {
     return this.userController.getGradesByAsignature(
       asignatureId,
       periodCourseId,
+      res,
     );
   }
 
