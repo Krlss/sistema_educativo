@@ -242,23 +242,6 @@ type CustomTopicsInscribed {
   video: String
 }
 
-type UnitGrades {
-  id: ID
-  name: String
-  nota: Float
-  userId: String
-}
-
-type Grades {
-  id: ID
-  asignature: String
-  course: String
-  nota: Float
-  userId: String
-  username: String
-  units: [UnitGrades!]
-}
-
 type TopicCustom {
   id: ID
   name: String
@@ -293,7 +276,7 @@ type Query {
   getAsignatureUserInscribed(userId: String!, asignatureId: String!): CustomAsignatureInscribed
   login(email: String!, password: String!): String!
   logout: String
-  getGradesByAsignature(asignatureId: String!, periodCourseId: Float!): [Grades!]
+  getGradesByAsignature(asignatureId: String!, periodCourseId: Float!): String
   roles: [Rol!]!
   rol(id: String!): Rol
   questions: [Question!]
