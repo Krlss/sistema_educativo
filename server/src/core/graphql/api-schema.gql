@@ -48,6 +48,7 @@ enum QuestionType {
   true_or_false_cp
   positional_table
   choose_any_option
+  image_write_answer
   drag_and_drop_text
   drag_and_drop_sets
   table_multiplication
@@ -56,10 +57,12 @@ enum QuestionType {
   base10_descomposition
   drag_and_drop_objects
   drag_and_drop_complete
+  simple_fraction_decimal
   write_number_positional
   true_or_false_cp_objects
   select_place_table_option
   choose_an_option_textnumber
+  simple_fraction_simplification
   true_or_false_numbers_and_text
 }
 

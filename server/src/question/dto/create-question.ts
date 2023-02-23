@@ -35,10 +35,11 @@ export class CreateQuestionDTO {
 
   @Field(() => QuestionDifficulty, { description: 'Prioridad de la pregunta' })
   @IsNotEmpty({ message: 'La prioridad de la pregunta no puede estar vacía' })
-  priority: QuestionDifficulty;
+  difficulty: QuestionDifficulty;
 
   @Field({
     description: 'Id del tema al que pertenece la pregunta',
+    nullable: true,
   })
   topicId: string;
 }

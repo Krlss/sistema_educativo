@@ -17,6 +17,7 @@ export enum QuestionType {
   true_or_false_cp = 'true_or_false_cp',
   positional_table = 'positional_table',
   choose_any_option = 'choose_any_option',
+  image_write_answer = 'image_write_answer',
   drag_and_drop_text = 'drag_and_drop_text',
   drag_and_drop_sets = 'drag_and_drop_sets',
   table_multiplication = 'table_multiplication',
@@ -25,10 +26,12 @@ export enum QuestionType {
   base10_descomposition = 'base10_descomposition',
   drag_and_drop_objects = 'drag_and_drop_objects',
   drag_and_drop_complete = 'drag_and_drop_complete',
+  simple_fraction_decimal = 'simple_fraction_decimal',
   write_number_positional = 'write_number_positional',
   true_or_false_cp_objects = 'true_or_false_cp_objects',
   select_place_table_option = 'select_place_table_option',
   choose_an_option_textnumber = 'choose_an_option_textnumber',
+  simple_fraction_simplification = 'simple_fraction_simplification',
   true_or_false_numbers_and_text = 'true_or_false_numbers_and_text',
 }
 

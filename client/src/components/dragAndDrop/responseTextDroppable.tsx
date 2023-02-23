@@ -17,6 +17,7 @@ interface Props {
     text?: string
     text1?: string
     text2?: string
+    image?: string
     key: string
   }
   removeAnswer: (index: number) => void
@@ -35,7 +36,7 @@ const ResponseTextDroppable = ({
 
   return (
     <div className="flex items-center gap-2 m-1 w-full">
-      {item.text1 && (
+      {item.text1 && !item.image && (
         <div className="w-full">
           <p className="text-sm">{item.text1}</p>
         </div>
@@ -80,12 +81,22 @@ const ResponseTextDroppable = ({
           </div>
         )}
       </Droppable>
-      {item.text && (
+      {item.text && !item.image && (
         <div className="w-full">
           <h2 className="text-sm">{item.text}</h2>
         </div>
       )}
-      {item.text2 && (
+      {item.image && (
+        <div className="w-full">
+          <img
+            src={item.image}
+            alt={item.value}
+            width={150}
+            className="object-contain"
+          />
+        </div>
+      )}
+      {item.text2 && !item.image && (
         <div className="w-full">
           <h2 className="text-sm">{item.text2}</h2>
         </div>

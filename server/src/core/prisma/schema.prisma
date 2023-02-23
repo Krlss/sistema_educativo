@@ -106,17 +106,17 @@ model Unit {
 }
 
 model Question {
-  id        String       @id @default(cuid())
-  title     String
-  subtitle  String?
-  type      QuestionType
-  options   String       @db.LongText
+  id         String           @id @default(cuid())
+  title      String
+  subtitle   String?
+  type       QuestionType
+  options    String           @db.LongText
   difficulty QuestionPriority @default(low)
-  topicId   String
-  createdAt DateTime     @default(now())
-  updatedAt DateTime     @updatedAt
-  deletedAt DateTime?
-  topic     Topic        @relation(fields: [topicId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  topicId    String
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+  deletedAt  DateTime?
+  topic      Topic            @relation(fields: [topicId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 }
 
 model Topic {
