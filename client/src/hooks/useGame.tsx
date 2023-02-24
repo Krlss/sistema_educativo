@@ -29,7 +29,10 @@ import {
   PositionalMult,
   OperationBaseN,
   SimpleMulti,
-  OperationSimple
+  OperationSimple,
+  SimpleFractionSimplification,
+  FractionDecimal,
+  ImageWriteAnswer
 } from '../components/exercise'
 import { getQuadrant } from '../utils/CartesianCoordinate'
 import { writePointsCoordinatePlane_, question } from '../types/game'
@@ -101,6 +104,18 @@ const useGame = () => {
     const array: any[] = []
     dataGame.forEach((item, index) => {
       switch (item.type) {
+        case 'image_write_answer':
+          return array.push(
+            <ImageWriteAnswer key={index} {...item} index={index} />
+          )
+        case 'simple_fraction_decimal':
+          return array.push(
+            <FractionDecimal key={index} {...item} index={index} />
+          )
+        case 'simple_fraction_simplification':
+          return array.push(
+            <SimpleFractionSimplification key={index} {...item} index={index} />
+          )
         case 'base10_descomposition':
           return array.push(
             <Base10Descomposition key={index} {...item} index={index} />

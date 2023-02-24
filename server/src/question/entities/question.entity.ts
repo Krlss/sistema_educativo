@@ -36,6 +36,9 @@ export class Question {
   @Field({ nullable: true })
   deletedAt: Date;
 
+  @Field({ nullable: true })
+  topicId: string;
+
   @Field(() => Topic, { nullable: true })
   topic: Topic;
 }

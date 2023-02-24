@@ -28,39 +28,43 @@ type Question {
   createdAt: DateTime
   updatedAt: DateTime
   deletedAt: DateTime
+  topicId: String
   topic: Topic
 }
 
 enum QuestionType {
-  order
-  place_sign
-  listen_text
-  simple_multi
-  write_coor_cp
   true_or_false
-  positional_sum
-  listen_numbers
-  positional_rest
-  positional_mult
-  choose_an_option
-  operation_simple
-  put_points_in_cp
   true_or_false_cp
-  positional_table
+  true_or_false_cp_objects
+  true_or_false_numbers_and_text
+  put_points_in_cp
+  choose_an_option
   choose_any_option
+  choose_an_option_textnumber
+  write_coor_cp
+  write_value_from_text
+  write_number_positional
+  drag_and_drop_objects
   drag_and_drop_text
   drag_and_drop_sets
-  table_multiplication
   selects_points_in_cp
-  write_value_from_text
-  base10_descomposition
-  drag_and_drop_objects
-  drag_and_drop_complete
-  write_number_positional
-  true_or_false_cp_objects
   select_place_table_option
-  choose_an_option_textnumber
-  true_or_false_numbers_and_text
+  positional_table
+  listen_numbers
+  listen_text
+  order
+  base10_descomposition
+  positional_sum
+  positional_mult
+  table_multiplication
+  place_sign
+  positional_rest
+  drag_and_drop_complete
+  simple_multi
+  operation_simple
+  simple_fraction_simplification
+  simple_fraction_decimal
+  image_write_answer
 }
 
 enum QuestionDifficulty {
@@ -475,10 +479,10 @@ input CreateQuestionDTO {
   options: String!
 
   """Prioridad de la pregunta"""
-  priority: QuestionDifficulty!
+  difficulty: QuestionDifficulty!
 
   """Id del tema al que pertenece la pregunta"""
-  topicId: String!
+  topicId: String
 }
 
 input UpdateQuestionDTO {
@@ -495,13 +499,16 @@ input UpdateQuestionDTO {
   options: String
 
   """Prioridad de la pregunta"""
-  priority: QuestionDifficulty!
+  difficulty: QuestionDifficulty
 
   """Id del tema al que pertenece la pregunta"""
   topicId: String
 
   """Id de la pregunta"""
   id: String!
+
+  """Prioridad de la pregunta"""
+  priority: QuestionDifficulty!
 }
 
 input CreateTopicDTO {

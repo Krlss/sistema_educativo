@@ -41,12 +41,14 @@ const App = () => {
             path="/asignatura/:asignatureId/unidad/:unitId/tema/:topicId"
             element={<ClassPresentation />}
           />
-          <Route path="/prueba" element={<Game />} />
+          {/* <Route
+            path="/aaaaaaaaaaaaaaaaaaaaaa"
+            element={<DragAndDropChooseText {...data} />}
+          /> */}
           <Route
             path="/asignatura/:asignatureId/unidad/:unitId/prueba"
             element={<Game />}
           />
-          <Route path="/prueba" element={<Game />} />
           <Route path="/dashboard">
             <Route path="cursos" element={<DashboardCursos />} />
             <Route

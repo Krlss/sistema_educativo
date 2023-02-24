@@ -28,6 +28,27 @@ export type typeQuestion =
   | 'drag_and_drop_complete'
   | 'simple_multi'
   | 'operation_simple'
+  | 'simple_fraction_simplification'
+  | 'simple_fraction_decimal'
+  | 'image_write_answer'
+
+export type fraction_ = {
+  numerator: number
+  denominator: number
+  correctNumerator: number
+  correctDenominator: number
+}
+
+export type fraction_decimal = {
+  numerator: number
+  denominator: number
+  value: number
+}
+
+export type ImageWriteAnswer_ = {
+  image: string
+  correct: string
+}
 
 export type chooseAnOptionType = {
   text: string
@@ -92,6 +113,7 @@ export interface dragAndDropSets_ {
 export interface dragAndDropChooseText_ {
   value: string
   text?: string
+  image?: string
 }
 
 export interface dragAndDropComplete_ {

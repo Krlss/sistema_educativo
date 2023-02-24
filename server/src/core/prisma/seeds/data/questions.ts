@@ -1,33 +1,36 @@
-enum QuestionType {
-  order = 'order',
-  place_sign = 'place_sign',
-  listen_text = 'listen_text',
-  simple_multi = 'simple_multi',
-  write_coor_cp = 'write_coor_cp',
+export enum QuestionType {
   true_or_false = 'true_or_false',
-  positional_sum = 'positional_sum',
-  listen_numbers = 'listen_numbers',
-  positional_rest = 'positional_rest',
-  positional_mult = 'positional_mult',
-  choose_an_option = 'choose_an_option',
-  operation_simple = 'operation_simple',
-  put_points_in_cp = 'put_points_in_cp',
   true_or_false_cp = 'true_or_false_cp',
-  positional_table = 'positional_table',
+  true_or_false_cp_objects = 'true_or_false_cp_objects',
+  true_or_false_numbers_and_text = 'true_or_false_numbers_and_text',
+  put_points_in_cp = 'put_points_in_cp',
+  choose_an_option = 'choose_an_option',
   choose_any_option = 'choose_any_option',
+  choose_an_option_textnumber = 'choose_an_option_textnumber',
+  write_coor_cp = 'write_coor_cp',
+  write_value_from_text = 'write_value_from_text',
+  write_number_positional = 'write_number_positional',
+  drag_and_drop_objects = 'drag_and_drop_objects',
   drag_and_drop_text = 'drag_and_drop_text',
   drag_and_drop_sets = 'drag_and_drop_sets',
-  table_multiplication = 'table_multiplication',
   selects_points_in_cp = 'selects_points_in_cp',
-  write_value_from_text = 'write_value_from_text',
-  base10_descomposition = 'base10_descomposition',
-  drag_and_drop_objects = 'drag_and_drop_objects',
-  drag_and_drop_complete = 'drag_and_drop_complete',
-  write_number_positional = 'write_number_positional',
-  true_or_false_cp_objects = 'true_or_false_cp_objects',
   select_place_table_option = 'select_place_table_option',
-  choose_an_option_textnumber = 'choose_an_option_textnumber',
-  true_or_false_numbers_and_text = 'true_or_false_numbers_and_text',
+  positional_table = 'positional_table',
+  listen_numbers = 'listen_numbers',
+  listen_text = 'listen_text',
+  order = 'order',
+  base10_descomposition = 'base10_descomposition',
+  positional_sum = 'positional_sum',
+  positional_mult = 'positional_mult',
+  table_multiplication = 'table_multiplication',
+  place_sign = 'place_sign',
+  positional_rest = 'positional_rest',
+  drag_and_drop_complete = 'drag_and_drop_complete',
+  simple_multi = 'simple_multi',
+  operation_simple = 'operation_simple',
+  simple_fraction_simplification = 'simple_fraction_simplification',
+  simple_fraction_decimal = 'simple_fraction_decimal',
+  image_write_answer = 'image_write_answer',
 }
 
 interface Question {
@@ -3163,7 +3166,7 @@ export const questions: Question[] = [
       '{"options":[{"value":false,"text":"1/4","image":"https://drive.google.com/uc?id=1v0N0JRfaX_TTh6StkOE-RDEpCRlng-m_&export=view"},{"value":false,"text":"1/2","image":"https://drive.google.com/uc?id=1_xK0UgpXd3oSmMO0ox41LY3FrX14Z1Eb&export=view"},{"value":true,"text":"1/5","image":"https://drive.google.com/uc?id=12q-tCYzIYXeWTxogpS0xBTt2n4JPk0FT&export=view"},{"value":false,"text":"1/6","image":"https://drive.google.com/uc?id=1nQ2O99nl_LsC9Zaid3G2GK4s7HjTs4qP&export=view"}],"urlDescription":"https://drive.google.com/uc?id=1lbm5VcxxEVHEVbj70UQt0AE3wRmi2ETU&export=view"}',
     title: 'Seleccione la siguiente fracción simple según su representación',
     type: QuestionType.choose_an_option,
-    subtitle: '',
+
     asignature: 'Matemáticas',
     unit: 'Unidad 4',
     topic: 'Fracciones simples',
@@ -3173,7 +3176,7 @@ export const questions: Question[] = [
       '{"options":[{"value":true,"text":"1/4","image":"https://drive.google.com/uc?id=1v0N0JRfaX_TTh6StkOE-RDEpCRlng-m_&export=view"},{"value":false,"text":"1/2","image":"https://drive.google.com/uc?id=1_xK0UgpXd3oSmMO0ox41LY3FrX14Z1Eb&export=view"},{"value":false,"text":"1/3","image":"https://drive.google.com/uc?id=1lUBMMiNLlIDqSjnhB7apFXNRWyHlnulf&export=view"},{"value":false,"text":"1/6","image":"https://drive.google.com/uc?id=1nQ2O99nl_LsC9Zaid3G2GK4s7HjTs4qP&export=view"}],"urlDescription":"https://drive.google.com/uc?id=1f-VEYQt3R4SBXEN79hBsGTHv5t0UvviE&export=view"}',
     title: 'Seleccione la siguiente fracción simple según su representación',
     type: QuestionType.choose_an_option,
-    subtitle: '',
+
     asignature: 'Matemáticas',
     unit: 'Unidad 4',
     topic: 'Fracciones simples',
@@ -3183,7 +3186,7 @@ export const questions: Question[] = [
       '{"options":[{"value":true,"text":"1/2","image":"https://drive.google.com/uc?id=1_xK0UgpXd3oSmMO0ox41LY3FrX14Z1Eb&export=view"},{"value":false,"text":"1/5","image":"https://drive.google.com/uc?id=12q-tCYzIYXeWTxogpS0xBTt2n4JPk0FT&export=view"},{"value":false,"text":"1/4","image":"https://drive.google.com/uc?id=1v0N0JRfaX_TTh6StkOE-RDEpCRlng-m_&export=view"},{"value":false,"text":"1/3","image":"https://drive.google.com/uc?id=1lUBMMiNLlIDqSjnhB7apFXNRWyHlnulf&export=view"}],"urlDescription":"https://drive.google.com/uc?id=1lOOMAGkvkmVzIokmF0L7yNbQs3PrvyTA&export=view"}',
     title: 'Seleccione la siguiente fracción simple según su representación',
     type: QuestionType.choose_an_option,
-    subtitle: '',
+
     asignature: 'Matemáticas',
     unit: 'Unidad 4',
     topic: 'Fracciones simples',
@@ -3193,7 +3196,7 @@ export const questions: Question[] = [
       '{"options":[{"value":true,"text":"2/4","image":"https://drive.google.com/uc?id=1va_ucA1AwgJvsJzJu2vSqBoRro4NOYHg&export=view"},{"value":false,"text":"1/4","image":"https://drive.google.com/uc?id=1v0N0JRfaX_TTh6StkOE-RDEpCRlng-m_&export=view"},{"value":false,"text":"3/4","image":"https://drive.google.com/uc?id=1rCM2J7HLAbkliwyKGtP2LP5FL2MMKs2J&export=view"},{"value":false,"text":"1/3","image":"https://drive.google.com/uc?id=1vzkeJrAKNv39v8mpzM7OCwAJ70AQFGbR&export=view"}],"urlDescription":"https://drive.google.com/uc?id=1XYQriCVS2bZwZyq-AIsE3uitOv9ft-CS&export=view"}',
     title: 'Seleccione la siguiente fracción simple según su representación',
     type: QuestionType.choose_an_option,
-    subtitle: '',
+
     asignature: 'Matemáticas',
     unit: 'Unidad 4',
     topic: 'Fracciones simples',
@@ -3203,7 +3206,7 @@ export const questions: Question[] = [
       '{"options":[{"value":false,"text":"2/4","image":"https://drive.google.com/uc?id=1va_ucA1AwgJvsJzJu2vSqBoRro4NOYHg&export=view"},{"value":true,"text":"2/4","image":"https://drive.google.com/uc?id=1vEVq_HbvIUedWnGbLw6RUsRsBvGMhZJe&export=view"},{"value":false,"text":"3/4","image":"https://drive.google.com/uc?id=1rCM2J7HLAbkliwyKGtP2LP5FL2MMKs2J&export=view"},{"value":false,"text":"3/5","image":"https://drive.google.com/uc?id=1vzkeJrAKNv39v8mpzM7OCwAJ70AQFGbR&export=view"}],"urlDescription":"https://drive.google.com/uc?id=1n4Zb9SZopsfq2IxHEYHk1PfG5twd1ej4&export=view"}',
     title: 'Seleccione la siguiente fracción simple según su representación',
     type: QuestionType.choose_an_option,
-    subtitle: '',
+
     asignature: 'Matemáticas',
     unit: 'Unidad 4',
     topic: 'Fracciones simples',
@@ -3308,4 +3311,1632 @@ export const questions: Question[] = [
     unit: 'Unidad 4',
     topic: 'Fracciones simples',
   },
+  {
+    options:
+      '{"correct":true,"image":"https://drive.google.com/uc?id=1w-7Yqi2nBZqQViq4VTg2tpyfDtgEqLmK&export=view"}',
+    title: 'Seleccione la respuesta correcta: Verdadero o Falso',
+    type: QuestionType.true_or_false,
+    asignature: 'Matemáticas',
+    subtitle:
+      'Observo y verifico si el número bajo cada figura indica las partes en las que se dividió la unidad.',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+  {
+    options:
+      '{"correct":true,"image":"https://drive.google.com/uc?id=1XWty78iTfrDHi7hDRInv17U7UqD-k9Y6&export=view"}',
+    title: 'Seleccione la respuesta correcta: Verdadero o Falso',
+    type: QuestionType.true_or_false,
+    asignature: 'Matemáticas',
+    subtitle:
+      'Observo y verifico si el número bajo cada figura indica las partes en las que se dividió la unidad.',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+  {
+    options:
+      '{"correct":false,"image":"https://drive.google.com/uc?id=12eWE44N8BU0DYMCUiVVTuo8Rsx4PePRQ&export=view"}',
+    title: 'Seleccione la respuesta correcta: Verdadero o Falso',
+    type: QuestionType.true_or_false,
+    asignature: 'Matemáticas',
+    subtitle:
+      'Observo y verifico si el número bajo cada figura indica las partes en las que se dividió la unidad.',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+  {
+    options:
+      '{"correct":false,"image":"https://drive.google.com/uc?id=147KU2zcn2FBTg-elaa6TDmNrxEyhiuLw&export=view"}',
+    title: 'Seleccione la respuesta correcta: Verdadero o Falso',
+    type: QuestionType.true_or_false,
+    asignature: 'Matemáticas',
+    subtitle:
+      'Observo y verifico si el número bajo cada figura indica las partes en las que se dividió la unidad.',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Numerador"},{"value":true,"text":"Denominador"}],"urlDescription":"https://drive.google.com/uc?id=1A0sr3qJc65PNaAoJFOnC0wZra8pmUas9&export=view"}',
+    title: 'Seleccione la respuesta correcta:',
+    subtitle:
+      'El número bajo cada figura sería el numerador o el denominador de la fracción',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"Numerador"},{"value":false,"text":"Denominador"}],"urlDescription":"https://drive.google.com/uc?id=1W_bh8zNvcbKhimhnCjm1M32zktLKG60z&export=view"}',
+    title: 'Seleccione la respuesta correcta:',
+    subtitle:
+      'El número bajo cada figura sería el numerador o el denominador de la fracción',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"Numerador"},{"value":false,"text":"Denominador"}],"urlDescription":"https://drive.google.com/uc?id=1cNxRvqv1WV3rv21DePQCz8FCzZrrKB9R&export=view"}',
+    title: 'Seleccione la respuesta correcta:',
+    subtitle:
+      'El número bajo cada figura sería el numerador o el denominador de la fracción',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Numerador"},{"value":true,"text":"Denominador"}],"urlDescription":"https://drive.google.com/uc?id=1liMIYnb9mnroPmqPLeZF9h9vOgCd42G2&export=view"}',
+    title: 'Seleccione la respuesta correcta:',
+    subtitle:
+      'El número bajo cada figura sería el numerador o el denominador de la fracción',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"Numerador"},{"value":false,"text":"Denominador"}],"urlDescription":"https://drive.google.com/uc?id=1eMeugTvLT04ZEEfthilD1fbBtB1HMJh4&export=view"}',
+    title: 'Seleccione la respuesta correcta:',
+    subtitle:
+      'El número bajo cada figura sería el numerador o el denominador de la fracción',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Numerador"},{"value":true,"text":"Denominador"}],"urlDescription":"https://drive.google.com/uc?id=1WzLJ3yeF8aKl0iLDXINstAszQI3HqHlb&export=view"}',
+    title: 'Seleccione la respuesta correcta:',
+    subtitle:
+      'El número bajo cada figura sería el numerador o el denominador de la fracción',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"Numerador"},{"value":false,"text":"Denominador"}],"urlDescription":"https://drive.google.com/uc?id=1Zosf7b42T53xA0q8OugRnaJm6fykm49e&export=view"}',
+    title: 'Seleccione la respuesta correcta:',
+    subtitle:
+      'El número bajo cada figura sería el numerador o el denominador de la fracción',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+
+  {
+    options:
+      '{"options":[{"value":false,"text":"Una"},{"value":true,"text":"Dos"},{"value":false,"text":"Tres"},{"value":false,"text":"Cuatro"}],"urlDescription":"https://drive.google.com/uc?id=13n_sfRx07g-8LAKPHy50C7lrMV1OIf7b&export=view"}',
+    title:
+      'Leo el problema y analizo la imagen. Luego, verifico las respuestas.',
+    subtitle:
+      'Julián invitó a 4 amigas y 3 amigos para compartir un pastel, pero solo llegaron 2 amigas y 1 amigo.',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"3/8"},{"value":true,"text":"2/8"},{"value":false,"text":"2/9"},{"value":false,"text":"3/7"}],"urlDescription":"https://drive.google.com/uc?id=1ssiaGIkydF64RuD1BfIHQEAYmmfgliwK&export=view"}',
+    title:
+      'Leo el problema y analizo la imagen. Luego, verifico las respuestas.',
+    subtitle:
+      'Julián invitó a 4 amigas y 3 amigos para compartir un pastel, pero solo llegaron 2 amigas y 1 amigo.',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"0"},{"value":false,"text":"1"},{"value":true,"text":"2"},{"value":false,"text":"3"}],"urlDescription":"https://drive.google.com/uc?id=189vhdi6jvZC-ZJCV322tC4xmNka56UGe&export=view"}',
+    title:
+      'Leo el problema y analizo la imagen. Luego, verifico las respuestas.',
+    subtitle:
+      'Julián invitó a 4 amigas y 3 amigos para compartir un pastel, pero solo llegaron 2 amigas y 1 amigo.',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"3/4","image":"https://drive.google.com/uc?id=1k7t4HqI-k6O8s8JvtwuKxB7HUooEdYpm&export=view"},{"value":true,"text":"1/4","image":"https://drive.google.com/uc?id=1nrxxuDiCwN2ervvAVjQuTZMv8m38gm44&export=view"},{"value":true,"text":"2/4","image":"https://drive.google.com/uc?id=1G87es7yR7ApJnkiIYX3kLEu5iW2P-ku8&export=view"},{"value":false,"text":"1/8","image":"https://drive.google.com/uc?id=1ARVmcVs4qBqDT6wbcPFLY3dQloQ2ZTOL&export=view"}],"urlDescription":"https://drive.google.com/uc?id=1bxbeV8o4id619rNmdZVFZjcsPLfKCIgB&export=view"}',
+    title: 'Seleccione las opciones correctas en la siguiente semirrecta:',
+    subtitle:
+      'Complete en la semirrecta las fracciones que faltan según corresponda en cada fracción',
+    type: QuestionType.choose_any_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"5/2","image":"https://drive.google.com/uc?id=1-R_IvEf9ve7U21t2Lk_outAnLSAsMD0J&export=view"},{"value":false,"text":"3/4","image":"https://drive.google.com/uc?id=1k7t4HqI-k6O8s8JvtwuKxB7HUooEdYpm&export=view"},{"value":true,"text":"6/4","image":"https://drive.google.com/uc?id=16R4lHmCXJupm69LCK6SDdHKgIziK-PBf&export=view"},{"value":false,"text":"1/4","image":"https://drive.google.com/uc?id=1xbzoIPPL5oBzZ01kCnRgdKd7qCSOyKqu&export=view"}],"urlDescription":"https://drive.google.com/uc?id=1oZ24fSNhwfEYaSV1r9-cLFsl4TqWsVMF&export=view"}',
+    title: 'Seleccione las opciones correctas en la siguiente semirrecta:',
+    subtitle:
+      'Complete en la semirrecta las fracciones que faltan según la secuencia según corresponda en cada fracción.',
+    type: QuestionType.choose_any_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"6/4","image":"https://drive.google.com/uc?id=16R4lHmCXJupm69LCK6SDdHKgIziK-PBf&export=view"},{"value":true,"text":"1/4","image":"https://drive.google.com/uc?id=1xbzoIPPL5oBzZ01kCnRgdKd7qCSOyKqu&export=view"},{"value":false,"text":"6/4","image":"https://drive.google.com/uc?id=16R4lHmCXJupm69LCK6SDdHKgIziK-PBf&export=view"},{"value":true,"text":"1/2","image":"https://drive.google.com/uc?id=1tWdCCDr3lNmfIPRheMH7sTQ4hmzGntYM&export=view"}],"urlDescription":"https://drive.google.com/uc?id=1d8Uykd6JIkzbqvQQ2xjXV1OzvCARG8wq&export=view"}',
+    title: 'Seleccione las opciones correctas en la siguiente semirrecta:',
+    subtitle:
+      'Complete en la semirrecta las fracciones que faltan según la secuencia según corresponda en cada fracción.',
+    type: QuestionType.choose_any_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+  {
+    options:
+      '{"correct":true,"image":"https://drive.google.com/uc?id=114ck44Bc-PDDTLqwkFM0aVojB1eceMGt&export=view"}',
+    title: 'Seleccione la respuesta correcta: Verdadero o Falso',
+    subtitle:
+      'Compruebo si el número con el que ha sido amplificada la fracción equivalente es correcto',
+    type: QuestionType.true_or_false,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+  {
+    options:
+      '{"correct":false,"image":"https://drive.google.com/uc?id=1dkM94AGRcmwREQEbWBRaR2cwCwTJASWy&export=view"}',
+    title: 'Seleccione la respuesta correcta: Verdadero o Falso',
+    subtitle:
+      'Compruebo si el número con el que ha sido amplificada la fracción equivalente es correcto',
+    type: QuestionType.true_or_false,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+  {
+    options:
+      '{"correct":true,"image":"https://drive.google.com/uc?id=1CTQs8qhYNkc6x74BOUq5UOrptxMmsGyG&export=view"}',
+    title: 'Seleccione la respuesta correcta: Verdadero o Falso',
+    subtitle:
+      'Compruebo si el número con el que ha sido amplificada la fracción equivalente es correcto',
+    type: QuestionType.true_or_false,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+  {
+    options:
+      '{"correct":true,"image":"https://drive.google.com/uc?id=1SkrtZqkOl9mF619cPSx5oNDNFp1YcgQX&export=view"}',
+    title: 'Seleccione la respuesta correcta: Verdadero o Falso',
+    subtitle:
+      'Compruebo si el número con el que ha sido amplificada la fracción equivalente es correcto',
+    type: QuestionType.true_or_false,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+  {
+    options:
+      '{"numerator":20,"denominator":25,"correctNumerator":4,"correctDenominator":5}',
+    title: 'Resuelve las siguientes fracciones equivalentes por simplificación',
+    type: QuestionType.simple_fraction_simplification,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+  {
+    options:
+      '{"numerator":4,"denominator":10,"correctNumerator":2,"correctDenominator":5}',
+    title: 'Resuelve las siguientes fracciones equivalentes por simplificación',
+    type: QuestionType.simple_fraction_simplification,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+  {
+    options:
+      '{"numerator":20,"denominator":28,"correctNumerator":5,"correctDenominator":7}',
+    title: 'Resuelve las siguientes fracciones equivalentes por simplificación',
+    type: QuestionType.simple_fraction_simplification,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Fracciones simples, representación gráfica',
+  },
+
+  {
+    options: '{"correct":false}',
+    title:
+      'Si las fracciones tienen denominadores iguales, es menor la fracción que tiene el numerador mayor.',
+    type: QuestionType.true_or_false,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Relación de orden entre fracciones',
+  },
+  {
+    options: '{"correct":false}',
+    title:
+      'Si las fracciones tienen numeradores iguales, es mayor la fracción que tiene el denominador mayor.',
+    type: QuestionType.true_or_false,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Relación de orden entre fracciones',
+  },
+  {
+    options: '{"correct":true}',
+    title:
+      'Si las fracciones tienen denominadores diferentes, se convierten en fracciones equivalentes con denominador común y se comparan los numeradores.',
+    type: QuestionType.true_or_false,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Relación de orden entre fracciones',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":">"},{"value":false,"text":"<"},{"value":false,"text":"="},{"value":false,"text":"+"}]}',
+    title: 'El signo que va entre 4/7 y 6/11 para comparar las fracciones es:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Relación de orden entre fracciones',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"<"},{"value":true,"text":">"},{"value":false,"text":"="},{"value":false,"text":"-"}]}',
+    title: 'El signo que va entre 12/8 y 11/2 es:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Relación de orden entre fracciones',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"1/2, 2/3, 3/2, 11/5, 8/3"},{"value":false,"text":"8/3, 1/2, 11/5, 3/2, 2/3"},{"value":false,"text":"11/5, 8/3, 3/2, 2/3, 1/2."},{"value":true,"text":"8/3, 11/5, 3/2, 2/3, 1/2."}]}',
+    title:
+      '¿Cuál es el orden de mayor a menor de la siguientes fracciones? 1/2, 11/5, 3/2, 8/3, 2/3.',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Relación de orden entre fracciones',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"11/11, 11/5, 11/7, 11/2, 11/3."},{"value":true,"text":"11/11, 11/7, 11/5, 11/3, 11/2."},{"value":false,"text":"11/2, 11/3, 11/5, 11/7, 11/11."},{"value":false,"text":"11/3, 11/5, 11/2, 11/11, 11/7."}]}',
+    title:
+      'Ordena las siguientes fracciones de menor a mayor: 11/3, 11/5, 11/2, 11/11, 11/7',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Relación de orden entre fracciones',
+  },
+
+  {
+    options:
+      '{"options":[{"value":false,"text":"9/18< 15/18 < 12/18 < 14/18"},{"value":false,"text":"15/18 < 14/18 < 12/18 < 9/18"},{"value":false,"text":"15/18 < 12/18 < 14/18 < 9/18"},{"value":true,"text":"9/18 < 12/18 < 14/18 < 15/18"}]}',
+    title:
+      'Organiza las siguientes fracciones de menor a mayor: 14/18, 15/18, 9/18, 12/18.',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Relación de orden entre fracciones',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"<"},{"value":false,"text":"x"},{"value":false,"text":"#"},{"value":false,"text":"@"}]}',
+    title: 'Cual es una relación de orden probable entre dos fracciones',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Relación de orden entre fracciones',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"7/8 y 3/5"},{"value":true,"text":"3/5 y 9/5"}]}',
+    title: 'Cuál de las siguientes parejas son fracciones homogéneas',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Relación de orden entre fracciones',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Ubicación en la recta numérica"},{"value":false,"text":"Comparación expresión decimal"},{"value":true,"text":"Multiplicación de numeradores"}]}',
+    title:
+      'Cual de los siguientes NO es un método para determinar la relación de orden entre dos fracciones',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Relación de orden entre fracciones',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"="},{"value":false,"text":">"},{"value":true,"text":"<"}],"urlDescription":"https://drive.google.com/uc?id=1t5PzH0EuaSXwYb3_MpIIi7b27UAazw_h&export=view"}',
+    title:
+      'Cual es la relación entre las siguientes fracciones, de acuerdo a su expresión decimal',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Relación de orden entre fracciones',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"<"},{"value":false,"text":">"},{"value":true,"text":"="}],"urlDescription":"https://drive.google.com/uc?id=1N-TIaCu4ZR0t7jnq2ex2yL4ZdHjN60hz&export=view"}',
+    title: 'Cuál es la relación entre las siguientes dos fracciones homogéneas',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Relación de orden entre fracciones',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"="},{"value":false,"text":">"},{"value":true,"text":"<"}],"urlDescription":"https://drive.google.com/uc?id=1bY5laP4oz8AnLufqmZsGPhwzN7Xts3iP&export=view"}',
+    title:
+      'Cuál es la relación de orden entre las fracciones graficadas en la recta numérica',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Relación de orden entre fracciones',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"1/3"},{"value":false,"text":"5/10"},{"value":false,"text":"1/4"},{"value":true,"text":"5/6"}],"urlDescription":"https://drive.google.com/uc?id=1DZmxhxpdi_H5qIrQK1fAFwwD90Yoqqcu&export=view"}',
+    title:
+      'De las fracciones graficadas en la recta numérica, seleccione cual es la mayor',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Relación de orden entre fracciones',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Es la superficie de la tierra"},{"value":true,"text":"Es la superficie delimitada por el perímetro"},{"value":false,"text":"Es la superficie ilimitada por el perímetro"},{"value":false,"text":"La respuesta está en estudiar"}]}',
+    title: '¿Qué es el área?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de paralelogramos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Base minúscula"},{"value":false,"text":"Base mayor"},{"value":true,"text":"Base menor"},{"value":false,"text":"Base igual"}]}',
+    title: '¿Qué significa la letra b en la fórmula del trapecio?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de paralelogramos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"rombo","image":"https://drive.google.com/uc?id=1GPlZXN6lLsxbOxSXYlcOtSOxhU-UWoUJ&export=view"},{"value":true,"text":"trapecio","image":"https://drive.google.com/uc?id=1fpYGOyGWhVs4rlgrBbf1O_7lUxeYUBE2&export=view"},{"value":false,"text":"cuadrado","image":"https://drive.google.com/uc?id=17klgv7AHJWWzz9azAX6r2Q9DvnjR1T02&export=view"},{"value":true,"text":"rectangulo","image":"https://drive.google.com/uc?id=1inuzqUoRQpqx5kwF9JpN1GblD_axSeMH&export=view"}]}',
+    title: 'La siguiente fórmula a qué tipos de figuras pertenecen A= b x h',
+    type: QuestionType.choose_any_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de paralelogramos',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"Un trapecio"},{"value":false,"text":"Un triángulo"},{"value":false,"text":"Un rombo"}],"urlDescription":"https://drive.google.com/uc?id=197C2U8e6Yjgf-_zIbQOHTRLMCiNk1Z70&export=view"}',
+    title: '¿Qué figura es...?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de paralelogramos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"10 cm^2"},{"value":true,"text":"24 cm^2"},{"value":false,"text":"12 cm^2"},{"value":false,"text":"20 cm^2"}],"urlDescription":"https://drive.google.com/uc?id=1jpt_HlmmDl3MRCHaTBr9gbydYbzGSQb5&export=view"}',
+    title: 'Encuentra el área de la figura',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de paralelogramos',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"35 cm^2"},{"value":false,"text":"25 cm^2"},{"value":false,"text":"45 cm^2"},{"value":false,"text":"50 cm^2"}],"urlDescription":"https://drive.google.com/uc?id=1nJRClz5F6mDNqm21scC2q1vRQbPrzY1x&export=view"}',
+    title: 'Calcula el área de la siguiente figura:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de paralelogramos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Estoy totalmente de acuerdo"},{"value":true,"text":"No es exactamente correcta"},{"value":false,"text":"Si y los paralelogramos son las principales"},{"value":false,"text":"No porque pueden tener formas raras sólo con líneas rectas"}]}',
+    title: 'Las figuras planas son las que tienen líneas rectas.',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de paralelogramos',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"60 cm"},{"value":false,"text":"120 cm"},{"value":false,"text":"19 cm"},{"value":false,"text":"28 cm"}],"urlDescription":"https://drive.google.com/uc?id=1d9FRA6KzT12UjU3OMV1_YlaoU-k9REQ-&export=view"}',
+    title: 'Calcula el área del siguiente paralelogramo.',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de paralelogramos',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"27 m"},{"value":false,"text":"15 m"},{"value":false,"text":"270 m"},{"value":false,"text":"14 m"}]}',
+    title:
+      'El terreno de la tía de Alberto tiene la forma y las medidas de la imagen que se muestra, ayuda a la tía de Alberto para saber cuántos metros mide su terreno.',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de paralelogramos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"27 cm2"},{"value":false,"text":"30 cm2"},{"value":true,"text":"54 cm2"}],"urlDescription":"https://drive.google.com/uc?id=1VAhJoTw2teo0VB4YOlMkPPPOqETKstKH&export=view"}',
+    title: '¿Cuál es el área?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de paralelogramos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"25.5 cm2"},{"value":true,"text":"21 cm2"},{"value":false,"text":"16 cm2"}],"urlDescription":"https://drive.google.com/uc?id=1jaa3MmmqZtxFHmYxKYxHPt2_RCOImn3G&export=view"}',
+    title: '¿Cuál es el área?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de paralelogramos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"25.5 cm2"},{"value":true,"text":"21 cm2"},{"value":false,"text":"16 cm2"}],"urlDescription":"https://drive.google.com/uc?id=1jaa3MmmqZtxFHmYxKYxHPt2_RCOImn3G&export=view"}',
+    title: '¿Cuál es el área?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de paralelogramos',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"205 cm2"},{"value":false,"text":"325 cm2"},{"value":false,"text":"133 cm2"}]}',
+    title: '¿Cuál es el área?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de paralelogramos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"480 cm2"},{"value":true,"text":"240 cm2"},{"value":false,"text":"23 cm2"}],"urlDescription":"https://drive.google.com/uc?id=1vaxynGksnCVFjz6_sy3TaplYv0DZynpf&export=view"}',
+    title: '¿Cuál es el área?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de paralelogramos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"7 cm2"},{"value":false,"text":"48 cm2"},{"value":true,"text":"24 cm2"},{"value":false,"text":"12 cm2"}],"urlDescription":"https://drive.google.com/uc?id=1QPWkmUJSPAQjFCPd6DwmlCSFWqbflZB1&export=view"}',
+    title: '¿Cuál es el área?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de paralelogramos',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"28 cm2"},{"value":false,"text":"24 cm2"},{"value":false,"text":"30 cm2"},{"value":false,"text":"35 cm2"}],"urlDescription":"https://drive.google.com/uc?id=1hydS_-88oBrixK4ksWt-940hzPhpuY3I&export=view"}',
+    title: '¿Cuál es el área?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de paralelogramos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Cuadrado"},{"value":false,"text":"Rectángulo"},{"value":true,"text":"Triángulo"},{"value":false,"text":"Trapecio"}],"urlDescription":"https://drive.google.com/uc?id=1eRPYrt1IhQH9GGgCOGReXqfvDtRtaMFD&export=view"}',
+    title: '¿Esta fórmula corresponde a?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de trapecios',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Cuadrado"},{"value":false,"text":"Rectángulo"},{"value":false,"text":"Triángulo"},{"value":true,"text":"Trapecio"}],"urlDescription":"https://drive.google.com/uc?id=1_9rn6K5FUJdxhUWjNgfKZfLVbDCYUNzD&export=view"}',
+    title: '¿Esta fórmula corresponde a?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de trapecios',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"6 cm2"},{"value":false,"text":"8 cm2"},{"value":false,"text":"4 cm2"},{"value":false,"text":"7 cm"}],"urlDescription":"https://drive.google.com/uc?id=1yQPzcwi-2kXeDdJuqHbtZpk5R-Gq03FS&export=view"}',
+    title: 'Halle el área de esta figura',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de trapecios',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"90"},{"value":false,"text":"94"},{"value":false,"text":"74"},{"value":true,"text":"108"}],"urlDescription":"https://drive.google.com/uc?id=1rqjsPw5xjxUXJxQ_hMuQz3wcdTGNbNT1&export=view"}',
+    title: '¿El perímetro del trapecio corresponde a?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de trapecios',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"14 cm2"},{"value":true,"text":"20 cm2"},{"value":false,"text":"28 cm2"},{"value":false,"text":"10 cm"}],"urlDescription":"https://drive.google.com/uc?id=1LiZxeaHrmJ4ZkiqpSgloJ-3j8fv2Y3GL&export=view"}',
+    title: 'Halle el área del trapecio',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de trapecios',
+  },
+  {
+    options:
+      '{"correct":false,"image":"https://drive.google.com/uc?id=1LiZxeaHrmJ4ZkiqpSgloJ-3j8fv2Y3GL&export=view"}',
+    title: 'El área del trapecio es 40 cm2.',
+    type: QuestionType.true_or_false,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de trapecios',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Trapecio"},{"value":true,"text":"Rombo"},{"value":false,"text":"Romboide"},{"value":false,"text":"Hexágono"}],"urlDescription":"https://drive.google.com/uc?id=1d4_yiDtKJpKmShZnjGKyqHlVxUBx50B5&export=view"}',
+    title: '¿Qué figura es esta?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de trapecios',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"42.5 cm2"},{"value":false,"text":"175 cm2"},{"value":false,"text":"85 cm2"}],"urlDescription":"https://drive.google.com/uc?id=1ntZzjEAAOA218pLoY6UpdmkGAJLAD0dS&export=view"}',
+    title:
+      'Si para calcular el área del trapecio debemos sumar las bases, dividir entre dos y el resultado multiplicarlo por la altura (h), ¿cuánto mide el área del trapecio que se muestra?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de trapecios',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"220"},{"value":false,"text":"230"},{"value":false,"text":"240"},{"value":false,"text":"240"}]}',
+    title: 'Calcula el área del trapecio',
+    subtitle: 'base 1 es 12, base 2 es 32, altura 10',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de trapecios',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"190"},{"value":false,"text":"180"},{"value":true,"text":"170"},{"value":false,"text":"68"}]}',
+    title: 'Calcula el área del trapecio',
+    subtitle: 'base 1 es 20, base 2 es 48, altura 5',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de trapecios',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Diagonal mayor"},{"value":false,"text":"Altura"},{"value":false,"text":"Base menor"},{"value":true,"text":"Base mayor"}],"urlDescription":"https://drive.google.com/uc?id=1I3L7rCV6YzKInB5Ax-aXzSd_9-9VMsMq&export=view"}',
+    title: '¿Qué nombre recibe el lado del trapecio marcado en color rojo?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de trapecios',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"188.5 u2"},{"value":true,"text":"160 u2"},{"value":false,"text":"192 u2"},{"value":false,"text":"178.5 u2"}],"urlDescription":"https://drive.google.com/uc?id=13WNTWSdnxf_kQR9WUAZYG5WsbyEjFn8U&export=view"}',
+    title: 'Calcular el área del siguiente trapecio.',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de trapecios',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"26 cm"},{"value":false,"text":"23 cm"},{"value":true,"text":"24 cm"}],"urlDescription":"https://drive.google.com/uc?id=1-Tv3JwGobjPNwlOdtV7v8xvdcRWUPhEW&export=view"}',
+    title: '¿Cuál es el perímetro del trapecio?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de trapecios',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Perimetro"},{"value":true,"text":"Área"}]}',
+    title:
+      'Es la medida de la región o superficie encerrada por una figura geométrica',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de trapecios',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"48"},{"value":true,"text":"24"},{"value":false,"text":"13"},{"value":false,"text":"18"}],"urlDescription":"https://drive.google.com/uc?id=1i7n3RXtKo_N5Mlu6EL5MRbbjlIXvr7gc&export=view"}',
+    title: 'Dado el trapecio de la figura, ¿Cuál es su perímetro?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de trapecios',
+  },
+
+  {
+    options:
+      '{"options":[{"value":true,"text":"36 cm"},{"value":false,"text":"46 cm"},{"value":false,"text":"24 cm"},{"value":false,"text":"56 cm"}],"urlDescription":"https://drive.google.com/uc?id=1p9xvOr2iM_eEfXUCHZV1Q-sHq4T8an9l&export=view"}',
+    title: 'El perímetro del triángulo equilátero es:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de triángulos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"El espacio dentro de la figura geométrica"},{"value":true,"text":"La suma de sus lados"},{"value":false,"text":"La resta de sus lados"},{"value":false,"text":"La división de sus lados"}],"urlDescription":"https://drive.google.com/uc?id=1akBIW04166hwLwVBtu6icWQnFskRX5Le&export=view"}',
+    title: 'El perímetro es:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de triángulos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Equilátero"},{"value":false,"text":"Isósceles"},{"value":true,"text":"Escaleno"}],"urlDescription":"https://drive.google.com/uc?id=1boNjTZ0j11VWd4npWowe3Er4Iz4AzZ6g&export=view"}',
+    title: 'Qué tipo de triángulo es:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de triángulos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"25 cm"},{"value":true,"text":"18 cm"},{"value":false,"text":"38 cm"},{"value":false,"text":"17 cm"}],"urlDescription":"https://drive.google.com/uc?id=1jIZzeBPOJOv58qLzyK0CkMbL9LKyOxLa&export=view"}',
+    title: 'El perímetro del triángulo es:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de triángulos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"38 cm"},{"value":false,"text":"28 cm"},{"value":false,"text":"18 cm"},{"value":true,"text":"48 cm"}],"urlDescription":"https://drive.google.com/uc?id=1HQq0HBHLYhTi-ClBA7x-_AP719NSXyFX&export=view"}',
+    title: 'El perímetro del siguiente triangulo isósceles es:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de triángulos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"30m"},{"value":false,"text":"26m"},{"value":true,"text":"20m"}]}',
+    title:
+      'Calcula la área de un triangulo en el que la base mide 8m y la altura 5m',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de triángulos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"30m"},{"value":false,"text":"26m"},{"value":true,"text":"20m"}]}',
+    title:
+      'Una parcela tiene forma de triangulo, y sus lados miden 9m, 11m, y 12m. calcula su área.',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de triángulos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"46.33m"},{"value":false,"text":"20.44m"},{"value":false,"text":"33.44m"},{"value":true,"text":"47.33m"}]}',
+    title:
+      'Una parcela tiene forma de triangulo, y sus lados miden 9m, 11m, y 12m. calcula su área.',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de triángulos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"143m"},{"value":false,"text":"175m"},{"value":true,"text":"176m"},{"value":false,"text":"174m"}]}',
+    title:
+      'Calcula la área de un triangulo rectángulo en que los catetos miden 22m y 16m',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de triángulos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"5cm"},{"value":true,"text":"10cm"},{"value":false,"text":"15cm"},{"value":false,"text":"7,5cm"}]}',
+    title:
+      'Si un triangulo tiene una altura de 15cm, y su área de 75cm, ¿Cuánto mide su base? (recuerda la formula y reemplaza los datos que tienes)',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de triángulos',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"12m"},{"value":false,"text":"10m"},{"value":false,"text":"11m"}],"urlDescription":"https://drive.google.com/uc?id=1uIRmWCmqT6KgcBgwsacZASjskNHtDBVF&export=view"}',
+    title: '¿Cuál es el perímetro de este triangulo?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de triángulos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"13cm"},{"value":true,"text":"14cm"},{"value":false,"text":"15cm"}],"urlDescription":"https://drive.google.com/uc?id=1YSJK4brB43QAF18wFqbH72eaWhgPM2gY&export=view"}',
+    title: '¿Cuál es el perímetro de este triangulo?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de triángulos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"14cm"},{"value":false,"text":"49cm"},{"value":true,"text":"21cm"}],"urlDescription":"https://drive.google.com/uc?id=1GQx_uXGYXskb8KYmzpmSA69rq17B73dW&export=view"}',
+    title:
+      'El siguiente triangulo es equilátero, por que tiene TODOS sus lados iguales, ¿Cuál es su perímetro?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de triángulos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"14cm"},{"value":false,"text":"49cm"},{"value":true,"text":"21cm"}],"urlDescription":"https://drive.google.com/uc?id=1GQx_uXGYXskb8KYmzpmSA69rq17B73dW&export=view"}',
+    title:
+      'Si un triángulo rectángulo tiene una base de 10cm y una altura de 15cm, ¿Cuánto mide su área?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de triángulos',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"75cm2"},{"value":false,"text":"150cm2"},{"value":false,"text":"25cm2"},{"value":false,"text":"50cm2"}],"urlDescription":"https://drive.google.com/uc?id=1hwT-Z0KVJmZN-iz6tvTv_fYM1qtIAOTV&export=view"}',
+    title:
+      'Si un triángulo rectángulo tiene una base de 10cm y una altura de 15cm, ¿Cuánto mide su área?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de triángulos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"100cm2"},{"value":false,"text":"10cm2"},{"value":true,"text":"50cm2"},{"value":false,"text":"30cm2"}],"urlDescription":"https://drive.google.com/uc?id=1FvSOzuKfPUMeIbN4yjJ9H_5BdvapOnJr&export=view"}',
+    title: '¿Qué área tiene el siguiente triangulo?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de triángulos',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"9cm2"},{"value":false,"text":"18cm2"},{"value":false,"text":"6cm2"},{"value":false,"text":"3cm2"}],"urlDescription":"https://drive.google.com/uc?id=1If2BMlw3p8mI72Km7iHtjtpkmGnJScy_&export=view"}',
+    title:
+      'En la cuadricula cada cuadradito tiene un área de 1 u2. El área de un triangulo dibujado sobre la cuadricula es de:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 4',
+    topic: 'Perímetro de triángulos',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"130; 115; 95"},{"value":true,"text":"125; 115; 95"},{"value":false,"text":"124; 115; 85"}],"urlDescription":"https://drive.google.com/uc?id=15XqNGEjku9A63Hys0K5k8gQJSim5tqRf&export=view"}',
+    title: 'Elija el número que corresponda a la siguiente imagen',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Patrones numéricos decrecientes',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Sumar 5"},{"value":true,"text":"Restar 10"},{"value":false,"text":"Sumar 10"}]}',
+    title: 'Observa la secuencia y descubre el patrón',
+    type: QuestionType.choose_an_option,
+    subtitle: '125 115 105 95 85 75',
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Patrones numéricos decrecientes',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"53; 52; 51"},{"value":false,"text":"52;51;50"},{"value":false,"text":"58;45;56"}],"urlDescription":"https://drive.google.com/uc?id=1jbBiVnLK7DzdS-GDZuECBh92JFlGMSq0&export=view"}',
+    title: 'Elija el número que corresponda a la siguiente imagen',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Patrones numéricos decrecientes',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"53; 52; 51"},{"value":true,"text":"30;24;12"},{"value":false,"text":"58;24;15"}],"urlDescription":"https://drive.google.com/uc?id=1TgbABn1ZSYvkmdr06sMpoSnz2NTukmpS&export=view"}',
+    title: 'Elija el número que corresponda a la siguiente imagen',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Patrones numéricos decrecientes',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Sumar 2"},{"value":true,"text":"Restar 1"},{"value":false,"text":"Sumar 1"}]}',
+    title: 'Observa la secuencia y descubre el patrón',
+    type: QuestionType.choose_an_option,
+    subtitle: '55 54 53 52 51 50 49',
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Patrones numéricos decrecientes',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Sumar 6"},{"value":true,"text":"Restar 6"},{"value":false,"text":"Restar 3"}]}',
+    title: 'Observa la secuencia y descubre el patrón',
+    type: QuestionType.choose_an_option,
+    subtitle: '42 36 30 24 18 12 6',
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Patrones numéricos decrecientes',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Sumar 6"},{"value":true,"text":"Dividir 2"},{"value":false,"text":"Restar 3"}]}',
+    title: 'Observa la secuencia y descubre el patrón',
+    type: QuestionType.choose_an_option,
+    subtitle: '240 120 60 30 15',
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Patrones numéricos decrecientes',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"Restar 2"},{"value":false,"text":"Restar 3"},{"value":false,"text":"Restar 5"}]}',
+    title: 'Observa la secuencia y descubre el patrón',
+    type: QuestionType.choose_an_option,
+    subtitle: '58 56 54 52 50',
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Patrones numéricos decrecientes',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"Restar 5"},{"value":false,"text":"Restar 2"},{"value":false,"text":"Restar 6"}]}',
+    title: 'Observa la secuencia y descubre el patrón',
+    type: QuestionType.choose_an_option,
+    subtitle: '30 25 20 15 10',
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Patrones numéricos decrecientes',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Restar 6"},{"value":false,"text":"Restar 1"},{"value":true,"text":"Restar 4"}]}',
+    title: 'Observa la secuencia y descubre el patrón',
+    type: QuestionType.choose_an_option,
+    subtitle: '87 83 79 75 71',
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Patrones numéricos decrecientes',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"0.0148"},{"value":true,"text":"0.148"},{"value":false,"text":"0.00148"}],"urlDescription":"https://drive.google.com/uc?id=1S3xVJzpofdZAkW2klJE1oA-Gj4Q3otDV&export=view"}',
+    title: 'Encuentre la respuesta correcta de fracción a decimal',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales en la vida cotidiana',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"0.08"},{"value":false,"text":"0.008"},{"value":false,"text":"0.0008"}],"urlDescription":"https://drive.google.com/uc?id=1hU8GqNcbmAKqN5vlQo8pIjPGihzYt1zl&export=view"}',
+    title: 'Encuentre la respuesta correcta de fracción a decimal',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales en la vida cotidiana',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"0.01"},{"value":true,"text":"0.001"},{"value":false,"text":"0.0001"}],"urlDescription":"https://drive.google.com/uc?id=1fTyYIv8cAsi8-ijTz8OLyZpNYdK95Ymr&export=view"}',
+    title: 'Encuentre la respuesta correcta de fracción a decimal',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales en la vida cotidiana',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"Un décimo"},{"value":false,"text":"Un centésimo"},{"value":false,"text":"Un milésimo"}],"urlDescription":"https://drive.google.com/uc?id=1lpUjznIhltNAHyOofkDTsjUVEvkfyHoR&export=view"}',
+    title: 'La escritura de la siguiente fracción simple se lee:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales en la vida cotidiana',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Un décimo"},{"value":true,"text":"Un centésimo"},{"value":false,"text":"Un milésimo"}],"urlDescription":"https://drive.google.com/uc?id=14Id8ic-Cn2P2hgSjN-PQQzzYVb_YIJn8&export=view"}',
+    title: 'La escritura de la siguiente fracción simple se lee:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales en la vida cotidiana',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Un décimo"},{"value":false,"text":"Un centésimo"},{"value":true,"text":"Un milésimo"}],"urlDescription":"https://drive.google.com/uc?id=1fTyYIv8cAsi8-ijTz8OLyZpNYdK95Ymr&export=view"}',
+    title: 'La escritura de la siguiente fracción simple se lee:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales en la vida cotidiana',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"aa","image":"https://drive.google.com/uc?id=1XRcUbpofc9N4eGuxrZTaPxnXmss1flGl&export=view"},{"value":false,"text":"aaaaaaa","image":"https://drive.google.com/uc?id=1FglpjEe7EFKJgnPiYBxJExgLAvnnrNJO&export=view"}],"urlDescription":"https://drive.google.com/uc?id=1qkiDr3TCsaZInL4HtCKHVIWVRtMabTLu&export=view"}',
+    title: 'Elija la respuesta correcta al Transformar de fracción a decimal',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"aa","image":"https://drive.google.com/uc?id=1IiPuNBYwd2O-GpX_3KRj8mdjjR_rSx3r&export=view"},{"value":true,"text":"aaaaaaa","image":"https://drive.google.com/uc?id=1y7DLqqT8aMc1ichgA8i1l7uy8azGc1zF&export=view"}],"urlDescription":"https://drive.google.com/uc?id=18PgAlcBiymA-UrsQ4fw04vb30ZR0Bl0R&export=view"}',
+    title: 'Elija la respuesta correcta al Transformar de fracción a decimal',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"aa","image":"https://drive.google.com/uc?id=11hDH07J0RcELXj-IU37KOtv6MrUMWdNO&export=view"},{"value":true,"text":"aaaaaaa","image":"https://drive.google.com/uc?id=1LpQl2H--8db6KAY4XGnUZ1mQvinA-pM3&export=view"}],"urlDescription":"https://drive.google.com/uc?id=18fTj34dSqQ2a2cQK1xq0Dc6IdjS_u-yt&export=view"}',
+    title: 'Elija la respuesta correcta al Transformar de fracción a decimal',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales',
+  },
+  {
+    options:
+      '{"correct":true,"image":"https://drive.google.com/uc?id=1QoEPXBgcm27MhyWUVFbRJeF758XPg5XP&export=view"}',
+    title: 'Verdadero o falso ',
+    subtitle:
+      'La siguiente fracción se lee: Mil cuatrocientas cincuenta y seis milésimas, que es igual a uno coma cuatrocientos cincuenta y seis milésimas.',
+    type: QuestionType.true_or_false,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales',
+  },
+  {
+    options:
+      '{"correct":true,"image":"https://drive.google.com/uc?id=1YdqETTwKFzZa13gzD_2iFwhFWphGJsw1&export=view"}',
+    title: 'Verdadero o falso ',
+    subtitle:
+      'La siguiente  fracción se lee: Ciento cuarenta y cinco centésimas, que es igual a uno coma cuarenta y cinco centésimas.',
+    type: QuestionType.true_or_false,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales',
+  },
+  {
+    options:
+      '{"correct":true,"image":"https://drive.google.com/uc?id=1XBFpHO_mwDf3hvm5vf0i77zJ70j0DsxV&export=view"}',
+    title: 'Verdadero o falso ',
+    subtitle:
+      'La siguiente  fracción se lee: Catorce décimas, que es igual a uno coma cuatro décimas',
+    type: QuestionType.true_or_false,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales',
+  },
+  {
+    options:
+      '{"correct":true,"image":"https://drive.google.com/uc?id=1t1hohPM2HkgVtcZiX_dtASolOMOVjcOR&export=view"}',
+    title: 'Verdadero o falso ',
+    subtitle: 'Analizo la relación entre una fracción y un número decimal',
+    type: QuestionType.true_or_false,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales',
+  },
+  {
+    options:
+      '{"correct":true,"image":"https://drive.google.com/uc?id=1T_1VvsMHuKxWjjA7A4p2rhL8kVvebuHa&export=view"}',
+    title: 'Verdadero o falso ',
+    subtitle: 'Analizo la relación entre una fracción y un número decimal',
+    type: QuestionType.true_or_false,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"3/4"},{"value":true,"text":"5/2"},{"value":false,"text":"1/2"}]}',
+    title: 'Transformar de decimal a fracciones: 2,5',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales a fracciones',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"7/9"},{"value":false,"text":"7/90"},{"value":false,"text":"7/10"}]}',
+    title: 'Transformar de decimal a fracción: 0,77777……',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales a fracciones',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"7,8 x 10ˆ14"},{"value":false,"text":"7,8 x 10ˆ13"},{"value":false,"text":"7,812 x 10ˆ-5"},{"value":true,"text":"7,812x 10ˆ-6"}]}',
+    title: 'Expresar en notación científica: 0, 000 007 812',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales a fracciones',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"7,812 x 10ˆ-5"},{"value":false,"text":"7,8 x 10ˆ13"},{"value":true,"text":"7,8 x 10ˆ14"},{"value":false,"text":"7,812 x 10ˆ-6"}]}',
+    title: 'Expresar en notación científica: 780 000 000 000 000',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales a fracciones',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"7 / 10"},{"value":false,"text":"16 / 9"},{"value":false,"text":"1 / 3"},{"value":true,"text":"3 / 4"}]}',
+    title: 'Transformar de decimal a fracción: 0,75 ',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales a fracciones',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"1 / 3"},{"value":false,"text":"5 / 2"},{"value":false,"text":"3 / 4"}]}',
+    title: 'Transformar de decimal a fracción: 0,3333……',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales a fracciones',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"7 / 9"},{"value":true,"text":"7 / 10"},{"value":false,"text":"7 / 90"}]}',
+    title: 'Transformar de decimal a fracciones: 0,700',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales a fracciones',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"7 / 90 "},{"value":true,"text":"16 / 9"},{"value":false,"text":"5 / 2"}]}',
+    title: 'Transformar de decimal a fracción: 1,77777……',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales a fracciones',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"7 / 10"},{"value":true,"text":"7 / 90"},{"value":false,"text":"7 / 9"}]}',
+    title: 'Transformar de decimal a fracción: 0,077777……',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales a fracciones',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"400 / 990"},{"value":false,"text":"480 / 900"},{"value":false,"text":"412 / 990"},{"value":true,"text":"408 / 990"}]}',
+    title: 'Transformar de decimal a fracción: 0,4121212……',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales a fracciones',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Seis mil ciento noventa y ocho décimos."},{"value":false,"text":"Seis mil ciento noventa y ocho centavos."},{"value":true,"text":"Seis mil ciento noventa y ocho milavos."}]}',
+    title: 'El número 6,198 se relaciona con la fracción...',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales a fracciones',
+  },
+  {
+    options: '{"numerator":54,"denominator":1000,"value":0.054}',
+    title: '¿Qué número decimal es? Escríbelo con número',
+    type: QuestionType.simple_fraction_decimal,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales a fracciones',
+  },
+  {
+    options: '{"numerator":1718,"denominator":1000,"value":1.718}',
+    title: '¿Qué número decimal es? Escríbelo con número',
+    type: QuestionType.simple_fraction_decimal,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales a fracciones',
+  },
+  {
+    options: '{"numerator":1718,"denominator":10,"value":171.8}',
+    title: '¿Qué número decimal es? Escríbelo con número',
+    type: QuestionType.simple_fraction_decimal,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales a fracciones',
+  },
+  {
+    options: '{"numerator":54,"denominator":10,"value":5.4}',
+    title: '¿Qué número decimal es? Escríbelo con número',
+    type: QuestionType.simple_fraction_decimal,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales a fracciones',
+  },
+
+  {
+    options:
+      '{"options":[{"value":true,"text":"Exacto"},{"value":false,"text":"Periódico"},{"value":false,"text":"No periódico"}]}',
+    title: '¿Qué tipo de decimal es 2,345?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Relación de orden entre decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Exacto"},{"value":true,"text":"Periódico"},{"value":false,"text":"No periódico"}]}',
+    title: '¿Qué tipo de decimal es 5,2222...?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Relación de orden entre decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Exacto"},{"value":true,"text":"Periódico"},{"value":false,"text":"No periódico"}]}',
+    title: '¿Qué tipo de decimal es 2,717171...?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Relación de orden entre decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Exacto"},{"value":true,"text":"Periódico"},{"value":false,"text":"No periódico"}]}',
+    title: '¿Qué tipo de decimal es 3,2131313…?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Relación de orden entre decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Exacto"},{"value":false,"text":"Periódico"},{"value":true,"text":"No periódico"}]}',
+    title: '¿Qué tipo de número decimal es 8,34361342...?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Relación de orden entre decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"Periódico puro"},{"value":false,"text":"Periódico mixto"},{"value":false,"text":"Decimal exacto"}]}',
+    title: '¿Qué tipo de número decimal es 8,343434...?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Relación de orden entre decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Periódico puro"},{"value":true,"text":"Periódico mixto"},{"value":false,"text":"Decimal exacto"}]}',
+    title: '¿Qué tipo de número decimal es 8,34353535...?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Relación de orden entre decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Periódico puro"},{"value":false,"text":"Periódico mixto"},{"value":true,"text":"Decimal exacto"}]}',
+    title: '¿Qué tipo de número decimal es 8,3435?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Relación de orden entre decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Periódico puro"},{"value":false,"text":"Periódico mixto"},{"value":true,"text":"Decimal exacto"}]}',
+    title:
+      '¿Qué tipo de decimal representa la fracción un medio (es decir, 1/2)?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Relación de orden entre decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"Periódico puro"},{"value":false,"text":"Periódico mixto"},{"value":false,"text":"Decimal exacto"}]}',
+    title:
+      '¿Qué tipo de decimal representa la fracción un tercio (es decir, 1/3)?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Relación de orden entre decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"No tiene porque es decimal exacto "},{"value":true,"text":"Si tiene y es 31 "},{"value":false,"text":"No tiene porque es decimal no exacto y no periódico"}]}',
+    title: '¿El número 0,12313131... tiene periodo?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Relación de orden entre decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"No tiene porque es decimal exacto "},{"value":false,"text":"Si tiene "},{"value":true,"text":"No tiene porque es decimal no exacto y no periódico"}]}',
+    title: '¿El número 9,2321321...tiene periodo?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Relación de orden entre decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"No tiene "},{"value":true,"text":"Si tiene y es 1234"},{"value":false,"text":"Si tiene y es 5,1234"}]}',
+    title: '¿El número 5,123455555... tiene anteperíodo?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Relación de orden entre decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Periódico puro"},{"value":false,"text":"Periódico mixto "},{"value":true,"text":"No periódico"}],"urlDescription":"https://drive.google.com/uc?id=1NQ5KH6Nn_VF7t1036q7W0XHAlXpJJ68B&export=view"}',
+    title: '¿Qué tipo de decimal es la raíz cuadrada de 2?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Relación de orden entre decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Decimal exacto "},{"value":false,"text":"Periódico mixto "},{"value":true,"text":"No periódico"}],"urlDescription":"https://drive.google.com/uc?id=120SlJTLJmabQX-33uT6AE2oYh8YWxSN3&export=view"}',
+    title: '¿Qué tipo de decimal es el número pi?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Relación de orden entre decimales',
+  },
+
+  {
+    options:
+      '{"image":"https://drive.google.com/uc?id=1MpyW980tVxuG7k8YVyhP9AeFVJOwLBht&export=view","correct":"8/10"}',
+    title: '¿Qué decimal representa el área coloreada?',
+    type: QuestionType.image_write_answer,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales: representación gráfica',
+  },
+  {
+    options:
+      '{"image":"https://drive.google.com/uc?id=1EA-xFNNGDwk_6frHV83yxRWwLizNWmjk&export=view","correct":"5/10"}',
+    title: '¿Qué decimal representa el área coloreada?',
+    type: QuestionType.image_write_answer,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales: representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"15/10"},{"value":true,"text":"15/100"},{"value":false,"text":"15/1000"},{"value":false,"text":"15/10000"}],"urlDescription":"https://drive.google.com/uc?id=1dyxPSubWoz6J0b02sSackG8u-1A08aWY&export=view"}',
+    title: 'La representación gráfica corresponde a:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales: representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"3/100"},{"value":false,"text":"3/1000"},{"value":true,"text":"3/10"},{"value":false,"text":"3/10000"}],"urlDescription":"https://drive.google.com/uc?id=1ulvK1XlxWy9FdDvD98EeJX_bbXA5ASLr&export=view"}',
+    title: 'La representación gráfica corresponde a:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales: representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"48/10"},{"value":true,"text":"48/100"},{"value":false,"text":"48/1000"}],"urlDescription":"https://drive.google.com/uc?id=1Z5zhXz5ZMbhsZA0I3FVm-srX_o8nn1l0&export=view"}',
+    title: 'La representación gráfica corresponde a:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales: representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"1/10"},{"value":false,"text":"1/100"},{"value":false,"text":"1/1000"}],"urlDescription":"https://drive.google.com/uc?id=17hQP1ugIOFORiezxYiEgQhrCeNtcPUOZ&export=view"}',
+    title: 'La representación gráfica corresponde a:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales: representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"27/10000"},{"value":false,"text":"27/1000"},{"value":true,"text":"27/100"},{"value":false,"text":"27/10"}],"urlDescription":"https://drive.google.com/uc?id=1TnoSt6lrpJeOi0ZhIoLMXQiPcdwd0kVv&export=view"}',
+    title: 'La representación gráfica corresponde a:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales: representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"5/10"},{"value":false,"text":"5/100"},{"value":false,"text":"5/1000"},{"value":false,"text":"5/10000"}],"urlDescription":"https://drive.google.com/uc?id=1J-8m2DE9FQqOlPvMhmM4eesIJZNkZ3YQ&export=view"}',
+    title: 'La representación gráfica corresponde a:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales: representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"0.3"},{"value":true,"text":"0.2"},{"value":false,"text":"0.5"},{"value":false,"text":"0.6"}],"urlDescription":"https://drive.google.com/uc?id=1qxiq7UaF1AgG5Pi2E88SiidXduQxpKmw&export=view"}',
+    title: 'La representación gráfica corresponde a:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales: representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"0.4"},{"value":false,"text":"0.5"},{"value":false,"text":"0.6"},{"value":true,"text":"0.3"}],"urlDescription":"https://drive.google.com/uc?id=1LHo1Ru_PMVFdF-ZT8N6EgOtn9ao-DJdE&export=view"}',
+    title: 'La representación gráfica corresponde a:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales: representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"0.40"},{"value":false,"text":"0.35"},{"value":true,"text":"0.39"},{"value":false,"text":"0.36"}],"urlDescription":"https://drive.google.com/uc?id=1kDnw9A7FzVXOi7lRrHNCHj3W5s8jGt9j&export=view"}',
+    title: 'La representación gráfica corresponde a:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales: representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"0.48"},{"value":true,"text":"0.45"},{"value":false,"text":"0.10"},{"value":false,"text":"0.40"}],"urlDescription":"https://drive.google.com/uc?id=1DGxznnehY4FTeOqTkF1zxLeH210eZ-qO&export=view"}',
+    title: 'La representación gráfica corresponde a:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales: representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"0.50"},{"value":false,"text":"0.58"},{"value":true,"text":"0.61"},{"value":false,"text":"0.62"}],"urlDescription":"https://drive.google.com/uc?id=1HE0402CC_m1ALYbNurDBDIda-VkKMN_A&export=view"}',
+    title: 'La representación gráfica corresponde a:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales: representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"0.8"},{"value":false,"text":"0.09"},{"value":true,"text":"0.08"},{"value":false,"text":"0.10"}],"urlDescription":"https://drive.google.com/uc?id=1QZtiKMF2AdK7z7u-8-lp_FGHb_0Db1pJ&export=view"}',
+    title: 'La representación gráfica corresponde a:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales: representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"0.90"},{"value":true,"text":"0.85"},{"value":false,"text":"0.86"},{"value":false,"text":"0.87"}],"urlDescription":"https://drive.google.com/uc?id=1D14cSofQrXg7ue18uC9efBL2miuV1D7M&export=view"}',
+    title: 'La representación gráfica corresponde a:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Números decimales: representación gráfica',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Claudia"},{"value":false,"text":"Juan"},{"value":true,"text":"Gonzalo"},{"value":false,"text":"No puedo saberlo porque no veo bien el dibujo. Los números son muy pequeños."},{"value":false,"text":"Todos pesan muy poco. Hay que comer más niños/as."}],"urlDescription":"https://drive.google.com/uc?id=1uQfnRl27MGGGNgKcAIH3KSEbkddNrDXS&export=view"}',
+    title: '¿Quién pesa más? ',
+    subtitle: 'Juan: 44,56 kilos, Claudia: 44,6 kilos, Gonzalo: 44,7 kilos',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Redondear decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"2,35"},{"value":false,"text":"2,34"},{"value":false,"text":"2,45"},{"value":false,"text":"2,30"}]}',
+    title: '¿Quién pesa más? ',
+    subtitle: 'Juan: 44,56 kilos, Claudia: 44,6 kilos, Gonzalo: 44,7 kilos',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Redondear decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"7,143"},{"value":false,"text":"7,2"},{"value":true,"text":"7,14"},{"value":false,"text":"7,15"}]}',
+    title: 'Redondea a las centésimas: 7,143',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Redondear decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"3,6"},{"value":true,"text":"3,7"},{"value":false,"text":"3,68"},{"value":false,"text":"3,67"}]}',
+    title: 'Redondea a las decimas:3,679',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Redondear decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"3,46"},{"value":true,"text":"3,457"},{"value":false,"text":"3,458"},{"value":false,"text":"3,4569"}]}',
+    title: 'Redondea a las milésimas: 3,4568',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Redondear decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"3,0"},{"value":false,"text":"3,6"},{"value":true,"text":"4"},{"value":false,"text":"3"}]}',
+    title: 'Redondea a las unidades: 3,56',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Redondear decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"3"},{"value":false,"text":"4"},{"value":false,"text":"6"},{"value":true,"text":"5"}]}',
+    title: '¿Redondea a la unidad 4,72?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Redondear decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"46.7"},{"value":false,"text":"47.8"},{"value":true,"text":"45.7"},{"value":false,"text":"46.8"}]}',
+    title: '¿Redondea a la décima 45,68?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Redondear decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"93,790"},{"value":true,"text":"93,79"},{"value":false,"text":"93,797"},{"value":false,"text":"93,78"}]}',
+    title: '¿Redondea a la centésima 93,792?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Redondear decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"2,450"},{"value":false,"text":"2,456"},{"value":true,"text":"2,457"}]}',
+    title: 'Redondear a milésimos 2,4568',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Redondear decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"10,2"},{"value":true,"text":"10,1"}]}',
+    title:
+      'Señala la aproximación por redondeo de este número a las décimas: 10,11',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Redondear decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"5,4356"},{"value":true,"text":"5,4387"},{"value":false,"text":"5,4359"},{"value":false,"text":"5,4299"}]}',
+    title: 'De los siguientes decimales:',
+    subtitle: '5,4356 - 5,4387 - 5,4359 - 5,4299 ¿Cuál es el mayor?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Redondear decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"4"},{"value":true,"text":"6"},{"value":false,"text":"5"},{"value":false,"text":"5,8"}]}',
+    title: 'Aproxima el siguiente número a las unidades: 5,79',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Redondear decimales',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"9,2"},{"value":false,"text":"9,1"},{"value":true,"text":"9,3"},{"value":false,"text":"10"}]}',
+    title: 'Aproxima el siguiente número a las décimas: 9,299',
+    type: QuestionType.choose_an_option,
+    asignature: 'Matemáticas',
+    unit: 'Unidad 5',
+    topic: 'Redondear decimales',
+  },
+  /* {
+    options:
+      '[{"value":"MONITOR","text":"MONITOR","image":"https://drive.google.com/uc?id=1pi_nriGF9w5sJrFIMlFCQHupVDlMfB6l&export=view"},{"value":"TECLADO","text":"TECLADO","image":"https://drive.google.com/uc?id=1lTe2Se_GJQtfLq2439JUwkUvIcNdFNL6&export=view"},{"value":"CPU","text":"CPU","image":"https://drive.google.com/uc?id=16JAe7YlIgtWJdEB1pHRKDyN-RGVq4Qrp&export=view"}]',
+    title: 'Arrastre la respuesta correcta según las partes de un computador:',
+    type: QuestionType.drag_and_drop_text,
+    asignature: 'Computación',
+    unit: 'Unidad 1',
+    topic: 'Redondear decimales',
+  }, */
 ];
