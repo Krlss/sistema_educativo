@@ -116,15 +116,11 @@ export class UserResolver {
   async getGradesByAsignature(
     @Args('asignatureId') asignatureId: string,
     @Args('periodCourseId') periodCourseId: number,
-    @Context('res') res: Response,
   ) {
-    const excel = await this.userController.getGradesByAsignature(
+    return await this.userController.getGradesByAsignature(
       asignatureId,
       periodCourseId,
-      res,
     );
-    console.log({ excel });
-    return excel;
   }
 
   @Mutation(() => User, { nullable: true })

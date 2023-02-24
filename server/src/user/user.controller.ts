@@ -11,7 +11,7 @@ import { CreateProgressDTO } from './dto/create-progress';
 import { UpdateProgressDTO } from 'src/progress/dto/update-progress';
 import { Workbook } from 'excel4node';
 import { Grades } from './entities/userGrades';
-import { readFileSync, existsSync } from 'fs';
+import * as fs from 'fs';
 import { join, resolve } from 'path';
 import { Blob } from 'buffer';
 
@@ -39,11 +39,7 @@ export class UserController {
     return await this.userService.getProgressByUserId(id);
   }
 
-  async getGradesByAsignature(
-    asignatureId: string,
-    periodCourseId: number,
-    res: Response,
-  ) {
+  async getGradesByAsignature(asignatureId: string, periodCourseId: number) {
     const grades = await this.userService.getGradesByAsignature(
       asignatureId,
       periodCourseId,
@@ -102,45 +98,51 @@ export class UserController {
       agrade.units = units;
       return agrade;
     });
-    this.generateExcelAsignature(data, res).then((filename) => {
-      return readFileSync(resolve('./', filename + '.xlsx'));
-    });
+    return await this.generateExcelAsignature(data);
   }
 
-  async generateExcelAsignature(data: Grades[], res: Response) {
-    try {
-      const wb = new Workbook();
-      const style = wb.createStyle({
-        font: {
-          color: '#000000',
-          size: 12,
-        },
-        numberFormat: '$#,##0.00; ($#,##0.00); -',
-      });
-      data.forEach((d) => {
-        const ws = wb.addWorksheet(d.username);
-        ws.cell(1, 1).string('Asignature').style(style);
-        ws.cell(1, 2).string(d.asignature);
-        ws.cell(2, 1).string('Estudiante').style(style);
-        ws.cell(2, 2).string(d.username);
-        ws.cell(3, 1).string('Nota').style(style);
-        ws.cell(3, 2).string(d.nota.toString());
-        d.units.forEach((grade, index) => {
-          ws.cell(index + 5, 1)
-            .string(grade.name)
-            .style(style);
-          ws.cell(index + 5, 2)
-            .string(grade.nota.toString())
-            .style(style);
+  generateExcelAsignature(data: Grades[]) {
+    return new Promise((resolve_, reject) => {
+      try {
+        const wb = new Workbook();
+        const style = wb.createStyle({
+          font: {
+            color: '#000000',
+            size: 12,
+          },
+          numberFormat: '$#,##0.00; ($#,##0.00); -',
         });
-      });
-      const filename = `${data[0].course}_${data[0].asignature}`;
-      wb.write(filename + '.xlsx').then(() => {
-        return filename;
-      });
-    } catch (e) {
-      console.log('lala', e);
-    }
+        data.forEach((d) => {
+          const ws = wb.addWorksheet(d.username);
+          ws.cell(1, 1).string('Asignature').style(style);
+          ws.cell(1, 2).string(d.asignature);
+          ws.cell(2, 1).string('Estudiante').style(style);
+          ws.cell(2, 2).string(d.username);
+          ws.cell(3, 1).string('Nota').style(style);
+          ws.cell(3, 2).string(d.nota.toString());
+          d.units.forEach((grade, index) => {
+            ws.cell(index + 5, 1)
+              .string(grade.name)
+              .style(style);
+            ws.cell(index + 5, 2)
+              .string(grade.nota.toString())
+              .style(style);
+          });
+        });
+        const filename = `${data[0].course}_${data[0].asignature}`;
+        const filePath = resolve(process.cwd(), `${filename}.xlsx`);
+        wb.write(filePath, (error, stats) => {
+          if (error) {
+            reject(error);
+          } else {
+            const fileContent = fs.readFileSync(filePath).toString('base64');
+            resolve_(fileContent);
+          }
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
   }
 
   async create(data: CreateUserDTO) {

@@ -124,13 +124,13 @@ const usePruebas = () => {
         },
         onCompleted: res => {
           toast.success('Reporte generado con exito')
-          console.log(res.getGradesByAsignature)
-          const url = URL.createObjectURL(new Blob([res.getGradesByAsignature]))
-          const link = document.createElement('a')
-          link.href = url
-          link.setAttribute('download', 'reporte.xlsx')
-          document.body.appendChild(link)
-          link.click()
+
+          const fileContent = res?.getGradesByAsignature
+          if (fileContent) {
+            console.log('descargando')
+            const fileUrl = `data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,${fileContent}`
+            window.open(fileUrl)
+          }
         },
         onError: e => {
           console.log(e)
