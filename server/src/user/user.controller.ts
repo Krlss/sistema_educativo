@@ -11,8 +11,9 @@ import { CreateProgressDTO } from './dto/create-progress';
 import { UpdateProgressDTO } from 'src/progress/dto/update-progress';
 import { Workbook } from 'excel4node';
 import { Grades } from './entities/userGrades';
-import { exists, existsSync } from 'fs';
+import { readFileSync, existsSync } from 'fs';
 import { join, resolve } from 'path';
+import { Blob } from 'buffer';
 
 @Controller('user')
 export class UserController {
@@ -101,20 +102,9 @@ export class UserController {
       agrade.units = units;
       return agrade;
     });
-    const filename = await this.generateExcelAsignature(data, res);
-    console.log(resolve('./', filename + '.xlsx'));
-    /* if (existsSync(resolve('./', filename + '.xlsx'))) {
-      console.log('e');
-      res.setHeader(
-        'Content-Type',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      );
-      res.setHeader('Content-Disposition', 'attachment; filename=' + filename);
-      res.sendFile(resolve('./', filename + '.xlsx'));
-      // res.end();
-    } */
-
-    return filename;
+    this.generateExcelAsignature(data, res).then((filename) => {
+      return readFileSync(resolve('./', filename + '.xlsx'));
+    });
   }
 
   async generateExcelAsignature(data: Grades[], res: Response) {
@@ -145,8 +135,9 @@ export class UserController {
         });
       });
       const filename = `${data[0].course}_${data[0].asignature}`;
-      wb.write(filename + '.xlsx', res);
-      return filename;
+      wb.write(filename + '.xlsx').then(() => {
+        return filename;
+      });
     } catch (e) {
       console.log('lala', e);
     }

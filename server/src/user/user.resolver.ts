@@ -1,4 +1,12 @@
-import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Context,
+  ObjectType,
+  Field,
+} from '@nestjs/graphql';
 import { User } from './entities/user.entity';
 import { CreateUserDTO } from './dto/create-user';
 import { UpdateUserDTO } from './dto/update-user';
@@ -17,6 +25,7 @@ import { CustomProgress } from 'src/progress/entities/custom-progress.entity';
 import { CustomAsignatureInscribed } from 'src/asignature/entities/customAsignatureInscribed';
 import { ProgressController } from 'src/progress/progress.controller';
 import { Grades } from './entities/userGrades';
+import { Buffer } from 'buffer';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -104,16 +113,18 @@ export class UserResolver {
   }
 
   @Query(() => String, { nullable: true })
-  getGradesByAsignature(
+  async getGradesByAsignature(
     @Args('asignatureId') asignatureId: string,
     @Args('periodCourseId') periodCourseId: number,
     @Context('res') res: Response,
   ) {
-    return this.userController.getGradesByAsignature(
+    const excel = await this.userController.getGradesByAsignature(
       asignatureId,
       periodCourseId,
       res,
     );
+    console.log({ excel });
+    return excel;
   }
 
   @Mutation(() => User, { nullable: true })

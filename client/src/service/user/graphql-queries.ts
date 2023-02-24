@@ -70,3 +70,11 @@ export const LOGOUT = gql`
     logout
   }
 `
+export const GETGRADES = gql`
+  query GetGradesByAsignature($asignatureId: String!, $periodCourseId: Float!) {
+    getGradesByAsignature(
+      asignatureId: $asignatureId
+      periodCourseId: $periodCourseId
+    )
+  }
+`

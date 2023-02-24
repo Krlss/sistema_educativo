@@ -34,7 +34,7 @@ const Footer = () => {
                 <Icon width={15} viewBox="26 26" height={15}>
                   <UserIcon />
                 </Icon>
-                Marcillo Velez Johnny Josè
+                Marcillo Velez Johnny Jose
               </span>
               <span className="flex gap-2">
                 <Icon width={15} viewBox="32 32" height={15}>
