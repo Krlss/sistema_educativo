@@ -88,21 +88,19 @@ export class UserService {
     });
   }
 
-  async getGradesByAsignature(asignatureId: string, periodCourseId: number) {
+  async getGradesByAsignature(periodCourseId: number) {
     return await this.prismaService.progress.findMany({
       where: {
         OR: [
           {
             periodCourseAsignature: {
               periodCourseId,
-              asignatureId,
             },
           },
           {
             periodCourseAsignatureUnit: {
               periodCourseAsignature: {
                 periodCourseId,
-                asignatureId,
               },
             },
           },
@@ -133,6 +131,30 @@ export class UserService {
                     period: true,
                   },
                 },
+              },
+            },
+          },
+        },
+      },
+    });
+  }
+
+  async getList(periodCourseId: number) {
+    return await this.prismaService.progress.findMany({
+      where: {
+        periodCourseAsignature: {
+          periodCourseId,
+        },
+      },
+      include: {
+        user: true,
+        periodCourseAsignature: {
+          include: {
+            asignature: true,
+            periodCourse: {
+              include: {
+                course: true,
+                period: true,
               },
             },
           },

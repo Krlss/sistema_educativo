@@ -23,6 +23,9 @@ export class Grades {
   @Field(() => String, { nullable: true })
   course: string;
 
+  @Field(() => String, { nullable: true })
+  period: string;
+
   @Field(() => Number, { nullable: true })
   nota: number;
 

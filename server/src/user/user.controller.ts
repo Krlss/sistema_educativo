@@ -3,17 +3,15 @@ import { CreateUserDTO } from './dto/create-user';
 import { UpdateUserDTO } from './dto/update-user';
 import { UserService } from './user.service';
 import { hash } from 'src/common/helpers/bcrypt.helpers';
-import { Response } from 'express';
 import { PeriodsCoursesService } from 'src/courses-periods/courses-periods.service';
 import { ProgressService } from 'src/progress/progress.service';
-import { Progress } from 'src/progress/entities/progress.entity';
 import { CreateProgressDTO } from './dto/create-progress';
 import { UpdateProgressDTO } from 'src/progress/dto/update-progress';
 import { Workbook } from 'excel4node';
 import { Grades } from './entities/userGrades';
+import { List } from './entities/userLists';
 import * as fs from 'fs';
-import { join, resolve } from 'path';
-import { Blob } from 'buffer';
+import { resolve } from 'path';
 
 @Controller('user')
 export class UserController {
@@ -39,11 +37,8 @@ export class UserController {
     return await this.userService.getProgressByUserId(id);
   }
 
-  async getGradesByAsignature(asignatureId: string, periodCourseId: number) {
-    const grades = await this.userService.getGradesByAsignature(
-      asignatureId,
-      periodCourseId,
-    );
+  async getGradesByAsignature(periodCourseId: number) {
+    const grades = await this.userService.getGradesByAsignature(periodCourseId);
 
     const ugrades = grades.filter(
       (grade) => grade.periodCourseAsignatureUnitId,
@@ -72,6 +67,7 @@ export class UserController {
             id: grade.id,
             asignature: grade.periodCourseAsignature.asignature.name,
             course: grade.periodCourseAsignature.periodCourse.course.name,
+            period: grade.periodCourseAsignature.periodCourse.period.name,
             nota: grade.nota ? (grade.nota + nota) / 2 : nota,
             userId: grade.user.id,
             username: grade.user.name,
@@ -84,7 +80,11 @@ export class UserController {
     const data = agrades.map((agrade) => {
       const units = ugrades
         .map((unit) => {
-          if (unit.userId === agrade.userId) {
+          if (
+            unit.userId === agrade.userId &&
+            unit.periodCourseAsignatureUnit.periodCourseAsignature.asignature
+              .name === agrade.asignature
+          ) {
             return {
               id: unit.id,
               name: unit.periodCourseAsignatureUnit.unit.name,
@@ -112,21 +112,51 @@ export class UserController {
           },
           numberFormat: '$#,##0.00; ($#,##0.00); -',
         });
-        data.forEach((d) => {
-          const ws = wb.addWorksheet(d.username);
-          ws.cell(1, 1).string('Asignature').style(style);
-          ws.cell(1, 2).string(d.asignature);
-          ws.cell(2, 1).string('Estudiante').style(style);
-          ws.cell(2, 2).string(d.username);
-          ws.cell(3, 1).string('Nota').style(style);
-          ws.cell(3, 2).string(d.nota.toString());
-          d.units.forEach((grade, index) => {
-            ws.cell(index + 5, 1)
-              .string(grade.name)
+        const students = data.reduce((r, a) => {
+          r[a.userId] = r[a.userId] || [];
+          r[a.userId].push(a);
+          return r;
+        }, Object.create(null));
+        const ws = wb.addWorksheet('Calificación');
+        ws.cell(1, 1).string('Periodo').style(style);
+        ws.cell(1, 2).string(data[0].period).style(style);
+        ws.cell(2, 1).string('Curso').style(style);
+        ws.cell(2, 2).string(data[0].course).style(style);
+
+        const asignatures = students[Object.keys(students)[0]];
+        let i = 0;
+        asignatures.map((asignature, index: number) => {
+          const x = i;
+          ws.cell(4, i + Math.floor(asignature.units.length / 2) + 2)
+            .string(asignature.asignature)
+            .style(style);
+          i += asignature.units.length;
+          for (let j = 0; j < asignature.units.length; j++) {
+            ws.cell(5, x + 2 + j)
+              .string(asignature.units[j].name)
               .style(style);
-            ws.cell(index + 5, 2)
-              .string(grade.nota.toString())
+          }
+          ws.cell(5, x + 2 + asignature.units.length)
+            .string('Promedio')
+            .style(style);
+          i++;
+        });
+        Object.keys(students).map((d, index: number) => {
+          let j = 0;
+          const row = index + 6;
+
+          ws.cell(row, 1).string(students[d][0].username).style(style);
+          students[d].map((unit, index: number) => {
+            for (let k = 0; k < unit.units.length; k++) {
+              ws.cell(row, j + 2 + k)
+                .string(unit.units[k].nota.toString())
+                .style(style);
+            }
+            j += unit.units.length;
+            ws.cell(row, j + 2)
+              .string(unit.nota.toString())
               .style(style);
+            j++;
           });
         });
         const filename = `${data[0].course}_${data[0].asignature}`;
@@ -137,6 +167,81 @@ export class UserController {
           } else {
             const fileContent = fs.readFileSync(filePath).toString('base64');
             resolve_(fileContent);
+            fs.unlink(filePath, (e) => {
+              if (e) console.log(e);
+            });
+          }
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  async getList(periodCourseId: number) {
+    const list = await this.userService.getList(periodCourseId);
+    const data = {
+      period: list[0].periodCourseAsignature.periodCourse.period.name,
+      course: list[0].periodCourseAsignature.periodCourse.course.name,
+      users: list
+        .map((item) => {
+          return {
+            username: item.user.name,
+            lastname: item.user.lastName,
+            id: item.user.id,
+            email: item.user.email,
+          };
+        })
+        .sort((a, b) => a.username.localeCompare(b.username)),
+    };
+    const newArray = [];
+
+    data.users.forEach((obj) => {
+      const duplicate = newArray.find((item) => item.id === obj.id);
+      if (!duplicate) {
+        newArray.push(obj);
+      }
+    });
+    data.users = newArray;
+    return await this.generateExcelList(data);
+  }
+
+  generateExcelList(data: List) {
+    return new Promise((resolve_, reject) => {
+      try {
+        const wb = new Workbook();
+        const style = wb.createStyle({
+          font: {
+            color: '#000000',
+            size: 12,
+          },
+          numberFormat: '$#,##0.00; ($#,##0.00); -',
+        });
+        const ws = wb.addWorksheet('Lista');
+        ws.cell(1, 1).string('Periodo').style(style);
+        ws.cell(1, 2).string(data.period).style(style);
+        ws.cell(2, 1).string('Curso').style(style);
+        ws.cell(2, 2).string(data.course).style(style);
+        ws.cell(4, 1).string('Nombre').style(style);
+        ws.cell(4, 2).string('Apellido').style(style);
+        ws.cell(4, 3).string('Correo').style(style);
+        data.users.map((user, index: number) => {
+          const row = index + 5;
+          ws.cell(row, 1).string(user.username).style(style);
+          ws.cell(row, 2).string(user.lastname).style(style);
+          ws.cell(row, 3).string(user.email).style(style);
+        });
+        const filename = `Lista_${data.course}`;
+        const filePath = resolve(process.cwd(), `${filename}.xlsx`);
+        wb.write(filePath, (error, stats) => {
+          if (error) {
+            reject(error);
+          } else {
+            const fileContent = fs.readFileSync(filePath).toString('base64');
+            resolve_(fileContent);
+            fs.unlink(filePath, (e) => {
+              if (e) console.log(e);
+            });
           }
         });
       } catch (error) {

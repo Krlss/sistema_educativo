@@ -113,14 +113,13 @@ export class UserResolver {
   }
 
   @Query(() => String, { nullable: true })
-  async getGradesByAsignature(
-    @Args('asignatureId') asignatureId: string,
-    @Args('periodCourseId') periodCourseId: number,
-  ) {
-    return await this.userController.getGradesByAsignature(
-      asignatureId,
-      periodCourseId,
-    );
+  async getGradesByAsignature(@Args('periodCourseId') periodCourseId: number) {
+    return await this.userController.getGradesByAsignature(periodCourseId);
+  }
+
+  @Query(() => String, { nullable: true })
+  async getList(@Args('periodCourseId') periodCourseId: number) {
+    return await this.userController.getList(periodCourseId);
   }
 
   @Mutation(() => User, { nullable: true })

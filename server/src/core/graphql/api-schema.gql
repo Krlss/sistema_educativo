@@ -280,7 +280,8 @@ type Query {
   getAsignatureUserInscribed(userId: String!, asignatureId: String!): CustomAsignatureInscribed
   login(email: String!, password: String!): String!
   logout: String
-  getGradesByAsignature(asignatureId: String!, periodCourseId: Float!): String
+  getGradesByAsignature(periodCourseId: Float!): String
+  getList(periodCourseId: Float!): String
   roles: [Rol!]!
   rol(id: String!): Rol
   questions: [Question!]
