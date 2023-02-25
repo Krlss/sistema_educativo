@@ -71,10 +71,13 @@ export const LOGOUT = gql`
   }
 `
 export const GETGRADES = gql`
-  query GetGradesByAsignature($asignatureId: String!, $periodCourseId: Float!) {
-    getGradesByAsignature(
-      asignatureId: $asignatureId
-      periodCourseId: $periodCourseId
-    )
+  query GetGradesByAsignature($periodCourseId: Float!) {
+    getGradesByAsignature(periodCourseId: $periodCourseId)
+  }
+`
+
+export const GETLIST = gql`
+  query GetList($periodCourseId: Float!) {
+    getList(periodCourseId: $periodCourseId)
   }
 `

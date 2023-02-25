@@ -3,9 +3,8 @@ import { useLazyQuery } from '@apollo/client'
 import { GETPERIODS } from '../../service/periods/graphql-queries'
 import { useMutation } from '@apollo/client'
 import { CHANGE_TEST_ACTIVE } from '../../service/units/graphql-mutations'
-import { GETGRADES } from '../../service/user/graphql-queries'
+import { GETGRADES, GETLIST } from '../../service/user/graphql-queries'
 import { toast } from 'react-toastify'
-import { Buffer } from 'buffer'
 export interface PERIODS_ {
   id: string
   name: string
@@ -82,6 +81,7 @@ const usePruebas = () => {
   })
 
   const [getgrade] = useLazyQuery(GETGRADES)
+  const [getlist] = useLazyQuery(GETLIST)
 
   const changeTestUnitActive = (id: number, testActive: boolean) => {
     testUnitActive({
@@ -116,10 +116,9 @@ const usePruebas = () => {
   }, [loading])
 
   const handleGrades = () => {
-    if (course && asignature) {
+    if (course) {
       getgrade({
         variables: {
-          asignatureId: asignature,
           periodCourseId: course
         },
         onCompleted: res => {
@@ -127,7 +126,28 @@ const usePruebas = () => {
 
           const fileContent = res?.getGradesByAsignature
           if (fileContent) {
-            console.log('descargando')
+            const fileUrl = `data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,${fileContent}`
+            window.open(fileUrl)
+          }
+        },
+        onError: e => {
+          console.log(e)
+          toast.error(e.message)
+        }
+      })
+    }
+  }
+
+  const handleList = () => {
+    if (course) {
+      getlist({
+        variables: {
+          periodCourseId: course
+        },
+        onCompleted: res => {
+          toast.success('Reporte generado con exito')
+          const fileContent = res?.getList
+          if (fileContent) {
             const fileUrl = `data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,${fileContent}`
             window.open(fileUrl)
           }
@@ -160,7 +180,8 @@ const usePruebas = () => {
     SetCourse,
     course,
     asignature,
-    handleGrades
+    handleGrades,
+    handleList
   }
 }
 

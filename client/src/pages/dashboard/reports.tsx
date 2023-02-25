@@ -8,97 +8,129 @@ const Reports = () => {
     periods,
     courses,
     setCourses,
-    asignatures,
     setAsignatures,
     selectedPeriod,
     setSelectedPeriod,
-    selectedCourse,
     setSelectedCourse,
     SetCourse,
-    SetAsignature,
     course,
-    asignature,
-    handleGrades
+    handleGrades,
+    handleList
   } = useReports()
 
-  const handleExcel = () => {
-    handleGrades()
+  const handleExcel = (type: String) => {
+    if (type === 'grades') {
+      handleGrades()
+    } else if (type === 'list') {
+      handleList()
+    } else {
+      console.log('comparacion')
+    }
   }
 
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-lg font-semibold">Activar pruebas</h2>
-      <div className="flex md:flex-row flex-col gap-3">
-        <div className="max-w-xs w-full">
-          <label className="font-semibold">Periodo:</label>
-          <Select
-            options={periods}
-            placeholder="Selecciona un periodo"
-            onChange={e => {
-              const periodsCourses = data?.periods
-                .find(period => period.id === e!.value)
-                ?.PC.map(pc => {
-                  return {
-                    value: pc.id,
-                    label: pc.course.name
-                  }
-                })
-              setCourses(periodsCourses)
-              setSelectedPeriod(e!.value)
-              setSelectedCourse(undefined)
-            }}
-          />
+      <div className="flex flex-col gap-4 mb-5">
+        <h2 className="text-lg font-semibold text-center">Reportes</h2>
+        <div className="flex md:flex-row flex-col gap-3 justify-center">
+          <div className="max-w-xs w-full">
+            <label className="font-semibold">Periodo:</label>
+            <Select
+              options={periods}
+              placeholder="Selecciona un periodo"
+              onChange={e => {
+                const periodsCourses = data?.periods
+                  .find(period => period.id === e!.value)
+                  ?.PC.map(pc => {
+                    return {
+                      value: pc.id,
+                      label: pc.course.name
+                    }
+                  })
+                setCourses(periodsCourses)
+                setSelectedPeriod(e!.value)
+                setSelectedCourse(undefined)
+              }}
+            />
+          </div>
+          <div className="max-w-xs w-full">
+            <label className="font-semibold">Curso:</label>
+            <Select
+              options={courses}
+              placeholder="Selecciona un curso"
+              onChange={e => {
+                const coursesAsignatures = data?.periods
+                  .find(period => period.id === selectedPeriod)
+                  ?.PC.find(pc => pc.id === e!.value)
+                  ?.PCA.map(pca => {
+                    return {
+                      value: pca.asignature.id,
+                      label: pca.asignature.name
+                    }
+                  })
+                setAsignatures(coursesAsignatures)
+                setSelectedCourse(Number(e!.value))
+                SetCourse(e!.value)
+              }}
+            />
+          </div>
+          {/* <div className="max-w-xs w-full">
+            <label className="font-semibold">Asignaturas:</label>
+            <Select
+              options={asignatures}
+              placeholder="Selecciona una asignatura"
+              onChange={e => {
+                const asignaturesUnits = data?.periods
+                  .find(period => period.id === selectedPeriod)
+                  ?.PC.find(pc => pc.id === selectedCourse)
+                  ?.PCA.find(pca => pca.asignature.id === e!.value)
+                  ?.PCAU.map(pcau => pcau)
+                SetAsignature(e!.value)
+              }}
+            />
+          </div> */}
         </div>
-        <div className="max-w-xs w-full">
-          <label className="font-semibold">Curso:</label>
-          <Select
-            options={courses}
-            placeholder="Selecciona un curso"
-            onChange={e => {
-              const coursesAsignatures = data?.periods
-                .find(period => period.id === selectedPeriod)
-                ?.PC.find(pc => pc.id === e!.value)
-                ?.PCA.map(pca => {
-                  return {
-                    value: pca.asignature.id,
-                    label: pca.asignature.name
-                  }
-                })
-              setAsignatures(coursesAsignatures)
-              setSelectedCourse(Number(e!.value))
-              SetCourse(e!.value)
-            }}
-          />
-        </div>
-        <div className="max-w-xs w-full">
-          <label className="font-semibold">Asignaturas:</label>
-          <Select
-            options={asignatures}
-            placeholder="Selecciona una asignatura"
-            onChange={e => {
-              const asignaturesUnits = data?.periods
-                .find(period => period.id === selectedPeriod)
-                ?.PC.find(pc => pc.id === selectedCourse)
-                ?.PCA.find(pca => pca.asignature.id === e!.value)
-                ?.PCAU.map(pcau => pcau)
-              SetAsignature(e!.value)
-            }}
-          />
-        </div>
-      </div>
 
-      <div className="flex justify-center">
-        <button
-          className={`bg-blue-500   text-white font-bold py-2 px-4 rounded-md ${
-            !course || !asignature ? 'opacity-50' : 'hover:bg-blue-700'
-          }`}
-          disabled={!course || !asignature}
-          onClick={() => {
-            handleExcel()
-          }}>
-          Descargar
-        </button>
+        <div className="flex justify-center gap-4">
+          <button
+            className={`bg-blue-500   text-white font-bold py-2 px-4 rounded-md ${
+              !course ? 'opacity-50' : 'hover:bg-blue-700'
+            }`}
+            disabled={!course}
+            onClick={() => {
+              handleExcel('grades')
+            }}>
+            Notas
+          </button>
+          <button
+            className={`bg-blue-500   text-white font-bold py-2 px-4 rounded-md ${
+              !course ? 'opacity-50' : 'hover:bg-blue-700'
+            }`}
+            disabled={!course}
+            onClick={() => {
+              handleExcel('list')
+            }}>
+            Listas
+          </button>
+        </div>
       </div>
+      <hr />
+      {/* <div className="flex flex-col gap-4 items-center w-full mt-5">
+        <h2 className="text-lg font-semibold">
+          Comparación de notas por periodo
+        </h2>
+        <div className="flex md:flex-row flex-col gap-3">
+          <div className="flex justify-center">
+            <button
+              className={`bg-blue-500 text-white font-bold py-2 px-4 rounded-md`}
+              onClick={() => {
+                handleExcel()
+              }}>
+              Descargar
+            </button>
+          </div>
+        </div>
+      </div> */}
     </div>
   )
 }
