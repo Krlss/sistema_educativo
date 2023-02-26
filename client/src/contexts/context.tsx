@@ -22,6 +22,7 @@ export type GeneralContextProps = {
   setNext: (boolean: boolean) => void
   calculateQualification: () => void
   setIsLogged: (isLogged: boolean) => void
+  isThisRol: (findRol: string[]) => boolean
 }
 
 const GeneralContext = createContext<GeneralContextProps>(

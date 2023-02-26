@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { course } from '../../pages/dashboard/cursos'
 import { GETCOURSES } from './graphql-queries'
@@ -7,6 +7,7 @@ import { registerCourseValidationSchema } from '../../schemas'
 import { TableColumn } from 'react-data-table-component'
 import Actions from '../../components/tables/actions'
 import { useCreateCourse } from './custom-hook'
+import GeneralContext from '../../contexts/context'
 
 export const useCourse = () => {
   const [open, setOpen] = useState(false)

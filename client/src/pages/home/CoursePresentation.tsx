@@ -52,7 +52,7 @@ const CoursePresentation = () => {
                 key={index}
                 className="rounded-md flex justify-between md:flex-row flex-col md:items-center my-3 shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white h-[225px] md:h-[120px]">
                 <NavLink
-                  className="rounded-md flex items-center justify-start h-full"
+                  className="rounded-md flex items-center justify-start h-full w-full"
                   to={`/asignatura/${asignatureId}/unidad/${id}`}>
                   <div
                     className="items-center justify-center min-w-[104px] max-w-[80px] w-full rounded-l-md font-bold text-xl md:flex hidden h-full"

@@ -21,7 +21,9 @@ import Students from './pages/dashboard/estudiantes'
 import Reports from './pages/dashboard/reports'
 
 const App = () => {
-  const { config } = useContext(GeneralContext)
+  const { config, isThisRol } = useContext(GeneralContext)
+  const isAdmin = isThisRol(['admin'])
+  const isAdminOrTeacher = isThisRol(['admin', 'teacher'])
   return (
     <>
       <Routes>
@@ -49,17 +51,27 @@ const App = () => {
             path="/asignatura/:asignatureId/unidad/:unitId/prueba"
             element={<Game />}
           />
-          <Route path="/dashboard">
-            <Route path="cursos" element={<DashboardCursos />} />
-            <Route
-              path="inscribir-estudiantes"
-              element={<InscriptionStudens />}
-            />
-            <Route path="usuarios" element={<Users />} />
-            <Route path="pruebas" element={<Pruebas />} />
-            <Route path="estudiantes" element={<Students />} />
-            <Route path="reportes" element={<Reports />} />
-          </Route>
+          {isAdminOrTeacher && (
+            <Route path="/dashboard">
+              {isAdmin ? (
+                <>
+                  <Route path="cursos" element={<DashboardCursos />} />
+                  <Route path="usuarios" element={<Users />} />
+                </>
+              ) : null}
+              {isAdminOrTeacher && (
+                <>
+                  <Route
+                    path="inscribir-estudiantes"
+                    element={<InscriptionStudens />}
+                  />
+                  <Route path="pruebas" element={<Pruebas />} />
+                  <Route path="estudiantes" element={<Students />} />
+                  <Route path="reportes" element={<Reports />} />
+                </>
+              )}
+            </Route>
+          )}
         </Route>
         <Route path="*" element={<Page404 />} />
       </Routes>

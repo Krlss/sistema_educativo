@@ -105,10 +105,16 @@ const GeneralProvider = (props: any) => {
 
   const logout = () => {
     handleLogout()
+    removeDataSession('rt')
     dispatchUser({
       type: 'resetUser',
       payload: undefined
     })
+  }
+
+  const isThisRol = (findRol: string[]) => {
+    const { roles } = user
+    return roles.some(rol => findRol.includes(rol.name))
   }
 
   const lessTime = () => {
@@ -219,7 +225,8 @@ const GeneralProvider = (props: any) => {
         resetGame,
         setNext,
         calculateQualification,
-        setIsLogged
+        setIsLogged,
+        isThisRol
       }}>
       {props.children}
     </GeneralContext.Provider>

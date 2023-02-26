@@ -128,14 +128,14 @@ export const useInscriptionStudent = () => {
 
   const getStudentsIPC = () => {
     return dataStudents?.students.filter(
-      s => s.progress.filter(pr => pr?.pca?.pci === selectedPC).length
+      s => s.progress?.filter(pr => pr?.pca?.pci === selectedPC).length
     )
   }
 
   const getStudentsNoIPC = () => {
     // ver si se puede hacer desde prisma
     return dataStudents?.students.filter(
-      s => !s.progress.some(pr => pr?.pca?.pc?.p === selectedP)
+      s => !s.progress?.some(pr => pr?.pca?.pc?.p === selectedP)
     )
   }
 
