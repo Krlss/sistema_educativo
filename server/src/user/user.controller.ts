@@ -105,12 +105,62 @@ export class UserController {
     return new Promise((resolve_, reject) => {
       try {
         const wb = new Workbook();
-        const style = wb.createStyle({
+        const headerStyle = wb.createStyle({
+          border: {
+            left: {
+              style: 'thin',
+              color: '#000000',
+            },
+            right: {
+              style: 'thin',
+              color: '#000000',
+            },
+            top: {
+              style: 'thin',
+              color: '#000000',
+            },
+            bottom: {
+              style: 'thin',
+              color: '#000000',
+            },
+          },
           font: {
             color: '#000000',
             size: 12,
+            bold: true,
           },
-          numberFormat: '$#,##0.00; ($#,##0.00); -',
+          alignment: {
+            horizontal: 'center',
+          },
+          fill: {
+            type: 'pattern',
+            patternType: 'solid',
+            fgColor: '#D3D3D3',
+          },
+        });
+
+        const bodyStyle = wb.createStyle({
+          border: {
+            left: {
+              style: 'thin',
+              color: '#000000',
+            },
+            right: {
+              style: 'thin',
+              color: '#000000',
+            },
+            top: {
+              style: 'thin',
+              color: '#000000',
+            },
+            bottom: {
+              style: 'thin',
+              color: '#000000',
+            },
+          },
+          alignment: {
+            horizontal: 'center',
+          },
         });
         const students = data.reduce((r, a) => {
           r[a.userId] = r[a.userId] || [];
@@ -118,44 +168,48 @@ export class UserController {
           return r;
         }, Object.create(null));
         const ws = wb.addWorksheet('Calificación');
-        ws.cell(1, 1).string('Periodo').style(style);
-        ws.cell(1, 2).string(data[0].period).style(style);
-        ws.cell(2, 1).string('Curso').style(style);
-        ws.cell(2, 2).string(data[0].course).style(style);
+        ws.column(1).setWidth(20);
+        ws.column(2).setWidth(20);
+        ws.cell(1, 1).string('Periodo').style(headerStyle);
+        ws.cell(1, 2).string(data[0].period).style(bodyStyle);
+        ws.cell(2, 1).string('Curso').style(headerStyle);
+        ws.cell(2, 2).string(data[0].course).style(bodyStyle);
 
         const asignatures = students[Object.keys(students)[0]];
         let i = 0;
         asignatures.map((asignature, index: number) => {
           const x = i;
+          ws.column(Math.floor(asignature.units.length / 2) + 2).setWidth(20);
           ws.cell(4, i + Math.floor(asignature.units.length / 2) + 2)
             .string(asignature.asignature)
-            .style(style);
+            .style(headerStyle);
           i += asignature.units.length;
           for (let j = 0; j < asignature.units.length; j++) {
+            ws.column(x + 2 + j).setWidth(20);
             ws.cell(5, x + 2 + j)
               .string(asignature.units[j].name)
-              .style(style);
+              .style(bodyStyle);
           }
           ws.cell(5, x + 2 + asignature.units.length)
             .string('Promedio')
-            .style(style);
+            .style(headerStyle);
           i++;
         });
         Object.keys(students).map((d, index: number) => {
           let j = 0;
           const row = index + 6;
 
-          ws.cell(row, 1).string(students[d][0].username).style(style);
+          ws.cell(row, 1).string(students[d][0].username).style(headerStyle);
           students[d].map((unit, index: number) => {
             for (let k = 0; k < unit.units.length; k++) {
               ws.cell(row, j + 2 + k)
                 .string(unit.units[k].nota.toString())
-                .style(style);
+                .style(bodyStyle);
             }
             j += unit.units.length;
             ws.cell(row, j + 2)
               .string(unit.nota.toString())
-              .style(style);
+              .style(bodyStyle);
             j++;
           });
         });
@@ -210,26 +264,79 @@ export class UserController {
     return new Promise((resolve_, reject) => {
       try {
         const wb = new Workbook();
-        const style = wb.createStyle({
+        const headerStyle = wb.createStyle({
+          border: {
+            left: {
+              style: 'thin',
+              color: '#000000',
+            },
+            right: {
+              style: 'thin',
+              color: '#000000',
+            },
+            top: {
+              style: 'thin',
+              color: '#000000',
+            },
+            bottom: {
+              style: 'thin',
+              color: '#000000',
+            },
+          },
           font: {
             color: '#000000',
             size: 12,
+            bold: true,
           },
-          numberFormat: '$#,##0.00; ($#,##0.00); -',
+          alignment: {
+            horizontal: 'center',
+          },
+          fill: {
+            type: 'pattern',
+            patternType: 'solid',
+            fgColor: '#D3D3D3',
+          },
+        });
+
+        const bodyStyle = wb.createStyle({
+          border: {
+            left: {
+              style: 'thin',
+              color: '#000000',
+            },
+            right: {
+              style: 'thin',
+              color: '#000000',
+            },
+            top: {
+              style: 'thin',
+              color: '#000000',
+            },
+            bottom: {
+              style: 'thin',
+              color: '#000000',
+            },
+          },
+          alignment: {
+            horizontal: 'center',
+          },
         });
         const ws = wb.addWorksheet('Lista');
-        ws.cell(1, 1).string('Periodo').style(style);
-        ws.cell(1, 2).string(data.period).style(style);
-        ws.cell(2, 1).string('Curso').style(style);
-        ws.cell(2, 2).string(data.course).style(style);
-        ws.cell(4, 1).string('Nombre').style(style);
-        ws.cell(4, 2).string('Apellido').style(style);
-        ws.cell(4, 3).string('Correo').style(style);
+        ws.column(1).setWidth(20);
+        ws.column(2).setWidth(20);
+        ws.column(3).setWidth(30);
+        ws.cell(1, 1).string('Periodo').style(headerStyle);
+        ws.cell(1, 2).string(data.period).style(bodyStyle);
+        ws.cell(2, 1).string('Curso').style(headerStyle);
+        ws.cell(2, 2).string(data.course).style(bodyStyle);
+        ws.cell(4, 1).string('Nombre').style(headerStyle);
+        ws.cell(4, 2).string('Apellido').style(headerStyle);
+        ws.cell(4, 3).string('Correo').style(headerStyle);
         data.users.map((user, index: number) => {
           const row = index + 5;
-          ws.cell(row, 1).string(user.username).style(style);
-          ws.cell(row, 2).string(user.lastname).style(style);
-          ws.cell(row, 3).string(user.email).style(style);
+          ws.cell(row, 1).string(user.username).style(bodyStyle);
+          ws.cell(row, 2).string(user.lastname).style(bodyStyle);
+          ws.cell(row, 3).string(user.email).style(bodyStyle);
         });
         const filename = `Lista_${data.course}`;
         const filePath = resolve(process.cwd(), `${filename}.xlsx`);

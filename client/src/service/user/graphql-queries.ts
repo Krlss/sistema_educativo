@@ -28,6 +28,7 @@ export const GETSTUDENTS = gql`
     students {
       name
       lastName
+      email
       progress {
         pca: periodCourseAsignature {
           pci: periodCourseId
