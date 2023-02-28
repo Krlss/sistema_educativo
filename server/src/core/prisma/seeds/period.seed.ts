@@ -9,6 +9,12 @@ const period_ = [
   {
     name: '2023-2024',
   },
+  {
+    name: '2024-2025',
+  },
+  {
+    name: '2025-2026',
+  },
 ];
 
 export const periodSeed = async () => {

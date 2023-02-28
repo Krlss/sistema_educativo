@@ -58,11 +58,11 @@ const App = () => {
                 <>
                   <Route path="cursos" element={<DashboardCursos />} />
                   <Route path="usuarios" element={<Users />} />
+                  <Route path="periodos" element={<DashboardPeriods />} />
                 </>
               ) : null}
               {isAdminOrTeacher && (
                 <>
-                  <Route path="periodos" element={<DashboardPeriods />} />
                   <Route
                     path="inscribir-estudiantes"
                     element={<InscriptionStudens />}
