@@ -1,11 +1,9 @@
-import { useState, useEffect, useContext } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { useQuery } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { GETPERIODS } from './graphql-queries'
-import { getRamdonArrayColors, pastelColors } from '../../constants/colors'
+import { CREATE_PERIOD, UPDATE_PERIOD } from './graphql-mutation'
 
-import GeneralContext from '../../contexts/context'
 import { period } from '../../pages/dashboard/cursos'
+import { toast } from 'react-toastify'
 
 export interface getPeriodsProps {
   periods: period[]
@@ -16,6 +14,54 @@ export interface getPeriodProps {
 }
 
 export const useGetPeriods = () => {
-  const { data, loading, error } = useQuery<getPeriodsProps>(GETPERIODS)
-  return { data, error, loadingPeriods: loading }
+  const { data, loading, error } = useQuery(GETPERIODS)
+  return { data, error, loading }
+}
+
+export const useCreatePeriod = () => {
+  const [createPeriod] = useMutation(CREATE_PERIOD, {
+    refetchQueries: [{ query: GETPERIODS }]
+  })
+  const [updatePeriod] = useMutation(UPDATE_PERIOD, {
+    refetchQueries: [{ query: GETPERIODS }]
+  })
+
+  const handleCreatePeriod = (period: { name: string }) => {
+    createPeriod({
+      variables: {
+        input: {
+          ...period
+        }
+      },
+      onCompleted: () => {
+        toast.success('Curso creado con éxito')
+      },
+      onError(error: any) {
+        toast.error(error.response.message.map((e: any) => e.message).join(''))
+      }
+    })
+  }
+
+  const handleUpdatePeriod = (period: { id: string; name?: string }) => {
+    updatePeriod({
+      variables: {
+        input: {
+          ...period
+        }
+      },
+      onCompleted: () => {
+        toast.success('Curso actualizado con éxito')
+      },
+      onError(error) {
+        toast.error(error.message)
+      }
+    })
+  }
+
+  return {
+    createPeriod,
+    updatePeriod,
+    handleCreatePeriod,
+    handleUpdatePeriod
+  }
 }

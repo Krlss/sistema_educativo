@@ -4,10 +4,14 @@ import Estudiantes from '../icons/students'
 import Reports from '../icons/report'
 import MyNavLink from '../navLink/myNavlink'
 import Users from '../icons/users'
+// import Periods from '../icons/periods'
 
 const ItemsSidebarDashboard = () => {
   return (
     <ul className="space-y-2">
+      <MyNavLink text="Periodos" to="/dashboard/periodos">
+        <Curso />
+      </MyNavLink>
       <MyNavLink text="Cursos" to="/dashboard/cursos">
         <Curso />
       </MyNavLink>
