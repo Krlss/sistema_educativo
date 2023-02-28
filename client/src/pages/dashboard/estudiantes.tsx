@@ -19,12 +19,23 @@ const Students = () => {
       <DataTable
         title="Estudiantes"
         columns={columns}
-        data={dataStudents.students}
+        data={dataStudents?.students}
         pagination
         highlightOnHover
         pointerOnHover
         responsive
         paginationRowsPerPageOptions={[5, 10, 15, 20, 25, 30]}
+        style={{ width: '100%' }}
+        customStyles={{
+          headCells: {
+            style: {
+              fontSize: '0.875rem',
+              fontWeight: 'bold',
+              color: '#4A5568'
+            }
+          }
+        }}
+        noDataComponent="No hay datos"
       />
     </div>
   )

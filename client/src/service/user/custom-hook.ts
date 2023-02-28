@@ -35,7 +35,8 @@ interface RegisterUser {
 }
 
 export const useLogin = () => {
-  const { setUser, setIsLogged, setLoading } = useContext(GeneralContext)
+  const { setUser, setIsLogged, setLoading, isThisRol } =
+    useContext(GeneralContext)
   const token = getDataSession('rt')
   const navigate = useNavigate()
 
@@ -48,8 +49,13 @@ export const useLogin = () => {
       const user = jwtDecode<USER>(login)
       setUser({ ...user })
       setIsLogged(true)
-      if (user.roles.find(e => e.name === 'admin')) {
+      const isAdmin = user.roles.find(e => e.name === 'admin')
+      const isTeacher = user.roles.find(e => e.name === 'teacher')
+      if (isAdmin) {
         navigate('/dashboard/cursos')
+        return
+      } else if (isTeacher) {
+        navigate('/dashboard/inscribir-estudiantes')
         return
       }
       navigate('/')

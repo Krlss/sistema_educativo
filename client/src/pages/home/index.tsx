@@ -8,7 +8,7 @@ const Home = () => {
   const { user } = useContext(GeneralContext)
 
   return (
-    <>
+    <div className={`${!user.progress.length && 'h-screen'}`}>
       <CenterLogo />
       <h1 className="text-4xl font-bold text-gray-800">
         ¡Hola, @{user.name} bienvenido a{' '}
@@ -51,7 +51,7 @@ const Home = () => {
           })}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

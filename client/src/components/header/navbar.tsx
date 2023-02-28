@@ -10,7 +10,7 @@ import Sidebar from '../sidebar/sidebar'
 import { Menu } from '@headlessui/react'
 
 const Navbar = () => {
-  const { user, logout } = useContext(GeneralContext)
+  const { user, logout, isThisRol } = useContext(GeneralContext)
   const [isOpen, setIsOpen] = useState(false)
   const location = useLocation()
 
@@ -46,7 +46,7 @@ const Navbar = () => {
               </NavLink>
             </div>
             {!isDashboard && user.progress.length ? <MenuNavigation /> : null}
-            <User user={user} logout={logout} />
+            <User user={user} logout={logout} isThisRol={isThisRol} />
           </div>
         </div>
       </nav>
@@ -64,11 +64,14 @@ interface UserProps {
     email: string
   }
   logout: () => void
+  isThisRol: (findRol: string[]) => boolean
 }
 
 const User = forwardRef<HTMLButtonElement, UserProps>(
-  ({ user, logout }, ref) => {
+  ({ user, logout, isThisRol }, ref) => {
     const { email, lastName, name } = user
+
+    const isRol = isThisRol(['admin', 'teacher'])
 
     return (
       <Menu>
@@ -98,9 +101,11 @@ const User = forwardRef<HTMLButtonElement, UserProps>(
             </Menu.Item>
           </Menu.Items>
           <Menu.Items className="py-1">
-            <Menu.Item>
-              <MyMenu label="Dashboard" to="/dashboard/cursos" />
-            </Menu.Item>
+            {isRol ? (
+              <Menu.Item>
+                <MyMenu label="Dashboard" to="/dashboard/cursos" />
+              </Menu.Item>
+            ) : null}
             <Menu.Item>
               <MyMenu label="Cerrar sesión" onClick={() => logout()} />
             </Menu.Item>

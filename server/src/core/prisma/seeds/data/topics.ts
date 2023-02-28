@@ -225,16 +225,6 @@ export const topics = [
   },
   {
     asignature: 'Matemáticas',
-    unit: 'Unidad 4',
-    name: 'Diagrama de barras',
-  },
-  {
-    asignature: 'Matemáticas',
-    unit: 'Unidad 4',
-    name: 'Estadística en Excel',
-  },
-  {
-    asignature: 'Matemáticas',
     unit: 'Unidad 5',
     name: 'Patrones numéricos decrecientes',
     image:
@@ -288,11 +278,6 @@ export const topics = [
     image:
       'https://drive.google.com/uc?id=10-7Nonq7cJCZpW1qJDoglPyWQSutvlOJ&export=view',
     video: 'https://www.youtube.com/embed/zRV_Nq91JpM',
-  },
-  {
-    asignature: 'Matemáticas',
-    unit: 'Unidad 5',
-    name: 'Metro cuadrado',
   },
   {
     asignature: 'Inglés',
@@ -397,7 +382,34 @@ export const topics = [
   {
     asignature: 'Computación',
     unit: 'Unidad 1',
-    name: 'La computadora: Partes de la computadora, cuidados del equipo, cables y enchufe',
+    name: 'La computadora',
+    image:
+      'https://drive.google.com/uc?id=1HOga9ish5GSN2X5N3le093THaYBo4dpt&export=view',
+    video: 'https://www.youtube.com/embed/fAlVoHl7RVI',
+  },
+  {
+    asignature: 'Computación',
+    unit: 'Unidad 1',
+    name: 'Partes de la computadora',
+    image:
+      'https://drive.google.com/uc?id=1h76T2Ks65KycFne6r00uy883mm2cPSGv&export=view',
+    video: 'https://www.youtube.com/embed/s-FFvTiIlbU',
+  },
+  {
+    asignature: 'Computación',
+    unit: 'Unidad 1',
+    name: 'cuidados del equipo',
+    image:
+      'https://drive.google.com/uc?id=1L-GAGBMwHWAQLk1NV0H_Z0TlOyGPntPE&export=view',
+    video: 'https://www.youtube.com/embed/y6z0Tq1a8fs',
+  },
+  {
+    asignature: 'Computación',
+    unit: 'Unidad 1',
+    name: 'cables y enchufe',
+    image:
+      'https://drive.google.com/uc?id=1bm7jmhz89mSX2EkBXmaviqTJZAD04o5y&export=view',
+    video: 'https://www.youtube.com/embed/SzboYEaDceU',
   },
   {
     asignature: 'Computación',
