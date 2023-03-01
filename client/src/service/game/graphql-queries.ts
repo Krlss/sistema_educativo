@@ -21,13 +21,13 @@ export const QUESTIONS_BY_UNIT = gql`
 `
 
 export const QUESTIONS_BY_ASIGNATURE = gql`
-  query questionsByAsignature($asignatureId: String!) {
-    getRandomQuestionsByAsignatures(asignatureId: $asignatureId) {
+  query QuestionsByAsignature($asignatureId: String!, $userId: String!) {
+    questionsByAsignature(asignatureId: $asignatureId, userId: $userId) {
       id
-      options
       title
-      type
       subtitle
+      type
+      options
     }
   }
 `

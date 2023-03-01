@@ -130,7 +130,7 @@ const DarPruebaDiv = ({
   title: string
 }) => {
   return (
-    <div className="px-3 py-2 font-bold text-sm rounded md:mr-4 mx-4 md:mb-0 mb-4 text-center shadow-md bg-yellow-page hover:bg-yellow2-page text-white cursor-pointer md:max-w-[110px] w-full">
+    <div className="px-3 py-2 font-bold text-sm rounded md:mr-4 mx-4 md:mb-0 mb-4 text-center shadow-md bg-yellow-page hover:bg-yellow2-page cursor-pointer md:max-w-[110px] w-full">
       <Link to={`/asignatura/${asignature}/unidad/${unitId}/prueba`}>
         {title}
       </Link>

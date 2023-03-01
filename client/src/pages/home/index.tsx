@@ -4,8 +4,10 @@ import { PROGRESS } from '../../types/ContextUser'
 import useHomePage from '../../hooks/useHomePage'
 import GeneralContext from '../../contexts/context'
 import { useContext } from 'react'
+import { getDataSession } from '../../utils/dataSession'
 const Home = () => {
   const { user } = useContext(GeneralContext)
+  const questionsId = getDataSession('questionsId')
 
   return (
     <div className={`${!user.progress.length && 'h-screen'}`}>
@@ -45,7 +47,14 @@ const Home = () => {
                 progress={p.percentage || 0}
                 to={p.id}
                 StringImage={p.image}
-                canGiveExam={false}
+                canGiveExam={p.percentage === 100}
+                titleButton={`${
+                  p.id === questionsId?.asignatureId
+                    ? 'Continuar'
+                    : 'Iniciar prueba'
+                }`}
+                asignatureId={p.id}
+                nota={p.nota}
               />
             )
           })}

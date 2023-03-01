@@ -45,6 +45,34 @@ export const useQualifyForUnit = () => {
   }
 }
 
+export const useQualifyForAsignature = () => {
+  const [QualifyForAsignature] = useMutation(QUALIFY_FOR_UNIT)
+
+  const handlerQualifyForAsignature = (props: {
+    userId: string
+    asignatureId: string
+    questions: string
+    nota: number
+  }) => {
+    QualifyForAsignature({
+      variables: {
+        input: {
+          ...props,
+          unitId: ''
+        }
+      },
+      onCompleted() {
+        console.log('Completed')
+      },
+      refetchQueries: [GET_USER_PROGRESS]
+    })
+  }
+
+  return {
+    handlerQualifyForAsignature
+  }
+}
+
 export const useQuestionsByUnit = () => {
   const [getRandomQuestions] =
     useLazyQuery<getRandomQuestionsProps>(QUESTIONS_BY_UNIT)
@@ -90,6 +118,7 @@ export const useQuestionByAsignature = () => {
   const [getRandomQuestionsByAsignatures] =
     useLazyQuery<getRandomQuestionsByAsignatures>(QUESTIONS_BY_ASIGNATURE)
   const navigate = useNavigate()
+  const rt = getDataSession('rt')
 
   const handleGetRandomQuestionsByAsignature = ({
     asignatureId,
@@ -98,20 +127,19 @@ export const useQuestionByAsignature = () => {
     asignatureId: string
     setDataGame: React.Dispatch<React.SetStateAction<question[]>>
   }) => {
+    const user = jwtDecode<USER>(rt)
     setDataTest('questionsId', {
       asignatureId
     })
     getRandomQuestionsByAsignatures({
       variables: {
-        asignatureId
+        asignatureId,
+        userId: user.id
       },
       onCompleted(data) {
-        if (data.getRandomQuestionsByAsignatures) {
-          setDataQuestionLocalStore(
-            'dataGame',
-            data.getRandomQuestionsByAsignatures
-          )
-          setDataGame(data.getRandomQuestionsByAsignatures)
+        if (data.questionsByAsignature) {
+          setDataQuestionLocalStore('dataGame', data.questionsByAsignature)
+          setDataGame(data.questionsByAsignature)
         }
       },
       onError() {

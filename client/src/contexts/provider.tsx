@@ -25,6 +25,10 @@ import Swal from 'sweetalert2'
 import { question } from '../types/game'
 import jwtDecode from 'jwt-decode'
 import { useLocation } from 'react-router-dom'
+import {
+  useQualifyForAsignature,
+  useQualifyForUnit
+} from '../service/game/custom-hook'
 
 const GeneralProvider = (props: any) => {
   const [user, dispatchUser] = useReducer(UserReducer, InitialStateUser)
@@ -33,6 +37,8 @@ const GeneralProvider = (props: any) => {
   const { handleGetUserProgress } = useGetUserProgress({ dispatchUser })
   const { handleLogout } = useLogout()
   const location = useLocation()
+  const { handlerQualifyForUnit } = useQualifyForUnit()
+  const { handlerQualifyForAsignature } = useQualifyForAsignature()
 
   useEffect(() => {
     const initialTimeStamp = getDataSession('initialTimeStamp')
@@ -118,6 +124,7 @@ const GeneralProvider = (props: any) => {
   }
 
   const lessTime = () => {
+    const questionsId = getDataSession('questionsId')
     const initialTimeStamp = getDataSession('initialTimeStamp') as Date | null
     if (initialTimeStamp) {
       const diff = diffMinutes(initialTimeStamp)
@@ -134,6 +141,22 @@ const GeneralProvider = (props: any) => {
           text: 'Tus respuestas serán guardadas',
           icon: 'warning'
         }).then(() => {
+          if (questionsId?.asignatureId && questionsId?.unitId) {
+            handlerQualifyForUnit({
+              questions: JSON.stringify(gameState.questions),
+              unitId: questionsId?.unitId,
+              asignatureId: questionsId?.asignatureId,
+              userId: user.id,
+              nota: gameState.qualification
+            })
+          } else if (questionsId?.asignatureId && !questionsId?.unitId) {
+            handlerQualifyForAsignature({
+              questions: JSON.stringify(gameState.questions),
+              asignatureId: questionsId?.asignatureId,
+              userId: user.id,
+              nota: gameState.qualification
+            })
+          }
           resetGame()
         })
       }

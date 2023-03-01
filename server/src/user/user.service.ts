@@ -439,13 +439,20 @@ export class UserService {
           const unitsnumber = periodCourseAsignatureUnits.length;
 
           const topicsfinished = periodCourseAsignatureUnits.reduce(
-            (acc, { periodCourseAsignatureUnitsTopic }) =>
-              acc +
-              periodCourseAsignatureUnitsTopic.reduce((acc, pcautopic) => {
-                if (topics.find((topic) => pcautopic.topicId === topic.id))
-                  return acc + 1;
-                return acc;
-              }, 0),
+            (acc, { periodCourseAsignatureUnitsTopic, id, progress }) => {
+              const progressFind = progress.find(
+                (p) => p.periodCourseAsignatureUnitId === id,
+              );
+              if (progressFind?.finished) acc += 1;
+              return (
+                acc +
+                periodCourseAsignatureUnitsTopic.reduce((acc, pcautopic) => {
+                  if (topics.find((topic) => pcautopic.topicId === topic.id))
+                    return acc + 1;
+                  return acc;
+                }, 0)
+              );
+            },
             0,
           );
 
@@ -460,16 +467,15 @@ export class UserService {
             id_asignature: asignatureId,
             unit: periodCourseAsignatureUnits.map(
               ({ unitId, unit, progress, id }) => {
+                const progressFind = progress.find(
+                  (p) => p.periodCourseAsignatureUnitId === id,
+                );
                 return {
                   id: unitId,
                   name: unit.name,
                   id_asignature: asignatureId,
-                  nota: progress.find(
-                    (p) => p.periodCourseAsignatureUnitId === id,
-                  )?.nota,
-                  finished: progress.find(
-                    (p) => p.periodCourseAsignatureUnitId === id,
-                  )?.finished,
+                  nota: progressFind?.nota,
+                  finished: progressFind?.finished,
                   topic: topics
                     .map(({ periodsCoursesAsignaturesUnitsTopics, id }) => {
                       const { topic, topicId, periodCourseAsignatureUnit } =

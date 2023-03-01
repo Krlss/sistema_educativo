@@ -234,7 +234,7 @@ export interface getRandomQuestionsProps {
 }
 
 export interface getRandomQuestionsByAsignatures {
-  getRandomQuestionsByAsignatures: question[]
+  questionsByAsignature: question[]
 }
 
 export interface operationBaseN_ {

@@ -49,7 +49,8 @@ import { useParams, useNavigate } from 'react-router-dom'
 import {
   useQualifyForUnit,
   useQuestionsByUnit,
-  useQuestionByAsignature
+  useQuestionByAsignature,
+  useQualifyForAsignature
 } from '../service/game/custom-hook'
 
 const useGame = () => {
@@ -72,6 +73,7 @@ const useGame = () => {
 
   const navigate = useNavigate()
   const { handlerQualifyForUnit } = useQualifyForUnit()
+  const { handlerQualifyForAsignature } = useQualifyForAsignature()
   const { handleGetRandomQuestionsByUnit } = useQuestionsByUnit()
   const { handleGetRandomQuestionsByAsignature } = useQuestionByAsignature()
 
@@ -83,7 +85,9 @@ const useGame = () => {
     .find(item => item.id === asignatureId)
     ?.unit?.find(u => u.id === unitId)
 
-  if (unitFind?.finished) {
+  const asignatureFind = user?.progress.find(item => item.id === asignatureId)
+
+  if (unitId && unitFind?.finished) {
     navigate(`/asignatura/${asignatureId}`)
     Swal.fire({
       title: 'Unidad terminada',
@@ -91,12 +95,30 @@ const useGame = () => {
       icon: 'info'
     })
   }
-  if (!unitFind) {
+  if (unitId && !unitFind) {
     navigate('/')
     Swal.fire({
       title: 'Unidad no encontrada',
       text: 'No se ha encontrado la unidad, por favor selecciona otra unidad',
       icon: 'error'
+    })
+  }
+
+  if (asignatureId && !asignatureFind) {
+    navigate('/')
+    Swal.fire({
+      title: 'Asignatura no encontrada',
+      text: 'No se ha encontrado la asignatura, por favor selecciona otra asignatura',
+      icon: 'error'
+    })
+  }
+
+  if (asignatureId && asignatureFind?.nota) {
+    navigate(`/asignatura/${asignatureId}`)
+    Swal.fire({
+      title: 'Asignatura terminada',
+      text: 'Ya has terminado esta asignatura, puedes continuar con otra asignatura',
+      icon: 'info'
     })
   }
 
@@ -346,6 +368,15 @@ const useGame = () => {
           handlerQualifyForUnit({
             questions: JSON.stringify(gameState.questions),
             unitId,
+            asignatureId,
+            userId: user.id,
+            nota: gameState.qualification
+          })
+        }
+
+        if (asignatureId && !unitId) {
+          handlerQualifyForAsignature({
+            questions: JSON.stringify(gameState.questions),
             asignatureId,
             userId: user.id,
             nota: gameState.qualification

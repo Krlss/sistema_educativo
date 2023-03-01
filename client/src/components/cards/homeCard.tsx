@@ -1,5 +1,5 @@
 import ProgressBar from '../progress/progressbar'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 interface Props {
   progress: number
@@ -8,6 +8,9 @@ interface Props {
   numberCourse: number
   to: string
   canGiveExam: boolean
+  titleButton?: string
+  asignatureId?: string
+  nota?: number
 }
 
 const HomeCard = ({
@@ -16,10 +19,13 @@ const HomeCard = ({
   numberCourse,
   progress,
   to,
-  canGiveExam
+  canGiveExam,
+  titleButton,
+  asignatureId,
+  nota
 }: Props) => {
   return (
-    <div className="w-full lg:max-w-3xl">
+    <div className="w-full lg:max-w-4xl">
       <NavLink to={`/asignatura/${to}`}>
         <div className="rounded-md p-4 shadow cursor-pointer hover:shadow-md bg-slate-50 hover:bg-white">
           <div className="flex items-center justify-between">
@@ -38,11 +44,18 @@ const HomeCard = ({
                   </h3>
                   <p className="text-gray-500 text-sm">Curso {numberCourse}</p>
                 </div>
-                {canGiveExam && (
-                  <div className="bg-yellow-page p-2 px-4 rounded-md font-medium">
-                    Dar Prueba
+                {canGiveExam && !nota && nota != 0 && (
+                  <div className="px-3 py-2 font-bold text-sm rounded mb-2 text-center shadow-md bg-yellow-page hover:bg-yellow2-page cursor-pointer md:max-w-[110px] w-full">
+                    <Link to={`/asignatura/${asignatureId}/prueba`}>
+                      {titleButton}
+                    </Link>
                   </div>
                 )}
+                {nota ? (
+                  <div className="px-3 py-2 font-bold text-sm rounded mb-2 text-center shadow-md bg-green-page cursor-default text-white">
+                    Calificación: {nota.toFixed(2) || 0}
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>

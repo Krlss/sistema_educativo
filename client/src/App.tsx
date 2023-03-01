@@ -52,6 +52,7 @@ const App = () => {
             path="/asignatura/:asignatureId/unidad/:unitId/prueba"
             element={<Game />}
           />
+          <Route path="/asignatura/:asignatureId/prueba" element={<Game />} />
           {isAdminOrTeacher && (
             <Route path="/dashboard">
               {isAdmin ? (
