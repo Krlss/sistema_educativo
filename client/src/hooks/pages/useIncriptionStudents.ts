@@ -57,6 +57,7 @@ export const useInscriptionStudent = () => {
     data: { students: Student[] }
     loading: boolean
   }
+  console.log(dataStudents)
 
   useEffect(() => {
     resetIssSelectedPeriod()
@@ -127,6 +128,7 @@ export const useInscriptionStudent = () => {
   }
 
   const getStudentsIPC = () => {
+    console.log(dataStudents)
     return dataStudents?.students.filter(
       s => s.progress?.filter(pr => pr?.pca?.pci === selectedPC).length
     )
@@ -138,6 +140,8 @@ export const useInscriptionStudent = () => {
       s => !s.progress?.some(pr => pr?.pca?.pc?.p === selectedP)
     )
   }
+
+  console.log(studentTable)
 
   return {
     refSelectUser,
