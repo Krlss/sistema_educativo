@@ -282,102 +282,62 @@ export const topics = [
   {
     asignature: 'Inglés',
     unit: 'Unidad 1',
-    name: 'What’s your favorite class?',
+    name: 'Colores',
   },
   {
     asignature: 'Inglés',
     unit: 'Unidad 1',
-    name: 'Where’s the gym?.',
+    name: 'Números del 1 al 30',
   },
   {
     asignature: 'Inglés',
     unit: 'Unidad 1',
-    name: 'Phonics: bl, br; cl, cr;',
-  },
-  {
-    asignature: 'Inglés',
-    unit: 'Unidad 1',
-    name: 'fl , fr; dr, tr .',
+    name: 'Presentación',
   },
   {
     asignature: 'Inglés',
     unit: 'Unidad 2',
-    name: 'What do you do in the library?',
+    name: 'Frutas',
   },
   {
     asignature: 'Inglés',
     unit: 'Unidad 2',
-    name: 'Review',
-  },
-  {
-    asignature: 'Inglés',
-    unit: 'Unidad 2',
-    name: 'Learn more',
-  },
-  {
-    asignature: 'Inglés',
-    unit: 'Unidad 2',
-    name: 'Phonics: gl, gr; pl, pr;',
-  },
-  {
-    asignature: 'Inglés',
-    unit: 'Unidad 2',
-    name: 'sc, sk; sl, sp',
+    name: 'El Alfabeto en ingles',
   },
   {
     asignature: 'Inglés',
     unit: 'Unidad 3',
-    name: 'Let’s paint!',
+    name: 'Materias en ingles',
   },
   {
     asignature: 'Inglés',
     unit: 'Unidad 3',
-    name: 'What do you want to eat?',
-  },
-  {
-    asignature: 'Inglés',
-    unit: 'Unidad 3',
-    name: 'Phonics: sm, sn; st;',
-  },
-  {
-    asignature: 'Inglés',
-    unit: 'Unidad 3',
-    name: 'sw, tw; scr, str',
+    name: 'Partes de la casas en ingles',
   },
   {
     asignature: 'Inglés',
     unit: 'Unidad 4',
-    name: 'Can you play the piano?',
+    name: 'Árbol familiar:',
   },
   {
     asignature: 'Inglés',
     unit: 'Unidad 4',
-    name: 'Review',
-  },
-  {
-    asignature: 'Inglés',
-    unit: 'Unidad 4',
-    name: 'Learn more',
-  },
-  {
-    asignature: 'Inglés',
-    unit: 'Unidad 4',
-    name: 'Phonics: spl, spr, squ; ct, ft; nd, nt; nk, mp',
+    name: 'Verbo to be',
   },
   {
     asignature: 'Inglés',
     unit: 'Unidad 5',
-    name: 'I like to jump!',
+    name: 'Animales en ingles',
   },
   {
     asignature: 'Inglés',
     unit: 'Unidad 5',
-    name: 'I hurt my nose',
+    name: 'Días de la semana',
   },
   {
     asignature: 'Inglés',
     unit: 'Unidad 5',
-    name: 'Phonics: ang, ing, ong, ung; ld, lf, lk, lm, lp, lt; le, el.',
+    name: 'Meses del año',
   },
   {
     asignature: 'Computación',
@@ -398,7 +358,7 @@ export const topics = [
   {
     asignature: 'Computación',
     unit: 'Unidad 1',
-    name: 'cuidados del equipo',
+    name: 'Cuidados del equipo',
     image:
       'https://drive.google.com/uc?id=1L-GAGBMwHWAQLk1NV0H_Z0TlOyGPntPE&export=view',
     video: 'https://www.youtube.com/embed/y6z0Tq1a8fs',
@@ -406,7 +366,7 @@ export const topics = [
   {
     asignature: 'Computación',
     unit: 'Unidad 1',
-    name: 'cables y enchufe',
+    name: 'Cables y enchufe',
     image:
       'https://drive.google.com/uc?id=1bm7jmhz89mSX2EkBXmaviqTJZAD04o5y&export=view',
     video: 'https://www.youtube.com/embed/SzboYEaDceU',
@@ -415,30 +375,48 @@ export const topics = [
     asignature: 'Computación',
     unit: 'Unidad 2',
     name: 'Periféricos de entrada y salidas',
+    image:
+      'https://drive.google.com/uc?id=1p3FpW_NBF0E8YyAV3oOvIAGgigaj6ZrS&export=view',
+    video: 'https://www.youtube.com/embed/unyZ8yNpBV8',
   },
   {
     asignature: 'Computación',
     unit: 'Unidad 2',
     name: 'Software y hardware',
+    image:
+      'https://drive.google.com/uc?id=1jZyhZ7CCalIUf9obB0Qpq9GoE8lV-IrI&export=view',
+    video: 'https://www.youtube.com/embed/zWRZ07RyeaQ',
   },
   {
     asignature: 'Computación',
     unit: 'Unidad 3',
     name: 'Que es Windows',
+    image:
+      'https://drive.google.com/uc?id=1H_My8o6hwk46NLl_0ajVxnZ_juSo-FTG&export=view',
+    video: 'https://www.youtube.com/embed/28--3mSCdPs',
   },
   {
     asignature: 'Computación',
     unit: 'Unidad 3',
     name: 'Explorador de Windows',
+    image:
+      'https://drive.google.com/uc?id=1hUiVpme7BZL4RrNNX5cVYVakvuxO8b6Y&export=view',
+    video: 'https://www.youtube.com/embed/j3iiOEnNBcA',
   },
   {
     asignature: 'Computación',
     unit: 'Unidad 4',
     name: 'Herramientas de entorno de Windows',
+    image:
+      'https://drive.google.com/uc?id=1YCKS73yyTvbhK_sEPnwUjBGoJoMa9uwF&export=view',
+    video: 'https://www.youtube.com/embed/3D-xKYooByE',
   },
   {
     asignature: 'Computación',
     unit: 'Unidad 5',
     name: 'Sistemas multimedia',
+    image:
+      'https://drive.google.com/uc?id=1QxTjcgzZNNKTYeatmj_fUb1XqySen9c1&export=view',
+    video: 'https://www.youtube.com/embed/hzjkGkkRpOQ',
   },
 ];
