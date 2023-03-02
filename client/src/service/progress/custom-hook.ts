@@ -26,7 +26,8 @@ export const useGetUserProgress = ({
         type: 'setUserProgress',
         payload: []
       })
-    }
+    },
+    fetchPolicy: 'no-cache'
   })
 
   const handleGetUserProgress = (props: { userId: string }) => {

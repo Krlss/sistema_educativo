@@ -9,6 +9,7 @@ const CoursePresentation = () => {
   const { asignature, asignatureId, colors } = useGetAsignature()
   const { user, gameState } = useContext(GeneralContext)
   const questionsId = getDataSession('questionsId')
+  const unitFind = user?.progress?.find(p => p.id === asignatureId) as PROGRESS
 
   return (
     <div className="px-2">
@@ -23,10 +24,6 @@ const CoursePresentation = () => {
         </div>
         <div className="mx-auto max-w-5xl pb-20 w-full">
           {asignature?.units.map(({ id, name, topics, testActive }, index) => {
-            const unitFind = user?.progress?.find(p =>
-              p.unit?.find(u => u.id === id)
-            ) as PROGRESS
-
             /**
              * Número de temas completados
              */
@@ -43,9 +40,7 @@ const CoursePresentation = () => {
             const equalsCompleted =
               asignature.units[index].topics.length === isCompleted
 
-            const isAsignature = user.progress.find(p => p.id === asignatureId)
-
-            const isUnit = isAsignature?.unit?.find(u => u.id === id)
+            const isUnit = unitFind?.unit?.find(u => u.id === id)
 
             return (
               <div

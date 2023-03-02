@@ -45,7 +45,7 @@ const HomeCard = ({
                   <p className="text-gray-500 text-sm">Curso {numberCourse}</p>
                 </div>
                 {canGiveExam && !nota && nota != 0 && (
-                  <div className="px-3 py-2 font-bold text-sm rounded mb-2 text-center shadow-md bg-yellow-page hover:bg-yellow2-page cursor-pointer md:max-w-[110px] w-full">
+                  <div className="px-3 py-2 font-bold text-sm rounded mb-2 text-center shadow-md bg-yellow-page hover:bg-yellow2-page cursor-pointer sm:max-w-[110px] w-full">
                     <Link to={`/asignatura/${asignatureId}/prueba`}>
                       {titleButton}
                     </Link>
