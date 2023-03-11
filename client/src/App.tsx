@@ -25,6 +25,7 @@ const App = () => {
   const { config, isThisRol } = useContext(GeneralContext)
   const isAdmin = isThisRol(['admin'])
   const isAdminOrTeacher = isThisRol(['admin', 'teacher'])
+
   return (
     <>
       <Routes>
@@ -44,10 +45,7 @@ const App = () => {
             path="/asignatura/:asignatureId/unidad/:unitId/tema/:topicId"
             element={<ClassPresentation />}
           />
-          {/* <Route
-            path="/aaaaaaaaaaaaaaaaaaaaaa"
-            element={<DragAndDropChooseText {...data} />}
-          /> */}
+          {/* <Route path="/a" element={<OrderOneDigitNumbers {...data} />} /> */}
           <Route
             path="/asignatura/:asignatureId/unidad/:unitId/prueba"
             element={<Game />}

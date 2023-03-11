@@ -33,6 +33,8 @@ export enum QuestionType {
   simple_fraction_simplification = 'simple_fraction_simplification',
   simple_fraction_decimal = 'simple_fraction_decimal',
   image_write_answer = 'image_write_answer',
+  listen_and_choose = 'listen_and_choose',
+  spell_word = 'spell_word',
 }
 
 registerEnumType(QuestionType, {

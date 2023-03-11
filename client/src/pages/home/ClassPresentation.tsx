@@ -29,7 +29,12 @@ import {
   PositionalMult,
   OperationBaseN,
   SimpleMulti,
-  OperationSimple
+  OperationSimple,
+  ListenAndChoose,
+  SpellWord,
+  ImageWriteAnswer,
+  FractionDecimal,
+  SimpleFractionSimplification
 } from '../../components/exercise'
 import { stripquotes } from '../../utils'
 import { writePointsCoordinatePlane_ } from '../../types/game'
@@ -46,6 +51,14 @@ const ClassPresentation = () => {
     const array: ReactNode[] = []
     dataGame.forEach((item, index) => {
       switch (item.type) {
+        case 'image_write_answer':
+          return array.push(<ImageWriteAnswer key={index} {...item} />)
+        case 'simple_fraction_decimal':
+          return array.push(<FractionDecimal key={index} {...item} />)
+        case 'simple_fraction_simplification':
+          return array.push(
+            <SimpleFractionSimplification key={index} {...item} />
+          )
         case 'base10_descomposition':
           return array.push(<Base10Descomposition key={index} {...item} />)
         case 'choose_an_option':
@@ -76,6 +89,11 @@ const ClassPresentation = () => {
 
         case 'listen_text':
           return array.push(<ListenAndWrite key={index} {...item} />)
+        case 'listen_and_choose':
+          return array.push(<ListenAndChoose key={index} {...item} />)
+
+        case 'spell_word':
+          return array.push(<SpellWord key={index} {...item} />)
 
         case 'order':
           return array.push(<OrderOneDigitNumbers key={index} {...item} />)

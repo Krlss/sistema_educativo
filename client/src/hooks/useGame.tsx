@@ -32,7 +32,9 @@ import {
   OperationSimple,
   SimpleFractionSimplification,
   FractionDecimal,
-  ImageWriteAnswer
+  ImageWriteAnswer,
+  ListenAndChoose,
+  SpellWord
 } from '../components/exercise'
 import { getQuadrant } from '../utils/CartesianCoordinate'
 import { writePointsCoordinatePlane_, question } from '../types/game'
@@ -192,6 +194,13 @@ const useGame = () => {
           return array.push(
             <ListenAndWrite key={index} {...item} index={index} />
           )
+        case 'listen_and_choose':
+          return array.push(
+            <ListenAndChoose key={index} {...item} index={index} />
+          )
+
+        case 'spell_word':
+          return array.push(<SpellWord key={index} {...item} index={index} />)
 
         case 'order':
           return array.push(

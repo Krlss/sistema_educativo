@@ -8,12 +8,12 @@ import { question } from '../types/game'
 
 const useOrderOneDigitNumbers = (props: question) => {
   const options_ = stripquotes(props.options) as {
-    value: string
+    value: string[]
+    image?: string
   }
   const { setQuestion, gameState, updatedQuestion } = useContext(GeneralContext)
   const colors = getRamdonArrayColors(options_.value.length)
-  const array = options_.value.split('')
-  const newOptions = AddKeyToArrayItems(shuffleArray(array)).map(
+  const newOptions = AddKeyToArrayItems(shuffleArray(options_.value)).map(
     (option, index) => {
       return {
         ...option,
@@ -39,7 +39,7 @@ const useOrderOneDigitNumbers = (props: question) => {
 
     const newQuestion = {
       id: props.id,
-      nota: options_.value === response ? 1 : 0,
+      nota: options_.value.join('') == response ? 1 : 0,
       isDone: true,
       responseUser: JSON.stringify({ response })
     }
@@ -59,7 +59,8 @@ const useOrderOneDigitNumbers = (props: question) => {
     options,
     value: options_.value,
     onDragEnd,
-    gameState
+    gameState,
+    image: options_.image
   }
 }
 

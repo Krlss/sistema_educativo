@@ -52,7 +52,7 @@ const HomeCard = ({
                   </div>
                 )}
                 {nota ? (
-                  <div className="px-3 py-2 font-bold text-sm rounded mb-2 text-center shadow-md bg-green-page cursor-default text-white">
+                  <div className="px-3 py-2 font-bold text-sm rounded mb-2 text-center bg-green-page cursor-default text-white">
                     Calificación: {nota.toFixed(2) || 0}
                   </div>
                 ) : null}

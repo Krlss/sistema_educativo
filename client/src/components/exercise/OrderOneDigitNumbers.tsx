@@ -6,7 +6,7 @@ import ContentDroppable from '../dragAndDrop/contentDroppable'
 import useOrderOneDigitNumbers from '../../hooks/useOrderOneDigitNumbers'
 
 const OrderOneDigitNumbers = (props: question) => {
-  const { onDragEnd, options, value, gameState } =
+  const { onDragEnd, options, value, gameState, image } =
     useOrderOneDigitNumbers(props)
 
   return (
@@ -16,10 +16,12 @@ const OrderOneDigitNumbers = (props: question) => {
         index={props.index}
         subtitle={props.subtitle}
       />
+      {image && (
+        <img src={image} alt="exercise" className="max-w-[15rem] w-full mb-4" />
+      )}
       <DragDropContext onDragEnd={onDragEnd}>
         <ContentDroppable direction="horizontal" droppableId="items">
           {options.map((item, index) => {
-            const arrayValue = value.split('')
             return (
               <TextDraggable
                 key={item.key}
@@ -27,16 +29,16 @@ const OrderOneDigitNumbers = (props: question) => {
                 index={index}
                 value={item.value}
                 color={
-                  gameState.next && arrayValue[index] === item.value
+                  gameState.next && value[index] === item.value
                     ? '#2563EB'
-                    : gameState.next && arrayValue[index] !== item.value
+                    : gameState.next && value[index] !== item.value
                     ? '#CC2525'
                     : item.color
                 }
                 textColor={
-                  gameState.next && arrayValue[index] === item.value
+                  gameState.next && value[index] === item.value
                     ? 'white'
-                    : gameState.next && arrayValue[index] !== item.value
+                    : gameState.next && value[index] !== item.value
                     ? 'black'
                     : 'black'
                 }

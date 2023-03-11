@@ -49,7 +49,7 @@ const ResponseTextDroppable = ({
           <div
             className={`h-10 ${
               !response[index] ? 'border border-gray-400' : ''
-            } rounded min-w-[120px] ${snapshot.isDraggingOver && 'bg-white'}`}
+            } rounded w-[150px] ${snapshot.isDraggingOver && 'bg-white'}`}
             {...provided.droppableProps}
             ref={provided.innerRef}>
             {response[index] && (

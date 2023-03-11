@@ -12,6 +12,7 @@ interface Ioptions {
   value?: string | number
   isCorrect: boolean
   response?: string
+  image?: string
 }
 
 const ListenAndWrite = (props: question) => {
@@ -25,7 +26,8 @@ const ListenAndWrite = (props: question) => {
             text: item.text,
             value: item.text,
             isCorrect: false,
-            response: undefined
+            response: undefined,
+            image: item.image
           }
         })
   )
@@ -95,6 +97,22 @@ const ListenAndWrite = (props: question) => {
         <div
           key={index}
           className="flex items-center justify-center gap-2 my-2  w-full">
+          {option.image && <img className="w-16 h-16" src={option.image} />}
+          <button
+            className="flex items-center justify-center"
+            disabled={gameState.next}
+            onClick={() => {
+              const msg = new SpeechSynthesisUtterance(option.text)
+              window.speechSynthesis.speak(msg)
+            }}>
+            <Icon
+              viewBox="64 64"
+              className="text-gray-600 hover:text-gray-800"
+              width={50}
+              height={50}>
+              <SpeakerIcon />
+            </Icon>
+          </button>
           <input
             disabled={gameState.next}
             className={`p-2 rounded outline-none w-full ${
@@ -108,25 +126,6 @@ const ListenAndWrite = (props: question) => {
               if (!gameState.next) handleChange(e, index)
             }}
           />
-          <button
-            className="flex items-center justify-center"
-            disabled={gameState.next}
-            onClick={() => {
-              const msg = new SpeechSynthesisUtterance(option.text)
-              window.speechSynthesis.speak(msg)
-            }}>
-            <Icon
-              viewBox="64 64"
-              className="text-gray-600"
-              width={20}
-              height={20}
-              style={{
-                // rotate: '90deg',
-                transform: 'rotate(180deg)'
-              }}>
-              <SpeakerIcon />
-            </Icon>
-          </button>
         </div>
       ))}
     </>

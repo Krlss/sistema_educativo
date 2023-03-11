@@ -65,6 +65,8 @@ enum QuestionType {
   simple_fraction_simplification
   simple_fraction_decimal
   image_write_answer
+  listen_and_choose
+  spell_word
 }
 
 enum QuestionDifficulty {

@@ -31,6 +31,8 @@ export enum QuestionType {
   simple_fraction_simplification = 'simple_fraction_simplification',
   simple_fraction_decimal = 'simple_fraction_decimal',
   image_write_answer = 'image_write_answer',
+  listen_and_choose = 'listen_and_choose',
+  spell_word = 'spell_word',
 }
 
 interface Question {
@@ -343,7 +345,7 @@ export const questions: Question[] = [
     topic: 'Valor posicional',
   },
   {
-    options: '{"value":"4689"}',
+    options: '{"value":["4","6","8","9"]}',
     title:
       'Arregla los dígitos 4, 9,8 y 6 para crear el número de cuatros dígitos más pequeño posible.',
     type: QuestionType.order,
@@ -407,7 +409,7 @@ export const questions: Question[] = [
     topic: 'Valor posicional',
   },
   {
-    options: '{"value":"9864"}',
+    options: '{"value":["9","8","6","4"]}',
     title:
       'Arregla los dígitos 6, 2, 9 y 5 para crear el número de cuatro dígitos más alto posible',
     type: QuestionType.order,
@@ -4930,13 +4932,402 @@ export const questions: Question[] = [
     unit: 'Unidad 5',
     topic: 'Redondear decimales',
   },
-  /* {
+  {
     options:
-      '[{"value":"MONITOR","text":"MONITOR","image":"https://drive.google.com/uc?id=1pi_nriGF9w5sJrFIMlFCQHupVDlMfB6l&export=view"},{"value":"TECLADO","text":"TECLADO","image":"https://drive.google.com/uc?id=1lTe2Se_GJQtfLq2439JUwkUvIcNdFNL6&export=view"},{"value":"CPU","text":"CPU","image":"https://drive.google.com/uc?id=16JAe7YlIgtWJdEB1pHRKDyN-RGVq4Qrp&export=view"}]',
-    title: 'Arrastre la respuesta correcta según las partes de un computador:',
-    type: QuestionType.drag_and_drop_text,
-    asignature: 'Computación',
+      '{"value":["r","e","d"],"image":"https://drive.google.com/uc?id=1lFb-FqEvJLhl-pi89RurNl5NQjk6c1Vp&export=view"}',
+    title:
+      'Decipher what is the color in English according to the image, order the letters (descifrar cual es el color en ingles segun la IMAGEN ordene las Letras)',
+    type: QuestionType.order,
+    asignature: 'Inglés',
     unit: 'Unidad 1',
-    topic: 'Redondear decimales',
-  }, */
+    topic: 'Presentación',
+  },
+  {
+    options:
+      '{"value":["g","r","e","e","n"],"image":"https://drive.google.com/uc?id=1NLNa_v94C-vVpdvlCSALWch7SrPX84V-&export=view"}',
+    title:
+      'Decipher what is the color in English according to the image, order the letters (descifrar cual es el color en ingles segun la imagen ordene las letras)',
+    type: QuestionType.order,
+    asignature: 'Inglés',
+    unit: 'Unidad 1',
+    topic: 'Presentación',
+  },
+  {
+    options:
+      '{"value":["y","e","l","l","o","w"],"image":"https://drive.google.com/uc?id=1HON5px9trcqs64xt9QTlSTU3HXQ11cXM&export=view"}',
+    title:
+      'Decipher what is the color in English according to the image, order the letters (descifrar cual es el color en ingles segun la imagen ordene las letras)',
+    type: QuestionType.order,
+    asignature: 'Inglés',
+    unit: 'Unidad 1',
+    topic: 'Presentación',
+  },
+  {
+    options:
+      '{"value":["p","i","n","k"],"image":"https://drive.google.com/uc?id=1pzMyqQkX95rb1ciPlRRKoqxGpvGW3hpA&export=view"}',
+    title:
+      'Decipher what is the color in English according to the image, order the letters (descifrar cual es el color en ingles segun la imagen ordene las letras)',
+    type: QuestionType.order,
+    asignature: 'Inglés',
+    unit: 'Unidad 1',
+    topic: 'Presentación',
+  },
+  {
+    options:
+      '{"value":"orange","options":[{"image":"https://drive.google.com/uc?id=1jA9-0EjEb-Qf2PzAiRbEgehbHqCXws4i&export=view","value":true},{"image":"https://drive.google.com/uc?id=1tRkakc4Zeh6u6UIZqXEZ2PFJlXv-Jg1_&export=view","value":false}]}',
+    title:
+      'Listen to the color and choose the correct image (escucha el color y elije la imagen correcta)',
+    type: QuestionType.listen_and_choose,
+    asignature: 'Inglés',
+    unit: 'Unidad 1',
+    topic: 'Presentación',
+  },
+  {
+    options:
+      '{"value":"purple","options":[{"image":"https://drive.google.com/uc?id=1YBDkRm484SfrXHFiyJXAGDkvxT20Khry&export=view","value":true},{"image":"https://drive.google.com/uc?id=1i7ENmYJJS5aDiywwxGJEMWi-fvIEATi6&export=view","value":false}]}',
+    title:
+      'Listen to the color and choose the correct image (escucha el color y elije la imagen correcta)',
+    type: QuestionType.listen_and_choose,
+    asignature: 'Inglés',
+    unit: 'Unidad 1',
+    topic: 'Presentación',
+  },
+  {
+    options:
+      '{"value":"brown","options":[{"image":"https://drive.google.com/uc?id=184nWdBPfAXMRpHNrybfJCPPKUtFjfY96&export=view","value":true},{"image":"https://drive.google.com/uc?id=1QYuKVPrCIA3geBAFedFhlUEKgoXRnZxr&export=view","value":false}]}',
+    title:
+      'Listen to the color and choose the correct image (escucha el color y elije la imagen correcta)',
+    type: QuestionType.listen_and_choose,
+    asignature: 'Inglés',
+    unit: 'Unidad 1',
+    topic: 'Presentación',
+  },
+  {
+    options:
+      '[{"value":"Seven"},{"value":"Eleven","text":"Eleven","image":"https://drive.google.com/uc?id=11iqpDgJ7RV02L_fPT670F5DJcFShGdmR&export=view"},{"value":"Twenty seven","text":"Twenty seven","image":"https://drive.google.com/uc?id=1VvRdAiRP4KkDMr1t9_tCz0nuFdOqWBQ5&export=view"}]',
+    title:
+      'Drag the correct answer according to the numbers in English (Arrastre la respuesta correcta segun los numeros en ingles)',
+    type: QuestionType.drag_and_drop_text,
+    asignature: 'Inglés',
+    unit: 'Unidad 1',
+    topic: 'Números del 1 al 30',
+  },
+  {
+    options:
+      '[{"value":"Eight"},{"value":"Twenty six","text":"Twenty six","image":"https://drive.google.com/uc?id=1CjVn0pRUXVNbRebWQ-gtXHQl5ODdaHC2&export=view"},{"value":"Twelve","text":"Twelve","image":"https://drive.google.com/uc?id=1yOkGGwmSgQuf-CDbpUH91TXnR4g3hjNl&export=view"}]',
+    title:
+      'Drag the correct answer according to the numbers in English (Arrastre la respuesta correcta segun los numeros en ingles)',
+    type: QuestionType.drag_and_drop_text,
+    asignature: 'Inglés',
+    unit: 'Unidad 1',
+    topic: 'Números del 1 al 30',
+  },
+  {
+    options:
+      '[{"value":"Twelve"},{"value":"Nine","text":"Twenty six","image":"https://drive.google.com/uc?id=1Vufyft5jAwcP8UiFbPB2MS-i7OjAmjBF&export=view"},{"value":"Four","text":"Twelve","image":"https://drive.google.com/uc?id=1YKMy6UEA0JPTvBUzvBldQ1XfcjyqCOtw&export=view"}]',
+    title:
+      'Drag the correct answer according to the numbers in English (Arrastre la respuesta correcta segun los numeros en ingles)',
+    type: QuestionType.drag_and_drop_text,
+    asignature: 'Inglés',
+    unit: 'Unidad 1',
+    topic: 'Números del 1 al 30',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Twenty two"},{"value":true,"text":"Twenty one"},{"value":false,"text":"Twenty nine"}],"urlDescription":"https://drive.google.com/uc?id=1wAJ-R4N_sWxDp_q3HtFDJiHBOnPIVOEI&export=view"}',
+    title:
+      'Choose the correct option according to the image (Elige la opción correcta según la imagen)',
+    type: QuestionType.choose_an_option,
+    asignature: 'Inglés',
+    unit: 'Unidad 1',
+    topic: 'Números del 1 al 30',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"One"},{"value":false,"text":"Nine"},{"value":true,"text":"Three"}],"urlDescription":"https://drive.google.com/uc?id=1lgGMjdSrQ7IhriTydJo0arNJLBjP9UXl&export=view"}',
+    title:
+      'Choose the correct option according to the image (Elige la opción correcta según la imagen)',
+    type: QuestionType.choose_an_option,
+    asignature: 'Inglés',
+    unit: 'Unidad 1',
+    topic: 'Números del 1 al 30',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Two"},{"value":false,"text":"Nine"},{"value":true,"text":"Five"}],"urlDescription":"https://drive.google.com/uc?id=18p67I0zp2ch3zfnn-i9whJ9WKf6FTZZe&export=view"}',
+    title:
+      'Choose the correct option according to the image (Elige la opción correcta según la imagen)',
+    type: QuestionType.choose_an_option,
+    asignature: 'Inglés',
+    unit: 'Unidad 1',
+    topic: 'Números del 1 al 30',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Good morning"},{"value":false,"text":"Good afternoon"},{"value":true,"text":"Good evening"}],"urlDescription":"https://drive.google.com/uc?id=1wIN2dSlKrxdVlQM62kOl_9Dzufqy34E-&export=view"}',
+    title:
+      'Choose the correct option according to the greetings in English taking into account the image. (elige la opción correcta según los saludos en ingles teniendo en cuenta la imagen)',
+    type: QuestionType.choose_an_option,
+    asignature: 'Inglés',
+    unit: 'Unidad 1',
+    topic: 'Números del 1 al 30',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"Good morning"},{"value":false,"text":"Good afternoon"},{"value":false,"text":"Good evening"}],"urlDescription":"https://drive.google.com/uc?id=1N-HZPCNOa6sIkYtGa1Z2J8eW1St6wWVw&export=view"}',
+    title:
+      'Choose the correct option according to the greetings in English taking into account the image. (elige la opción correcta según los saludos en ingles teniendo en cuenta la imagen)',
+    type: QuestionType.choose_an_option,
+    asignature: 'Inglés',
+    unit: 'Unidad 1',
+    topic: 'Colores',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Good morning"},{"value":true,"text":"Good afternoon"},{"value":false,"text":"Good evening"}],"urlDescription":"https://drive.google.com/uc?id=13IDIk1zSGXY2wTZG6KjTWt2X1rymuTy_&export=view"}',
+    title:
+      'Choose the correct option according to the greetings in English taking into account the image. (elige la opción correcta según los saludos en ingles teniendo en cuenta la imagen)',
+    type: QuestionType.choose_an_option,
+    asignature: 'Inglés',
+    unit: 'Unidad 1',
+    topic: 'Colores',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"MY last name is Chilan"},{"value":true,"text":"My name is Ninse"},{"value":false,"text":"I am from Portoviejo"}],"urlDescription":"https://drive.google.com/uc?id=1qKes1pN_LE6tSij43X4vOmnFXDkQPO9W&export=view"}',
+    title:
+      'Answer the following question according to the presentation in English (Responda la siguiente pregunta segun la presentacion en ingles)',
+    type: QuestionType.choose_an_option,
+    asignature: 'Inglés',
+    unit: 'Unidad 1',
+    topic: 'Colores',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"MY last name is Chilan"},{"value":false,"text":"My name is Ninse"},{"value":false,"text":"I am from Portoviejo"}],"urlDescription":"https://drive.google.com/uc?id=1fIeyucReDRtMEEhZnUOasLlZc0hZ6hta&export=view"}',
+    title:
+      'Answer the following question according to the presentation in English (Responda la siguiente pregunta segun la presentacion en ingles)',
+    type: QuestionType.choose_an_option,
+    asignature: 'Inglés',
+    unit: 'Unidad 1',
+    topic: 'Colores',
+  },
+  {
+    options:
+      '{"value":"How old are you?","options":[{"text":"I am eleven Years old.","value":true},{"text":"I am from Portoviejo","value":false},{"text":"I am student","value":false}]}',
+    title:
+      'Listen to the question according to and answer by choosing the correct answer (Escucha la pregunta segun y responda eligiendo la respuesta correcta)',
+    type: QuestionType.listen_and_choose,
+    asignature: 'Inglés',
+    unit: 'Unidad 1',
+    topic: 'Colores',
+  },
+  {
+    options:
+      '{"value":"Where are you from?","options":[{"text":"I am student","value":false},{"text":"I am from Portoviejo","value":true},{"text":"I am eleven Years old.","value":false}]}',
+    title:
+      'Listen to the question according to and answer by choosing the correct answer (Escucha la pregunta segun y responda eligiendo la respuesta correcta)',
+    type: QuestionType.listen_and_choose,
+    asignature: 'Inglés',
+    unit: 'Unidad 1',
+    topic: 'Colores',
+  },
+  {
+    options:
+      '{"value":"What do you do?","options":[{"text":"I am student","value":true},{"text":"I am from Portoviejo","value":false},{"text":"I am eleven Years old.","value":false}]}',
+    title:
+      'Listen to the question according to and answer by choosing the correct answer (Escucha la pregunta segun y responda eligiendo la respuesta correcta)',
+    type: QuestionType.listen_and_choose,
+    asignature: 'Inglés',
+    unit: 'Unidad 1',
+    topic: 'Colores',
+  },
+  {
+    options:
+      '{"value":["p","e","a","r"],"image":"https://drive.google.com/uc?id=1Zsnif5lV-KJp_MUnjxDkPo0sC30vuwfU&export=view"}',
+    title:
+      'Decipher the name of the fruit in English according to the image, order the letters(Descifra cual es el nombre de la fruta en ingles segun la imagen, ordena las letras)',
+    type: QuestionType.order,
+    asignature: 'Inglés',
+    unit: 'Unidad 2',
+    topic: 'Frutas',
+  },
+  {
+    options:
+      '{"value":["a", "p", "p", "l", "e"],"image":"https://drive.google.com/uc?id=1FGhp2cnSusTwCZEMGHSKjw8j5pMhNVek&export=view"}',
+    title:
+      'Decipher the name of the fruit in English according to the image, order the letters(Descifra cual es el nombre de la fruta en ingles segun la imagen, ordena las letras)',
+    type: QuestionType.order,
+    asignature: 'Inglés',
+    unit: 'Unidad 2',
+    topic: 'Frutas',
+  },
+  {
+    options:
+      '{"value":["l","e","m", "o", "n"],"image":"https://drive.google.com/uc?id=1olkPpat6jhPo6Bv4MnGNmYZc94hMdxoA&export=view"}',
+    title:
+      'Decipher the name of the fruit in English according to the image, order the letters(Descifra cual es el nombre de la fruta en ingles segun la imagen, ordena las letras)',
+    type: QuestionType.order,
+    asignature: 'Inglés',
+    unit: 'Unidad 2',
+    topic: 'Frutas',
+  },
+  {
+    options:
+      '{"value":strawberry,"options":[{"image":"https://drive.google.com/uc?id=1Zsnif5lV-KJp_MUnjxDkPo0sC30vuwfU&export=view","value":false},{"image":"https://drive.google.com/uc?id=1tuLtkef4dOn3vrZAIWGe9aBfF0LWdA1l&export=view","value":true},{"image":"https://drive.google.com/uc?id=1mdyCukN_UajPk_vftBeqI0r5k4U8mdhW&export=view","value":false}]}',
+    title:
+      'LISTEN TO THE FRUIT IN ENGLISH AND DRAG THE CORRECT PICTURE(ESCUCHE LA FRUTA EN INGLES Y ARRASTRE LA IMAGEN CORRECTA)',
+    type: QuestionType.listen_and_choose,
+    asignature: 'Inglés',
+    unit: 'Unidad 2',
+    topic: 'Frutas',
+  },
+  {
+    options:
+      '{"value":"pineapple","options":[{"image":"https://drive.google.com/uc?id=1tuLtkef4dOn3vrZAIWGe9aBfF0LWdA1l&export=view","value":false},{"image":"https://drive.google.com/uc?id=1Zsnif5lV-KJp_MUnjxDkPo0sC30vuwfU&export=view","value":false},{"image":"https://drive.google.com/uc?id=1M4OV4X53adOIODCW-i-bWEkPd3JVarXu&export=view","value":true}]}',
+    title:
+      'LISTEN TO THE FRUIT IN ENGLISH AND DRAG THE CORRECT PICTURE(ESCUCHE LA FRUTA EN INGLES Y ARRASTRE LA IMAGEN CORRECTA)',
+    type: QuestionType.listen_and_choose,
+    asignature: 'Inglés',
+    unit: 'Unidad 2',
+    topic: 'Frutas',
+  },
+  {
+    options:
+      '{"value":"yei","options":[{"image":"https://drive.google.com/uc?id=1DumxAzbPilRaOxTP6LUUYNHAuDaVi6cF&export=view","value":true},{"image":"https://drive.google.com/uc?id=1jWPQwmdIvy97-9jSE5GV60wNSILzsNmq&export=view","value":false},{"image":"https://drive.google.com/uc?id=1kjxhSHvOtnMwDxx7Xzindy5eOGeltg59&export=view","value":false}]}',
+    title:
+      'Listen to the name of the letter of the alphabet in english and choose the correct option (escuchar el nombre de la letra del abecedario en ingles y elija la opcion correcta)',
+    type: QuestionType.listen_and_choose,
+    asignature: 'Inglés',
+    unit: 'Unidad 2',
+    topic: 'Frutas',
+  },
+  {
+    options:
+      '{"value":"dabeliu","options":[{"image":"https://drive.google.com/uc?id=1jWPQwmdIvy97-9jSE5GV60wNSILzsNmq&export=view","value":false},{"image":"https://drive.google.com/uc?id=1AfBWxW-YJ9Nn7_4imyskbJM4E-YYWHWK&export=view","value":false},{"image":"https://drive.google.com/uc?id=1VYXvYGCoLjojNWXCXLkBHqDUyOhbH6Q6&export=view","value":true}]}',
+    title:
+      'Listen to the name of the letter of the alphabet in english and choose the correct option (escuchar el nombre de la letra del abecedario en ingles y elija la opcion correcta)',
+    type: QuestionType.listen_and_choose,
+    asignature: 'Inglés',
+    unit: 'Unidad 2',
+    topic: 'Frutas',
+  },
+  {
+    options:
+      '[{"text":"CHERRY", "image": "https://drive.google.com/uc?id=1hc3bzCwRYqfdBV64on_7eXjWDmVSAWPV&export=view"}]',
+    title:
+      'LISTEN TO THE NAME OF THE FRUIT IN ENGLISH AND WRITE IN SPANISH THE NAME OF THE CORRECT FRUIT(ESCUCHE EL NOMBRE DE LA FRUTA EN INGLES Y ESCRIBA EN ESPAÑOL EL NOMBRE DE LA FRUTA CORRECTA)',
+    type: QuestionType.listen_text,
+    asignature: 'Inglés',
+    unit: 'Unidad 2',
+    topic: 'Frutas',
+  },
+  {
+    options:
+      '[{"text":"orange", "image": "https://drive.google.com/uc?id=1C6rJ8DvESxw5F1K7SVZ-ovxeNcw_D8EJ&export=view"}]',
+    title:
+      'LISTEN TO THE NAME OF THE FRUIT IN ENGLISH AND WRITE IN SPANISH THE NAME OF THE CORRECT FRUIT(ESCUCHE EL NOMBRE DE LA FRUTA EN INGLES Y ESCRIBA EN ESPAÑOL EL NOMBRE DE LA FRUTA CORRECTA)',
+    type: QuestionType.listen_text,
+    asignature: 'Inglés',
+    unit: 'Unidad 2',
+    topic: 'Frutas',
+  },
+  {
+    options:
+      '[{"text":"blueberry", "image": "https://drive.google.com/uc?id=1BC42rbX8ZKjXSMGChyCxvdqNAZ8A3Pyv&export=view"}]',
+    title:
+      'LISTEN TO THE NAME OF THE FRUIT IN ENGLISH AND WRITE IN SPANISH THE NAME OF THE CORRECT FRUIT(ESCUCHE EL NOMBRE DE LA FRUTA EN INGLES Y ESCRIBA EN ESPAÑOL EL NOMBRE DE LA FRUTA CORRECTA)',
+    type: QuestionType.listen_text,
+    asignature: 'Inglés',
+    unit: 'Unidad 2',
+    topic: 'Frutas',
+  },
+  {
+    options:
+      '[{"text":"grapes", "image": "https://drive.google.com/uc?id=1mdyCukN_UajPk_vftBeqI0r5k4U8mdhW&export=view"}]',
+    title:
+      'LISTEN TO THE NAME OF THE FRUIT IN ENGLISH AND WRITE IN SPANISH THE NAME OF THE CORRECT FRUIT(ESCUCHE EL NOMBRE DE LA FRUTA EN INGLES Y ESCRIBA EN ESPAÑOL EL NOMBRE DE LA FRUTA CORRECTA)',
+    type: QuestionType.listen_text,
+    asignature: 'Inglés',
+    unit: 'Unidad 2',
+    topic: 'Frutas',
+  },
+  {
+    options:
+      '[{"text":"peach", "image": "https://drive.google.com/uc?id=1MbTHrERCu5VhjOuK87OnxHjK3EgHJqv9&export=view"}]',
+    title:
+      'LISTEN TO THE NAME OF THE FRUIT IN ENGLISH AND WRITE IN SPANISH THE NAME OF THE CORRECT FRUIT(ESCUCHE EL NOMBRE DE LA FRUTA EN INGLES Y ESCRIBA EN ESPAÑOL EL NOMBRE DE LA FRUTA CORRECTA)',
+    type: QuestionType.listen_text,
+    asignature: 'Inglés',
+    unit: 'Unidad 2',
+    topic: 'Frutas',
+  },
+  {
+    options:
+      '{"image":"https://drive.google.com/uc?id=1DleEsRxaztgpctKsAGKqLf3s4h16yRKU&export=view","options":[{"text":"Ballena","value":["bi","ei","el","el","i","en","ei"]},{"text":"Manzana","value":["em","ei","en","zet","ei","en","ei"]}]}',
+    title:
+      '.Spell the following words in English (Deletree las siguientes palabras en inglés):',
+    type: QuestionType.spell_word,
+    asignature: 'Inglés',
+    unit: 'Unidad 2',
+    topic: 'El Alfabeto en ingles',
+  },
+  {
+    options:
+      '{"image":"https://drive.google.com/uc?id=1DleEsRxaztgpctKsAGKqLf3s4h16yRKU&export=view","options":[{"text":"Frutilla","value":["ef","ar","iu","ti","ai","el","el","ei"]},{"text":"Naranja","value":["en","ei","ar","ei","en","ye","ei"]}]}',
+    title:
+      '.Spell the following words in English (Deletree las siguientes palabras en inglés):',
+    type: QuestionType.spell_word,
+    asignature: 'Inglés',
+    unit: 'Unidad 2',
+    topic: 'El Alfabeto en ingles',
+  },
+  {
+    options:
+      '{"image":"https://drive.google.com/uc?id=1DleEsRxaztgpctKsAGKqLf3s4h16yRKU&export=view","options":[{"text":"Elefante","image":"https://drive.google.com/uc?id=1VYzLlstJDjNnTJrbE0z16HyyKfFTEHn5&export=view","value":["i","el","i","ef","ei","en","ti","i"]}]}',
+    title:
+      '.Spell the following words in English (Deletree las siguientes palabras en inglés):',
+    type: QuestionType.spell_word,
+    asignature: 'Inglés',
+    unit: 'Unidad 2',
+    topic: 'El Alfabeto en ingles',
+  },
+  {
+    options:
+      '{"image":"https://drive.google.com/uc?id=1DleEsRxaztgpctKsAGKqLf3s4h16yRKU&export=view","options":[{"text":"Tortuga","image":"https://drive.google.com/uc?id=1huSadccFAM5jCh1wZvCcwTfDCS5yq3yd&export=view","value":["ti","ou","ar","ti","iu","yi","ei"]}]}',
+    title:
+      '.Spell the following words in English (Deletree las siguientes palabras en inglés):',
+    type: QuestionType.spell_word,
+    asignature: 'Inglés',
+    unit: 'Unidad 2',
+    topic: 'El Alfabeto en ingles',
+  },
+  {
+    options:
+      '{"image":"https://drive.google.com/uc?id=1DleEsRxaztgpctKsAGKqLf3s4h16yRKU&export=view","options":[{"text":"Zorro","image":"https://drive.google.com/uc?id=11NwLWbhdKFyXv-sSw7qBpSN_oAkDgJi3&export=view","value":["zi","ou","ar","ar","ou"]}]}',
+    title:
+      '.Spell the following words in English (Deletree las siguientes palabras en inglés):',
+    type: QuestionType.spell_word,
+    asignature: 'Inglés',
+    unit: 'Unidad 2',
+    topic: 'El Alfabeto en ingles',
+  },
+  {
+    options: '{"value":["Ei","Bi", "Si", "Di","i"]}',
+    title:
+      'Order the letters of the alphabet in English(Ordene las letra del abecedario en ingles) “A, B, C, D, E”',
+    type: QuestionType.order,
+    asignature: 'Inglés',
+    unit: 'Unidad 2',
+    topic: 'El Alfabeto en ingles',
+  },
+  {
+    options: '{"value":["Qiu", "Ar", "Es", "Ti" ,"Iu" ]}',
+    title:
+      'Order the letters of the alphabet in English(Ordene las letra del abecedario en ingles) “Q, R, S, T, U”',
+    type: QuestionType.order,
+    asignature: 'Inglés',
+    unit: 'Unidad 2',
+    topic: 'El Alfabeto en ingles',
+  },
 ];

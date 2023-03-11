@@ -31,6 +31,8 @@ export type typeQuestion =
   | 'simple_fraction_simplification'
   | 'simple_fraction_decimal'
   | 'image_write_answer'
+  | 'listen_and_choose'
+  | 'spell_word'
 
 export type fraction_ = {
   numerator: number
@@ -127,6 +129,7 @@ export interface dragAndDropComplete_ {
 
 export interface ListenAndWrite_ {
   text: string
+  image?: string
   response?: string
 }
 
@@ -152,6 +155,7 @@ export interface cartesianCoordinateFull_ {
 
 export interface selectPlaceTableOption_ {
   text: string
+  image?: string
   selects: {
     text: string
     correct: boolean

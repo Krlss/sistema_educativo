@@ -68,9 +68,10 @@ const useDragAndDropChooseText = ({
       }
       setAnswers(newAnswers)
 
-      const isDone = newAnswers.every(answer => answer !== undefined)
-      if (isDone) {
-        const response = verifyDragAndDropChooseText(newAnswers)
+      const lengthAnswers = newAnswers.filter(e => e).length
+
+      if (lengthAnswers === lengthText) {
+        const response = verifyDragAndDropChooseText(newAnswers.filter(e => e))
         if (response) {
           const newQuestion = {
             id: question.id,
@@ -116,6 +117,13 @@ const useDragAndDropChooseText = ({
     const newAnswers = [...anwers]
     newAnswers[index] = undefined as any
     setAnswers(newAnswers)
+
+    updatedQuestion({
+      id: question.id,
+      nota: 0,
+      isDone: false,
+      responseUser: undefined
+    })
   }
 
   const verifyDragAndDropChooseText = (

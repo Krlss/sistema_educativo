@@ -283,26 +283,41 @@ export const topics = [
     asignature: 'Inglés',
     unit: 'Unidad 1',
     name: 'Colores',
+    image:
+      'https://drive.google.com/uc?id=1ULi4DMH4XLq3fADDnNmQEfleF64lLSwg&export=view',
+    video: 'https://www.youtube.com/embed/c6BVOQfgMP8',
   },
   {
     asignature: 'Inglés',
     unit: 'Unidad 1',
     name: 'Números del 1 al 30',
+    image:
+      'https://drive.google.com/uc?id=1xaYh9rx7eT_e3HtiiWMUpaITqkdTpO_6&export=view',
+    video: 'https://www.youtube.com/embed/Tx5AFKlPKys',
   },
   {
     asignature: 'Inglés',
     unit: 'Unidad 1',
     name: 'Presentación',
+    image:
+      'https://drive.google.com/uc?id=1gMmNpnC72E5aXvZ4zmnJi7GIQWKYAlIB&export=view',
+    video: 'https://www.youtube.com/embed/vGjrajfOTH8',
   },
   {
     asignature: 'Inglés',
     unit: 'Unidad 2',
     name: 'Frutas',
+    image:
+      'https://drive.google.com/uc?id=1mPQFK2xO_Sfeqb43Dpza-vQBWxmJ-HWE&export=view',
+    video: 'https://www.youtube.com/embed/zIx-2a6KEOo',
   },
   {
     asignature: 'Inglés',
     unit: 'Unidad 2',
     name: 'El Alfabeto en ingles',
+    image:
+      'https://drive.google.com/uc?id=1bUFKaQxyHSznyzvz4B-kwxc3ih2mDOMd&export=view',
+    video: 'https://www.youtube.com/embed/W_LhyqgaRJI',
   },
   {
     asignature: 'Inglés',
