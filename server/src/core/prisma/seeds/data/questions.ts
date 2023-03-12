@@ -5266,7 +5266,7 @@ export const questions: Question[] = [
     options:
       '{"image":"https://drive.google.com/uc?id=1DleEsRxaztgpctKsAGKqLf3s4h16yRKU&export=view","options":[{"text":"Ballena","value":["bi","ei","el","el","i","en","ei"]},{"text":"Manzana","value":["em","ei","en","zet","ei","en","ei"]}]}',
     title:
-      '.Spell the following words in English (Deletree las siguientes palabras en inglés):',
+      'Spell the following words in English (Deletree las siguientes palabras en inglés):',
     type: QuestionType.spell_word,
     asignature: 'Inglés',
     unit: 'Unidad 2',
@@ -5276,7 +5276,7 @@ export const questions: Question[] = [
     options:
       '{"image":"https://drive.google.com/uc?id=1DleEsRxaztgpctKsAGKqLf3s4h16yRKU&export=view","options":[{"text":"Frutilla","value":["ef","ar","iu","ti","ai","el","el","ei"]},{"text":"Naranja","value":["en","ei","ar","ei","en","ye","ei"]}]}',
     title:
-      '.Spell the following words in English (Deletree las siguientes palabras en inglés):',
+      'Spell the following words in English (Deletree las siguientes palabras en inglés):',
     type: QuestionType.spell_word,
     asignature: 'Inglés',
     unit: 'Unidad 2',
@@ -5286,7 +5286,7 @@ export const questions: Question[] = [
     options:
       '{"image":"https://drive.google.com/uc?id=1DleEsRxaztgpctKsAGKqLf3s4h16yRKU&export=view","options":[{"text":"Elefante","image":"https://drive.google.com/uc?id=1VYzLlstJDjNnTJrbE0z16HyyKfFTEHn5&export=view","value":["i","el","i","ef","ei","en","ti","i"]}]}',
     title:
-      '.Spell the following words in English (Deletree las siguientes palabras en inglés):',
+      'Spell the following words in English (Deletree las siguientes palabras en inglés):',
     type: QuestionType.spell_word,
     asignature: 'Inglés',
     unit: 'Unidad 2',
@@ -5296,7 +5296,7 @@ export const questions: Question[] = [
     options:
       '{"image":"https://drive.google.com/uc?id=1DleEsRxaztgpctKsAGKqLf3s4h16yRKU&export=view","options":[{"text":"Tortuga","image":"https://drive.google.com/uc?id=1huSadccFAM5jCh1wZvCcwTfDCS5yq3yd&export=view","value":["ti","ou","ar","ti","iu","yi","ei"]}]}',
     title:
-      '.Spell the following words in English (Deletree las siguientes palabras en inglés):',
+      'Spell the following words in English (Deletree las siguientes palabras en inglés):',
     type: QuestionType.spell_word,
     asignature: 'Inglés',
     unit: 'Unidad 2',
@@ -5306,7 +5306,7 @@ export const questions: Question[] = [
     options:
       '{"image":"https://drive.google.com/uc?id=1DleEsRxaztgpctKsAGKqLf3s4h16yRKU&export=view","options":[{"text":"Zorro","image":"https://drive.google.com/uc?id=11NwLWbhdKFyXv-sSw7qBpSN_oAkDgJi3&export=view","value":["zi","ou","ar","ar","ou"]}]}',
     title:
-      '.Spell the following words in English (Deletree las siguientes palabras en inglés):',
+      'Spell the following words in English (Deletree las siguientes palabras en inglés):',
     type: QuestionType.spell_word,
     asignature: 'Inglés',
     unit: 'Unidad 2',
