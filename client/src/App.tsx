@@ -20,6 +20,7 @@ import InscriptionStudens from './pages/dashboard/inscription-students'
 import Users from './pages/dashboard/usuarios'
 import Students from './pages/dashboard/estudiantes'
 import Reports from './pages/dashboard/reports'
+import { ChooseAnOption } from './components/exercise'
 
 const App = () => {
   const { config, isThisRol } = useContext(GeneralContext)
@@ -45,7 +46,7 @@ const App = () => {
             path="/asignatura/:asignatureId/unidad/:unitId/tema/:topicId"
             element={<ClassPresentation />}
           />
-          {/* <Route path="/a" element={<OrderOneDigitNumbers {...data} />} /> */}
+          {/* <Route path="/a" element={<ChooseAnOption {...data} />} /> */}
           <Route
             path="/asignatura/:asignatureId/unidad/:unitId/prueba"
             element={<Game />}

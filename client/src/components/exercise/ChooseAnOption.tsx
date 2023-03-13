@@ -39,7 +39,7 @@ const ChooseAnOption = (props: question) => {
       )}
       {urlDescription && (
         <div className="my-8">
-          <img src={urlDescription} alt="description" width={150} />
+          <img src={urlDescription} alt="description" className="max-w-lg" />
         </div>
       )}
       <form>
