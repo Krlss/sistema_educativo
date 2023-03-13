@@ -18,4 +18,10 @@ export class CreateCourseDTO {
     message: 'Algunos de los períodos no existen',
   })
   periods?: string[];
+
+  @Field(() => [String], {
+    description: 'Asignaturas del curso',
+    nullable: true,
+  })
+  asignatures?: string[];
 }

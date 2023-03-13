@@ -7,6 +7,8 @@ import { useGetPeriods } from '../../service/periods/custom-hook'
 import { useState } from 'react'
 import Select from 'react-select'
 import { FieldArray, Formik, Form, Field } from 'formik'
+import { useGetAsignatures } from '../../service/asignatures/custom-hook'
+import { ASIGNATURE } from '../../types/ContextAsignature'
 
 export interface course {
   id: string
@@ -32,6 +34,12 @@ export interface periodsCourses {
   courseId: string
   period: period
   course: course
+  periodsCoursesAsignatures: {
+    asignature: {
+      id: string
+      name: string
+    }
+  }[]
 }
 export const LoadingTable = () => {
   return <div className="text-xl font-bold p-3">Cargando...</div>
@@ -40,6 +48,7 @@ export const LoadingTable = () => {
 const Cursos = () => {
   const { data, loading } = useGetCourses()
   const { data: dataPeriods } = useGetPeriods()
+  const { data: dataAsignatures } = useGetAsignatures()
   const { formik, open, setOpen, isAdd, setIsAdd, title, setTitle, columns } =
     useCourse()
 
@@ -81,7 +90,11 @@ const Cursos = () => {
         open={open}
         title={title}
         isAdd={isAdd}>
-        <Modal formik={formik} periods={dataPeriods?.periods} />
+        <Modal
+          formik={formik}
+          periods={dataPeriods?.periods}
+          asignatures={dataAsignatures?.asignatures}
+        />
       </RightSidebar>
     </>
   )
@@ -110,13 +123,29 @@ export const HeaderTable = ({
   )
 }
 
-const Modal = ({ formik, periods }: { formik: any; periods?: period[] }) => {
+const Modal = ({
+  formik,
+  periods,
+  asignatures
+}: {
+  formik: any
+  periods?: period[]
+  asignatures?: ASIGNATURE[]
+}) => {
   const defaultValues = periods?.map(period => {
     const selected = formik.values.periods?.includes(period.id)
     if (selected) {
       return { value: period.id, label: period.name }
     }
   })
+
+  const defaultValuesAsignatures = asignatures?.map(asignature => {
+    const selected = formik.values.asignatures?.includes(asignature.id)
+    if (selected) {
+      return { value: asignature.id, label: asignature.name }
+    }
+  })
+
   return (
     <form>
       <Input
@@ -141,6 +170,22 @@ const Modal = ({ formik, periods }: { formik: any; periods?: period[] }) => {
         onChange={(e: any) => {
           formik.setFieldValue(
             'periods',
+            e?.map((item: any) => item.value)
+          )
+        }}
+      />
+      <Select
+        options={asignatures?.map(asignature => ({
+          value: asignature.id,
+          label: asignature.name
+        }))}
+        defaultValue={defaultValuesAsignatures}
+        isMulti
+        placeholder="Selecciona las asignaturas"
+        className="w-full min-w-full mt-2"
+        onChange={(e: any) => {
+          formik.setFieldValue(
+            'asignatures',
             e?.map((item: any) => item.value)
           )
         }}

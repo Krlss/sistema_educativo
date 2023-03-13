@@ -27,7 +27,11 @@ export const useCreateCourse = () => {
     refetchQueries: [{ query: GETCOURSES }, { query: GETPERIODS }]
   })
 
-  const handleCreateCourse = (course: { name: string; periods?: string[] }) => {
+  const handleCreateCourse = (course: {
+    name: string
+    periods?: string[]
+    asignatures?: string[]
+  }) => {
     createCourse({
       variables: {
         input: {
@@ -47,6 +51,7 @@ export const useCreateCourse = () => {
     id: string
     name?: string
     periods?: string[]
+    asignatures?: string[]
   }) => {
     updateCourse({
       variables: {

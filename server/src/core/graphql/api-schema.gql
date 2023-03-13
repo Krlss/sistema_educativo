@@ -358,6 +358,9 @@ input CreateCourseDTO {
 
   """Períodos del curso"""
   periods: [String!]
+
+  """Asignaturas del curso"""
+  asignatures: [String!]
 }
 
 input UpdateCourseDTO {
@@ -366,6 +369,9 @@ input UpdateCourseDTO {
 
   """Períodos del curso"""
   periods: [String!]
+
+  """Asignaturas del curso"""
+  asignatures: [String!]
 
   """Id del curso"""
   id: String!

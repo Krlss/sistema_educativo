@@ -19,6 +19,12 @@ export const GETCOURSES = gql`
           createdAt
           updatedAt
         }
+        periodsCoursesAsignatures {
+          asignature {
+            id
+            name
+          }
+        }
       }
     }
   }

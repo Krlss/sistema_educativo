@@ -8,6 +8,7 @@ import { TableColumn } from 'react-data-table-component'
 import Actions from '../../components/tables/actions'
 import { useCreateCourse } from './custom-hook'
 import GeneralContext from '../../contexts/context'
+import { ASIGNATURE } from '../../types/ContextAsignature'
 
 export const useCourse = () => {
   const [open, setOpen] = useState(false)
@@ -18,16 +19,19 @@ export const useCourse = () => {
     id: string
     name: string
     periods: string[]
+    asignatures: string[]
   }>({
     id: '',
     name: '',
-    periods: []
+    periods: [],
+    asignatures: []
   })
 
   const formik = useFormik({
     initialValues: {
       name: '',
-      periods: [] as string[]
+      periods: [] as string[],
+      asignatures: [] as string[]
     },
     validationSchema: registerCourseValidationSchema,
     onSubmit: values => {
@@ -38,7 +42,8 @@ export const useCourse = () => {
         handleUpdateCourse({
           id,
           ...(name !== values.name && { name: values.name }),
-          periods: values.periods
+          periods: values.periods,
+          asignatures: values.asignatures
         })
       }
       setOpen(false)
@@ -59,10 +64,36 @@ export const useCourse = () => {
           .slice(0, 2)
         const rest = row.periodsCourses.length - 2
         return (
-          <div className="flex flex-row gap-1">
+          <div className="flex flex-wrap gap-1">
             {onlyTwo.map((period, key) => (
               <span key={key} className="bg-slate-500 p-0.5 text-white rounded">
                 {period}
+              </span>
+            ))}
+            {rest > 0 && (
+              <span className="bg-blue-400 p-0.5 rounded">+{rest}</span>
+            )}
+          </div>
+        )
+      },
+      sortable: false,
+      style: {
+        paddingTop: '0.5rem',
+        paddingBottom: '0.5rem'
+      }
+    },
+    {
+      name: 'Asignaturas',
+      cell: row => {
+        const onlyTwo = row.periodsCourses[0].periodsCoursesAsignatures
+          .map(pca => pca.asignature.name)
+          .slice(0, 2)
+        const rest = row.periodsCourses[0].periodsCoursesAsignatures.length - 2
+        return (
+          <div className="flex flex-wrap gap-1">
+            {onlyTwo.map((asignature, key) => (
+              <span key={key} className="bg-slate-500 p-0.5 text-white rounded">
+                {asignature}
               </span>
             ))}
             {rest > 0 && (
@@ -100,7 +131,11 @@ export const useCourse = () => {
               const period_ = {
                 id: row.id,
                 name: row.name,
-                periods: row.periodsCourses.map(period => period.periodId)
+                periods: row.periodsCourses.map(period => period.periodId),
+                asignatures:
+                  row.periodsCourses[0].periodsCoursesAsignatures.map(
+                    pca => pca.asignature.id
+                  )
               }
               formik.setValues(period_)
               setSelectRow(period_)

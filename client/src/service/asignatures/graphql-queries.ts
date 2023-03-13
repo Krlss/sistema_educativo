@@ -38,3 +38,11 @@ export const GETTOPIC = gql`
     }
   }
 `
+export const GETASIGNATURES = gql`
+  query Asignatures {
+    asignatures {
+      id
+      name
+    }
+  }
+`

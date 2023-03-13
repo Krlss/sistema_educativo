@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useLazyQuery } from '@apollo/client'
+import { useLazyQuery, useQuery } from '@apollo/client'
 import { ASIGNATURE } from '../../types/ContextAsignature'
-import { GETASIGNATURE } from './graphql-queries'
+import { GETASIGNATURE, GETASIGNATURES } from './graphql-queries'
 import { getRamdonArrayColors, pastelColors } from '../../constants/colors'
 
 import GeneralContext from '../../contexts/context'
@@ -67,4 +67,9 @@ export const useGetAsignature = () => {
     colors,
     asignatureId
   }
+}
+
+export const useGetAsignatures = () => {
+  const { data, loading, error } = useQuery(GETASIGNATURES)
+  return { data, error, loading }
 }

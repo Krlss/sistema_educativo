@@ -12,6 +12,11 @@ export class CourseService {
         periodsCourses: {
           include: {
             period: true,
+            periodsCoursesAsignatures: {
+              include: {
+                asignature: true,
+              },
+            },
           },
         },
       },
@@ -32,14 +37,14 @@ export class CourseService {
   }
 
   async create(data: CreateCourseDTO) {
-    const { name, ...periodsCourses } = data;
-    return await this.prismaService.course.create({
+    const { name, periods, asignatures } = data;
+    const newCourse = await this.prismaService.course.create({
       data: {
         name,
-        ...(data.periods && {
+        ...(periods && {
           periodsCourses: {
             createMany: {
-              data: periodsCourses.periods.map((periodId) => ({ periodId })),
+              data: periods.map((periodId) => ({ periodId })),
             },
           },
         }),
@@ -49,31 +54,84 @@ export class CourseService {
           include: {
             course: true,
             period: true,
+            periodsCoursesAsignatures: {
+              include: {
+                asignature: true,
+              },
+            },
           },
         },
       },
     });
+
+    if (asignatures && asignatures.length > 0) {
+      const periodsCourses = await this.prismaService.periodsCourses.findMany({
+        where: {
+          courseId: newCourse.id,
+        },
+      });
+
+      asignatures.forEach(async (asignatureId) => {
+        periodsCourses.forEach(async ({ id }) => {
+          await this.prismaService.periodsCoursesAsignatures.create({
+            data: {
+              periodCourseId: id,
+              asignatureId,
+            },
+          });
+        });
+      });
+    }
+
+    return newCourse;
   }
 
   async update(data: UpdateCourseDTO) {
-    const { name, ...periodsCourses } = data;
-    return await this.prismaService.course.update({
+    const { name, periods, asignatures } = data;
+    const updateCourse = await this.prismaService.course.update({
       where: { id: data.id },
       data: {
         name,
-        ...(data.periods && {
+        ...(periods && {
           periodsCourses: {
             deleteMany: {
               courseId: data.id,
             },
             createMany: {
-              data: periodsCourses.periods.map((periodId) => ({ periodId })),
+              data: periods.map((periodId) => ({ periodId })),
               skipDuplicates: true,
             },
           },
         }),
       },
     });
+
+    if (asignatures && asignatures.length > 0) {
+      const periodsCourses = await this.prismaService.periodsCourses.findMany({
+        where: {
+          courseId: updateCourse.id,
+        },
+      });
+
+      periodsCourses.forEach(async ({ id }) => {
+        await this.prismaService.periodsCoursesAsignatures.deleteMany({
+          where: {
+            periodCourseId: id,
+          },
+        });
+      });
+
+      asignatures.forEach(async (asignatureId) => {
+        periodsCourses.forEach(async ({ id }) => {
+          await this.prismaService.periodsCoursesAsignatures.create({
+            data: {
+              periodCourseId: id,
+              asignatureId,
+            },
+          });
+        });
+      });
+    }
   }
 
   async delete(id: string) {
