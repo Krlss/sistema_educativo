@@ -14,6 +14,11 @@ export class PeriodsCoursesAsignaturesService {
     return this.prismaService.periodsCoursesAsignatures.findMany({
       include: {
         asignature: true,
+        periodCourseAsignatureUnits: {
+          include: {
+            unit: true,
+          },
+        },
         periodCourse: {
           include: {
             course: true,

@@ -68,7 +68,7 @@ export const HeaderTable = ({
       <h1 className="font-bold">{title}</h1>
       <button
         onClick={onClick}
-        className="flex gap-1 items-center text-sm bg-blue-500 text-white px-3 py-2 rounded-sm font-medium hover:bg-blue-600 w-28 justify-center">
+        className="flex gap-1 items-center text-sm bg-blue-500 text-white px-3 py-2 rounded-sm font-medium hover:bg-blue-600 justify-center">
         <span>{buttonTitle}</span>
       </button>
     </div>

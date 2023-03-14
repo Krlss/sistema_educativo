@@ -22,6 +22,9 @@ const ItemsSidebarDashboard = () => {
           <MyNavLink text="Cursos" to="/dashboard/cursos">
             <Curso />
           </MyNavLink>
+          <MyNavLink text="Asignaturas" to="/dashboard/asignaturas">
+            <Curso />
+          </MyNavLink>
         </>
       )}
       {isAdminOrTeacher && (

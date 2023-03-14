@@ -1,6 +1,14 @@
 import { object } from 'yup'
 
-import { email, password, name, lastName, passwordRegex } from './validations'
+import {
+  email,
+  password,
+  name,
+  lastName,
+  passwordRegex,
+  description,
+  image
+} from './validations'
 
 export const loginValidationSchema = object().shape({
   email,
@@ -16,4 +24,10 @@ export const registerValidationSchema = object().shape({
 
 export const registerCourseValidationSchema = object().shape({
   name
+})
+
+export const registerAsignatureValidationSchema = object().shape({
+  name,
+  description,
+  image
 })

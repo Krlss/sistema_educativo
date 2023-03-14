@@ -569,6 +569,9 @@ input CreateAsignatureDTO {
 
   """Cursos a los que pertenece la asignatura"""
   periodsCourses: [Int!]
+
+  """Unidades de la asignatura"""
+  units: [String!]
 }
 
 input UpdateAsignatureDTO {
@@ -583,6 +586,9 @@ input UpdateAsignatureDTO {
 
   """Cursos a los que pertenece la asignatura"""
   periodsCourses: [Int!]
+
+  """Unidades de la asignatura"""
+  units: [String!]
   id: ID
 }
 

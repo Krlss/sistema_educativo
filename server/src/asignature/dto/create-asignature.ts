@@ -38,4 +38,10 @@ export class CreateAsignatureDTO {
     message: 'El curso no existe en este periodo',
   })
   periodsCourses: number[];
+
+  @Field(() => [String], {
+    description: 'Unidades de la asignatura',
+    nullable: true,
+  })
+  units: string[];
 }

@@ -35,3 +35,13 @@ export const passwordRegex = password
   .matches(lowercase, 'La contraseña debe tener al menos una letra minúscula')
   .matches(uppercase, 'La contraseña debe tener al menos una letra mayúscula')
   .matches(number, 'La contraseña debe tener al menos un número')
+
+export const description = yup
+  .string()
+  .min(25, 'La descripción es muy corta')
+  .max(500, 'La descripción es muy larga')
+
+export const image = yup
+  .string()
+  .min(25, 'La imagen es muy corta')
+  .max(500, 'La imagen es muy larga')

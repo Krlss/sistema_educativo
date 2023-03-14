@@ -110,24 +110,46 @@ export class AsignatureService {
   }
 
   async create(data: CreateAsignatureDTO) {
-    const { periodsCourses, ...others } = data;
-    return await this.prismaService.asignature.create({
+    const { periodsCourses, units, ...others } = data;
+    const newAsignature = await this.prismaService.asignature.create({
       data: {
         ...others,
-        periodsCoursesAsignatures: {
-          createMany: {
-            data: periodsCourses.map((periodCourseId) => ({
-              periodCourseId,
-            })),
+        ...(periodsCourses && {
+          periodsCoursesAsignatures: {
+            createMany: {
+              data: periodsCourses.map((periodCourseId) => ({
+                periodCourseId,
+              })),
+            },
           },
-        },
+        }),
+      },
+      include: {
+        periodsCoursesAsignatures: true,
       },
     });
+
+    if (units && units.length > 0) {
+      units.forEach((element) => {
+        newAsignature.periodsCoursesAsignatures.forEach(
+          async (periodCourseAsignature) => {
+            await this.prismaService.periodsCoursesAsignaturesUnits.create({
+              data: {
+                periodCourseAsignatureId: periodCourseAsignature.id,
+                unitId: element,
+              },
+            });
+          },
+        );
+      });
+    }
+
+    return newAsignature;
   }
 
   async update(data: UpdateAsignatureDTO) {
-    const { name, periodsCourses } = data;
-    return await this.prismaService.asignature.update({
+    const { name, description, image, units, periodsCourses } = data;
+    const updatedAsignature = await this.prismaService.asignature.update({
       where: { id: data.id },
       data: {
         periodsCoursesAsignatures: {
@@ -138,9 +160,41 @@ export class AsignatureService {
             })),
           },
         },
-        name,
+        ...(name && { name }),
+        ...(description && { description }),
+        ...(image && { image }),
+      },
+      include: {
+        periodsCoursesAsignatures: true,
       },
     });
+
+    if (units && units.length > 0) {
+      updatedAsignature.periodsCoursesAsignatures.forEach(
+        async (periodCourseAsignature) => {
+          await this.prismaService.periodsCoursesAsignaturesUnits.deleteMany({
+            where: {
+              periodCourseAsignatureId: periodCourseAsignature.id,
+            },
+          });
+        },
+      );
+
+      units.forEach((element) => {
+        updatedAsignature.periodsCoursesAsignatures.forEach(
+          async (periodCourseAsignature) => {
+            await this.prismaService.periodsCoursesAsignaturesUnits.create({
+              data: {
+                periodCourseAsignatureId: periodCourseAsignature.id,
+                unitId: element,
+              },
+            });
+          },
+        );
+      });
+    }
+
+    return updatedAsignature;
   }
 
   async delete(id: string) {

@@ -21,6 +21,7 @@ import Users from './pages/dashboard/usuarios'
 import Students from './pages/dashboard/estudiantes'
 import Reports from './pages/dashboard/reports'
 import { ChooseAnOption } from './components/exercise'
+import Asignaturas from './pages/dashboard/asignaturas'
 
 const App = () => {
   const { config, isThisRol } = useContext(GeneralContext)
@@ -59,6 +60,7 @@ const App = () => {
                   <Route path="cursos" element={<DashboardCursos />} />
                   <Route path="usuarios" element={<Users />} />
                   <Route path="periodos" element={<DashboardPeriods />} />
+                  <Route path="asignaturas" element={<Asignaturas />} />
                 </>
               ) : null}
               {isAdminOrTeacher && (

@@ -57,7 +57,6 @@ export const useInscriptionStudent = () => {
     data: { students: Student[] }
     loading: boolean
   }
-  console.log(dataStudents)
 
   useEffect(() => {
     resetIssSelectedPeriod()

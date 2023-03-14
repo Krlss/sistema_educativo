@@ -43,6 +43,38 @@ export const GETASIGNATURES = gql`
     asignatures {
       id
       name
+      description
+      image
+      createdAt
+      updatedAt
+      periodsCoursesAsignatures {
+        periodCourseAsignatureUnits {
+          unit {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+`
+
+export const GETASIGNATURESXPERIODCOURSE = gql`
+  query Query {
+    periodsCoursesAsignatures {
+      periodCourseId
+      asignature {
+        name
+        id
+        description
+        image
+      }
+      periodCourseAsignatureUnits {
+        unit {
+          id
+          name
+        }
+      }
     }
   }
 `
