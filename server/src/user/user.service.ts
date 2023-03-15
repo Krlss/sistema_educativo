@@ -462,7 +462,9 @@ export class UserService {
             name: asignature.name,
             image: asignature.image,
             percentage: Math.round(
-              (topicsfinished / (topicsnumber + unitsnumber)) * 100,
+              !isNaN(topicsfinished / (topicsnumber + unitsnumber))
+                ? topicsfinished / (topicsnumber + unitsnumber)
+                : 0 * 100,
             ),
             id_asignature: asignatureId,
             unit: periodCourseAsignatureUnits.map(

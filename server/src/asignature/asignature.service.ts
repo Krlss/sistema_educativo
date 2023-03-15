@@ -148,49 +148,81 @@ export class AsignatureService {
   }
 
   async update(data: UpdateAsignatureDTO) {
-    const { name, description, image, units, periodsCourses } = data;
+    const { id, name, description, image, units, periodsCourses } = data;
     const updatedAsignature = await this.prismaService.asignature.update({
-      where: { id: data.id },
+      where: { id },
       data: {
-        periodsCoursesAsignatures: {
-          deleteMany: { asignatureId: data.id },
-          createMany: {
-            data: periodsCourses.map((periodCourseId) => ({
-              periodCourseId,
-            })),
-          },
-        },
         ...(name && { name }),
         ...(description && { description }),
         ...(image && { image }),
       },
       include: {
-        periodsCoursesAsignatures: true,
+        periodsCoursesAsignatures: {
+          where: {
+            periodCourseId: {
+              in: periodsCourses,
+            },
+          },
+          include: {
+            periodCourseAsignatureUnits: {
+              include: {
+                unit: true,
+              },
+            },
+          },
+        },
       },
     });
 
     if (units && units.length > 0) {
-      updatedAsignature.periodsCoursesAsignatures.forEach(
-        async (periodCourseAsignature) => {
+      periodsCourses.forEach(async (periodCourseId) => {
+        const array_unitsId_for_delete =
+          updatedAsignature.periodsCoursesAsignatures
+            .find(
+              (periodCourseAsignature) =>
+                periodCourseAsignature.periodCourseId === periodCourseId,
+            )
+            ?.periodCourseAsignatureUnits.map((x) => {
+              if (!units.includes(x.unitId)) return x.unitId;
+            })
+            .filter((e) => e);
+
+        const array_unitsId_for_add = units.filter((unit) => {
+          return !updatedAsignature.periodsCoursesAsignatures
+            .find(
+              (periodCourseAsignature) =>
+                periodCourseAsignature.periodCourseId === periodCourseId,
+            )
+            ?.periodCourseAsignatureUnits.map((x) => x.unitId)
+            .includes(unit);
+        });
+
+        array_unitsId_for_delete.forEach(async (unitId) => {
           await this.prismaService.periodsCoursesAsignaturesUnits.deleteMany({
             where: {
-              periodCourseAsignatureId: periodCourseAsignature.id,
+              unitId,
+              periodCourseAsignature: {
+                asignatureId: id,
+                periodCourse: {
+                  id: periodCourseId,
+                },
+              },
             },
           });
-        },
-      );
+        });
 
-      units.forEach((element) => {
-        updatedAsignature.periodsCoursesAsignatures.forEach(
-          async (periodCourseAsignature) => {
-            await this.prismaService.periodsCoursesAsignaturesUnits.create({
-              data: {
-                periodCourseAsignatureId: periodCourseAsignature.id,
-                unitId: element,
-              },
-            });
-          },
-        );
+        array_unitsId_for_add.forEach((element) => {
+          updatedAsignature.periodsCoursesAsignatures.forEach(
+            async (periodCourseAsignature) => {
+              await this.prismaService.periodsCoursesAsignaturesUnits.create({
+                data: {
+                  periodCourseAsignatureId: periodCourseAsignature.id,
+                  unitId: element,
+                },
+              });
+            },
+          );
+        });
       });
     }
 
