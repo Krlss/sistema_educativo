@@ -31,23 +31,25 @@ const DragAndDropSet = (props: question) => {
         </ContentDroppable>
 
         <div className="flex gap-4 mb-40">
-          {sets.map((item, set) => (
-            <SetDroppable
-              droppableId={`respuesta-${set}`}
-              key={set}
-              title={item.title}>
-              {answer[set]?.map((item: any, index: number) => (
-                <ResponseTextSetDraggable
-                  key={item.value}
-                  draggableId={item.value}
-                  index={index}
-                  value={item.value}
-                  isCorrect={item.isCorrect}
-                  color={item.color}
-                />
-              ))}
-            </SetDroppable>
-          ))}
+          {sets.map((item, set) =>
+            item.title ? (
+              <SetDroppable
+                droppableId={`respuesta-${set}`}
+                key={set}
+                title={item.title}>
+                {answer[set]?.map((item: any, index: number) => (
+                  <ResponseTextSetDraggable
+                    key={item.value}
+                    draggableId={item.value}
+                    index={index}
+                    value={item.value}
+                    isCorrect={item.isCorrect}
+                    color={item.color}
+                  />
+                ))}
+              </SetDroppable>
+            ) : null
+          )}
         </div>
       </DragDropContext>
     </>

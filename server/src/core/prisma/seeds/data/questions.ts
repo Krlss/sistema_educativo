@@ -3641,7 +3641,6 @@ export const questions: Question[] = [
     unit: 'Unidad 4',
     topic: 'Relación de orden entre fracciones',
   },
-
   {
     options:
       '{"options":[{"value":false,"text":"9/18< 15/18 < 12/18 < 14/18"},{"value":false,"text":"15/18 < 14/18 < 12/18 < 9/18"},{"value":false,"text":"15/18 < 12/18 < 14/18 < 9/18"},{"value":true,"text":"9/18 < 12/18 < 14/18 < 15/18"}]}',
@@ -5329,5 +5328,174 @@ export const questions: Question[] = [
     asignature: 'Inglés',
     unit: 'Unidad 2',
     topic: 'El Alfabeto en ingles',
+  },
+  {
+    title: 'Arrastre la respuesta correcta según las partes de un computador:',
+    type: QuestionType.drag_and_drop_text,
+    asignature: 'Computación',
+    unit: 'Unidad 1',
+    topic: 'La computadora',
+    options:
+      '[{"value":"Monitor","text":"Monitor","image":"https://drive.google.com/uc?id=1pi_nriGF9w5sJrFIMlFCQHupVDlMfB6l&export=view"},{"value":"CPU","text":"CPU","image":"https://drive.google.com/uc?id=16JAe7YlIgtWJdEB1pHRKDyN-RGVq4Qrp&export=view"},{"value":"Teclado","text":"Teclado","image":"https://drive.google.com/uc?id=1lTe2Se_GJQtfLq2439JUwkUvIcNdFNL6&export=view"}]',
+  },
+  {
+    options:
+      '{"sets":[{"title":"Puertos de la computadora","options":[{"text":"Puerto Serie","value":"Puerto Serie"},{"text":"Puerto Ethernet","value":"Puerto Ethernet"}]},{"options":[{"text":"Conectores USB","value":"Conectores USB"},{"text":"Conector Firewire","value":"Conector Firewire"}]}]}',
+    title:
+      'Arrastre la respuesta correcta según los puertos de la computadora:',
+    type: QuestionType.drag_and_drop_sets,
+    asignature: 'Computación',
+    unit: 'Unidad 1',
+    topic: 'La computadora',
+  },
+  {
+    title: 'Arrastre la respuesta correcta según las partes de un computador:',
+    type: QuestionType.drag_and_drop_text,
+    asignature: 'Computación',
+    unit: 'Unidad 1',
+    topic: 'La computadora',
+    options:
+      '[{"value":"Conector DVI","text":"Conector DVI","image":"https://drive.google.com/uc?id=1XEKtA3ZBuNifYxIguk0iytCUqFWZUrJ6&export=view"},{"value":"Conector Firewire"}]',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"pc-happy","image":"https://drive.google.com/uc?id=1OT5lWbeMjiBTEDyPON1bYv800fQGxpYL&export=view"},{"value":false,"text":"mesa-plastico","image":"https://drive.google.com/uc?id=1a_dMMx0m1ZqBj4sHEaYSdJflV68_GOwF&export=view"},{"value":true,"text":"mouse","image":"https://drive.google.com/uc?id=1MWEtZ_zs82JDCSdKl3u7h1yf6tnfZo4t&export=view"}]}',
+    title: '¿Elija las partes de la computadora?',
+    type: QuestionType.choose_any_option,
+    asignature: 'Computación',
+    unit: 'Unidad 1',
+    topic: 'La computadora',
+  },
+  {
+    title:
+      '¿En las siguientes imágenes agregue a cada imagen los nombres de cada parte de un computador?',
+    type: QuestionType.drag_and_drop_text,
+    asignature: 'Computación',
+    unit: 'Unidad 1',
+    topic: 'Partes de la computadora',
+    options:
+      '[{"value":"Parlantes","text":"Parlantes","image":"https://drive.google.com/uc?id=18SQ8xzJYWK8-stEL7JnGFeAsC85veO2K&export=view"},{"value":"Impresora","text":"Impresora","image":"https://drive.google.com/uc?id=13-RNMtgMQwltbosDhl5ZItrBkT3IKX2q&export=view"},{"value":"Cámara web","text":"Cámara web","image":"https://drive.google.com/uc?id=1Su_i9WQoaiZ-8ah-1mDI2Mw6YAh3J_Ex&export=view"}]',
+  },
+  {
+    title: 'Verdadero o Falso',
+    subtitle: 'El computador está conformado por las siguientes imágenes:',
+    type: QuestionType.true_or_false,
+    asignature: 'Computación',
+    unit: 'Unidad 1',
+    topic: 'Partes de la computadora',
+    options:
+      '{"correct":true,"image":"https://drive.google.com/uc?id=1n4aRS4iq9jWHQxGaRbS0cQoTHd9Oj-GQ&export=view"}',
+  },
+  {
+    options:
+      '{"sets":[{"title":"Computadoras que han evolucionado","options":[{"text":"De Escritorio","value":"De Escritorio"},{"text":"De Torre","value":"De Torre"}]},{"options":[{"text":"Medio electrónico","value":"Medio electrónico"},{"text":"De medio","value":"De medio"}]}]}',
+    title:
+      'Arrastre la respuesta correcta ¿Las computadoras han evolucionado con el tiempo las más comunes son?',
+    type: QuestionType.drag_and_drop_sets,
+    asignature: 'Computación',
+    unit: 'Unidad 1',
+    topic: 'Partes de la computadora',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"Prohibido golpearlo, ya que contiene piezas muy pequeñas"},{"value":false,"text":"Prohibido comer y/o beber encima del teclado"},{"value":true,"text":"No desconectar mientras la CPU esté encendida"}]}',
+    title:
+      'Elija la opción correcta dando clic a uno de los cuidados del monitor:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Computación',
+    unit: 'Unidad 1',
+    topic: 'Cuidados del equipo',
+  },
+  {
+    options:
+      '{"correct":false,"image":"https://drive.google.com/uc?id=18e47lgM48jm8LcP9bqKEN6Gq4RspkBna&export=view"}',
+    title: 'Verdadero o falso',
+    type: QuestionType.true_or_false,
+    subtitle:
+      'La siguiente descripción es correcta: En el cuidado de la computadora es correcto lo que se visualiza en la siguiente imagen.',
+    asignature: 'Computación',
+    unit: 'Unidad 1',
+    topic: 'Cuidados del equipo',
+  },
+  {
+    options:
+      '{"correct":true,"image":"https://drive.google.com/uc?id=15C5jk98VwmLLwg_ulTMrK53qC0jzdJLd&export=view"}',
+    title:
+      'Señale la respuesta correcta según el enunciado. En el ratón o mouse está prohibido golpearlo y mojarlo.',
+    type: QuestionType.true_or_false,
+    asignature: 'Computación',
+    unit: 'Unidad 1',
+    topic: 'Cuidados del equipo',
+  },
+  {
+    options:
+      '{"correct":false,"image":"https://drive.google.com/uc?id=10tvpBsrxVHgntTzFMDC1jndfxrza62Qe&export=view"}',
+    title: 'Verdadero o falso ',
+    subtitle:
+      'La siguiente descripción es correcta: En el cuidado de las computadoras el CPU debe de estar en un espacio reducido en un lugar no elevado y puede colocar cualquier cosa enzima de este es correcto la siguiente imagen.',
+    type: QuestionType.true_or_false,
+    asignature: 'Computación',
+    unit: 'Unidad 1',
+    topic: 'Cuidados del equipo',
+  },
+  {
+    title:
+      'Arrastre la respuesta correcta según los conectores de una computadora.',
+    type: QuestionType.drag_and_drop_text,
+    asignature: 'Computación',
+    unit: 'Unidad 1',
+    topic: 'Cuidados del equipo',
+    options:
+      '[{"value":"Conector USB","text":"Conector USB","image":"https://drive.google.com/uc?id=1dfHcQhNK4lmHuQ1n8KDYV2dRJGINevJY&export=view"},{"value":"Conector RGB/VGA","text":"Conector RGB/VGA","image":"https://drive.google.com/uc?id=1FIDbuGFs37fP-7bhhY9opiWh3rovKsva&export=view"}]',
+  },
+  {
+    title:
+      'Arrastre la respuesta correcta según los conectores de una computadora.',
+    type: QuestionType.drag_and_drop_text,
+    asignature: 'Computación',
+    unit: 'Unidad 1',
+    topic: 'Cuidados del equipo',
+    options:
+      '[{"value":"Puerto Ethernet","text":"Puerto Ethernet","image":"https://drive.google.com/uc?id=1XKAX8t2vP-nhcuQYgXO3VTXrEsUiWMhh&export=view"},{"value":"Conector HDMI","text":"Conector HDMI","image":"https://drive.google.com/uc?id=11gQv4gw0iYyVXMwvOaTknY9Ol0f2C50W&export=view"}]',
+  },
+  {
+    title:
+      'Seleccione la imagen correcta: Es el dispositivo principal de salida de datos de la computadora.',
+    type: QuestionType.choose_an_option,
+    asignature: 'Computación',
+    unit: 'Unidad 1',
+    topic: 'Cables y enchufe',
+    options:
+      '{"options":[{"value":false,"text":"parlantes","image":"https://drive.google.com/uc?id=1B3GO542HVCYoBawzFlE_8nlxr5cQ49sA&export=view"},{"value":false,"text":"teclado","image":"https://drive.google.com/uc?id=1ZHGFcFBn7KbsgeJH0NZRpFvtQQB1ykz-&export=view"},{"value":true,"text":"monitor","image":"https://drive.google.com/uc?id=1uSl11g4PcUqIJYzVb7l0gTbyUbmdn-3Q&export=view"}]}',
+  },
+  {
+    title:
+      'Seleccione la imagen correcta: Es el dispositivo que le brinda la posibilidad al usuario introducir datos para que después puedan ser interpretados y procesados por la CPU.',
+    type: QuestionType.choose_an_option,
+    asignature: 'Computación',
+    unit: 'Unidad 1',
+    topic: 'Cables y enchufe',
+    options:
+      '{"options":[{"value":false,"text":"mouse","image":"https://drive.google.com/uc?id=1Kwoa6crom9UjJf31bL-bAucY1z0nk7x_&export=view"},{"value":true,"text":"teclado","image":"https://drive.google.com/uc?id=1ZHGFcFBn7KbsgeJH0NZRpFvtQQB1ykz-&export=view"},{"value":false,"text":"parlantes","image":"https://drive.google.com/uc?id=1B3GO542HVCYoBawzFlE_8nlxr5cQ49sA&export=view"}]}',
+  },
+  {
+    title:
+      'Seleccione la imagen correcta: Es el dispositivo que, al igual que el teclado, permite enviarle instrucciones a una computadora mientras este interactúa con una interfaz gráfica.',
+    type: QuestionType.choose_an_option,
+    asignature: 'Computación',
+    unit: 'Unidad 1',
+    topic: 'Cables y enchufe',
+    options:
+      '{"options":[{"value":false,"text":"monitor","image":"https://drive.google.com/uc?id=1uSl11g4PcUqIJYzVb7l0gTbyUbmdn-3Q&export=view"},{"value":true,"text":"mouse","image":"https://drive.google.com/uc?id=1Kwoa6crom9UjJf31bL-bAucY1z0nk7x_&export=view"},{"value":false,"text":"teclado","image":"https://drive.google.com/uc?id=1ZHGFcFBn7KbsgeJH0NZRpFvtQQB1ykz-&export=view"}]}',
+  },
+  {
+    title:
+      'Seleccione la imagen correcta: Son los dispositivos que le dan salida de audio al computador, gracias a ellos puedes escuchar el sonido de la música o video que estés reproduciendo.',
+    type: QuestionType.choose_an_option,
+    asignature: 'Computación',
+    unit: 'Unidad 1',
+    topic: 'Cables y enchufe',
+    options:
+      '{"options":[{"value":true,"text":"parlantes","image":"https://drive.google.com/uc?id=1B3GO542HVCYoBawzFlE_8nlxr5cQ49sA&export=view"},{"value":false,"text":"monitor","image":"https://drive.google.com/uc?id=1uSl11g4PcUqIJYzVb7l0gTbyUbmdn-3Q&export=view"},{"value":false,"text":"mouse","image":"https://drive.google.com/uc?id=1Kwoa6crom9UjJf31bL-bAucY1z0nk7x_&export=view"}]}',
   },
 ];

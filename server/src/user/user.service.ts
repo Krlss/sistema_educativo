@@ -335,6 +335,17 @@ export class UserService {
             id,
           },
         },
+        periodsCoursesAsignaturesUnitsTopics: {
+          some: {
+            periodCourseAsignatureUnit: {
+              periodCourseAsignature: {
+                periodCourse: {
+                  periodId: periodId?.id,
+                },
+              },
+            },
+          },
+        },
       },
       include: {
         periodsCoursesAsignaturesUnitsTopics: {
@@ -462,9 +473,9 @@ export class UserService {
             name: asignature.name,
             image: asignature.image,
             percentage: Math.round(
-              !isNaN(topicsfinished / (topicsnumber + unitsnumber))
-                ? topicsfinished / (topicsnumber + unitsnumber)
-                : 0 * 100,
+              topicsnumber + unitsnumber !== 0
+                ? (topicsfinished / (topicsnumber + unitsnumber)) * 100
+                : 0,
             ),
             id_asignature: asignatureId,
             unit: periodCourseAsignatureUnits.map(

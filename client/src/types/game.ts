@@ -103,7 +103,7 @@ export interface dragAndDropObjects_ {
 
 export interface dragAndDropSets_ {
   sets: {
-    title: string
+    title?: string
     options: {
       color?: string
       text: string

@@ -23,8 +23,10 @@ const useDragAndDropSets = (props: question) => {
   const options = getFlatArraySets({ sets })
 
   const [options_, setOptions] = useState(shuffleArray(options))
-  const [lenghtOptions_] = useState(options_.length)
-  const [answer, setAnswer] = useState<any>(Array(sets.length).fill([]))
+  const [lenghtOptions_] = useState(options_.filter(e => e.isValid).length)
+  const [answer, setAnswer] = useState<any>(
+    Array(sets.filter(e => e.title).length).fill([])
+  )
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source } = result
@@ -96,7 +98,9 @@ const useDragAndDropSets = (props: question) => {
   }
 
   useEffect(() => {
-    if (!options_.length) {
+    const someAnswer = answer.some((item: any) => item.length)
+
+    if (someAnswer) {
       const correct = answer.reduce(
         (acc: iVerify, current: [], set: number) => {
           const correct = current.filter((item: any) => item.isCorrect).length

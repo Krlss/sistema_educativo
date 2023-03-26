@@ -103,7 +103,14 @@ export const stripquotes = (str: string) => {
 }
 
 export const getFlatArraySets = ({ sets }: dragAndDropSets_) => {
-  const options = sets.map(e => e.options).flat()
+  const options = sets
+    .map(e =>
+      e.options.map(x => {
+        return { ...x, isValid: e.title ? true : false }
+      })
+    )
+    .flat()
+
   const colors = getRamdonArrayColors(options.length)
 
   return options.map((e, i) => {

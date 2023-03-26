@@ -23,6 +23,7 @@ import Reports from './pages/dashboard/reports'
 import { ChooseAnOption } from './components/exercise'
 import Asignaturas from './pages/dashboard/asignaturas'
 import Temas from './pages/dashboard/temas'
+import { DragAndDropSet, DragAndDropChooseText } from './components/exercise'
 
 const App = () => {
   const { config, isThisRol } = useContext(GeneralContext)
@@ -48,7 +49,7 @@ const App = () => {
             path="/asignatura/:asignatureId/unidad/:unitId/tema/:topicId"
             element={<ClassPresentation />}
           />
-          {/* <Route path="/a" element={<ChooseAnOption {...data} />} /> */}
+          {/* <Route path="/a" element={<DragAndDropChooseText {...data} />} /> */}
           <Route
             path="/asignatura/:asignatureId/unidad/:unitId/prueba"
             element={<Game />}

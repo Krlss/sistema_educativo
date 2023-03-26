@@ -28,7 +28,11 @@ const useDragAndDropChooseText = ({
     }
   })
 
-  const lengthText = defaultData.filter(option => option.text).length
+  const lengthText = defaultData.filter(
+    option => option?.text || option?.text1
+  ).length
+
+  console.log({ lengthText })
 
   interface IOptions {
     value: string
