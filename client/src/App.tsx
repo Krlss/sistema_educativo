@@ -33,6 +33,7 @@ const App = () => {
   return (
     <>
       <Routes>
+        {/* <Route path="/a" element={<Game />} /> */}
         <Route path="/iniciar-sesion" element={<Login />} />
         <Route path="/registrarse" element={<Register />} />
         <Route path="/" element={<DefaultAplicacion />}>
@@ -49,7 +50,6 @@ const App = () => {
             path="/asignatura/:asignatureId/unidad/:unitId/tema/:topicId"
             element={<ClassPresentation />}
           />
-          {/* <Route path="/a" element={<DragAndDropChooseText {...data} />} /> */}
           <Route
             path="/asignatura/:asignatureId/unidad/:unitId/prueba"
             element={<Game />}

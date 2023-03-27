@@ -80,8 +80,8 @@ const GeneralProvider = (props: any) => {
   }
 
   const updatedQuestion = (question: QuestionsExtends) => {
-    if (location.pathname.includes('prueba'))
-      dispatchGame({ type: 'updatedQuestion', payload: question })
+    //if (location.pathname.includes('prueba'))
+    dispatchGame({ type: 'updatedQuestion', payload: question })
   }
 
   const setIndex = (index: number) => {

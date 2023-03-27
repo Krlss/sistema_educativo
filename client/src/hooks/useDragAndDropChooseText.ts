@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import GeneralContext from '../contexts/context'
 
 import {
@@ -31,8 +31,6 @@ const useDragAndDropChooseText = ({
   const lengthText = defaultData.filter(
     option => option?.text || option?.text1
   ).length
-
-  console.log({ lengthText })
 
   interface IOptions {
     value: string
@@ -71,31 +69,6 @@ const useDragAndDropChooseText = ({
         isCorrect: removed.value === defaultData[parseInt(index)].value
       }
       setAnswers(newAnswers)
-
-      const lengthAnswers = newAnswers.filter(e => e).length
-
-      if (lengthAnswers === lengthText) {
-        const response = verifyDragAndDropChooseText(newAnswers.filter(e => e))
-        if (response) {
-          const newQuestion = {
-            id: question.id,
-            nota: response.note,
-            isDone: true,
-            responseUser: JSON.stringify({ anwers: newAnswers })
-          }
-
-          const find = gameState.questions.find(
-            question => question.id === newQuestion.id
-          )
-
-          if (find) {
-            updatedQuestion(newQuestion)
-          } else {
-            setQuestion(newQuestion)
-          }
-        }
-      }
-      return
     }
 
     if (source.droppableId === 'items' && destination.droppableId === 'items') {
@@ -152,6 +125,35 @@ const useDragAndDropChooseText = ({
       } as ReturnVerifyDragAndDropChooseTextProps
     )
   }
+
+  useEffect(() => {
+    const lengthAnswers = anwers.filter(e => e).length
+
+    if (lengthAnswers === lengthText) {
+      const response = verifyDragAndDropChooseText(anwers.filter(e => e))
+      if (response) {
+        const newQuestion = {
+          id: question.id,
+          nota: response.note,
+          isDone: true,
+          responseUser: JSON.stringify({ anwers })
+        }
+
+        const find = gameState.questions.find(
+          question => question.id === newQuestion.id
+        )
+
+        console.log(find)
+
+        if (find) {
+          updatedQuestion(newQuestion)
+        } else {
+          setQuestion(newQuestion)
+        }
+      }
+    }
+    return
+  }, [anwers])
 
   return {
     options,
