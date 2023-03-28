@@ -35,7 +35,7 @@ const TrueOrFalse = (props: question) => {
       )}
       {options_.image && (
         <div className="my-8">
-          <img src={options_.image} alt="imagen" width={150} />
+          <img src={options_.image} alt="imagen" width={250} />
         </div>
       )}
       <div className="flex flex-col items-start mt-2 mb-6">
