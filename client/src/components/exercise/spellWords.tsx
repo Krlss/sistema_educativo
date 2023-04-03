@@ -86,7 +86,7 @@ const SpellWords = (props: question) => {
 
       {options.map((option, x) => (
         <div key={x} className="flex items-center gap-2 my-2 w-full">
-          {option.image && <img className="w-16 h-16" src={option.image} />}
+          {option.image && <img className="w-36 h-36" src={option.image} />}
           <div className="flex gap-2">
             <div className="flex items-center gap-2 font-semibold">
               <span className="text-2xl">{option.text}</span>

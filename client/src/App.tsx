@@ -20,7 +20,7 @@ import InscriptionStudens from './pages/dashboard/inscription-students'
 import Users from './pages/dashboard/usuarios'
 import Students from './pages/dashboard/estudiantes'
 import Reports from './pages/dashboard/reports'
-import { ChooseAnOption } from './components/exercise'
+import { ChooseAnOption, SpellWord, TrueOrFalse } from './components/exercise'
 import Asignaturas from './pages/dashboard/asignaturas'
 import Temas from './pages/dashboard/temas'
 import { DragAndDropSet, DragAndDropChooseText } from './components/exercise'
@@ -33,7 +33,7 @@ const App = () => {
   return (
     <>
       <Routes>
-        {/* <Route path="/a" element={<Game />} /> */}
+        {/* <Route path="/a" element={<DragAndDropSet {...data} />} /> */}
         <Route path="/iniciar-sesion" element={<Login />} />
         <Route path="/registrarse" element={<Register />} />
         <Route path="/" element={<DefaultAplicacion />}>

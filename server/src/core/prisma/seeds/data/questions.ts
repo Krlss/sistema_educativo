@@ -5498,4 +5498,212 @@ export const questions: Question[] = [
     options:
       '{"options":[{"value":true,"text":"parlantes","image":"https://drive.google.com/uc?id=1B3GO542HVCYoBawzFlE_8nlxr5cQ49sA&export=view"},{"value":false,"text":"monitor","image":"https://drive.google.com/uc?id=1uSl11g4PcUqIJYzVb7l0gTbyUbmdn-3Q&export=view"},{"value":false,"text":"mouse","image":"https://drive.google.com/uc?id=1Kwoa6crom9UjJf31bL-bAucY1z0nk7x_&export=view"}]}',
   },
+  {
+    options:
+      '[{"value":"EL TECLADO","text":"Dispositivo para introducir datos"},{"value":"SCANNER","text":"Unidad de ingreso de información"}]',
+    title: 'ARRASTRE LOS TEMAS DE CADA TEXTO',
+    subtitle: 'LAS FUNCIONES DE LOS SIGUIENTES PERIFERICOS',
+    type: QuestionType.drag_and_drop_text,
+    asignature: 'Computación',
+    unit: 'Unidad 2',
+    topic: 'Periféricos de entrada y salidas',
+  },
+  {
+    options:
+      '[{"value":"MICRÓFONO","text":"El encargado de la trasmisión acústica el audio"},{"value":"RATÓN","text":"Nos permite dar introducciones a la computadora"}]',
+    title: 'ARRASTRE LOS TEMAS DE CADA TEXTO',
+    subtitle: 'LAS FUNCIONES DE LOS SIGUIENTES PERIFERICOS',
+    type: QuestionType.drag_and_drop_text,
+    asignature: 'Computación',
+    unit: 'Unidad 2',
+    topic: 'Periféricos de entrada y salidas',
+  },
+  {
+    title:
+      'ESCOJA LA OPCION CORRECTA SEGÚN EL ENUNCIADO: SON PERIFÉRICOS DEL COMPUTADOR.',
+    type: QuestionType.choose_an_option,
+    asignature: 'Computación',
+    unit: 'Unidad 2',
+    topic: 'Periféricos de entrada y salidas',
+    options:
+      '{"options":[{"value":false,"text":"La CPU y la cámara web."},{"value":false,"text":"El monitor, la memoria y scáner"},{"value":true,"text":"El teclado, escaner, cámara web y mouse."},{"value":false,"text":"Todos los anteriores."}]}',
+  },
+  {
+    title: '¿QUÉ ES UN PERIFÉRICO DE ENTRADA?',
+    type: QuestionType.choose_an_option,
+    asignature: 'Computación',
+    unit: 'Unidad 2',
+    topic: 'Periféricos de entrada y salidas',
+    options:
+      '{"options":[{"value":false,"text":"Un dispositivo que se conecta al computador."},{"value":true,"text":"Un dispositivo que me permite ingresar información al computador."},{"value":false,"text":"Un dispositivo que me permite sacar información en el computador."},{"value":false,"text":"Almacena la información"}]}',
+  },
+  {
+    title:
+      'DE LAS SIGUIENTES PERIFERICOS CUALES SON DE ENTRADA Y CUALES SON DE SALIDAS',
+    type: QuestionType.drag_and_drop_text,
+    asignature: 'Computación',
+    unit: 'Unidad 2',
+    topic: 'Periféricos de entrada y salidas',
+    options:
+      '[{"value":"ENTRADA","text":"ENTRADA","image":"https://drive.google.com/uc?id=1do_lcYYOUc86RPw0yNWLdSeNmigSRHlh&export=view"},{"value":"SALIDA"}]',
+  },
+  {
+    title:
+      'DE LAS SIGUIENTES PERIFERICOS CUALES SON DE ENTRADA Y CUALES SON DE SALIDAS',
+    type: QuestionType.drag_and_drop_text,
+    asignature: 'Computación',
+    unit: 'Unidad 2',
+    topic: 'Periféricos de entrada y salidas',
+    options:
+      '[{"value":"SALIDA","text":"SALIDA","image":"https://drive.google.com/uc?id=1jQ26D89V7eYq3Oxl_Wkpvdb1tnarvu8C&export=view"},{"value":"ENTRADA"}]',
+  },
+  {
+    title:
+      'DE LAS SIGUIENTES PERIFERICOS CUALES SON DE ENTRADA Y CUALES SON DE SALIDAS',
+    type: QuestionType.drag_and_drop_text,
+    asignature: 'Computación',
+    unit: 'Unidad 2',
+    topic: 'Periféricos de entrada y salidas',
+    options:
+      '[{"value":"SALIDA","text":"SALIDA","image":"https://drive.google.com/uc?id=1qqQvbTrItmW6MqQkDdEQD0tdLdNePqke&export=view"},{"value":"ENTRADA"}]',
+  },
+  {
+    title:
+      'DE LAS SIGUIENTES PERIFERICOS CUALES SON DE ENTRADA Y CUALES SON DE SALIDAS',
+    type: QuestionType.drag_and_drop_text,
+    asignature: 'Computación',
+    unit: 'Unidad 2',
+    topic: 'Periféricos de entrada y salidas',
+    options:
+      '[{"value":"ENTRADA","text":"ENTRADA","image":"https://drive.google.com/uc?id=1RHfjPKYOIefgN5iEOjtzw6yNtiWu7xzV&export=view"},{"value":"SALIDA"}]',
+  },
+  {
+    options:
+      '{"options":[{"value":["S","A","L","I","D","A"],"image":"https://drive.google.com/uc?id=1DMZB6pSDZlSuz1779UgxsV_XQfDYnFeX&export=view"}]}',
+    title:
+      'ESCRIBA LA RESPUESTA CORRECTA SEGÚN LA IMAGEN: DE LAS SIGUIENTES PERIFERICOS CUALES SON DE ENTRADA Y CUALES SON DE SALIDAS.',
+    type: QuestionType.spell_word,
+    asignature: 'Computación',
+    unit: 'Unidad 2',
+    topic: 'Periféricos de entrada y salidas',
+  },
+  {
+    options:
+      '{"options":[{"value":["E","N","T","R","A","D","A"],"image":"https://drive.google.com/uc?id=1wfNObySX9O4GYfk7qcONdkmZLEWYVeX8&export=view"}]}',
+    title:
+      'ESCRIBA LA RESPUESTA CORRECTA SEGÚN LA IMAGEN: DE LAS SIGUIENTES PERIFERICOS CUALES SON DE ENTRADA Y CUALES SON DE SALIDAS.',
+    type: QuestionType.spell_word,
+    asignature: 'Computación',
+    unit: 'Unidad 2',
+    topic: 'Periféricos de entrada y salidas',
+  },
+  {
+    options:
+      '{"options":[{"value":["E","N","T","R","A","D","A"],"image":"https://drive.google.com/uc?id=1r41VZ215akgvdvaPzuvt9DTF68_mXkER&export=view"}]}',
+    title:
+      'ESCRIBA LA RESPUESTA CORRECTA SEGÚN LA IMAGEN: DE LAS SIGUIENTES PERIFERICOS CUALES SON DE ENTRADA Y CUALES SON DE SALIDAS.',
+    type: QuestionType.spell_word,
+    asignature: 'Computación',
+    unit: 'Unidad 2',
+    topic: 'Periféricos de entrada y salidas',
+  },
+  {
+    title:
+      'INDIQUE ARRASTRANDO LA RESPUESTA CORRECTA SI ES EL CONCEPTO ADECUADO DE LOS PERIFERICO DE ENTRADA O DE SALIDA',
+    type: QuestionType.drag_and_drop_text,
+    asignature: 'Computación',
+    unit: 'Unidad 2',
+    topic: 'Software y hardware',
+    options:
+      '[{"value":"SALIDA","text":"ES EL QUE PERMITE SACAR INFORMACION DEL COMPUTADOR"},{"value":"ENTRADA","text":"SON ELEMENTOS EN LO QUE INTRODUCEN INFORMACION A LA COMPUTADORA"}]',
+  },
+  {
+    options:
+      '{"correct":true,"image":"https://drive.google.com/uc?id=1wfNObySX9O4GYfk7qcONdkmZLEWYVeX8&export=view"}',
+    title: 'VERDADERO O FALSO',
+    subtitle:
+      'EL SIGUIENTE ENUNCIADO ES CORRECTO SOBRE EL CONCEPTO DE LA CAMARA WEB: ES LA QUE MUESTRA IMÁGENES QUE SE REFLEJAN A TRAVÉS DE VIDEOS O FOTOGRAFÍAS ESTE DISPOSITIVO ES UN PERIFÉRICO DE ENTRADA.',
+    type: QuestionType.true_or_false,
+    asignature: 'Computación',
+    unit: 'Unidad 2',
+    topic: 'Software y hardware',
+  },
+  {
+    options:
+      '{"correct":false,"image":"https://drive.google.com/uc?id=1qLqSBDA-8hYZiPK_v4L3wz8wddIVRnOn&export=view"}',
+    title: 'VERDADERO O FALSO',
+    subtitle:
+      'EL SIGUIENTE ENUNCIADO ES CORRECTO SOBRE EL CONCEPTO DE LA IMPRESORA: ES EL DISPOSITIVO DONDE SE PUEDE VER LA INFORMACIÓN Y ES UN PERIFÉRICO DE ENTRADA',
+    type: QuestionType.true_or_false,
+    asignature: 'Computación',
+    unit: 'Unidad 2',
+    topic: 'Software y hardware',
+  },
+  {
+    options:
+      '{"correct":true,"image":"https://drive.google.com/uc?id=1nPa9zGOzwPpBco0VHhsOf9NddvSDQ5lV&export=view"}',
+    title: 'VERDADERO O FALSO',
+    subtitle:
+      'VERDADERO O FALSO EL SIGUIENTE ENUNCIADO ES CORRECTO SOBRE LA ESTRUCTURA DEL COMPUTADOR: EL HARDWARE ES LA PARTE FÍSICA Y TANGIBLE DE UN COMPUTADOR Y TODO SU SISTEMA.',
+    type: QuestionType.true_or_false,
+    asignature: 'Computación',
+    unit: 'Unidad 2',
+    topic: 'Software y hardware',
+  },
+  {
+    options:
+      '{"correct":true,"image":"https://drive.google.com/uc?id=10O7TY7PWxIsNVGXxIQ0oPxvEeSxvsPnI&export=view"}',
+    title: 'VERDADERO O FALSO',
+    subtitle:
+      'EL SIGUIENTE ENUNCIADO ES CORRECTO SOBRE LA ESTRUCTURA DEL COMPUTADOR: EL SOFTWARE ES LA PARTE INTANGIBLE DE UN COMPUTADOR ES DECIR ESTÁ CONFORMADA POR LOS PROGRAMAS SISTEMAS O LENGUAJE QUE EXISTE DENTRO DEL COMPUTADOR PARA SU FUNCIONAMIENTO.',
+    type: QuestionType.true_or_false,
+    asignature: 'Computación',
+    unit: 'Unidad 2',
+    topic: 'Software y hardware',
+  },
+  {
+    options:
+      '{"options":[{"value":true,"text":"impresora","image":"https://drive.google.com/uc?id=1qLqSBDA-8hYZiPK_v4L3wz8wddIVRnOn&export=view"},{"value":false,"text":"camara","image":"https://drive.google.com/uc?id=1wfNObySX9O4GYfk7qcONdkmZLEWYVeX8&export=view"},{"value":true,"text":"parlantes","image":"https://drive.google.com/uc?id=1qqQvbTrItmW6MqQkDdEQD0tdLdNePqke&export=view"},{"value":false,"text":"mouse","image":"https://drive.google.com/uc?id=1r41VZ215akgvdvaPzuvt9DTF68_mXkER&export=view"}]}',
+    title: 'SELECCIONE LOS PERIFERICOS DE SALIDAS',
+    type: QuestionType.choose_any_option,
+    asignature: 'Computación',
+    unit: 'Unidad 2',
+    topic: 'Software y hardware',
+  },
+  {
+    options:
+      '{"options":[{"value":false,"text":"impresora","image":"https://drive.google.com/uc?id=1qLqSBDA-8hYZiPK_v4L3wz8wddIVRnOn&export=view"},{"value":true,"text":"camara","image":"https://drive.google.com/uc?id=1wfNObySX9O4GYfk7qcONdkmZLEWYVeX8&export=view"},{"value":false,"text":"monitor","image":"https://drive.google.com/uc?id=1DMZB6pSDZlSuz1779UgxsV_XQfDYnFeX&export=view"},{"value":true,"text":"escanner","image":"https://drive.google.com/uc?id=1sX3A20xAUwvKRoDbuC3g_34tl_ht_z20&export=view"}]}',
+    title: 'SELECCIONE LOS DISPOSITIVOS DE ENTRADA',
+    type: QuestionType.choose_any_option,
+    asignature: 'Computación',
+    unit: 'Unidad 2',
+    topic: 'Software y hardware',
+  },
+  {
+    title: 'LOS PERIFÉRICOS DE UN COMPUTADOR SON:',
+    type: QuestionType.choose_an_option,
+    asignature: 'Computación',
+    unit: 'Unidad 2',
+    topic: 'Software y hardware',
+    options:
+      '{"options":[{"value":true,"text":"Dispositivos electrónicos y físicos que se conectan al computador"},{"value":false,"text":"Todo lo que el computador tiene."},{"value":false,"text":"La Unidad central del proceso."},{"value":false,"text":"Los periféricos de entrada."}]}',
+  },
+  {
+    options:
+      '{"sets":[{"title":"PERIFERICOS E ALMACENAMIENTOS","options":[{"text":"MEMORIA USB","value":"MEMORIA USB"},{"text":"DISCO DURO","value":"DISCO DURO"},{"text":"DVD","value":"DVD"},{"text":"MEMORIA RAM","value":"MEMORIA RAM"}]},{"options":[{"text":"PARLANTE","value":"PARLANTE"},{"text":"IMPRESORA","value":"IMPRESORA"}]}]}',
+    title: 'Lleva los números a cada conjunto',
+    type: QuestionType.drag_and_drop_sets,
+    asignature: 'Computación',
+    unit: 'Unidad 2',
+    topic: 'Software y hardware',
+  },
+  {
+    options:
+      '{"sets":[{"title":"FUNCIONAMIENTO DE LA COMPUTADORA","options":[{"text":"ADOBE PHOTOSHOP","value":"ADOBE PHOTOSHOP"},{"text":"SOFTWARE DE PROGRAMACIÓN","value":"SOFTWARE DE PROGRAMACIÓN"},{"text":"MICROSOFT ACCES","value":"MICROSOFT ACCES"},{"text":"WINDOWS","value":"WINDOWS"}]},{"options":[{"text":"PARLANTE","value":"PARLANTE"},{"text":"MEMORIA RAM","value":"MEMORIA RAM"}]}]}',
+    title: 'Lleva los números a cada conjunto',
+    type: QuestionType.drag_and_drop_sets,
+    asignature: 'Computación',
+    unit: 'Unidad 2',
+    topic: 'Software y hardware',
+  },
 ];
