@@ -46,36 +46,34 @@ export class UserController {
 
     const agrades = grades
       .map((grade) => {
-        if (grade.periodCourseAsignatureId) {
-          const nu = ugrades
-            .map((unit) => {
-              if (unit.userId === grade.userId) {
-                return unit;
-              }
-            })
-            .filter((unit) => unit);
-          const nota =
-            nu.reduce((acc, item) => {
-              if (grade.userId === item.userId) {
-                acc += item.nota ?? 0;
-              } else {
-                acc += 0;
-              }
-              return acc;
-            }, 0) / nu.length;
-          return {
-            id: grade.id,
-            asignature: grade.periodCourseAsignature.asignature.name,
-            course: grade.periodCourseAsignature.periodCourse.course.name,
-            period: grade.periodCourseAsignature.periodCourse.period.name,
-            nota: grade.nota ? (grade.nota + nota) / 2 : nota,
-            userId: grade.user.id,
-            username: grade.user.name,
-            units: [],
-          };
+        if (!grade.periodCourseAsignatureId) {
+          return null;
         }
+
+        const units = ugrades.filter(
+          (unit) =>
+            unit.userId === grade.userId &&
+            unit.periodCourseAsignatureUnit.periodCourseAsignatureId ===
+              grade.periodCourseAsignatureId,
+        );
+
+        const nota =
+          units.reduce((acc, unit) => acc + (unit.nota || 0), 0) / units.length;
+
+        return {
+          id: grade.id,
+          asignature: grade.periodCourseAsignature.asignature.name,
+          course: grade.periodCourseAsignature.periodCourse.course.name,
+          period: grade.periodCourseAsignature.periodCourse.period.name,
+          nota: grade.nota
+            ? parseFloat(((grade.nota + nota) / 2)?.toFixed(2))
+            : parseFloat(nota?.toFixed(2)),
+          userId: grade.user.id,
+          username: grade.user.name,
+          units: [],
+        };
       })
-      .filter((grade) => grade);
+      .filter(Boolean);
 
     const data = agrades.map((agrade) => {
       const units = ugrades
@@ -88,7 +86,7 @@ export class UserController {
             return {
               id: unit.id,
               name: unit.periodCourseAsignatureUnit.unit.name,
-              nota: unit.nota ?? 'N/A',
+              nota: parseFloat(unit.nota?.toFixed(2)) ?? null,
               userId: unit.user.id,
             };
           }
@@ -203,12 +201,14 @@ export class UserController {
           students[d].map((unit, index: number) => {
             for (let k = 0; k < unit.units.length; k++) {
               ws.cell(row, j + 2 + k)
-                .string(unit.units[k].nota.toString())
+                .string(
+                  unit.units[k].nota ? unit.units[k].nota.toString() : 'N/A',
+                )
                 .style(bodyStyle);
             }
             j += unit.units.length;
             ws.cell(row, j + 2)
-              .string(unit.nota.toString())
+              .string(unit.nota ? unit.nota.toString() : 'N/A')
               .style(bodyStyle);
             j++;
           });
