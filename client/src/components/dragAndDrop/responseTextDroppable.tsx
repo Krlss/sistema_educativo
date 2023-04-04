@@ -49,13 +49,13 @@ const ResponseTextDroppable = ({
           <div
             className={`h-10 ${
               !response[index] ? 'border border-gray-400' : ''
-            } rounded w-[150px] ${snapshot.isDraggingOver && 'bg-white'}`}
+            } rounded w-[200px] ${snapshot.isDraggingOver && 'bg-white'}`}
             {...provided.droppableProps}
             ref={provided.innerRef}>
             {response[index] && (
               <div
                 key={response[index].response}
-                className={`shadow rounded px-3 py-2 flex items-center justify-around gap-2 font-medium ${
+                className={`shadow rounded px-3 py-2 flex items-center justify-around gap-2 font-medium w-full ${
                   gameState.next && 'text-white'
                 }`}
                 style={{
