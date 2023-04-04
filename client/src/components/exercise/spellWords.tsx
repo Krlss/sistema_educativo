@@ -30,7 +30,11 @@ const SpellWords = (props: question) => {
     if (isFillAll) {
       const correct = options.reduce(
         (acc, item, index) => {
-          if (item.response.join('') === item.value.join('')) acc.correct++
+          if (
+            item.response.join('').toLocaleLowerCase() ===
+            item.value.join('').toLocaleLowerCase()
+          )
+            acc.correct++
           return {
             ...acc,
             note: Number((acc.correct / options.length).toFixed(2))
@@ -97,7 +101,8 @@ const SpellWords = (props: question) => {
                 <input
                   key={y}
                   className={`w-20 px-2 py-1 border-2 border-gray-300 rounded-md focus:outline-none ${
-                    option.response[y] === value && gameState.next
+                    option.response[y]?.toLocaleLowerCase() ===
+                      value.toLocaleLowerCase() && gameState.next
                       ? 'border-green-500 cursor-default'
                       : option.response[y] !== undefined && gameState.next
                       ? 'border-red-500 cursor-default'
